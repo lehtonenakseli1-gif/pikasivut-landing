@@ -7,9 +7,9 @@ Pelkkä HTML + CSS + vanilla JS. Ainoa ulkoinen palvelu on Google Fonts (Inter).
 
 | Tiedosto | Sisältö |
 | --- | --- |
-| `index.html` | Etusivu: nav, hero, esimerkkitarjous, hinnat, UKK, yhteydenotto |
+| `index.html` | Etusivu: nav, hero, hinnat, UKK, yhteydenotto |
 | `styles.css` | Tyylit, mobile-first, breakpointit 700px ja 960px |
-| `esimerkkitarjous.pdf` | Oikea, tarjousapilla generoitu esimerkkitarjous (Plus-paketti) |
+| `esimerkkitarjous.pdf` | Tarjousapilla generoitu esimerkki. Ei enää linkitetty sivulta — säilytetty tiedostojärjestelmässä, jos tarvitset sitä myöhemmin |
 | `privacy.html` | Tietosuojaseloste |
 | `terms.html` | Toimitusehdot |
 
@@ -23,34 +23,21 @@ Avaa http://localhost:4322
 
 ## Yhteydenotto
 
-Sivulla ei ole lomaketta — kaikki CTA:t ovat `tel:` tai `mailto:` -linkkejä.
-Tämä on tarkoituksellista: myynti tapahtuu kylmäsoiton/-sähköpostin kautta,
-sivu on vain tukimateriaali joka vahvistaa hinnat ja näyttää esimerkin.
-Jos otat käyttöön lomakkeen (esim. Formspree), lisää se `#contact`-osioon.
+Sivulla ei ole lomaketta eikä puhelinnumeroa — kaikki CTA:t ovat `mailto:`-linkkejä.
+Myynti tapahtuu kylmäsähköpostin kautta, sivu on tukimateriaali joka vahvistaa
+hinnat. Jos otat käyttöön lomakkeen (esim. Formspree), lisää se `#contact`-osioon.
 
-## Hinnat ja tekstit
+## ⚠️ Hinnat EIVÄT enää täsmää tarjousappiin
 
-Kaikki hinnat, aikataulut ja ehdot on kopioitu suoraan tiedostosta
-[`tarjousappi/server/config/profile.fi.js`](../tarjousappi/server/config/profile.fi.js).
-**Jos muutat hintoja tai ehtoja tarjousapissa, päivitä ne myös tänne** —
-muuten sivu lupaa jotain mitä oikea tarjous ei vastaa.
+Tämän sivun hinnoittelumalli (59 / 99 / 199 €, hosting ja verkkotunnus
+sisältyy) **poikkeaa** siitä mitä
+[`tarjousappi/server/config/profile.fi.js`](../tarjousappi/server/config/profile.fi.js)
+tällä hetkellä generoi (89 / 130 / 250 €, hosting +10 €/kk erillisenä rivinä).
 
-## Esimerkkitarjouksen päivitys
-
-```bash
-cd ../tarjousappi
-node --input-type=module -e "
-import fs from 'node:fs';
-const { buildTarjous } = await import('./server/lib/pdf-tarjous.js');
-const bytes = await buildTarjous({
-  asiakasNimi: 'Kyläsaaren Autohuolto Oy', yhteyshenkilo: 'Matti Virtanen',
-  asiakasYtunnus: '1234567-8', asiakasOsoite: 'Esimerkkitie 1, 00100 Helsinki',
-  asiakasPuhelin: '040 123 4567', asiakasEmail: 'matti@autohuolto.fi',
-  paketti: 'plus', hostaus: 10, tarjousNro: 'ESIMERKKI', paivays: '2026-08-20', lisateksti: '',
-});
-fs.writeFileSync('../pikasivut-landing/esimerkkitarjous.pdf', bytes);
-"
-```
+Jos lähetät oikean tarjouksen tarjousapilla ennen kuin päivität profiilin,
+asiakas saa eri hinnan kuin mitä tällä sivulla luki. **Päivitä
+`profile.fi.js` vastaamaan tätä sivua ennen kuin käytät sitä oikeisiin
+asiakkaisiin**, tai kysy Claudelta apua siihen.
 
 ## Deploy GitHub Pagesiin
 
