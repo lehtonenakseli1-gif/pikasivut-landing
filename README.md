@@ -27,17 +27,13 @@ Sivulla ei ole lomaketta eikä puhelinnumeroa — kaikki CTA:t ovat `mailto:`-li
 Myynti tapahtuu kylmäsähköpostin kautta, sivu on tukimateriaali joka vahvistaa
 hinnat. Jos otat käyttöön lomakkeen (esim. Formspree), lisää se `#contact`-osioon.
 
-## ⚠️ Hinnat EIVÄT enää täsmää tarjousappiin
+## Hinnat täsmäävät tarjousappiin
 
 Tämän sivun hinnoittelumalli (59 / 99 / 199 €, hosting ja verkkotunnus
-sisältyy) **poikkeaa** siitä mitä
-[`tarjousappi/server/config/profile.fi.js`](../tarjousappi/server/config/profile.fi.js)
-tällä hetkellä generoi (89 / 130 / 250 €, hosting +10 €/kk erillisenä rivinä).
-
-Jos lähetät oikean tarjouksen tarjousapilla ennen kuin päivität profiilin,
-asiakas saa eri hinnan kuin mitä tällä sivulla luki. **Päivitä
-`profile.fi.js` vastaamaan tätä sivua ennen kuin käytät sitä oikeisiin
-asiakkaisiin**, tai kysy Claudelta apua siihen.
+sisältyy, ei erillistä muutostyökiintiötä) on sama kuin
+[`tarjousappi/server/config/profile.fi.js`](../tarjousappi/server/config/profile.fi.js):ssä.
+**Jos muutat hintoja jompaankumpaan, päivitä myös toinen** — muuten sivu
+lupaa jotain mitä oikea tarjous ei enää vastaa.
 
 ## Deploy GitHub Pagesiin
 
