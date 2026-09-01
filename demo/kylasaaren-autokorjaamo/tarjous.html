@@ -307,7 +307,12 @@ form.hidden{display:none}
 
   var palvelu = document.getElementById('palvelu');
   var otherWrap = document.getElementById('otherServiceWrap');
-  function syncOther(){ otherWrap.classList.toggle('active', palvelu.value === 'muu'); }
+  var muuPalvelu = document.getElementById('muuPalvelu');
+  function syncOther(){
+    var isMuu = palvelu.value === 'muu';
+    otherWrap.classList.toggle('active', isMuu);
+    muuPalvelu.required = isMuu;
+  }
   palvelu.addEventListener('change', syncOther);
 
   var params = new URLSearchParams(window.location.search);
