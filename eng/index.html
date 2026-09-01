@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pikasivut — Websites & Google Ads for Local Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f6;
+    --bg-alt:#f1efe9;
+    --ink:#1c1b19;
+    --ink-soft:#55534d;
+    --accent:#1d4ed8;
+    --accent-ink:#ffffff;
+    --line:#e4e1d8;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    line-height:1.5;
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,249,246,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .logo{font-weight:800; font-size:20px; letter-spacing:-0.02em; text-decoration:none;}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex; gap:32px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; font-weight:500; font-size:15px; color:var(--ink-soft);}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    background:var(--accent); color:var(--accent-ink);
+    padding:10px 20px; border-radius:8px; font-weight:600; font-size:14px;
+    text-decoration:none; white-space:nowrap;
+  }
+  .nav-mobile-toggle{display:none;}
+
+  /* HERO */
+  .hero{padding:88px 0 72px;}
+  .eyebrow{
+    display:inline-block; font-size:13px; font-weight:700; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--accent); margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(34px,5.2vw,56px);
+    line-height:1.08; letter-spacing:-0.02em; font-weight:800;
+    margin:0 0 22px; max-width:15ch;
+  }
+  .lead{
+    font-size:19px; color:var(--ink-soft); max-width:56ch; margin:0 0 34px;
+  }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;}
+  .btn-primary, .btn-secondary{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:15px 26px; border-radius:9px; font-weight:600; font-size:15.5px;
+    text-decoration:none; border:1px solid transparent;
+  }
+  .btn-primary{background:var(--ink); color:#fff;}
+  .btn-primary:hover{background:#000;}
+  .btn-secondary{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn-secondary:hover{border-color:var(--ink);}
+  .hero-trust{
+    display:flex; gap:28px; flex-wrap:wrap; font-size:14px; color:var(--ink-soft);
+  }
+  .hero-trust li{display:flex; align-items:center; gap:8px; list-style:none;}
+  .hero-trust ul{display:flex; gap:28px; flex-wrap:wrap; padding:0; margin:0;}
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:none;}
+
+  /* SECTION generic */
+  section{padding:64px 0;}
+  .section-head{max-width:56ch; margin-bottom:44px;}
+  h2{font-size:clamp(26px,3.4vw,36px); letter-spacing:-0.02em; margin:0 0 14px; font-weight:800;}
+  .section-sub{color:var(--ink-soft); font-size:17px; margin:0;}
+
+  /* PROBLEM */
+  .problem{background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .problem-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .problem-card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:26px;
+  }
+  .problem-card .icon{font-size:22px; margin-bottom:14px; display:block;}
+  .problem-card h3{font-size:17px; margin:0 0 8px; font-weight:700;}
+  .problem-card p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* OFFER */
+  .offer-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .offer-card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:34px;
+  }
+  .offer-card .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:34px; height:34px; border-radius:9px; background:var(--ink); color:#fff;
+    font-weight:700; font-size:14px; margin-bottom:20px;
+  }
+  .offer-card h3{font-size:21px; margin:0 0 10px; font-weight:800;}
+  .offer-card p{color:var(--ink-soft); margin:0 0 18px; font-size:15.5px;}
+  .offer-card ul{margin:0; padding:0; list-style:none;}
+  .offer-card li{
+    display:flex; gap:10px; align-items:flex-start; font-size:14.5px; color:var(--ink);
+    margin-bottom:10px;
+  }
+  .check{color:var(--accent); font-weight:800; flex:none;}
+
+  /* WHY */
+  .why{background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .why-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:28px 40px;}
+  .why-item h3{font-size:17px; margin:0 0 8px; font-weight:700; display:flex; gap:10px; align-items:center;}
+  .why-item p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* HOW IT WORKS */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; counter-reset:step;}
+  .step{position:relative; padding-top:8px;}
+  .step .step-num{
+    font-size:13px; font-weight:800; color:var(--accent); letter-spacing:0.05em;
+    text-transform:uppercase; margin-bottom:10px; display:block;
+  }
+  .step h3{font-size:18px; margin:0 0 8px; font-weight:700;}
+  .step p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* RESULTS placeholder */
+  .results{
+    background:var(--ink); color:#fff; border-radius:20px; padding:48px;
+  }
+  .results h2{color:#fff;}
+  .results-sub{color:#cfcdc6; font-size:16px; max-width:52ch; margin:0 0 30px;}
+  .results-card{
+    background:rgba(255,255,255,0.06); border:1px dashed rgba(255,255,255,0.25);
+    border-radius:14px; padding:24px; font-size:14.5px; color:#e6e4dd;
+  }
+
+  /* FINAL CTA */
+  .final-cta{
+    text-align:center; background:var(--bg-alt); border:1px solid var(--line);
+    border-radius:20px; padding:56px 32px;
+  }
+  .final-cta h2{margin-bottom:14px;}
+  .final-cta p{color:var(--ink-soft); font-size:17px; max-width:48ch; margin:0 auto 30px;}
+
+  /* CONTACT */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;}
+  .contact-info h3{font-size:19px; margin:0 0 10px; font-weight:700;}
+  .contact-info p{color:var(--ink-soft); font-size:15px; margin:0 0 20px;}
+  .contact-line{display:flex; gap:10px; align-items:center; margin-bottom:12px; font-size:15px;}
+  form.contact-form{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .contact-form label{font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:-8px;}
+  .contact-form input, .contact-form textarea{
+    width:100%; padding:12px 14px; border-radius:8px; border:1px solid var(--line);
+    font-family:inherit; font-size:15px; background:var(--bg); color:var(--ink);
+  }
+  .contact-form textarea{min-height:100px; resize:vertical;}
+  .contact-form button{
+    background:var(--accent); color:#fff; border:none; padding:14px; border-radius:9px;
+    font-weight:700; font-size:15.5px; cursor:pointer; margin-top:4px;
+  }
+  .contact-form button:hover{opacity:0.92;}
+  .form-note{font-size:12.5px; color:var(--ink-soft); margin-top:-4px;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0; }
+  .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  .footer-row p{font-size:13.5px; color:var(--ink-soft); margin:0;}
+  .footer-links{display:flex; gap:20px; list-style:none; padding:0; margin:0;}
+  .footer-links a{font-size:13.5px; color:var(--ink-soft); text-decoration:none;}
+  .footer-links a:hover{color:var(--ink);}
+
+  @media (max-width: 760px){
+    .nav-links{display:none;}
+    .problem-grid, .why-grid, .steps, .offer-grid, .contact-grid{grid-template-columns:1fr;}
+    .results{padding:32px 22px;}
+    .final-cta{padding:40px 22px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="logo">Pika<span>sivut</span></a>
+    <ul class="nav-links">
+      <li><a href="#offer">What We Do</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#results">Results</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get a Free Quote</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow">Websites &amp; Google Ads for Local Businesses</span>
+      <h1>More customers, not just a nicer website.</h1>
+      <p class="lead">We build handmade, professional websites — no AI templates — and manage your Google Ads so more of the right people actually call you.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">Get a Free Quote</a>
+        <a href="#offer" class="btn-secondary">See What's Included</a>
+      </div>
+      <ul class="hero-trust">
+        <li><span class="dot"></span> Handmade design, not a template</li>
+        <li><span class="dot"></span> Live in days, not months</li>
+        <li><span class="dot"></span> No long-term contract</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="problem">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Sound familiar?</h2>
+        <p class="section-sub">Most local businesses lose customers in one of three places.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <span class="icon">🔍</span>
+          <h3>No website at all</h3>
+          <p>People search for you, find nothing, and call the next business on the list instead.</p>
+        </div>
+        <div class="problem-card">
+          <span class="icon">🕰️</span>
+          <h3>Outdated or DIY site</h3>
+          <p>It doesn't show the quality of your work, and it's not built to turn visitors into calls.</p>
+        </div>
+        <div class="problem-card">
+          <span class="icon">📉</span>
+          <h3>Ads that don't convert</h3>
+          <p>You're paying for clicks that land on a page that was never built to close the deal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="offer">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Two problems, one team, no gaps between them</h2>
+        <p class="section-sub">Most agencies hand you off between "the website person" and "the ads person." We do both, so nothing falls through the cracks.</p>
+      </div>
+      <div class="offer-grid">
+        <div class="offer-card">
+          <span class="num">01</span>
+          <h3>Custom Websites</h3>
+          <p>Built by hand for your business — not spun up from an AI template in five minutes.</p>
+          <ul>
+            <li><span class="check">✓</span> Designed around your business, not a generic layout</li>
+            <li><span class="check">✓</span> Built to convert visitors into phone calls and quote requests</li>
+            <li><span class="check">✓</span> Hosting, domain, and updates handled for you</li>
+          </ul>
+        </div>
+        <div class="offer-card">
+          <span class="num">02</span>
+          <h3>Google Ads Management</h3>
+          <p>We take over your existing account, or build one from scratch, and focus your budget on the jobs that actually pay.</p>
+          <ul>
+            <li><span class="check">✓</span> Full audit of what's currently working (and what's wasting money)</li>
+            <li><span class="check">✓</span> Campaigns built around your highest-value jobs</li>
+            <li><span class="check">✓</span> Clear monthly reporting — no jargon</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Why local businesses work with us</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <h3>🎨 Handmade, not templated</h3>
+          <p>Every site is designed for your business specifically — no drag-and-drop AI builder look.</p>
+        </div>
+        <div class="why-item">
+          <h3>⚡ Fast turnaround</h3>
+          <p>Most sites go live within days of our first conversation, not weeks of back-and-forth.</p>
+        </div>
+        <div class="why-item">
+          <h3>🔓 No long-term contract</h3>
+          <p>Stay because it's working, not because you're locked into a contract.</p>
+        </div>
+        <div class="why-item">
+          <h3>🧩 One team, full picture</h3>
+          <p>The people who build your site are the same people running your ads — so your ad spend and your site work together, not against each other.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>How it works</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">Step 1</span>
+          <h3>Free consultation</h3>
+          <p>We look at your current site and ads (or lack of either) and tell you honestly what's working and what isn't.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">Step 2</span>
+          <h3>We build</h3>
+          <p>Your new site goes live, and your ad account is cleaned up or built from the ground up.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">Step 3</span>
+          <h3>You get more calls</h3>
+          <p>More of the right customers, from the same — or lower — ad spend.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="results">
+    <div class="wrap">
+      <div class="results">
+        <h2>Real results, coming soon</h2>
+        <p class="results-sub">We're currently rolling this out with our first local business partners and tracking real before-and-after numbers.</p>
+        <div class="results-card">
+          Case study in progress — check back soon, or ask us directly on a call for the latest numbers we're seeing.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="final-cta">
+        <h2>Let's see what's possible for your business</h2>
+        <p>Free, no-pressure consultation. We'll tell you honestly whether this makes sense for you before you spend a dollar.</p>
+        <a href="#contact" class="btn-primary">Get a Free Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Get in touch</h2>
+        <p class="section-sub">Tell us a bit about your business — we'll follow up within one business day.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Prefer email?</h3>
+          <p>Reach out directly — we read and respond to every message ourselves.</p>
+          <div class="contact-line">✉️ <a href="mailto:lehtonen.akseli1@gmail.com">lehtonen.akseli1@gmail.com</a></div>
+        </div>
+        <form class="contact-form" action="mailto:lehtonen.akseli1@gmail.com" method="post" enctype="text/plain">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="Name" required>
+          <label for="business">Business name</label>
+          <input type="text" id="business" name="Business" required>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="Email" required>
+          <label for="message">What's going on with your website or ads right now?</label>
+          <textarea id="message" name="Message"></textarea>
+          <button type="submit">Send &amp; Get a Free Quote</button>
+          <p class="form-note">This opens your email client with your message pre-filled.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <p>© <span id="year"></span> Pikasivut. Websites &amp; Google Ads for local businesses.</p>
+    <ul class="footer-links">
+      <li><a href="mailto:lehtonen.akseli1@gmail.com">Email us</a></li>
+      <li><a href="/">Suomeksi</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
