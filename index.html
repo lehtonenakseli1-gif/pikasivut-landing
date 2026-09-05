@@ -1,264 +1,384 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pikasivut — Nettisivut yrityksellesi viidessä arkipäivässä</title>
-<meta name="description" content="Ammattimaiset nettisivut kiinteällä kuukausihinnalla. Suunnittelu, toteutus ja ylläpito hoidettuna — ei erillistä aloitusmaksua. Ensimmäinen versio viidessä arkipäivässä.">
-<meta property="og:title" content="Nettisivut yrityksellesi viidessä arkipäivässä.">
-<meta property="og:description" content="Kiinteä kuukausihinta, ei erillistä aloitusmaksua. Suunnittelu, toteutus ja ylläpito hoidettuna.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pikasivut — Nettisivut ja Google Ads -mainonta paikallisille yrityksille</title>
+<meta name="description" content="Käsityönä tehdyt nettisivut ja Google Ads -mainonnan hallinta samalta tekijältä. Ei tekoälypohjia, ei pitkää sitoumusta.">
+<meta property="og:title" content="Nettisivut ja Google Ads -mainonta paikallisille yrityksille">
+<meta property="og:description" content="Käsityönä tehdyt nettisivut ja Google Ads -mainonnan hallinta samalta tekijältä.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#faf9f6">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23E8622C'/><path d='M17 6 8 18h6l-1 8 10-13h-6l1-7Z' fill='%23FFFFFF'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f6;
+    --bg-alt:#f1efe9;
+    --ink:#1c1b19;
+    --ink-soft:#55534d;
+    --accent:#1d4ed8;
+    --accent-ink:#ffffff;
+    --line:#e4e1d8;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    line-height:1.5;
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,249,246,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .logo{font-weight:800; font-size:20px; letter-spacing:-0.02em; text-decoration:none;}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex; gap:32px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; font-weight:500; font-size:15px; color:var(--ink-soft);}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    background:var(--accent); color:var(--accent-ink);
+    padding:10px 20px; border-radius:8px; font-weight:600; font-size:14px;
+    text-decoration:none; white-space:nowrap;
+  }
+
+  /* HERO */
+  .hero{padding:88px 0 72px;}
+  .eyebrow{
+    display:inline-block; font-size:13px; font-weight:700; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--accent); margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(34px,5.2vw,56px);
+    line-height:1.08; letter-spacing:-0.02em; font-weight:800;
+    margin:0 0 22px; max-width:15ch;
+  }
+  .lead{
+    font-size:19px; color:var(--ink-soft); max-width:56ch; margin:0 0 34px;
+  }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;}
+  .btn-primary, .btn-secondary{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:15px 26px; border-radius:9px; font-weight:600; font-size:15.5px;
+    text-decoration:none; border:1px solid transparent;
+  }
+  .btn-primary{background:var(--ink); color:#fff;}
+  .btn-primary:hover{background:#000;}
+  .btn-secondary{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn-secondary:hover{border-color:var(--ink);}
+  .hero-trust{
+    display:flex; gap:28px; flex-wrap:wrap; font-size:14px; color:var(--ink-soft);
+  }
+  .hero-trust li{display:flex; align-items:center; gap:8px; list-style:none;}
+  .hero-trust ul{display:flex; gap:28px; flex-wrap:wrap; padding:0; margin:0;}
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:none;}
+
+  /* SECTION generic */
+  section{padding:64px 0;}
+  .section-head{max-width:56ch; margin-bottom:44px;}
+  h2{font-size:clamp(26px,3.4vw,36px); letter-spacing:-0.02em; margin:0 0 14px; font-weight:800;}
+  .section-sub{color:var(--ink-soft); font-size:17px; margin:0;}
+
+  /* PROBLEM */
+  .problem{background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .problem-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .problem-card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:26px;
+  }
+  .problem-card .icon{font-size:22px; margin-bottom:14px; display:block;}
+  .problem-card h3{font-size:17px; margin:0 0 8px; font-weight:700;}
+  .problem-card p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* OFFER */
+  .offer-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .offer-card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:34px;
+  }
+  .offer-card .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:34px; height:34px; border-radius:9px; background:var(--ink); color:#fff;
+    font-weight:700; font-size:14px; margin-bottom:20px;
+  }
+  .offer-card h3{font-size:21px; margin:0 0 10px; font-weight:800;}
+  .offer-card p{color:var(--ink-soft); margin:0 0 18px; font-size:15.5px;}
+  .offer-card ul{margin:0; padding:0; list-style:none;}
+  .offer-card li{
+    display:flex; gap:10px; align-items:flex-start; font-size:14.5px; color:var(--ink);
+    margin-bottom:10px;
+  }
+  .check{color:var(--accent); font-weight:800; flex:none;}
+
+  /* WHY */
+  .why{background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .why-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:28px 40px;}
+  .why-item h3{font-size:17px; margin:0 0 8px; font-weight:700; display:flex; gap:10px; align-items:center;}
+  .why-item p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* HOW IT WORKS */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; counter-reset:step;}
+  .step{position:relative; padding-top:8px;}
+  .step .step-num{
+    font-size:13px; font-weight:800; color:var(--accent); letter-spacing:0.05em;
+    text-transform:uppercase; margin-bottom:10px; display:block;
+  }
+  .step h3{font-size:18px; margin:0 0 8px; font-weight:700;}
+  .step p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* FINAL CTA */
+  .final-cta{
+    text-align:center; background:var(--bg-alt); border:1px solid var(--line);
+    border-radius:20px; padding:56px 32px;
+  }
+  .final-cta h2{margin-bottom:14px;}
+  .final-cta p{color:var(--ink-soft); font-size:17px; max-width:48ch; margin:0 auto 30px;}
+
+  /* CONTACT */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;}
+  .contact-info h3{font-size:19px; margin:0 0 10px; font-weight:700;}
+  .contact-info p{color:var(--ink-soft); font-size:15px; margin:0 0 20px;}
+  .contact-line{display:flex; gap:10px; align-items:center; margin-bottom:12px; font-size:15px;}
+  form.contact-form{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .contact-form label{font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:-8px;}
+  .contact-form input, .contact-form textarea{
+    width:100%; padding:12px 14px; border-radius:8px; border:1px solid var(--line);
+    font-family:inherit; font-size:15px; background:var(--bg); color:var(--ink);
+  }
+  .contact-form textarea{min-height:100px; resize:vertical;}
+  .contact-form button{
+    background:var(--accent); color:#fff; border:none; padding:14px; border-radius:9px;
+    font-weight:700; font-size:15.5px; cursor:pointer; margin-top:4px;
+  }
+  .contact-form button:hover{opacity:0.92;}
+  .form-note{font-size:12.5px; color:var(--ink-soft); margin-top:-4px;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0; }
+  .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  .footer-row p{font-size:13.5px; color:var(--ink-soft); margin:0;}
+  .footer-legal{font-size:12px; color:var(--ink-soft); margin:4px 0 0;}
+  .footer-links{display:flex; gap:20px; list-style:none; padding:0; margin:0;}
+  .footer-links a{font-size:13.5px; color:var(--ink-soft); text-decoration:none;}
+  .footer-links a:hover{color:var(--ink);}
+
+  @media (max-width: 760px){
+    .nav-links{display:none;}
+    .problem-grid, .why-grid, .steps, .offer-grid, .contact-grid{grid-template-columns:1fr;}
+    .final-cta{padding:40px 22px;}
+  }
+</style>
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a class="logo" href="#top">
-      <span class="logo-mark" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 5 14h5l-1 8 8-13h-5l1-7Z"/></svg>
-      </span>
-      Pikasivut
-    </a>
-
-    <nav class="nav-links" aria-label="Päävalikko">
-      <a href="#pricing">Hinnat</a>
-      <a href="#faq">UKK</a>
-      <a class="btn btn-primary btn-sm" href="mailto:lehtonen.akseli1@gmail.com?subject=Pyyd%C3%A4n%20tarjousta%20nettisivuista&body=Hei%2C%0A%0AYritykseni%20nimi%3A%0AToimiala%3A%0AMit%C3%A4%20sivujen%20pit%C3%A4isi%20sis%C3%A4lt%C3%A4%C3%A4%3A%0A%0AKiitos!">Pyydä tarjous</a>
-    </nav>
-
-    <button class="nav-toggle" id="navToggle" aria-label="Avaa valikko" aria-expanded="false" aria-controls="navMenu">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-    </button>
-  </div>
-
-  <div class="nav-menu" id="navMenu">
-    <a href="#pricing">Hinnat</a>
-    <a href="#faq">UKK</a>
-    <a class="btn btn-primary btn-block" href="mailto:lehtonen.akseli1@gmail.com?subject=Pyyd%C3%A4n%20tarjousta%20nettisivuista&body=Hei%2C%0A%0AYritykseni%20nimi%3A%0AToimiala%3A%0AMit%C3%A4%20sivujen%20pit%C3%A4isi%20sis%C3%A4lt%C3%A4%C3%A4%3A%0A%0AKiitos!">Pyydä tarjous</a>
-  </div>
+<header>
+  <nav class="wrap">
+    <a href="#top" class="logo">Pika<span>sivut</span></a>
+    <ul class="nav-links">
+      <li><a href="#offer">Mitä teen</a></li>
+      <li><a href="#how">Miten se toimii</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Pyydä ilmainen tarjous</a>
+  </nav>
 </header>
 
-<main id="top">
-
-  <!-- ============ HERO ============ -->
-  <section class="hero">
+<main>
+  <section class="hero" id="top">
     <div class="wrap">
-      <span class="eyebrow"><span class="dot"></span> Nettisivut suomalaisille pienyrityksille</span>
-      <h1>Nettisivut yrityksellesi viidessä arkipäivässä.</h1>
-      <p class="lead">Suunnittelu, toteutus ja ylläpito kiinteällä kuukausihinnalla. Ei erillistä aloitusmaksua, ei teknistä osaamista sinulta — hoidan kaiken puolestasi.</p>
-
-      <div class="hero-actions">
-        <a class="btn btn-primary btn-lg" href="#pricing">Katso hinnat</a>
-        <a class="btn btn-secondary btn-lg" href="mailto:lehtonen.akseli1@gmail.com?subject=Pyyd%C3%A4n%20tarjousta%20nettisivuista&body=Hei%2C%0A%0AYritykseni%20nimi%3A%0AToimiala%3A%0AMit%C3%A4%20sivujen%20pit%C3%A4isi%20sis%C3%A4lt%C3%A4%C3%A4%3A%0A%0AKiitos!">Pyydä tarjous</a>
+      <span class="eyebrow">Nettisivut ja Google Ads -mainonta paikallisille yrityksille</span>
+      <h1>Enemmän asiakkaita, ei vain nättimpi nettisivu.</h1>
+      <p class="lead">Rakennan käsityönä tehtyjä, ammattimaisia nettisivuja — ei tekoälypohjia — ja hoidan Google Ads -mainontasi, jotta oikeat ihmiset oikeasti soittavat sinulle.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">Pyydä ilmainen tarjous</a>
+        <a href="#offer" class="btn-secondary">Katso mitä sisältyy</a>
       </div>
-
-      <p class="hero-note">Ei sitoumusta ennen tarjousta. Vastaan saman päivän aikana.</p>
+      <ul class="hero-trust">
+        <li><span class="dot"></span> Käsintehty design, ei valmispohja</li>
+        <li><span class="dot"></span> Julkaisu päivissä, ei kuukausissa</li>
+        <li><span class="dot"></span> Ei pitkää sitoumusta</li>
+      </ul>
     </div>
   </section>
 
-  <!-- ============ STATS ============ -->
-  <section class="stats" style="padding:0">
-    <div class="wrap">
-      <div class="stat"><b>5 arkipäivää</b><span>ensimmäiseen versioon</span></div>
-      <div class="stat"><b>Kiinteä kk-hinta</b><span>ei erillistä aloitusmaksua</span></div>
-      <div class="stat"><b>Ylläpito sisältyy</b><span>et joudu koskemaan mihinkään</span></div>
-      <div class="stat"><b>1 kk irtisanomisaika</b><span>ei pitkää sitoumusta</span></div>
-    </div>
-  </section>
-
-  <!-- ============ PRICING ============ -->
-  <section id="pricing">
-    <div class="wrap">
-      <div class="section-head" style="text-align:center">
-        <h2>Hinnat</h2>
-        <p style="margin-left:auto;margin-right:auto">Kiinteä kuukausihinta. Verkkotunnus ja palvelintila sisältyvät hintaan. Alv 25,5&nbsp;% lisätään hintoihin.</p>
-      </div>
-
-      <div class="plans">
-        <div class="plan">
-          <div class="plan-top">
-            <span class="plan-name">Perus</span>
-          </div>
-          <div class="price">59&nbsp;&euro; <small>/kk</small></div>
-          <p class="plan-sub">alv 0&nbsp;%, hosting ja verkkotunnus sisältyy</p>
-          <ul>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Sivu tämän kaltainen</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Mobiilioptimoitu yksisivuinen sivusto</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Palvelut, yhteystiedot, aukioloajat, kartta, arvostelut</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Yhteystietojen ja aukioloaikojen päivitykset</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Tekninen valvonta</li>
-          </ul>
-          <a class="btn btn-secondary btn-block" href="mailto:lehtonen.akseli1@gmail.com?subject=Pyyd%C3%A4n%20tarjousta%20nettisivuista&body=Hei%2C%0A%0AYritykseni%20nimi%3A%0AToimiala%3A%0AMit%C3%A4%20sivujen%20pit%C3%A4isi%20sis%C3%A4lt%C3%A4%C3%A4%3A%0A%0AKiitos!">Pyydä tarjous</a>
-        </div>
-
-        <div class="plan featured">
-          <div class="plan-top">
-            <span class="plan-name">Plus</span>
-            <span class="badge">Suosituin</span>
-          </div>
-          <div class="price">99&nbsp;&euro; <small>/kk</small></div>
-          <p class="plan-sub">alv 0&nbsp;%, hosting ja verkkotunnus sisältyy</p>
-          <ul>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Kaikki Perus-paketin sisältö</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> 3&ndash;5 sivua: etusivu + alasivut</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Yhteydenottolomake</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Google Business -optimointi</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Automaattinen kävijäraportti</li>
-          </ul>
-          <a class="btn btn-primary btn-block" href="mailto:lehtonen.akseli1@gmail.com?subject=Pyyd%C3%A4n%20tarjousta%20nettisivuista&body=Hei%2C%0A%0AYritykseni%20nimi%3A%0AToimiala%3A%0AMit%C3%A4%20sivujen%20pit%C3%A4isi%20sis%C3%A4lt%C3%A4%C3%A4%3A%0A%0AKiitos!">Pyydä tarjous</a>
-        </div>
-
-        <div class="plan">
-          <div class="plan-top">
-            <span class="plan-name">Premium</span>
-          </div>
-          <div class="price">199&nbsp;&euro; <small>/kk</small></div>
-          <p class="plan-sub">alv 0&nbsp;%, hosting ja verkkotunnus sisältyy</p>
-          <ul>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Kaikki Plus-paketin sisältö</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> 5&ndash;8 sivua</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Vastausaika 24 h</li>
-            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg> Kuvapäivitys 2 × vuosi</li>
-          </ul>
-          <a class="btn btn-secondary btn-block" href="mailto:lehtonen.akseli1@gmail.com?subject=Pyyd%C3%A4n%20tarjousta%20nettisivuista&body=Hei%2C%0A%0AYritykseni%20nimi%3A%0AToimiala%3A%0AMit%C3%A4%20sivujen%20pit%C3%A4isi%20sis%C3%A4lt%C3%A4%C3%A4%3A%0A%0AKiitos!">Pyydä tarjous</a>
-        </div>
-      </div>
-
-      <p class="pricing-note">Hinta on aina se mitä tarjouksessa lukee — ei piilokuluja, ei erillistä aloitusmaksua.</p>
-    </div>
-  </section>
-
-  <!-- ============ FAQ ============ -->
-  <section id="faq">
+  <section class="problem">
     <div class="wrap">
       <div class="section-head">
-        <h2>Usein kysytyt kysymykset</h2>
+        <h2>Kuulostaako tutulta?</h2>
+        <p class="section-sub">Useimmat paikalliset yritykset menettävät asiakkaita yhdestä kolmesta syystä.</p>
       </div>
-
-      <div class="faq">
-        <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">
-            Mitä hintaan sisältyy?
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          </button>
-          <div class="faq-a">Suunnittelu, toteutus ja jatkuva ylläpito. Ei erillistä aloitusmaksua. Pienet päivitykset kuten yhteystiedot ja aukioloajat sisältyvät ylläpitoon; isommat sisällölliset muutokset hinnoitellaan aina erikseen ja hyväksytät ennen kuin työ alkaa.</div>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <span class="icon">🔍</span>
+          <h3>Ei nettisivuja lainkaan</h3>
+          <p>Ihmiset etsivät sinua, eivät löydä mitään, ja soittavat sen sijaan seuraavalle listalla olevalle yritykselle.</p>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">
-            Tarvitsenko oman verkkotunnuksen?
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          </button>
-          <div class="faq-a">Et. Verkkotunnus ja palvelintila sisältyvät kuukausihintaan. Jos sinulla on jo domain, sen voi myös yhdistää.</div>
+        <div class="problem-card">
+          <span class="icon">🕰️</span>
+          <h3>Vanhentunut tai itse tehty sivu</h3>
+          <p>Se ei näytä työsi laatua, eikä se ole rakennettu muuttamaan kävijöitä soitoiksi.</p>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">
-            Kuinka nopeasti sivut valmistuvat?
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          </button>
-          <div class="faq-a">Ensimmäinen versio on valmiina 5 arkipäivän kuluessa tilauksesta. Sivut julkaistaan heti kun olet hyväksynyt lopputuloksen.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">
-            Voinko irtisanoa sopimuksen?
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          </button>
-          <div class="faq-a">Kyllä. Sopimus on toistaiseksi voimassa, irtisanomisaika on yksi kuukausi. Kun sopimus päättyy, sivusto poistetaan käytöstä — verkkotunnuksen ja sisällön voi halutessaan lunastaa erikseen sovittavalla kertakorvauksella.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">
-            Onko tämä tekoälyllä tehty geneerinen sivupohja?
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          </button>
-          <div class="faq-a">Ei. Teen jokaisen sivuston käsin yrityksesi omien tietojen pohjalta — ei valmispohjaa jota täytetään logolla.</div>
+        <div class="problem-card">
+          <span class="icon">📉</span>
+          <h3>Mainokset jotka eivät konvertoi</h3>
+          <p>Maksat klikkauksista, jotka päätyvät sivulle jota ei ole koskaan rakennettu klousaamaan kauppaa.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ CTA / CONTACT ============ -->
-  <section class="cta" id="contact">
+  <section id="offer">
     <div class="wrap">
-      <h2>Pyydä tarjous tänään.</h2>
-      <p>Kerro yrityksestäsi, niin saat tarkan tarjouksen samana päivänä. Ei sitoumusta.</p>
-      <div class="cta-actions">
-        <a class="btn btn-lg" href="mailto:lehtonen.akseli1@gmail.com?subject=Pyyd%C3%A4n%20tarjousta%20nettisivuista&amp;body=Hei%2C%0A%0AYritykseni%20nimi%3A%0AToimiala%3A%0AMit%C3%A4%20sivujen%20pit%C3%A4isi%20sis%C3%A4lt%C3%A4%C3%A4%3A%0A%0AKiitos!">Lähetä sähköpostia</a>
+      <div class="section-head">
+        <h2>Kaksi ongelmaa, yksi tiimi, ei väliinputoamisia</h2>
+        <p class="section-sub">Useimmat toimistot pompottelevat sinua "nettisivuihmisen" ja "mainosihmisen" välillä. Teen molemmat, jotta mikään ei jää väliin.</p>
       </div>
-      <span class="cta-detail">Y-tunnus 3378015-4 · lehtonen.akseli1@gmail.com</span>
+      <div class="offer-grid">
+        <div class="offer-card">
+          <span class="num">01</span>
+          <h3>Räätälöidyt nettisivut</h3>
+          <p>Rakennettu käsityönä yrityksellesi — ei tekoälypohjasta viidessä minuutissa.</p>
+          <ul>
+            <li><span class="check">✓</span> Suunniteltu yrityksesi ympärille, ei geneeristä pohjaa</li>
+            <li><span class="check">✓</span> Rakennettu muuttamaan kävijät puheluiksi ja tarjouspyynnöiksi</li>
+            <li><span class="check">✓</span> Hosting, verkkotunnus ja päivitykset hoidettuna puolestasi</li>
+          </ul>
+        </div>
+        <div class="offer-card">
+          <span class="num">02</span>
+          <h3>Google Ads -mainonnan hallinta</h3>
+          <p>Otan olemassa olevan tilisi hoitooni, tai rakennan uuden alusta asti, ja kohdennan budjettisi töihin jotka oikeasti maksavat itsensä takaisin.</p>
+          <ul>
+            <li><span class="check">✓</span> Täysi katsaus siihen, mikä toimii nyt (ja mikä tuhlaa rahaa)</li>
+            <li><span class="check">✓</span> Kampanjat rakennettu arvokkaimpien töidesi ympärille</li>
+            <li><span class="check">✓</span> Selkeä kuukausiraportointi — ei ammattislangia</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Miksi paikalliset yritykset työskentelevät kanssani</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <h3>🎨 Käsintehty, ei pohjasta</h3>
+          <p>Jokainen sivu on suunniteltu juuri yrityksellesi — ei raahaa-ja-pudota-tekoälyrakentajan näköinen.</p>
+        </div>
+        <div class="why-item">
+          <h3>⚡ Nopea toimitus</h3>
+          <p>Useimmat sivut julkaistaan päivien sisällä ensimmäisestä keskustelustamme, ei viikkojen edestakaisin lähettelyn jälkeen.</p>
+        </div>
+        <div class="why-item">
+          <h3>🔓 Ei pitkää sitoumusta</h3>
+          <p>Jää koska se toimii, ei koska olet lukittu sopimukseen.</p>
+        </div>
+        <div class="why-item">
+          <h3>🧩 Yksi tekijä, koko kuva</h3>
+          <p>Sama ihminen joka rakentaa sivusi hoitaa myös mainoksesi — joten mainosbudjettisi ja sivusi toimivat yhdessä, eivät toisiaan vastaan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Miten se toimii</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">Vaihe 1</span>
+          <h3>Ilmainen konsultaatio</h3>
+          <p>Katson nykyisen sivusi ja mainoksesi (tai niiden puutteen) ja kerron rehellisesti, mikä toimii ja mikä ei.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">Vaihe 2</span>
+          <h3>Rakennan</h3>
+          <p>Uusi sivusi julkaistaan, ja mainostilisi siivotaan tai rakennetaan alusta asti.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">Vaihe 3</span>
+          <h3>Saat enemmän puheluita</h3>
+          <p>Enemmän oikeanlaisia asiakkaita samalla — tai pienemmällä — mainosbudjetilla.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="final-cta">
+        <h2>Katsotaan, mikä on mahdollista yrityksellesi</h2>
+        <p>Ilmainen, paineeton konsultaatio. Kerron rehellisesti, kannattaako tämä sinulle, ennen kuin käytät euroakaan.</p>
+        <a href="#contact" class="btn-primary">Pyydä ilmainen tarjous</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Ota yhteyttä</h2>
+        <p class="section-sub">Kerro vähän yrityksestäsi — olen yhteydessä yhden arkipäivän sisällä.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Sähköposti sopii paremmin?</h3>
+          <p>Ota suoraan yhteyttä — luen ja vastaan jokaiseen viestiin itse.</p>
+          <div class="contact-line">✉️ <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a></div>
+        </div>
+        <form class="contact-form" action="mailto:akseli@pikasivut.com" method="post" enctype="text/plain">
+          <label for="name">Nimi</label>
+          <input type="text" id="name" name="Nimi" required>
+          <label for="business">Yrityksen nimi</label>
+          <input type="text" id="business" name="Yritys" required>
+          <label for="email">Sähköposti</label>
+          <input type="email" id="email" name="Sahkoposti" required>
+          <label for="message">Mikä on nettisivujesi tai mainontasi tilanne juuri nyt?</label>
+          <textarea id="message" name="Viesti"></textarea>
+          <button type="submit">Lähetä ja pyydä ilmainen tarjous</button>
+          <p class="form-note">Tämä avaa sähköpostiohjelmasi valmiiksi täytetyllä viestillä.</p>
+        </form>
+      </div>
     </div>
   </section>
 </main>
 
-<!-- ============ FOOTER ============ -->
-<footer class="footer">
-  <div class="wrap footer-inner">
-    <div class="footer-biz">
-      <strong>Lehtonen Akseli Toivo Johannes</strong>
-      Y-tunnus 3378015-4 · ALV-tunniste FI33780154<br>
-      lehtonen.akseli1@gmail.com
+<footer>
+  <div class="wrap footer-row">
+    <div>
+      <p>© <span id="year"></span> Pikasivut. Nettisivut ja Google Ads -mainonta paikallisille yrityksille.</p>
+      <p class="footer-legal">Lehtonen Akseli Toivo Johannes · Y-tunnus 3378015-4 · ALV-tunniste FI33780154</p>
     </div>
-    <div class="footer-links">
-      <a href="privacy.html">Tietosuoja</a>
-      <a href="terms.html">Toimitusehdot</a>
-      <a href="mailto:lehtonen.akseli1@gmail.com">Yhteystiedot</a>
-    </div>
+    <ul class="footer-links">
+      <li><a href="privacy.html">Tietosuoja</a></li>
+      <li><a href="terms.html">Toimitusehdot</a></li>
+      <li><a href="mailto:akseli@pikasivut.com">Lähetä sähköpostia</a></li>
+    </ul>
   </div>
 </footer>
 
 <script>
-(function () {
-  var toggle = document.getElementById('navToggle');
-  var menu = document.getElementById('navMenu');
-
-  function closeMenu() {
-    menu.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Avaa valikko');
-    document.body.classList.remove('nav-open');
-  }
-
-  toggle.addEventListener('click', function () {
-    var open = menu.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Sulje valikko' : 'Avaa valikko');
-    document.body.classList.toggle('nav-open', open);
-  });
-
-  menu.addEventListener('click', function (e) {
-    if (e.target.closest('a')) closeMenu();
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeMenu();
-  });
-
-  document.querySelectorAll('.faq-q').forEach(function (q) {
-    q.addEventListener('click', function () {
-      var item = q.parentElement;
-      var isOpen = item.classList.contains('open');
-
-      document.querySelectorAll('.faq-item.open').forEach(function (openItem) {
-        openItem.classList.remove('open');
-        openItem.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-      });
-
-      if (!isOpen) {
-        item.classList.add('open');
-        q.setAttribute('aria-expanded', 'true');
-      }
-    });
-  });
-})();
+  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
+
 </body>
 </html>
