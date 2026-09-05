@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pikasivut — Websites & Google Ads for Local Businesses</title>
+<title>Pikasivut — Google Ads Management for Small &amp; Medium Businesses</title>
+<meta name="description" content="Google Ads campaign management for small and medium-sized businesses. I build websites too when your site isn't supporting the ads.">
+<meta property="og:title" content="Google Ads Management for Small &amp; Medium Businesses">
+<meta property="og:description" content="Google Ads campaign management for small and medium-sized businesses. I build websites too when your site isn't supporting the ads.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -52,7 +56,6 @@
     padding:10px 20px; border-radius:8px; font-weight:600; font-size:14px;
     text-decoration:none; white-space:nowrap;
   }
-  .nav-mobile-toggle{display:none;}
 
   /* HERO */
   .hero{padding:88px 0 72px;}
@@ -106,10 +109,16 @@
   .offer-card{
     background:var(--card); border:1px solid var(--line); border-radius:16px; padding:34px;
   }
+  .offer-card.secondary{background:var(--bg-alt);}
   .offer-card .num{
     display:inline-flex; align-items:center; justify-content:center;
     width:34px; height:34px; border-radius:9px; background:var(--ink); color:#fff;
     font-weight:700; font-size:14px; margin-bottom:20px;
+  }
+  .offer-card .tag{
+    display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.05em;
+    text-transform:uppercase; color:var(--ink-soft); background:var(--card);
+    border:1px solid var(--line); border-radius:100px; padding:3px 10px; margin-bottom:14px;
   }
   .offer-card h3{font-size:21px; margin:0 0 10px; font-weight:800;}
   .offer-card p{color:var(--ink-soft); margin:0 0 18px; font-size:15.5px;}
@@ -135,17 +144,6 @@
   }
   .step h3{font-size:18px; margin:0 0 8px; font-weight:700;}
   .step p{margin:0; color:var(--ink-soft); font-size:15px;}
-
-  /* RESULTS placeholder */
-  .results{
-    background:var(--ink); color:#fff; border-radius:20px; padding:48px;
-  }
-  .results h2{color:#fff;}
-  .results-sub{color:#cfcdc6; font-size:16px; max-width:52ch; margin:0 0 30px;}
-  .results-card{
-    background:rgba(255,255,255,0.06); border:1px dashed rgba(255,255,255,0.25);
-    border-radius:14px; padding:24px; font-size:14.5px; color:#e6e4dd;
-  }
 
   /* FINAL CTA */
   .final-cta{
@@ -187,7 +185,6 @@
   @media (max-width: 760px){
     .nav-links{display:none;}
     .problem-grid, .why-grid, .steps, .offer-grid, .contact-grid{grid-template-columns:1fr;}
-    .results{padding:32px 22px;}
     .final-cta{padding:40px 22px;}
   }
 </style>
@@ -198,7 +195,7 @@
   <nav class="wrap">
     <a href="#top" class="logo">Pika<span>sivut</span></a>
     <ul class="nav-links">
-      <li><a href="#offer">What We Do</a></li>
+      <li><a href="#offer">What I Do</a></li>
       <li><a href="#how">How It Works</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Get a Free Quote</a>
@@ -208,16 +205,16 @@
 <main>
   <section class="hero" id="top">
     <div class="wrap">
-      <span class="eyebrow">Websites &amp; Google Ads for Local Businesses</span>
-      <h1>More customers, not just a nicer website.</h1>
-      <p class="lead">We build handmade, professional websites — no AI templates — and manage your Google Ads so more of the right people actually call you.</p>
+      <span class="eyebrow">Google Ads Management for Small &amp; Medium Businesses</span>
+      <h1>More customers, not just more clicks.</h1>
+      <p class="lead">I build and manage your Google Ads campaigns so your budget goes to the searches that actually bring in work — not wasted clicks. If your website isn't supporting those ads, I build that too, from the same person.</p>
       <div class="hero-ctas">
         <a href="#contact" class="btn-primary">Get a Free Quote</a>
         <a href="#offer" class="btn-secondary">See What's Included</a>
       </div>
       <ul class="hero-trust">
-        <li><span class="dot"></span> Handmade design, not a template</li>
-        <li><span class="dot"></span> Live in days, not months</li>
+        <li><span class="dot"></span> Targeted at the searches that convert</li>
+        <li><span class="dot"></span> Results visible in weeks</li>
         <li><span class="dot"></span> No long-term contract</li>
       </ul>
     </div>
@@ -227,23 +224,23 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Sound familiar?</h2>
-        <p class="section-sub">Most local businesses lose customers in one of three places.</p>
+        <p class="section-sub">Most small and medium-sized businesses lose customers for one of three reasons.</p>
       </div>
       <div class="problem-grid">
         <div class="problem-card">
-          <span class="icon">🔍</span>
-          <h3>No website at all</h3>
-          <p>People search for you, find nothing, and call the next business on the list instead.</p>
+          <span class="icon">📉</span>
+          <h3>Ad budget goes to waste</h3>
+          <p>You're paying for clicks that never turn into customers, and nobody can tell you why.</p>
         </div>
         <div class="problem-card">
           <span class="icon">🕰️</span>
-          <h3>Outdated or DIY site</h3>
-          <p>It doesn't show the quality of your work, and it's not built to turn visitors into calls.</p>
+          <h3>Nobody is actually managing the account</h3>
+          <p>The campaign was set up once and forgotten — keywords and budgets haven't been touched in years.</p>
         </div>
         <div class="problem-card">
-          <span class="icon">📉</span>
-          <h3>Ads that don't convert</h3>
-          <p>You're paying for clicks that land on a page that was never built to close the deal.</p>
+          <span class="icon">🔍</span>
+          <h3>The website doesn't support the ads</h3>
+          <p>The ad sends someone to a page that was never built to turn a visitor into a customer.</p>
         </div>
       </div>
     </div>
@@ -252,28 +249,29 @@
   <section id="offer">
     <div class="wrap">
       <div class="section-head">
-        <h2>Two problems, one team, no gaps between them</h2>
-        <p class="section-sub">Most agencies hand you off between "the website person" and "the ads person." We do both, so nothing falls through the cracks.</p>
+        <h2>Google Ads first, website when you need one</h2>
+        <p class="section-sub">The main service is managing your Google Ads. If your current site isn't pulling its weight, I build that too — same person, so nothing falls through the cracks between two agencies.</p>
       </div>
       <div class="offer-grid">
         <div class="offer-card">
           <span class="num">01</span>
-          <h3>Custom Websites</h3>
-          <p>Built by hand for your business — not spun up from an AI template in five minutes.</p>
-          <ul>
-            <li><span class="check">✓</span> Designed around your business, not a generic layout</li>
-            <li><span class="check">✓</span> Built to convert visitors into phone calls and quote requests</li>
-            <li><span class="check">✓</span> Hosting, domain, and updates handled for you</li>
-          </ul>
-        </div>
-        <div class="offer-card">
-          <span class="num">02</span>
           <h3>Google Ads Management</h3>
-          <p>We take over your existing account, or build one from scratch, and focus your budget on the jobs that actually pay.</p>
+          <p>I take over your existing account or build a new one from scratch, and focus your budget on the jobs that actually pay.</p>
           <ul>
-            <li><span class="check">✓</span> Full audit of what's currently working (and what's wasting money)</li>
+            <li><span class="check">✓</span> An honest audit of what's working and where money is leaking</li>
             <li><span class="check">✓</span> Campaigns built around your highest-value jobs</li>
             <li><span class="check">✓</span> Clear monthly reporting — no jargon</li>
+          </ul>
+        </div>
+        <div class="offer-card secondary">
+          <span class="tag">Added when needed</span>
+          <span class="num">02</span>
+          <h3>Websites</h3>
+          <p>If your current site isn't supporting your ads, I design and build a new one by hand — it's not the main service, but you get it from the same place.</p>
+          <ul>
+            <li><span class="check">✓</span> Built to support the ad campaign, not as a separate project</li>
+            <li><span class="check">✓</span> Designed to turn visitors into calls and quote requests</li>
+            <li><span class="check">✓</span> Hosting, domain, and updates handled for you</li>
           </ul>
         </div>
       </div>
@@ -283,24 +281,24 @@
   <section class="why">
     <div class="wrap">
       <div class="section-head">
-        <h2>Why local businesses work with us</h2>
+        <h2>Why small and medium-sized businesses work with me</h2>
       </div>
       <div class="why-grid">
         <div class="why-item">
-          <h3>🎨 Handmade, not templated</h3>
-          <p>Every site is designed for your business specifically — no drag-and-drop AI builder look.</p>
+          <h3>🎯 Budget aimed at the right searches</h3>
+          <p>Campaigns target the specific searches that bring in real work, not the broad, expensive keywords everyone else is bidding on.</p>
         </div>
         <div class="why-item">
-          <h3>⚡ Fast turnaround</h3>
-          <p>Most sites go live within days of our first conversation, not weeks of back-and-forth.</p>
+          <h3>⚡ Fast start</h3>
+          <p>Your campaign is live or cleaned up within days of our first conversation, not weeks of back-and-forth.</p>
         </div>
         <div class="why-item">
           <h3>🔓 No long-term contract</h3>
-          <p>Stay because it's working, not because you're locked into a contract.</p>
+          <p>You stay because it's working, not because a contract locks you in.</p>
         </div>
         <div class="why-item">
-          <h3>🧩 One team, full picture</h3>
-          <p>The people who build your site are the same people running your ads — so your ad spend and your site work together, not against each other.</p>
+          <h3>🧩 One person, full picture</h3>
+          <p>The same person runs your ads and, when needed, builds your site — so they work together instead of pulling in different directions.</p>
         </div>
       </div>
     </div>
@@ -315,12 +313,12 @@
         <div class="step">
           <span class="step-num">Step 1</span>
           <h3>Free consultation</h3>
-          <p>We look at your current site and ads (or lack of either) and tell you honestly what's working and what isn't.</p>
+          <p>I go through your current advertising — or lack of it — and tell you straight what's working and what isn't.</p>
         </div>
         <div class="step">
           <span class="step-num">Step 2</span>
-          <h3>We build</h3>
-          <p>Your new site goes live, and your ad account is cleaned up or built from the ground up.</p>
+          <h3>Build</h3>
+          <p>Your ad account is cleaned up or built from the ground up; the website gets updated alongside it if it needs it.</p>
         </div>
         <div class="step">
           <span class="step-num">Step 3</span>
@@ -335,7 +333,7 @@
     <div class="wrap">
       <div class="final-cta">
         <h2>Let's see what's possible for your business</h2>
-        <p>Free, no-pressure consultation. We'll tell you honestly whether this makes sense for you before you spend a dollar.</p>
+        <p>Free, no-pressure consultation. I'll tell you honestly whether this makes sense for you before you spend a dollar.</p>
         <a href="#contact" class="btn-primary">Get a Free Quote</a>
       </div>
     </div>
@@ -345,12 +343,12 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Get in touch</h2>
-        <p class="section-sub">Tell us a bit about your business — we'll follow up within one business day.</p>
+        <p class="section-sub">Tell me a bit about your business — I'll follow up within one business day.</p>
       </div>
       <div class="contact-grid">
         <div class="contact-info">
           <h3>Prefer email?</h3>
-          <p>Reach out directly — we read and respond to every message ourselves.</p>
+          <p>Reach out directly — I read and answer every message myself.</p>
           <div class="contact-line">✉️ <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a></div>
         </div>
         <form class="contact-form" action="mailto:akseli@pikasivut.com" method="post" enctype="text/plain">
@@ -360,7 +358,7 @@
           <input type="text" id="business" name="Business" required>
           <label for="email">Email</label>
           <input type="email" id="email" name="Email" required>
-          <label for="message">What's going on with your website or ads right now?</label>
+          <label for="message">What's going on with your ads or website right now?</label>
           <textarea id="message" name="Message"></textarea>
           <button type="submit">Send &amp; Get a Free Quote</button>
           <p class="form-note">This opens your email client with your message pre-filled.</p>
@@ -372,9 +370,9 @@
 
 <footer>
   <div class="wrap footer-row">
-    <p>© <span id="year"></span> Pikasivut. Websites &amp; Google Ads for local businesses.</p>
+    <p>© <span id="year"></span> Pikasivut. Google Ads management and websites for small and medium-sized businesses.</p>
     <ul class="footer-links">
-      <li><a href="mailto:akseli@pikasivut.com">Email us</a></li>
+      <li><a href="mailto:akseli@pikasivut.com">Email me</a></li>
       <li><a href="/">Suomeksi</a></li>
     </ul>
   </div>

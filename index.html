@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pikasivut — Nettisivut ja Google Ads -mainonta paikallisille yrityksille</title>
-<meta name="description" content="Käsityönä tehdyt nettisivut ja Google Ads -mainonnan hallinta samalta tekijältä. Ei tekoälypohjia, ei pitkää sitoumusta.">
-<meta property="og:title" content="Nettisivut ja Google Ads -mainonta paikallisille yrityksille">
-<meta property="og:description" content="Käsityönä tehdyt nettisivut ja Google Ads -mainonnan hallinta samalta tekijältä.">
+<title>Pikasivut — Google Ads -mainonnan hallinta pk-yrityksille</title>
+<meta name="description" content="Google Ads -mainonnan rakentaminen ja hallinta pk-yrityksille. Teen tarvittaessa myös nettisivut samalta tekijältä.">
+<meta property="og:title" content="Google Ads -mainonnan hallinta pk-yrityksille">
+<meta property="og:description" content="Google Ads -mainonnan rakentaminen ja hallinta pk-yrityksille. Teen tarvittaessa myös nettisivut samalta tekijältä.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -109,10 +109,16 @@
   .offer-card{
     background:var(--card); border:1px solid var(--line); border-radius:16px; padding:34px;
   }
+  .offer-card.secondary{background:var(--bg-alt);}
   .offer-card .num{
     display:inline-flex; align-items:center; justify-content:center;
     width:34px; height:34px; border-radius:9px; background:var(--ink); color:#fff;
     font-weight:700; font-size:14px; margin-bottom:20px;
+  }
+  .offer-card .tag{
+    display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.05em;
+    text-transform:uppercase; color:var(--ink-soft); background:var(--card);
+    border:1px solid var(--line); border-radius:100px; padding:3px 10px; margin-bottom:14px;
   }
   .offer-card h3{font-size:21px; margin:0 0 10px; font-weight:800;}
   .offer-card p{color:var(--ink-soft); margin:0 0 18px; font-size:15.5px;}
@@ -200,16 +206,16 @@
 <main>
   <section class="hero" id="top">
     <div class="wrap">
-      <span class="eyebrow">Nettisivut ja Google Ads -mainonta paikallisille yrityksille</span>
-      <h1>Enemmän asiakkaita — ei vain kauniimpi nettisivu.</h1>
-      <p class="lead">Teen käsityönä ammattimaiset nettisivut — en käytä tekoälypohjia — ja hoidan samalla Google Ads -mainontasi, jotta oikeat asiakkaat myös oikeasti löytävät sinut.</p>
+      <span class="eyebrow">Google Ads -mainonta pk-yrityksille</span>
+      <h1>Enemmän asiakkaita, ei vain enemmän klikkauksia.</h1>
+      <p class="lead">Rakennan ja hallinnoin Google Ads -kampanjasi niin, että budjetti menee oikeisiin hakuihin — ei hukkaan. Jos nettisivusi ei tue mainontaa, teen tarvittaessa myös sen, samalta tekijältä.</p>
       <div class="hero-ctas">
         <a href="#contact" class="btn-primary">Pyydä ilmainen tarjous</a>
         <a href="#offer" class="btn-secondary">Katso, mitä sisältyy</a>
       </div>
       <ul class="hero-trust">
-        <li><span class="dot"></span> Käsintehty, ei valmispohja</li>
-        <li><span class="dot"></span> Julkaisu päivissä, ei kuukausissa</li>
+        <li><span class="dot"></span> Kohdennettu oikeille hakusanoille</li>
+        <li><span class="dot"></span> Tulokset näkyvissä viikoissa</li>
         <li><span class="dot"></span> Ei pitkää sitoumusta</li>
       </ul>
     </div>
@@ -219,23 +225,23 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Kuulostaako tutulta?</h2>
-        <p class="section-sub">Useimmat paikalliset yritykset menettävät asiakkaita jostain näistä kolmesta syystä.</p>
+        <p class="section-sub">Useimmat pk-yritykset menettävät asiakkaita jostain näistä kolmesta syystä.</p>
       </div>
       <div class="problem-grid">
         <div class="problem-card">
-          <span class="icon">🔍</span>
-          <h3>Nettisivuja ei ole lainkaan</h3>
-          <p>Asiakas etsii sinua netistä, ei löydä mitään, ja soittaa seuraavalle hakutuloksissa näkyvälle yritykselle.</p>
+          <span class="icon">📉</span>
+          <h3>Mainosbudjetti valuu hukkaan</h3>
+          <p>Maksat klikkauksista, jotka eivät koskaan muutu asiakkaiksi, etkä tiedä miksi.</p>
         </div>
         <div class="problem-card">
           <span class="icon">🕰️</span>
-          <h3>Sivu on vanhentunut tai itse kyhätty</h3>
-          <p>Se ei näytä osaamistasi parhaalta puolelta, eikä se saa kävijää ottamaan yhteyttä.</p>
+          <h3>Kampanjaa ei hallinnoi kukaan</h3>
+          <p>Ads-tili on pystytetty kerran ja unohdettu — avainsanat ja budjetit eivät ole päivittyneet vuosiin.</p>
         </div>
         <div class="problem-card">
-          <span class="icon">📉</span>
-          <h3>Mainokset eivät tuota kauppaa</h3>
-          <p>Maksat klikkauksista, jotka päätyvät sivulle jota ei ole koskaan suunniteltu muuttamaan kävijää asiakkaaksi.</p>
+          <span class="icon">🔍</span>
+          <h3>Nettisivu ei tue mainontaa</h3>
+          <p>Mainos tuo kävijän sivulle, jota ei ole koskaan suunniteltu muuttamaan kävijää asiakkaaksi.</p>
         </div>
       </div>
     </div>
@@ -244,28 +250,29 @@
   <section id="offer">
     <div class="wrap">
       <div class="section-head">
-        <h2>Kaksi palvelua, sama tekijä, ei väliinputoamisia</h2>
-        <p class="section-sub">Monessa toimistossa nettisivut ja mainonta hoitaa eri ihminen, ja vastuu katoaa siltä väliltä. Teen molemmat itse, joten mikään ei jää kenenkään harteille.</p>
+        <h2>Google Ads pääosassa, nettisivu tarvittaessa mukana</h2>
+        <p class="section-sub">Pääpaino on Google Ads -mainonnan hallinnassa. Jos nykyinen sivusi ei tue mainontaa kunnolla, rakennan tarvittaessa myös sen — samalta tekijältä, ei kahden eri toimiston välistä väliinputoamista.</p>
       </div>
       <div class="offer-grid">
         <div class="offer-card">
           <span class="num">01</span>
-          <h3>Räätälöidyt nettisivut</h3>
-          <p>Suunnittelen ja rakennan sivuston käsin juuri sinun yrityksellesi — en kasaa sitä tekoälypohjasta viidessä minuutissa.</p>
-          <ul>
-            <li><span class="check">✓</span> Suunniteltu juuri sinun yrityksellesi, ei yleispätevästä mallista</li>
-            <li><span class="check">✓</span> Rakennettu tuomaan sinulle puheluita ja tarjouspyyntöjä</li>
-            <li><span class="check">✓</span> Hosting, verkkotunnus ja päivitykset hoidettuna puolestasi</li>
-          </ul>
-        </div>
-        <div class="offer-card">
-          <span class="num">02</span>
           <h3>Google Ads -mainonnan hallinta</h3>
           <p>Otan olemassa olevan mainostilisi hoitooni tai rakennan uuden alusta asti, ja kohdennan budjettisi töihin jotka oikeasti kannattavat.</p>
           <ul>
             <li><span class="check">✓</span> Rehellinen katsaus siihen, mikä toimii nyt ja mihin raha valuu turhaan</li>
             <li><span class="check">✓</span> Kampanjat suunniteltu kannattavimpien töidesi ympärille</li>
             <li><span class="check">✓</span> Selkeä kuukausiraportointi — ei ammattislangia</li>
+          </ul>
+        </div>
+        <div class="offer-card secondary">
+          <span class="tag">Tarvittaessa mukana</span>
+          <span class="num">02</span>
+          <h3>Nettisivut</h3>
+          <p>Jos nykyinen sivusi ei tue mainontaasi, suunnittelen ja rakennan uuden käsin — se ei ole pääpalvelu, mutta hoidan senkin samalta luukulta.</p>
+          <ul>
+            <li><span class="check">✓</span> Suunniteltu tukemaan mainoskampanjaasi, ei irrallisena projektina</li>
+            <li><span class="check">✓</span> Rakennettu tuomaan sinulle puheluita ja tarjouspyyntöjä</li>
+            <li><span class="check">✓</span> Hosting, verkkotunnus ja päivitykset hoidettuna puolestasi</li>
           </ul>
         </div>
       </div>
@@ -275,16 +282,16 @@
   <section class="why">
     <div class="wrap">
       <div class="section-head">
-        <h2>Miksi paikalliset yritykset valitsevat minut</h2>
+        <h2>Miksi pk-yritykset valitsevat minut</h2>
       </div>
       <div class="why-grid">
         <div class="why-item">
-          <h3>🎨 Käsintehty, ei valmispohjasta</h3>
-          <p>Jokainen sivu suunnitellaan juuri sinun yrityksellesi — ei tekoälyllä kyhättyä, kaikille samannäköistä pohjaa.</p>
+          <h3>🎯 Budjetti oikeisiin hakuihin</h3>
+          <p>Kampanjat kohdennetaan tarkasti niihin hakuihin jotka oikeasti tuovat asiakkaita, ei laajoihin ja kalliisiin avainsanoihin.</p>
         </div>
         <div class="why-item">
-          <h3>⚡ Nopea toimitus</h3>
-          <p>Useimmat sivut ovat julkaisukunnossa muutamassa päivässä ensimmäisestä keskustelustamme — ei viikkojen edestakaista säätöä.</p>
+          <h3>⚡ Nopea käyntiinlähtö</h3>
+          <p>Kampanja on käynnissä tai siivottu muutamassa päivässä ensimmäisestä keskustelustamme — ei viikkojen edestakaista säätöä.</p>
         </div>
         <div class="why-item">
           <h3>🔓 Ei pitkää sitoumusta</h3>
@@ -292,7 +299,7 @@
         </div>
         <div class="why-item">
           <h3>🧩 Yksi tekijä, koko kuva hallussa</h3>
-          <p>Sama ihminen rakentaa sivusi ja hoitaa mainoksesi, joten ne tukevat toisiaan sen sijaan että vetäisivät eri suuntiin.</p>
+          <p>Sama ihminen hoitaa mainoksesi ja tarvittaessa sivusi, joten ne tukevat toisiaan sen sijaan että vetäisivät eri suuntiin.</p>
         </div>
       </div>
     </div>
@@ -307,12 +314,12 @@
         <div class="step">
           <span class="step-num">Vaihe 1</span>
           <h3>Ilmainen konsultaatio</h3>
-          <p>Käyn läpi nykyisen sivusi ja mainontasi — tai niiden puutteen — ja kerron suoraan, mikä toimii ja mikä ei.</p>
+          <p>Käyn läpi nykyisen mainontasi — tai sen puutteen — ja kerron suoraan, mikä toimii ja mikä ei.</p>
         </div>
         <div class="step">
           <span class="step-num">Vaihe 2</span>
           <h3>Toteutus</h3>
-          <p>Uusi sivusi julkaistaan, ja mainostilisi siivotaan tai rakennetaan tarvittaessa kokonaan alusta.</p>
+          <p>Mainostilisi siivotaan tai rakennetaan alusta asti; nettisivu päivitetään tarvittaessa samalla.</p>
         </div>
         <div class="step">
           <span class="step-num">Vaihe 3</span>
@@ -352,7 +359,7 @@
           <input type="text" id="business" name="Yritys" required>
           <label for="email">Sähköposti</label>
           <input type="email" id="email" name="Sahkoposti" required>
-          <label for="message">Mikä on nettisivujesi tai mainontasi tilanne juuri nyt?</label>
+          <label for="message">Mikä on mainontasi tai nettisivujesi tilanne juuri nyt?</label>
           <textarea id="message" name="Viesti"></textarea>
           <button type="submit">Lähetä ja pyydä ilmainen tarjous</button>
           <p class="form-note">Tämä avaa sähköpostiohjelmasi valmiiksi täytetyllä viestillä.</p>
@@ -365,7 +372,7 @@
 <footer>
   <div class="wrap footer-row">
     <div>
-      <p>© <span id="year"></span> Pikasivut. Nettisivut ja Google Ads -mainonta paikallisille yrityksille.</p>
+      <p>© <span id="year"></span> Pikasivut. Google Ads -mainonta ja nettisivut pk-yrityksille.</p>
       <p class="footer-legal">Lehtonen Akseli Toivo Johannes · Y-tunnus 3378015-4 · ALV-tunniste FI33780154</p>
     </div>
     <ul class="footer-links">
