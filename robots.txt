@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Demosivut on merkitty noindex-tagilla, joten ne pidetaan tarkoituksella
+# ryomittavina - muuten robotit eivat nae noindex-ohjetta.
+
+Sitemap: https://pikasivut.com/sitemap.xml
