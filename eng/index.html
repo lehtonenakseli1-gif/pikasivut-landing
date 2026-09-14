@@ -28,9 +28,7 @@
 <meta name="twitter:title" content="Google Ads Management for Small &amp; Medium Businesses">
 <meta name="twitter:description" content="Google Ads search campaign management for small and medium-sized businesses.">
 <meta name="twitter:image" content="https://pikasivut.com/eng/og-image.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,6 +68,14 @@
 }
 </script>
 <style>
+  @font-face{
+    font-family:'Inter';
+    font-style:normal;
+    font-weight:400 800;
+    font-display:swap;
+    src:url('/inter-latin.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
   :root{
     --bg:#faf9f6;
     --bg-alt:#f1efe9;
@@ -242,9 +248,58 @@
 
   @media (max-width: 760px){
     .nav-links{display:none;}
-    .problem-grid, .why-grid, .steps, .offer-grid, .contact-grid{grid-template-columns:1fr;}
+    .problem-grid, .why-grid, .steps, .offer-grid, .contact-grid, .work-grid{grid-template-columns:1fr;}
     .final-cta{padding:40px 22px;}
   }
+  .contact-form .optional{font-weight:400; text-transform:none; letter-spacing:0;}
+
+  /* REFERENCE CARDS */
+  .work-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .work-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px;}
+  .work-card .trade{
+    font-size:12.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--accent); margin:0 0 16px;
+  }
+  .work-card dl{margin:0;}
+  .work-card dt{
+    font-size:12px; font-weight:700; color:var(--ink-soft);
+    text-transform:uppercase; letter-spacing:0.04em; margin-top:14px;
+  }
+  .work-card dt:first-child{margin-top:0;}
+  .work-card dd{margin:4px 0 0; font-size:15px; color:var(--ink);}
+  .work-card .result{font-size:23px; font-weight:800; letter-spacing:-0.02em;}
+
+  /* ICONS - line style, inherit currentColor */
+  .icon-line{width:22px; height:22px; display:block; margin-bottom:14px; color:var(--accent);}
+  .why-item h3 svg{width:19px; height:19px; flex:none; color:var(--accent);}
+  .contact-line svg{width:18px; height:18px; flex:none; color:var(--accent);}
+
+  /* PHONE CTA */
+  .tel-cta{
+    display:inline-flex; align-items:center; gap:9px; min-height:44px;
+    font-size:16.5px; font-weight:700; color:var(--ink); text-decoration:none;
+  }
+  .tel-cta svg{width:19px; height:19px; flex:none; color:var(--accent);}
+  .tel-cta .label{font-weight:500; color:var(--ink-soft);}
+  .tel-cta:hover{color:var(--accent);}
+  .hero .tel-cta{margin:-16px 0 28px;}
+  .final-cta .tel-cta{margin-top:14px;}
+  .contact-info .tel-cta{margin-bottom:6px;}
+
+  @media (max-width: 420px){
+    .wrap{padding:0 18px;}
+    .hero{padding:64px 0 56px;}
+    section{padding:52px 0;}
+    .hero-ctas{flex-direction:column; align-items:stretch; gap:12px;}
+    .hero-ctas a{justify-content:center;}
+    .hero-trust{gap:12px;}
+    .hero-trust li{width:100%;}
+    .offer-card, .work-card{padding:24px 20px;}
+    form.contact-form{padding:22px 20px;}
+    .final-cta{padding:34px 20px;}
+    .footer-row{flex-direction:column; align-items:flex-start;}
+  }
+
 </style>
 </head>
 <body>
@@ -270,6 +325,10 @@
         <a href="#contact" class="btn-primary">Get a Free Quote</a>
         <a href="#offer" class="btn-secondary">See What's Included</a>
       </div>
+      <a class="tel-cta" href="tel:+358458505051">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h3l1.5 5-2 1.5a12 12 0 0 0 5.5 5.5L16 13l5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></svg>
+            <span class="label">Call directly:</span> +358 45 850 5051
+          </a>
       <ul class="hero-trust">
         <li><span class="dot"></span> Targeted at the searches that convert</li>
         <li><span class="dot"></span> Results visible in weeks</li>
@@ -277,6 +336,56 @@
       </ul>
     </div>
   </section>
+
+
+  <!-- ==========================================================================
+       REFERENCES / EXAMPLES OF WORK
+
+       This section is built but HIDDEN until there is real content for it.
+       Reason: empty or "coming soon" cards cost more credibility than they
+       give, and made-up clients or numbers do not go on this page.
+
+       TO TURN IT ON, once the first result has actually been measured:
+         1. Remove the comment markers around this text (the line that starts
+            with an angle bracket and an exclamation mark, and the closing line
+            after the section)
+         2. Fill the card's four fields with real information
+         3. Copy the whole <div class="work-card"> to add more cards
+         4. Two cards is enough - a third wraps to a second row on desktop
+
+       RESULT should be a concrete number, e.g. "Cost per lead -42%" or
+       "18 inquiries/month (was 4)". Do not put general promises there.
+       Ask the client for permission to use their name, or write it as
+       "Auto repair shop, Vantaa" with no company name.
+  ============================================================================
+
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Examples of work</h2>
+        <p class="section-sub">Real engagements and measured results.</p>
+      </div>
+      <div class="work-grid">
+
+        <div class="work-card">
+          <p class="trade">[Trade, city]</p>
+          <dl>
+            <dt>Starting point</dt>
+            <dd>[What the problem was before: e.g. no campaign at all, budget
+                going to broad keywords, site producing no inquiries]</dd>
+            <dt>What was done</dt>
+            <dd>[The concrete action: e.g. account rebuilt from scratch,
+                keywords narrowed to specific services, landing page redone]</dd>
+            <dt>Result</dt>
+            <dd class="result">[Number]</dd>
+          </dl>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  -->
 
   <section class="problem">
     <div class="wrap">
@@ -286,17 +395,17 @@
       </div>
       <div class="problem-grid">
         <div class="problem-card">
-          <span class="icon">📉</span>
+          <svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 7 9.5 13.5 13.5 9.5 21 17"/><polyline points="15 17 21 17 21 11"/></svg>
           <h3>Ad budget goes to waste</h3>
           <p>You're paying for clicks that never turn into customers, and nobody can tell you why.</p>
         </div>
         <div class="problem-card">
-          <span class="icon">🕰️</span>
+          <svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 6.75 12 12 15.5 14"/></svg>
           <h3>Nobody is actually managing the account</h3>
           <p>The campaign was set up once and forgotten — keywords and budgets haven't been touched in years.</p>
         </div>
         <div class="problem-card">
-          <span class="icon">🔍</span>
+          <svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 9.5h18"/><path d="M8.5 14h7"/></svg>
           <h3>The website doesn't support the ads</h3>
           <p>The ad sends someone to a page that was never built to turn a visitor into a customer.</p>
         </div>
@@ -343,19 +452,19 @@
       </div>
       <div class="why-grid">
         <div class="why-item">
-          <h3>🎯 Budget aimed at the right searches</h3>
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg> Budget aimed at the right searches</h3>
           <p>Campaigns target the specific searches that bring in real work, not the broad, expensive keywords everyone else is bidding on.</p>
         </div>
         <div class="why-item">
-          <h3>⚡ Fast start</h3>
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></svg> Fast start</h3>
           <p>Your campaign is live or cleaned up within days of our first conversation, not weeks of back-and-forth.</p>
         </div>
         <div class="why-item">
-          <h3>🔓 No long-term contract</h3>
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 7.7-1.5"/></svg> No long-term contract</h3>
           <p>You stay because it's working, not because a contract locks you in.</p>
         </div>
         <div class="why-item">
-          <h3>🧩 One person, full picture</h3>
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l8.5 4.5-8.5 4.5L3.5 8z"/><path d="M3.5 13l8.5 4.5 8.5-4.5"/></svg> One person, full picture</h3>
           <p>The same person runs your ads and, when needed, builds your site — so they work together instead of pulling in different directions.</p>
         </div>
       </div>
@@ -393,6 +502,10 @@
         <h2>Let's see what's possible for your business</h2>
         <p>Free, no-pressure consultation. I'll tell you honestly whether this makes sense for you before you spend a dollar.</p>
         <a href="#contact" class="btn-primary">Get a Free Quote</a>
+        <div><a class="tel-cta" href="tel:+358458505051">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h3l1.5 5-2 1.5a12 12 0 0 0 5.5 5.5L16 13l5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></svg>
+            <span class="label">Or call:</span> +358 45 850 5051
+          </a></div>
       </div>
     </div>
   </section>
@@ -405,21 +518,23 @@
       </div>
       <div class="contact-grid">
         <div class="contact-info">
-          <h3>Prefer email?</h3>
-          <p>Reach out directly — I read and answer every message myself.</p>
-          <div class="contact-line">✉️ <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a></div>
+          <h3>A call is the fastest way</h3>
+          <p>I answer myself. If I miss your call, I call back the same day.</p>
+          <a class="tel-cta" href="tel:+358458505051">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h3l1.5 5-2 1.5a12 12 0 0 0 5.5 5.5L16 13l5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></svg>
+            +358 45 850 5051
+          </a>
+          <div class="contact-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg> <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a></div>
         </div>
         <form class="contact-form" action="mailto:akseli@pikasivut.com" method="post" enctype="text/plain">
           <label for="name">Name</label>
           <input type="text" id="name" name="Name" required>
-          <label for="business">Business name</label>
-          <input type="text" id="business" name="Business" required>
-          <label for="email">Email</label>
-          <input type="email" id="email" name="Email" required>
+          <label for="phone">Phone <span class="optional">(if you would rather I call)</span></label>
+          <input type="tel" id="phone" name="Phone" inputmode="tel" autocomplete="tel">
           <label for="message">What's going on with your ads or website right now?</label>
           <textarea id="message" name="Message"></textarea>
           <button type="submit">Send &amp; Get a Free Quote</button>
-          <p class="form-note">This opens your email client with your message pre-filled.</p>
+          <p class="form-note">This opens your email client with the message pre-filled, so you do not need to type out your email address.</p>
         </form>
       </div>
     </div>
