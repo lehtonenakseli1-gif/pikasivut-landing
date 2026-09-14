@@ -28,9 +28,7 @@
 <meta name="twitter:title" content="Google Ads -mainonnan hallinta pk-yrityksille">
 <meta name="twitter:description" content="Google Ads -hakusanamainonnan rakentaminen ja hallinta suomalaisille pk-yrityksille.">
 <meta name="twitter:image" content="https://pikasivut.com/og-image.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -71,6 +69,18 @@
 }
 </script>
 <style>
+  /* Inter itse hostattuna: yksi variable-tiedosto kattaa painot 400-800,
+     latin-subset riittaa suomen merkeille. Poistaa kaksi ulkoista yhteytta
+     (fonts.googleapis.com + fonts.gstatic.com) latauspolulta. */
+  @font-face{
+    font-family:'Inter';
+    font-style:normal;
+    font-weight:400 800;
+    font-display:swap;
+    src:url('/inter-latin.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+
   :root{
     --bg:#faf9f6;
     --bg-alt:#f1efe9;
@@ -233,6 +243,40 @@
   }
   .contact-form button:hover{opacity:0.92;}
   .form-note{font-size:12.5px; color:var(--ink-soft); margin-top:-4px;}
+  .contact-form .optional{font-weight:400; text-transform:none; letter-spacing:0;}
+
+  /* IKONIT - viivatyyli, perivat currentColor */
+  .icon-line{width:22px; height:22px; display:block; margin-bottom:14px; color:var(--accent);}
+  .why-item h3 svg{width:19px; height:19px; flex:none; color:var(--accent);}
+  .contact-line svg{width:18px; height:18px; flex:none; color:var(--accent);}
+
+  /* PUHELIN-CTA */
+  .tel-cta{
+    display:inline-flex; align-items:center; gap:9px; min-height:44px;
+    font-size:16.5px; font-weight:700; color:var(--ink); text-decoration:none;
+  }
+  .tel-cta svg{width:19px; height:19px; flex:none; color:var(--accent);}
+  .tel-cta .label{font-weight:500; color:var(--ink-soft);}
+  .tel-cta:hover{color:var(--accent);}
+  .hero .tel-cta{margin:-16px 0 28px;}
+  .final-cta .tel-cta{margin-top:14px;}
+  .contact-info .tel-cta{margin-bottom:6px;}
+
+  /* REFERENSSIT */
+  .work-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .work-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px;}
+  .work-card .trade{
+    font-size:12.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--accent); margin:0 0 16px;
+  }
+  .work-card dl{margin:0;}
+  .work-card dt{
+    font-size:12px; font-weight:700; color:var(--ink-soft);
+    text-transform:uppercase; letter-spacing:0.04em; margin-top:14px;
+  }
+  .work-card dt:first-child{margin-top:0;}
+  .work-card dd{margin:4px 0 0; font-size:15px; color:var(--ink);}
+  .work-card .result{font-size:23px; font-weight:800; letter-spacing:-0.02em;}
 
   footer{border-top:1px solid var(--line); padding:36px 0; }
   .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
@@ -244,8 +288,23 @@
 
   @media (max-width: 760px){
     .nav-links{display:none;}
-    .problem-grid, .why-grid, .steps, .offer-grid, .contact-grid{grid-template-columns:1fr;}
+    .problem-grid, .why-grid, .steps, .offer-grid, .contact-grid, .work-grid{grid-template-columns:1fr;}
     .final-cta{padding:40px 22px;}
+  }
+
+  /* Kapeat puhelimet (360px ja alle) */
+  @media (max-width: 420px){
+    .wrap{padding:0 18px;}
+    .hero{padding:64px 0 56px;}
+    section{padding:52px 0;}
+    .hero-ctas{flex-direction:column; align-items:stretch; gap:12px;}
+    .hero-ctas a{justify-content:center;}
+    .hero-trust{gap:12px;}
+    .hero-trust li{width:100%;}
+    .offer-card, .work-card{padding:24px 20px;}
+    form.contact-form{padding:22px 20px;}
+    .final-cta{padding:34px 20px;}
+    .footer-row{flex-direction:column; align-items:flex-start;}
   }
 </style>
 </head>
@@ -272,6 +331,10 @@
         <a href="#contact" class="btn-primary">Pyydä ilmainen tarjous</a>
         <a href="#offer" class="btn-secondary">Katso, mitä sisältyy</a>
       </div>
+      <a class="tel-cta" href="tel:+358458505051">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h3l1.5 5-2 1.5a12 12 0 0 0 5.5 5.5L16 13l5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></svg>
+        <span class="label">Soita suoraan:</span> 045 850 5051
+      </a>
       <ul class="hero-trust">
         <li><span class="dot"></span> Kohdennettu oikeille hakusanoille</li>
         <li><span class="dot"></span> Tulokset näkyvissä viikoissa</li>
@@ -279,6 +342,53 @@
       </ul>
     </div>
   </section>
+
+  <!-- ==========================================================================
+       REFERENSSIT / ESIMERKKEJÄ TYÖSTÄ
+
+       Osio on valmiina mutta PIILOTETTU kunnes oikeaa sisältöä on. Syy: tyhjät
+       tai "tulossa pian" -korit vievät uskottavuutta enemmän kuin antavat, ja
+       keksittyjä asiakkaita tai lukuja ei laiteta sivulle.
+
+       KÄYTTÖÖNOTTO, kun ensimmäinen tulos on mitattu:
+         1. Poista tämän kommentin alku- ja lopputagit (<!-- ja -->)
+         2. Täytä kortin neljä kenttää oikeilla tiedoilla
+         3. Kopioi <div class="work-card"> kokonaisuudessaan lisätäksesi kortteja
+         4. Kaksi korttia riittää - kolmas menee toiselle riville työpöydällä
+
+       TULOS-kenttään konkreettinen luku, esim. "Liidien hinta -42 %" tai
+       "18 yhteydenottoa/kk (aiemmin 4)". Älä kirjoita sinne yleisiä lupauksia.
+       Pyydä asiakkaalta lupa nimen käyttöön, tai käytä muotoa "Autokorjaamo,
+       Vantaa" ilman yrityksen nimeä.
+  ============================================================================
+
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Esimerkkejä työstä</h2>
+        <p class="section-sub">Oikeita toimeksiantoja ja mitattuja tuloksia.</p>
+      </div>
+      <div class="work-grid">
+
+        <div class="work-card">
+          <p class="trade">[Toimiala, paikkakunta]</p>
+          <dl>
+            <dt>Lähtötilanne</dt>
+            <dd>[Mikä oli ongelma ennen: esim. kampanjaa ei ollut, budjetti meni
+                laajoihin hakusanoihin, sivu ei tuottanut yhteydenottoja]</dd>
+            <dt>Mitä tehtiin</dt>
+            <dd>[Konkreettinen toimenpide: esim. tili rakennettu uusiksi,
+                hakusanat rajattu palvelukohtaisiksi, laskeutumissivu uusittu]</dd>
+            <dt>Tulos</dt>
+            <dd class="result">[Luku]</dd>
+          </dl>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  -->
 
   <section class="problem">
     <div class="wrap">
@@ -288,17 +398,17 @@
       </div>
       <div class="problem-grid">
         <div class="problem-card">
-          <span class="icon">📉</span>
+          <svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 7 9.5 13.5 13.5 9.5 21 17"/><polyline points="15 17 21 17 21 11"/></svg>
           <h3>Mainosbudjetti valuu hukkaan</h3>
           <p>Maksat klikkauksista, jotka eivät koskaan muutu asiakkaiksi, etkä tiedä miksi.</p>
         </div>
         <div class="problem-card">
-          <span class="icon">🕰️</span>
+          <svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 6.75 12 12 15.5 14"/></svg>
           <h3>Kampanjaa ei hallinnoi kukaan</h3>
           <p>Ads-tili on pystytetty kerran ja unohdettu — avainsanat ja budjetit eivät ole päivittyneet vuosiin.</p>
         </div>
         <div class="problem-card">
-          <span class="icon">🔍</span>
+          <svg class="icon-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 9.5h18"/><path d="M8.5 14h7"/></svg>
           <h3>Nettisivu ei tue mainontaa</h3>
           <p>Mainos tuo kävijän sivulle, jota ei ole koskaan suunniteltu muuttamaan kävijää asiakkaaksi.</p>
         </div>
@@ -345,19 +455,19 @@
       </div>
       <div class="why-grid">
         <div class="why-item">
-          <h3>🎯 Budjetti oikeisiin hakuihin</h3>
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg> Budjetti oikeisiin hakuihin</h3>
           <p>Kampanjat kohdennetaan tarkasti niihin hakuihin jotka oikeasti tuovat asiakkaita, ei laajoihin ja kalliisiin avainsanoihin.</p>
         </div>
         <div class="why-item">
-          <h3>⚡ Nopea käyntiinlähtö</h3>
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></svg> Nopea käyntiinlähtö</h3>
           <p>Kampanja on käynnissä tai siivottu muutamassa päivässä ensimmäisestä keskustelustamme — ei viikkojen edestakaista säätöä.</p>
         </div>
         <div class="why-item">
-          <h3>🔓 Ei pitkää sitoumusta</h3>
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 7.7-1.5"/></svg> Ei pitkää sitoumusta</h3>
           <p>Pysyt asiakkaana koska palvelu toimii, et koska sopimus sitoo sinut siihen.</p>
         </div>
         <div class="why-item">
-          <h3>🧩 Yksi tekijä, koko kuva hallussa</h3>
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l8.5 4.5-8.5 4.5L3.5 8z"/><path d="M3.5 13l8.5 4.5 8.5-4.5"/></svg> Yksi tekijä, koko kuva hallussa</h3>
           <p>Sama ihminen hoitaa mainoksesi ja tarvittaessa sivusi, joten ne tukevat toisiaan sen sijaan että vetäisivät eri suuntiin.</p>
         </div>
       </div>
@@ -395,6 +505,12 @@
         <h2>Katsotaan yhdessä, mikä sopisi yrityksellesi</h2>
         <p>Ilmainen, paineeton keskustelu. Kerron suoraan, kannattaako tämä sinulle, ennen kuin käytät siihen euroakaan.</p>
         <a href="#contact" class="btn-primary">Pyydä ilmainen tarjous</a>
+        <div>
+          <a class="tel-cta" href="tel:+358458505051">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h3l1.5 5-2 1.5a12 12 0 0 0 5.5 5.5L16 13l5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></svg>
+            <span class="label">Tai soita suoraan:</span> 045 850 5051
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -407,21 +523,26 @@
       </div>
       <div class="contact-grid">
         <div class="contact-info">
-          <h3>Sähköposti sopii paremmin?</h3>
-          <p>Ota suoraan yhteyttä — luen ja vastaan jokaiseen viestiin itse.</p>
-          <div class="contact-line">✉️ <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a></div>
+          <h3>Soitto käy nopeimmin</h3>
+          <p>Vastaan itse. Jos en ehdi puhelimeen, soitan takaisin saman päivän aikana.</p>
+          <a class="tel-cta" href="tel:+358458505051">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3h3l1.5 5-2 1.5a12 12 0 0 0 5.5 5.5L16 13l5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></svg>
+            045 850 5051
+          </a>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>
+            <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a>
+          </div>
         </div>
         <form class="contact-form" action="mailto:akseli@pikasivut.com" method="post" enctype="text/plain">
           <label for="name">Nimi</label>
           <input type="text" id="name" name="Nimi" required>
-          <label for="business">Yrityksen nimi</label>
-          <input type="text" id="business" name="Yritys" required>
-          <label for="email">Sähköposti</label>
-          <input type="email" id="email" name="Sahkoposti" required>
+          <label for="phone">Puhelin <span class="optional">(jos haluat että soitan)</span></label>
+          <input type="tel" id="phone" name="Puhelin" inputmode="tel" autocomplete="tel">
           <label for="message">Mikä on mainontasi tai nettisivujesi tilanne juuri nyt?</label>
           <textarea id="message" name="Viesti"></textarea>
           <button type="submit">Lähetä ja pyydä ilmainen tarjous</button>
-          <p class="form-note">Tämä avaa sähköpostiohjelmasi valmiiksi täytetyllä viestillä.</p>
+          <p class="form-note">Tämä avaa sähköpostiohjelmasi valmiiksi täytetyllä viestillä, joten sähköpostiosoitettasi ei tarvitse erikseen kirjoittaa.</p>
         </form>
       </div>
     </div>
