@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Espoon Maanrakennus Oy — Maanrakennustyöt Espoossa, Vantaalla ja Helsingissä</title>
+<meta name="description" content="Maanrakennuksen kokonaisurakointi pääkaupunkiseudulla: talonpohjat, salaojat, pihat, purkutyöt ja kuljetukset. Omalla kalustolla vuodesta 2018. Puh. 040 772 7375.">
+<meta name="theme-color" content="#FBFAF7">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%232E4A2C'/><path d='M5 22h22v4H5z' fill='%23C2811B'/><path d='M8 18h12v3H8z' fill='%23F4F2EA'/><path d='M20 8h4l5 9h-9z' fill='%23F4F2EA'/></svg>">
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#FBFAF7;
+  --panel:#F2F0EA;
+  --ink:#1C2118;
+  --body:#414939;
+  --muted:#6F7666;
+  --line:#DFDBD0;
+  --green:#2E4A2C;
+  --green-dark:#22381F;
+  --accent:#C2811B;
+  --accent-dark:#9C6612;
+  --on-dark:#F4F2EA;
+  --hero-overlay:linear-gradient(90deg,rgba(18,24,16,.88) 0%,rgba(18,24,16,.66) 48%,rgba(18,24,16,.28) 100%);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15180F;
+    --panel:#1D2117;
+    --ink:#EDEADD;
+    --body:#C6C4B4;
+    --muted:#95998A;
+    --line:#2E3427;
+    --green:#8FB37B;
+    --green-dark:#101409;
+    --accent:#DCA63F;
+    --accent-dark:#EBBB5E;
+    --on-dark:#EDEADD;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15180F;
+  --panel:#1D2117;
+  --ink:#EDEADD;
+  --body:#C6C4B4;
+  --muted:#95998A;
+  --line:#2E3427;
+  --green:#8FB37B;
+  --green-dark:#101409;
+  --accent:#DCA63F;
+  --accent-dark:#EBBB5E;
+  --on-dark:#EDEADD;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--body);
+  font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-weight:700;color:var(--ink);margin:0;line-height:1.15;text-wrap:balance}
+p{margin:0}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding-inline:20px}
+.eyebrow{display:inline-block;font-family:Archivo,sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent-dark)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .eyebrow{color:var(--accent)}}
+:root[data-theme="dark"] .eyebrow{color:var(--accent)}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:16px;min-height:74px;flex-wrap:wrap;padding-block:10px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto}
+.brand .mark{width:38px;height:38px;flex:none;border-radius:3px;background:var(--green);display:grid;place-items:center}
+.brand .mark svg{display:block}
+.brand .name{font-family:Archivo,sans-serif;font-weight:700;font-size:1.22rem;color:var(--ink);line-height:1.1;letter-spacing:-.01em}
+.brand .name small{display:block;font-weight:500;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+nav{display:flex;gap:2px;flex-wrap:wrap}
+nav a{
+  text-decoration:none;font-family:Archivo,sans-serif;font-weight:600;font-size:.94rem;
+  padding:9px 13px;border-radius:3px;color:var(--body);
+}
+nav a:hover{background:var(--panel);color:var(--ink)}
+nav a[aria-current="page"]{color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
+.phone{
+  display:inline-flex;align-items:center;gap:9px;text-decoration:none;white-space:nowrap;
+  font-family:Archivo,sans-serif;font-weight:700;font-size:1.22rem;color:var(--ink);
+}
+.phone .ic{width:34px;height:34px;border-radius:50%;background:var(--accent);display:grid;place-items:center;flex:none}
+.phone small{display:block;font-family:"Source Sans 3",sans-serif;font-weight:400;font-size:.72rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.phone:hover{color:var(--accent-dark)}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;border:0;cursor:pointer;
+  font-family:Archivo,sans-serif;font-weight:700;font-size:1rem;padding:14px 26px;border-radius:3px;
+}
+.btn-accent{background:var(--accent);color:#1A1205}
+.btn-accent:hover{background:var(--accent-dark);color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn-accent:hover{background:var(--accent-dark);color:#1A1205}}
+:root[data-theme="dark"] .btn-accent:hover{background:var(--accent-dark);color:#1A1205}
+.btn-outline{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn-outline:hover{box-shadow:inset 0 0 0 2px var(--green)}
+.btn-light{background:rgba(255,255,255,.1);color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
+.btn-light:hover{background:#fff;color:#1C2118}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:#121810;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .shade{position:absolute;inset:0;background:var(--hero-overlay)}
+.hero .inner{position:relative;padding-block:clamp(56px,9vw,104px);max-width:640px}
+.hero h1{color:#fff;font-size:clamp(2.1rem,5vw,3.35rem);margin-block:14px 18px}
+.hero p{color:rgba(255,255,255,.9);font-size:clamp(1.05rem,1.7vw,1.22rem);max-width:52ch}
+.hero .eyebrow{color:#EBBB5E}
+.hero .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero ul{list-style:none;display:flex;gap:10px 26px;flex-wrap:wrap;margin:30px 0 0;padding:0}
+.hero li{color:#fff;font-weight:600;font-size:.98rem;display:flex;align-items:center;gap:9px}
+.hero li::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
+
+/* ---------- sections ---------- */
+section{padding-block:clamp(48px,6vw,84px)}
+section.tight{padding-block:clamp(38px,4.5vw,60px)}
+.panel{background:var(--panel)}
+.head{max-width:66ch;margin-bottom:34px}
+.head h2{font-size:clamp(1.75rem,3.4vw,2.4rem);margin-block:12px 14px}
+.head p{font-size:1.08rem}
+.center{margin-inline:auto;text-align:center}
+
+/* intro split */
+.intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:center}
+.intro h2{font-size:clamp(1.7rem,3.2vw,2.25rem);margin-bottom:16px}
+.intro p + p{margin-top:14px}
+.intro figure{margin:0}
+.intro img{border-radius:4px;aspect-ratio:4/3;object-fit:cover;width:100%}
+
+/* service cards with photos */
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:26px}
+.scard{background:var(--bg);border:1px solid var(--line);border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.panel .scard{background:var(--bg)}
+.scard img{aspect-ratio:16/10;object-fit:cover;width:100%}
+.scard .body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:9px;flex:1}
+.scard h3{font-size:1.28rem}
+.scard p{font-size:1rem}
+
+/* plain service list */
+.list-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 40px;list-style:none;margin:0;padding:0}
+.list-2 li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:1.05rem;color:var(--body)}
+.list-2 li b{color:var(--ink);display:block;font-family:Archivo,sans-serif;font-size:1.05rem}
+.list-2 li svg{margin-top:5px}
+
+/* machines */
+.mcard{background:var(--bg);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.mcard img{aspect-ratio:3/2;object-fit:cover;width:100%}
+.mcard .body{padding:20px}
+.mcard h3{font-size:1.2rem;margin-bottom:6px}
+.mcard p{font-size:.99rem}
+
+/* numbers */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:26px}
+.stat b{display:block;font-family:Archivo,sans-serif;font-weight:700;font-size:2.3rem;color:var(--ink);line-height:1}
+.stat span{display:block;margin-top:6px;font-size:.98rem;color:var(--muted)}
+
+/* dark cta */
+.cta{background:var(--green-dark);color:var(--on-dark)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cta{background:var(--panel);border-block:1px solid var(--line)}}
+:root[data-theme="dark"] .cta{background:var(--panel);border-block:1px solid var(--line)}
+.cta h2{color:#fff;font-size:clamp(1.6rem,3vw,2.2rem);max-width:22ch}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cta h2{color:var(--ink)}}
+:root[data-theme="dark"] .cta h2{color:var(--ink)}
+.cta p{margin-top:10px;opacity:.85;max-width:48ch}
+.cta .wrap{display:flex;gap:28px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.cta .acts{display:flex;gap:12px;flex-wrap:wrap}
+
+/* reference cards */
+.ref{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:24px}
+.ref h3{font-size:1.22rem;margin-bottom:8px}
+.ref .meta{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:.93rem}
+
+/* contact */
+.contact{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,60px);align-items:start}
+.info dl{margin:0;display:grid;gap:20px}
+.info dt{font-family:Archivo,sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.info dd{margin:5px 0 0;font-size:1.1rem;color:var(--ink)}
+.info dd a{text-decoration-color:var(--accent);text-underline-offset:3px}
+form{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:clamp(20px,3vw,30px)}
+.panel form{background:var(--bg)}
+label{display:block;font-family:Archivo,sans-serif;font-weight:600;font-size:.85rem;color:var(--ink);margin-bottom:6px}
+input,select,textarea{
+  width:100%;font:inherit;color:var(--ink);background:var(--bg);
+  border:1.5px solid var(--line);border-radius:3px;padding:12px 13px;
+}
+textarea{min-height:128px;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.field{margin-bottom:16px}
+.formnote{font-size:.9rem;color:var(--muted);margin-top:12px}
+.ok{margin-top:16px;background:var(--panel);border-left:4px solid var(--green);padding:14px 16px;border-radius:3px;font-size:1rem;color:var(--ink)}
+
+/* footer */
+footer{background:var(--green-dark);color:rgba(244,242,234,.86);padding-block:44px 24px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) footer{background:var(--panel);border-top:1px solid var(--line);color:var(--body)}}
+:root[data-theme="dark"] footer{background:var(--panel);border-top:1px solid var(--line);color:var(--body)}
+.foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px}
+.foot h4{color:#fff;font-size:1.05rem;margin-bottom:12px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .foot h4{color:var(--ink)}}
+:root[data-theme="dark"] .foot h4{color:var(--ink)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.foot a{text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.legal{margin-top:32px;padding-top:16px;border-top:1px solid rgba(255,255,255,.13);font-size:.85rem;opacity:.7;display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .legal{border-top-color:var(--line)}}
+:root[data-theme="dark"] .legal{border-top-color:var(--line)}
+
+@media (max-width:880px){
+  .intro,.contact{grid-template-columns:1fr}
+  .brand .name small{display:none}
+  .phone small{display:none}
+}
+@media (max-width:520px){
+  .phone{font-size:1.05rem}
+  nav a{font-size:.9rem;padding:8px 10px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .btn,nav a,.phone{transition:background .16s ease,color .16s ease,box-shadow .16s ease}
+}
+</style>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#/">
+      <span class="mark">
+        <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+          <path d="M2 15h18v3H2z" fill="#C2811B"></path>
+          <path d="M4 12h9v2H4z" fill="#F4F2EA"></path>
+          <path d="M13 5h3l4 7h-7z" fill="#F4F2EA"></path>
+        </svg>
+      </span>
+      <span class="name">Espoon Maanrakennus<small>Oy · vuodesta 2018</small></span>
+    </a>
+    <nav id="nav">
+      <a href="#/">Etusivu</a>
+      <a href="#/palvelut">Palvelut</a>
+      <a href="#/tyomaat">Työmaat</a>
+      <a href="#/yhteystiedot">Yhteystiedot</a>
+    </nav>
+    <span class="phone">
+      <span class="ic">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1A1205" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path>
+        </svg>
+      </span>
+      <span>040 772 7375<small>Soita ja kysy</small></span>
+    </span>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= ETUSIVU ================= -->
+<div data-route="/">
+  <div class="hero">
+    <img src="kuvat/hero.jpg" alt="Kaivinkone ja porakone työmaalla mäntymetsän reunassa.">
+    <span class="shade"></span>
+    <div class="wrap">
+      <div class="inner">
+        <span class="eyebrow">Espoo · Vantaa · Helsinki · Kirkkonummi</span>
+        <h1>Maanrakennustyöt kokonaisurakkana, suunnittelusta viimeistelyyn.</h1>
+        <p>Teemme kaiken, mitä maanrakennus pitää sisällään — talonpohjat, salaojat, pihat, purkutyöt ja kuljetukset. Omalla kalustolla ja omalla porukalla vuodesta 2018.</p>
+        <div class="acts">
+          <a class="btn btn-accent" href="#/yhteystiedot">Pyydä ilmainen tarjous</a>
+          <span class="btn btn-light">Soita 040 772 7375</span>
+        </div>
+        <ul>
+          <li>Ilmainen arviokäynti</li>
+          <li>Kiinteä hinta tai tuntityö</li>
+          <li>Kotitalousvähennys</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="wrap intro">
+      <div>
+        <span class="eyebrow">Yritys</span>
+        <h2>Espoolainen maanrakentaja, joka hoitaa koko urakan alusta loppuun.</h2>
+        <p>Espoon Maanrakennus Oy on perustettu vuonna 2018 ja toimii Espoon Lahnuksesta käsin koko pääkaupunkiseudulla. Meitä on kymmenen, ja teemme työt omalla kalustolla — samat tekijät hoitavat kaivuun, täytöt, salaojat ja pihan viimeistelyn.</p>
+        <p>Urakan koko ei ratkaise: teemme yhtä huolella yhden päivän kaivuutyön ja usean kuukauden työmaan. Sama tuttu porukka tulee paikalle kummassakin tapauksessa.</p>
+        <p style="margin-top:22px"><a class="btn btn-outline" href="#/palvelut">Tutustu palveluihin</a></p>
+      </div>
+      <figure>
+        <img src="kuvat/salaoja.jpg" alt="Pienkaivinkone omakotitalon seinustalla, sokkelin kuivatuslevyt pinossa.">
+      </figure>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Palvelut</span>
+        <h2>Mitä teemme</h2>
+        <p>Yleisimmät työt, joita meiltä tilataan. Jos tarvitsemasi työ ei ole listalla, soita — se todennäköisesti kuuluu meille silti.</p>
+      </div>
+      <div class="grid-3">
+        <article class="scard">
+          <img src="kuvat/kaivuu.jpg" alt="Kaivinkone tekemässä talonpohjan kaivuutyötä.">
+          <div class="body">
+            <h3>Talonpohjat ja perustukset</h3>
+            <p>Tontin raivaus, kaivuu, massanvaihto, murskekerrokset ja tiivistys. Pohja luovutetaan valmiina, jotta perustustyö pääsee alkamaan sovittuna päivänä.</p>
+          </div>
+        </article>
+        <article class="scard">
+          <img src="kuvat/salaoja.jpg" alt="Salaojatyömaa omakotitalon seinustalla.">
+          <div class="body">
+            <h3>Salaojat ja sadevedet</h3>
+            <p>Uudet salaojat ja salaojaremontit, tarkastuskaivot, perusvesikaivo sekä rännivesien ja hulevesien johtaminen pois talon vierestä.</p>
+          </div>
+        </article>
+        <article class="scard">
+          <img src="kuvat/kiveys.jpg" alt="Kiveystyö käynnissä, kivet ja työkalut paikoillaan.">
+          <div class="body">
+            <h3>Pihat ja kiveykset</h3>
+            <p>Pihan muotoilu, betonikivi- ja luonnonkivipinnat, reunatuet, tukimuurit, nurmetus ja istutusalustat. Piha jää käyttökuntoon, ei työmaaksi.</p>
+          </div>
+        </article>
+      </div>
+      <p style="margin-top:28px"><a class="btn btn-outline" href="#/palvelut">Kaikki palvelut</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Miksi me</span>
+        <h2>Yksi yhteyshenkilö, selkeä hinta ja sovittu aikataulu.</h2>
+      </div>
+      <ul class="list-2">
+        <li>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+          <span><b>Oma kalusto</b>Kaivinkoneet, pyöräkuormaaja ja kuljetuskalusto omasta takaa — ei odottelua vuokrakoneiden perässä.</span>
+        </li>
+        <li>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+          <span><b>Ilmainen arviokäynti</b>Käymme katsomassa kohteen paikan päällä ja annamme kirjallisen tarjouksen yleensä muutamassa arkipäivässä.</span>
+        </li>
+        <li>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+          <span><b>Kiinteä hinta tai tuntityö</b>Asiakas valitsee kumpi sopii. Lisätöistä sovitaan aina etukäteen, ei jälkikäteen laskulla.</span>
+        </li>
+        <li>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+          <span><b>Asiat kunnossa</b>Tilaajavastuulain edellyttämät todistukset ja vakuutukset ajan tasalla. Pyydettäessä toimitamme ne heti.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel tight">
+    <div class="wrap stats">
+      <div class="stat"><b>2018</b><span>Perustettu Espooseen</span></div>
+      <div class="stat"><b>10</b><span>Omaa ammattilaista</span></div>
+      <div class="stat"><b>2,8 M€</b><span>Liikevaihto 2025</span></div>
+      <div class="stat"><b>★★★★</b><span>YLJ-yrityshakemiston arvio</span></div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <div>
+        <h2>Onko tontilla työ, joka pitäisi saada tehtyä?</h2>
+        <p>Soita ja kerro lyhyesti mistä on kyse — tai jätä yhteydenottopyyntö, niin otamme yhteyttä seuraavana arkipäivänä.</p>
+      </div>
+      <div class="acts">
+        <a class="btn btn-accent" href="#/yhteystiedot">Pyydä tarjous</a>
+        <span class="btn btn-light">040 772 7375</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PALVELUT ================= -->
+<div data-route="/palvelut" hidden>
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Palvelut</span>
+        <h2>Maanrakennuspalvelut pääkaupunkiseudulla</h2>
+        <p>Teemme työt omalla kalustolla ja omalla henkilöstöllä. Alta löydät yleisimmät urakkamme — kysy rohkeasti myös muita töitä.</p>
+      </div>
+      <div class="grid-3">
+        <article class="scard">
+          <img src="kuvat/kaivuu.jpg" alt="Kaivinkone tekemässä talonpohjan kaivuutyötä.">
+          <div class="body">
+            <h3>Talonpohjat ja perustukset</h3>
+            <p>Puuston ja pintamaan poisto, kaivuu, massanvaihto, salaojasorat, murskekerrokset ja tiivistys. Pohja luovutetaan perustustöihin valmiina.</p>
+          </div>
+        </article>
+        <article class="scard">
+          <img src="kuvat/salaoja.jpg" alt="Pienkaivinkone talon seinustalla salaojatyömaalla.">
+          <div class="body">
+            <h3>Salaojat ja sadevedet</h3>
+            <p>Uudet salaojat, vanhan talon salaojaremontit, tarkastus- ja perusvesikaivot, routaeristeet sekä rännivesien johtaminen.</p>
+          </div>
+        </article>
+        <article class="scard">
+          <img src="kuvat/kiveys.jpg" alt="Kiveystyötä pihalla.">
+          <div class="body">
+            <h3>Pihat ja kiveykset</h3>
+            <p>Pihan muotoilu, betonikivi- ja luonnonkivipinnat, reunatuet, tukimuurit, nurmetus ja istutusalustat sekä asfaltointivalmius.</p>
+          </div>
+        </article>
+        <article class="scard">
+          <img src="kuvat/hero.jpg" alt="Kaivinkone ja porakone maansiirtotyömaalla.">
+          <div class="body">
+            <h3>Maansiirto ja massanvaihto</h3>
+            <p>Heikosti kantavan maan vaihto, täytöt, tontin tasaus ja esirakentaminen. Ylijäämämaat ajetaan asianmukaiseen vastaanottoon.</p>
+          </div>
+        </article>
+        <article class="scard">
+          <img src="kuvat/purku.jpg" alt="Pienkaivinkone purkutyössä rakennuksen sisätiloissa.">
+          <div class="body">
+            <h3>Purkutyöt</h3>
+            <p>Rakennusten, laattojen ja rakenteiden purku, materiaalien lajittelu ja poiskuljetus. Hoidamme myös tarvittavat ilmoitukset.</p>
+          </div>
+        </article>
+        <article class="scard">
+          <img src="kuvat/kone1.jpg" alt="Kaivinkone tontilla valmiina kuormaamaan.">
+          <div class="body">
+            <h3>Kuljetukset ja maa-ainekset</h3>
+            <p>Murskeen, sepelin, soran ja mullan toimitukset tontille sekä maa-ainesten poisajo. Myös yksittäiset kuormat.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="wrap intro">
+      <div>
+        <span class="eyebrow">Hinnoittelu</span>
+        <h2>Selkeä hinta, ei yllätyksiä laskulla.</h2>
+        <p>Pienet työt hoituvat tuntityönä, isommat urakat kiinteällä hinnalla. Käymme aina ensin katsomassa kohteen, jotta tarjous perustuu todelliseen tilanteeseen eikä arvaukseen.</p>
+        <p>Tarjous on kirjallinen ja eritelty: työ, koneet, materiaalit ja kuljetukset omina riveinään. Mahdollisista lisätöistä sovitaan kanssasi ennen kuin niitä tehdään.</p>
+        <p>Omakotitalon piha- ja maanrakennustöissä osa työn osuudesta on usein kotitalousvähennyskelpoista — kerromme mielellämme miten se käytännössä menee.</p>
+        <p style="margin-top:22px"><a class="btn btn-accent" href="#/yhteystiedot">Pyydä tarjous</a></p>
+      </div>
+      <figure>
+        <img src="kuvat/kiveys.jpg" alt="Kiveystyömaa, jossa kivet ja työkalut paikoillaan.">
+      </figure>
+    </div>
+  </section>
+</div>
+
+<!-- ================= TYÖMAAT ================= -->
+<div data-route="/tyomaat" hidden>
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Työmaat</span>
+        <h2>Tehtyjä töitä</h2>
+        <p>Otos siitä, millaisia kohteita hoidamme — pientalon salaojaremontista taloyhtiön pihan uusimiseen.</p>
+      </div>
+      <div class="grid-3">
+        <article class="ref">
+          <h3>Omakotitalon talonpohja</h3>
+          <p>Tontin raivaus, massanvaihto ja murskekerrokset perustustöitä varten. Pohja luovutettiin rakentajalle sovittuna päivänä.</p>
+          <p class="meta">Espoo, Nuuksio · 3 viikkoa</p>
+        </article>
+        <article class="ref">
+          <h3>Salaojaremontti, 1978 rakennettu talo</h3>
+          <p>Vanhat tukkeutuneet salaojat purettiin, sokkeli puhdistettiin ja vedeneristettiin, uudet salaojat ja tarkastuskaivot asennettiin. Piha ennallistettiin.</p>
+          <p class="meta">Vantaa, Kivistö · 2 viikkoa</p>
+        </article>
+        <article class="ref">
+          <h3>Taloyhtiön piha ja pysäköinti</h3>
+          <p>Pysäköintialueen pohjan korjaus, sadevesien uudelleenohjaus, kiveykset ja reunatuet. Työ vaiheistettiin niin, että puolet paikoista oli aina käytössä.</p>
+          <p class="meta">Espoo, Leppävaara · 6 viikkoa</p>
+        </article>
+        <article class="ref">
+          <h3>Rivitalon purku ja tontin tasaus</h3>
+          <p>Käytöstä poistetun rivitalon purku, materiaalien lajittelu ja kierrätys sekä tontin tasaus uudisrakentamista varten.</p>
+          <p class="meta">Espoo, Lahnus · 4 viikkoa</p>
+        </article>
+        <article class="ref">
+          <h3>Pihan uusiminen ja kiveys</h3>
+          <p>Vanhan asfaltin purku, pohjan korjaus, betonikiviset kulkuväylät ja autopaikka, reunatuet sekä nurmetus.</p>
+          <p class="meta">Helsinki, Pitäjänmäki · 3 viikkoa</p>
+        </article>
+        <article class="ref">
+          <h3>Rakennusliikkeen aliurakointi</h3>
+          <p>Kaivuutyöt ja massanvaihto usean kerrostalon työmaalla, pääurakoitsijan aikataulun mukaan vaiheittain.</p>
+          <p class="meta">Espoo, Kera · 5 kuukautta</p>
+        </article>
+      </div>
+      <p class="formnote" style="margin-top:26px">Demosivusto: kohteet ja kuvat korvataan oikeilla referensseillä ennen julkaisua.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ================= YHTEYSTIEDOT ================= -->
+<div data-route="/yhteystiedot" hidden>
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Yhteystiedot</span>
+        <h2>Pyydä tarjous</h2>
+        <p>Soita suoraan tai jätä yhteydenottopyyntö. Vastaamme arkisin saman päivän aikana, ja arviokäynti on aina ilmainen.</p>
+      </div>
+      <div class="contact">
+        <div class="info">
+          <dl>
+            <div><dt>Puhelin</dt><dd>040 772 7375</dd></div>
+            <div><dt>Sähköposti</dt><dd>mammi.henri@gmail.com</dd></div>
+            <div><dt>Yhteyshenkilö</dt><dd>Henri Mämmi</dd></div>
+            <div><dt>Osoite</dt><dd>Lahnuksentie 50<br>02970 Espoo</dd></div>
+            <div><dt>Toiminta-alue</dt><dd>Espoo, Vantaa, Helsinki, Kirkkonummi ja Kauniainen</dd></div>
+            <div><dt>Y-tunnus</dt><dd>2933165-5</dd></div>
+            <div><dt>Tavoitat meidät</dt><dd>ma–pe 7–18, la sopimuksen mukaan</dd></div>
+          </dl>
+        </div>
+
+        <form id="cf" novalidate>
+          <div class="row">
+            <div class="field">
+              <label for="f-name">Nimi</label>
+              <input id="f-name" name="name" type="text" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="f-phone">Puhelin</label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="f-email">Sähköposti</label>
+              <input id="f-email" name="email" type="email" autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="f-job">Mitä työtä tarvitset?</label>
+              <select id="f-job" name="job">
+                <option>Talonpohja tai perustukset</option>
+                <option>Salaojat ja sadevedet</option>
+                <option>Piha ja kiveykset</option>
+                <option>Maansiirto ja massanvaihto</option>
+                <option>Purkutyö</option>
+                <option>Kuljetus tai maa-ainestoimitus</option>
+                <option>Muu — kerron alla</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-msg">Kohde ja työn kuvaus</label>
+            <textarea id="f-msg" name="msg" placeholder="Esim. 1980-luvun omakotitalo Espoon Nuuksiossa, salaojat pitäisi uusia. Tontille pääsee koneella pihatietä pitkin."></textarea>
+          </div>
+          <button class="btn btn-accent" type="submit">Lähetä yhteydenottopyyntö</button>
+          <p class="formnote">Käytämme yhteystietoja vain tarjouksen tekemiseen emmekä luovuta niitä eteenpäin.</p>
+          <div id="cf-ok" class="ok" hidden></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h4>Espoon Maanrakennus Oy</h4>
+        <p>Maanrakennuksen kokonaisurakointi suunnittelusta viimeistelyyn. Espoossa vuodesta 2018.</p>
+      </div>
+      <div>
+        <h4>Yhteys</h4>
+        <ul>
+          <li>040 772 7375</li>
+          <li>mammi.henri@gmail.com</li>
+          <li>Lahnuksentie 50, 02970 Espoo</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Palvelut</h4>
+        <ul>
+          <li><a href="#/palvelut">Talonpohjat ja perustukset</a></li>
+          <li><a href="#/palvelut">Salaojat ja sadevedet</a></li>
+          <li><a href="#/palvelut">Pihat ja kiveykset</a></li>
+          <li><a href="#/palvelut">Purkutyöt ja kuljetukset</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sivut</h4>
+        <ul>
+          <li><a href="#/">Etusivu</a></li>
+          <li><a href="#/tyomaat">Työmaat</a></li>
+          <li><a href="#/yhteystiedot">Yhteystiedot</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>Y-tunnus 2933165-5 · ALV rek.</span>
+      <span>Tämä on <a href="https://pikasivut.com" style="color:var(--accent);font-weight:700;text-decoration:underline">Pikasivut.com</a>:n tekemä sivuehdotus Espoon Maanrakennus Oy:lle, ei yrityksen virallinen sivusto. Yritystiedot on koottu julkisista lähteistä. Työmaaesimerkit ovat kuvitteellisia.<br>Kuvat: arkistokuvia, eivät yrityksen omilta työmailta — W.carter (CC BY 4.0) · JIP, Matthew T Rader, Mathieu Kappler (CC BY-SA 4.0) · Andreas Schwarzkopf (CC BY-SA 3.0) · Kimmo Palosaari (CC BY 2.0) — <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var routes = Array.prototype.slice.call(document.querySelectorAll('[data-route]'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var titles = {
+    '/':'Espoon Maanrakennus',
+    '/palvelut':'Palvelut · Espoon Maanrakennus',
+    '/tyomaat':'Työmaat · Espoon Maanrakennus',
+    '/yhteystiedot':'Yhteystiedot · Espoon Maanrakennus'
+  };
+
+  function render(){
+    var hash = location.hash.replace(/^#/, '') || '/';
+    var found = routes.some(function(r){ return r.getAttribute('data-route') === hash; });
+    if(!found) hash = '/';
+    routes.forEach(function(r){ r.hidden = r.getAttribute('data-route') !== hash; });
+    links.forEach(function(a){
+      if(a.getAttribute('href').replace(/^#/, '') === hash) a.setAttribute('aria-current','page');
+      else a.removeAttribute('aria-current');
+    });
+    document.title = titles[hash] || 'Espoon Maanrakennus';
+  }
+  window.addEventListener('hashchange', function(){
+    render();
+    window.scrollTo({top:0, behavior:'auto'});
+  });
+  render();
+
+  var form = document.getElementById('cf');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = document.getElementById('f-name');
+      var phone = document.getElementById('f-phone');
+      var ok = document.getElementById('cf-ok');
+      ok.hidden = false;
+      if(!name.value.trim() || !phone.value.trim()){
+        ok.style.borderLeftColor = 'var(--accent)';
+        ok.textContent = 'Täytä nimi ja puhelinnumero, niin voimme soittaa takaisin.';
+        (!name.value.trim() ? name : phone).focus();
+        return;
+      }
+      ok.style.borderLeftColor = 'var(--green)';
+      ok.textContent = 'Kiitos, ' + name.value.trim().split(' ')[0] + '! Otamme yhteyttä numeroon ' + phone.value.trim() + ' seuraavana arkipäivänä. (Demosivusto: viestiä ei lähetetty oikeasti.)';
+      form.reset();
+    });
+  }
+})();
+</script>
+
+</body></html>
