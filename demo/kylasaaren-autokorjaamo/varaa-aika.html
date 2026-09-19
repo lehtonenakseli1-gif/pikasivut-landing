@@ -76,6 +76,9 @@ section{padding:52px 0}
 /* ---------- Lisätiedot ---------- */
 .lisatiedot-input{width:100%;min-height:90px;padding:14px 16px;background:var(--surface-2);border:1.5px solid var(--line);border-radius:10px;color:var(--text);font:inherit;font-size:15px;resize:vertical}
 .lisatiedot-input:focus{outline:none;border-color:var(--accent)}
+.lisatiedot-input.required{border-color:var(--accent)}
+.lisatiedot-error{display:none;margin-top:8px;color:var(--accent);font-size:13.5px;font-weight:600}
+.lisatiedot-error.active{display:block}
 
 /* ---------- Calendly ---------- */
 .calendly-section{margin-top:32px}
@@ -153,15 +156,16 @@ section{padding:52px 0}
         <button class="cat-btn" type="button" data-slug="vikadiagnostiikka">Vikadiagnostiikka <span class="arrow">→</span></button>
         <button class="cat-btn" type="button" data-slug="kori-maalaus">Kori- ja maalaustyö <span class="arrow">→</span></button>
         <button class="cat-btn" type="button" data-slug="muut">Muu huolto <span class="arrow">→</span></button>
-        <a class="cat-btn cat-btn-alt" href="tarjous.html">
+        <button class="cat-btn cat-btn-alt" type="button" data-slug="en-tieda">
           <strong>En tiedä tarkalleen mistä on kyse</strong>
-          <span>Kerro oireet omin sanoin lomakkeella →</span>
-        </a>
+          <span>Kerro oireet alla, niin näet vapaat ajat →</span>
+        </button>
       </div>
 
       <div class="lisatiedot-section">
-        <span class="step-label" style="margin-top:28px">2. Lisätietoja <span style="color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0">(valinnainen)</span></span>
+        <span class="step-label" style="margin-top:28px" id="lisatiedotLabel">2. Lisätietoja <span style="color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0">(valinnainen)</span></span>
         <textarea id="lisatiedotInput" class="lisatiedot-input" placeholder="Esim. auton merkki ja malli, tai mikä vaivaa"></textarea>
+        <span class="lisatiedot-error" id="lisatiedotError">Kerro lyhyesti mistä on kyse, niin näet vapaat ajat.</span>
       </div>
 
       <div class="calendly-section">
@@ -215,7 +219,16 @@ section{padding:52px 0}
     'vikadiagnostiikka': 'https://calendly.com/kylasaaren-autokorjaamo/vikadiagnostiikka',
     'kori-maalaus': 'https://calendly.com/kylasaaren-autokorjaamo/kori-maalaus',
     'muut': 'https://calendly.com/kylasaaren-autokorjaamo/muu-huolto',
+    // "En tiedä tarkalleen mistä on kyse" käyttää toistaiseksi samaa
+    // yleiskalenteria kuin "Muu huolto". Jos haluat sille oman
+    // tapahtumatyypin (esim. pidemmän, diagnoosia varten varatun ajan),
+    // tee se Calendlyssä ja vaihda osoite tähän.
+    'en-tieda': 'https://calendly.com/kylasaaren-autokorjaamo/muu-huolto',
   };
+
+  // Näille valinnoille lisätiedot-kenttä on pakollinen, koska kategoria
+  // itsessään ei kerro mistä autossa on kyse.
+  var REQUIRE_DETAILS = { 'en-tieda': true };
 
   var buttons = document.querySelectorAll('.cat-btn');
   var hint = document.getElementById('calendlyHint');
@@ -223,6 +236,8 @@ section{padding:52px 0}
   var widget = document.getElementById('calendlyWidget');
   var altLink = document.getElementById('altLink');
   var lisatiedotInput = document.getElementById('lisatiedotInput');
+  var lisatiedotLabel = document.getElementById('lisatiedotLabel');
+  var lisatiedotError = document.getElementById('lisatiedotError');
   var currentSlug = null;
 
   // HUOM Akselille: jotta lisätiedot-kenttä näkyy myös Calendly-varauksessa,
@@ -236,6 +251,23 @@ section{padding:52px 0}
     currentSlug = slug;
     buttons.forEach(function(b){ b.classList.toggle('active', b.dataset.slug === slug); });
     altLink.setAttribute('href', 'tarjous.html?palvelu=' + encodeURIComponent(slug));
+
+    var detailsRequired = !!REQUIRE_DETAILS[slug];
+    var hasDetails = !!lisatiedotInput.value.trim();
+    lisatiedotLabel.innerHTML = detailsRequired
+      ? '2. Lisätietoja <span style="color:var(--accent);font-weight:700;text-transform:none;letter-spacing:0">(pakollinen)</span>'
+      : '2. Lisätietoja <span style="color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0">(valinnainen)</span>';
+    lisatiedotInput.classList.toggle('required', detailsRequired && !hasDetails);
+
+    if (detailsRequired && !hasDetails) {
+      lisatiedotError.classList.add('active');
+      hint.style.display = 'block';
+      hint.textContent = 'Kerro ensin lyhyesti mistä on kyse yllä olevaan kenttään, niin näet vapaat ajat.';
+      wrap.classList.remove('active');
+      widget.innerHTML = '';
+      return;
+    }
+    lisatiedotError.classList.remove('active');
 
     hint.style.display = 'none';
     wrap.classList.add('active');
