@@ -73,6 +73,10 @@ section{padding:52px 0}
 .cat-btn-alt strong{display:block;color:var(--accent);font-size:15px}
 .cat-btn-alt span{display:block;margin-top:4px;color:var(--muted);font-size:13.5px;font-weight:500}
 
+/* ---------- Lisätiedot ---------- */
+.lisatiedot-input{width:100%;min-height:90px;padding:14px 16px;background:var(--surface-2);border:1.5px solid var(--line);border-radius:10px;color:var(--text);font:inherit;font-size:15px;resize:vertical}
+.lisatiedot-input:focus{outline:none;border-color:var(--accent)}
+
 /* ---------- Calendly ---------- */
 .calendly-section{margin-top:32px}
 .calendly-hint{padding:36px 24px;text-align:center;color:var(--muted);background:var(--surface);border:1.5px dashed var(--line);border-radius:14px}
@@ -155,8 +159,13 @@ section{padding:52px 0}
         </a>
       </div>
 
+      <div class="lisatiedot-section">
+        <span class="step-label" style="margin-top:28px">2. Lisätietoja <span style="color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0">(valinnainen)</span></span>
+        <textarea id="lisatiedotInput" class="lisatiedot-input" placeholder="Esim. auton merkki ja malli, tai mikä vaivaa"></textarea>
+      </div>
+
       <div class="calendly-section">
-        <span class="step-label" style="margin-top:8px">2. Valitse sopiva aika</span>
+        <span class="step-label" style="margin-top:8px">3. Valitse sopiva aika</span>
         <div class="calendly-hint" id="calendlyHint">Valitse ensin palvelu yllä, niin näet vapaat ajat.</div>
         <div class="calendly-wrap" id="calendlyWrap">
           <div id="calendlyWidget"></div>
@@ -213,11 +222,18 @@ section{padding:52px 0}
   var wrap = document.getElementById('calendlyWrap');
   var widget = document.getElementById('calendlyWidget');
   var altLink = document.getElementById('altLink');
+  var lisatiedotInput = document.getElementById('lisatiedotInput');
+  var currentSlug = null;
 
+  // HUOM Akselille: jotta lisätiedot-kenttä näkyy myös Calendly-varauksessa,
+  // lisää jokaiseen Calendly-tapahtumaan yksi mukautettu kysymys (esim.
+  // "Auton tiedot / lisätiedot") — se on silloin ensimmäinen kysymys ja
+  // täyttyy automaattisesti tästä kentästä (prefill.customAnswers.a1).
   function selectCategory(slug){
     var url = CALENDLY_URLS[slug];
     if (!url) return;
 
+    currentSlug = slug;
     buttons.forEach(function(b){ b.classList.toggle('active', b.dataset.slug === slug); });
     altLink.setAttribute('href', 'tarjous.html?palvelu=' + encodeURIComponent(slug));
 
@@ -226,7 +242,11 @@ section{padding:52px 0}
     widget.innerHTML = '';
 
     if (window.Calendly && window.Calendly.initInlineWidget) {
-      window.Calendly.initInlineWidget({ url: url, parentElement: widget });
+      window.Calendly.initInlineWidget({
+        url: url,
+        parentElement: widget,
+        prefill: { customAnswers: { a1: lisatiedotInput.value.trim() } },
+      });
     } else {
       // widget.js ei ole vielä latautunut tai Calendly-tiliä ei ole vielä tehty
       widget.innerHTML = '<p style="padding:24px;color:#333;background:#fff;font-family:inherit">Kalenteria ei juuri nyt voitu ladata.</p>';
@@ -235,6 +255,14 @@ section{padding:52px 0}
 
   buttons.forEach(function(btn){
     btn.addEventListener('click', function(){ selectCategory(btn.dataset.slug); });
+  });
+
+  var lisatiedotTimer;
+  lisatiedotInput.addEventListener('input', function(){
+    clearTimeout(lisatiedotTimer);
+    lisatiedotTimer = setTimeout(function(){
+      if (currentSlug) selectCategory(currentSlug);
+    }, 600);
   });
 
   var params = new URLSearchParams(window.location.search);
