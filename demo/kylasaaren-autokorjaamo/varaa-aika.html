@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Varaa aika — Kyläsaaren Autokorjaamo, Helsinki</title>
+<meta name="description" content="Varaa aika huoltoon tai korjaukseen Kyläsaaren Autokorjaamolta Helsingissä. Valitse palvelu ja sopiva aika suoraan kalenterista.">
+<meta name="theme-color" content="#0F1420">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230F1420'/><path d='M7 21c0-1 1-6 2-8s2-2 4-2h6c2 0 3 0 4 2s2 7 2 8v3H7v-3Z' fill='none' stroke='%23E8A33D' stroke-width='1.6'/><circle cx='11' cy='23' r='1.6' fill='%23E8A33D'/><circle cx='21' cy='23' r='1.6' fill='%23E8A33D'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1420; --surface:#161D2E; --surface-2:#1C2438; --text:#F4F6FB; --muted:#96A0BC;
+  --accent:#E8A33D; --accent-deep:#C4841F; --line:#29314A; --nav-h:64px; --pad:20px; --maxw:1120px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--muted);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.nav-open{overflow:hidden}
+h1,h2,h3{color:var(--text);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:0}
+h1{font-size:32px}h2{font-size:26px}h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
+p{margin:0}a{color:inherit}img{max-width:100%;display:block}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+section{padding:52px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--accent)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;border:1.5px solid transparent;border-radius:8px;font:inherit;font-size:15px;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer}
+.btn-primary{background:var(--accent);color:#171208}
+.btn-primary:hover{background:#f0b054}
+.btn-outline{background:transparent;border-color:rgba(245,246,247,.35);color:var(--text)}
+.btn-outline:hover{border-color:var(--text)}
+.btn-block{width:100%}
+.btn-lg{padding:16px 26px;font-size:16px}
+
+/* ---------- Nav ---------- */
+.nav{position:sticky;top:0;z-index:50;height:var(--nav-h);background:rgba(15,20,32,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%}
+.logo{display:flex;flex-direction:column;line-height:1.15;color:var(--text);font-weight:800;letter-spacing:-.01em;text-decoration:none}
+.logo span{font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.nav-links{display:none}
+.nav-links a{color:var(--muted);font-size:14.5px;font-weight:500;text-decoration:none}
+.nav-links a:hover{color:var(--text)}
+.nav-call{display:none;align-items:center;gap:8px;color:var(--text);font-weight:700;font-size:14.5px}
+.nav-quote{display:none}
+.nav-toggle{display:grid;place-items:center;width:40px;height:40px;margin-right:-8px;background:none;border:0;color:var(--text);cursor:pointer}
+.nav-menu{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:none;flex-direction:column;gap:4px;padding:22px var(--pad) 32px;background:var(--bg);border-top:1px solid var(--line)}
+.nav-menu.open{display:flex}
+.nav-menu a{padding:14px 0;border-bottom:1px solid var(--line);color:var(--text);font-size:17px;font-weight:600;text-decoration:none}
+.nav-menu .btn{margin-top:18px;border-bottom:0}
+
+/* ---------- Page header ---------- */
+.pagehead{border-bottom:1px solid var(--line);background:var(--surface)}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:12px}
+.crumb a{color:var(--accent);text-decoration:none;font-weight:600}
+.crumb a:hover{text-decoration:underline}
+.pagehead h1{font-size:28px}
+.pagehead p{margin-top:10px;max-width:56ch;color:var(--muted)}
+
+/* ---------- Category picker ---------- */
+.section-inner{max-width:720px;margin:0 auto}
+.step-label{display:block;margin-bottom:14px;color:var(--text);font-size:15px;font-weight:700}
+.cat-grid{display:grid;gap:12px}
+.cat-btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:18px;background:var(--surface-2);border:1.5px solid var(--line);border-radius:10px;color:var(--text);font:inherit;font-size:15px;font-weight:700;text-align:left;cursor:pointer}
+.cat-btn:hover{border-color:var(--accent)}
+.cat-btn.active{border-color:var(--accent);background:rgba(232,163,61,.1);color:var(--accent)}
+.cat-btn .arrow{color:var(--accent);font-weight:800;flex:none}
+.cat-btn-alt{display:block;text-decoration:none;background:transparent;border-style:dashed;border-color:rgba(232,163,61,.45)}
+.cat-btn-alt:hover{background:rgba(232,163,61,.06);border-color:var(--accent)}
+.cat-btn-alt strong{display:block;color:var(--accent);font-size:15px}
+.cat-btn-alt span{display:block;margin-top:4px;color:var(--muted);font-size:13.5px;font-weight:500}
+
+/* ---------- Calendly ---------- */
+.calendly-section{margin-top:32px}
+.calendly-hint{padding:36px 24px;text-align:center;color:var(--muted);background:var(--surface);border:1.5px dashed var(--line);border-radius:14px}
+.calendly-wrap{display:none;margin-top:8px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.calendly-wrap.active{display:block}
+#calendlyWidget{min-width:280px;height:700px}
+
+.alt-link{display:block;margin-top:28px;text-align:center;font-size:14px;color:var(--muted)}
+.alt-link a{color:var(--accent);font-weight:700;text-decoration:underline}
+
+/* ---------- Footer ---------- */
+.foot{padding:32px 0;border-top:1px solid var(--line);font-size:13.5px}
+.foot strong{display:block;color:var(--text);font-size:14.5px;margin-bottom:4px}
+.demo{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);font-size:12px;color:#6C7580}
+.phone-plain{display:inline-flex;align-items:center;gap:8px;color:var(--text);font-weight:700;font-size:15px;margin-top:14px}
+
+@media (min-width:700px){
+  :root{--pad:32px}
+  h1{font-size:42px}h2{font-size:30px}
+  section{padding:72px 0}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:960px){
+  .nav-toggle,.nav-menu{display:none!important}
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-call{display:inline-flex}
+  .nav-quote{display:inline-flex}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html#top">Kyläsaaren Autokorjaamo<span>Helsinki</span></a>
+    <nav class="nav-links" aria-label="Päävalikko">
+      <a href="index.html#palvelut">Palvelut</a>
+      <a href="index.html#kokemukset">Arvostelut</a>
+      <a href="index.html#yhteystiedot">Yhteystiedot</a>
+    </nav>
+    <span class="nav-call">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+      044 961 0348
+    </span>
+    <a class="btn btn-primary btn-sm nav-quote" href="varaa-aika.html">Varaa aika</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Avaa valikko" aria-expanded="false" aria-controls="navMenu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div class="nav-menu" id="navMenu">
+    <a href="index.html#palvelut">Palvelut</a>
+    <a href="index.html#kokemukset">Arvostelut</a>
+    <a href="index.html#yhteystiedot">Yhteystiedot</a>
+    <a class="btn btn-primary btn-block" href="varaa-aika.html">Varaa aika</a>
+  </div>
+</header>
+
+<main>
+  <section class="pagehead" style="padding:36px 0">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html#top">← Etusivulle</a></div>
+      <span class="eyebrow">Ajanvaraus</span>
+      <h1>Varaa aika</h1>
+      <p>Valitse ensin mistä on kyse, ja saat suoraan näkyviin vapaat ajat kalenterista.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap section-inner">
+      <span class="step-label">1. Mistä on kyse?</span>
+      <div class="cat-grid" id="catGrid">
+        <button class="cat-btn" type="button" data-slug="maaraaikaishuollot">Määräaikaishuolto <span class="arrow">→</span></button>
+        <button class="cat-btn" type="button" data-slug="moottori-vaihteisto">Moottori- ja vaihteistokorjaus <span class="arrow">→</span></button>
+        <button class="cat-btn" type="button" data-slug="vikadiagnostiikka">Vikadiagnostiikka <span class="arrow">→</span></button>
+        <button class="cat-btn" type="button" data-slug="kori-maalaus">Kori- ja maalaustyö <span class="arrow">→</span></button>
+        <button class="cat-btn" type="button" data-slug="muut">Muu huolto <span class="arrow">→</span></button>
+        <a class="cat-btn cat-btn-alt" href="tarjous.html">
+          <strong>En tiedä tarkalleen mistä on kyse</strong>
+          <span>Kerro oireet omin sanoin lomakkeella →</span>
+        </a>
+      </div>
+
+      <div class="calendly-section">
+        <span class="step-label" style="margin-top:8px">2. Valitse sopiva aika</span>
+        <div class="calendly-hint" id="calendlyHint">Valitse ensin palvelu yllä, niin näet vapaat ajat.</div>
+        <div class="calendly-wrap" id="calendlyWrap">
+          <div id="calendlyWidget"></div>
+        </div>
+      </div>
+
+      <span class="alt-link">
+        Haluatko sen sijaan täyttää tarkemmat auton tiedot lomakkeella?
+        <a id="altLink" href="tarjous.html">Täytä tarjouslomake →</a>
+      </span>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <strong>Kyläsaaren Autokorjaamo Oy</strong>
+    Y-tunnus 3626234-4 · Kyläsaarenkatu 7 B, 00580 Helsinki<br>
+    Puh. 044 961 0348 · Ma–Pe 8–17
+    <div class="demo">
+      Tämä on <a href="https://pikasivut.com" style="color:var(--accent);font-weight:700;text-decoration:underline">Pikasivut.com</a>:n tekemä sivuehdotus Kyläsaaren Autokorjaamo Oy:lle, ei yrityksen virallinen sivusto.
+    </div>
+  </div>
+</footer>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+(function(){
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('navMenu');
+  function closeMenu(){menu.classList.remove('open');toggle.setAttribute('aria-expanded','false');document.body.classList.remove('nav-open')}
+  toggle.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-open', open);
+  });
+  menu.addEventListener('click', function(e){ if(e.target.closest('a')) closeMenu(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
+
+  // HUOM Akselille: nämä Calendly-linkit ovat placeholdereita. Kun olet
+  // luonut oman Calendly-tilin ja tehnyt yhden tapahtumatyypin per palvelu,
+  // korvaa alla olevat osoitteet oikeilla (Calendly antaa jokaiselle
+  // tapahtumalle oman linkin, esim. https://calendly.com/oma-tunnus/tapahtuma).
+  var CALENDLY_URLS = {
+    'maaraaikaishuollot': 'https://calendly.com/kylasaaren-autokorjaamo/maaraaikaishuollot',
+    'moottori-vaihteisto': 'https://calendly.com/kylasaaren-autokorjaamo/moottori-vaihteisto',
+    'vikadiagnostiikka': 'https://calendly.com/kylasaaren-autokorjaamo/vikadiagnostiikka',
+    'kori-maalaus': 'https://calendly.com/kylasaaren-autokorjaamo/kori-maalaus',
+    'muut': 'https://calendly.com/kylasaaren-autokorjaamo/muu-huolto',
+  };
+
+  var buttons = document.querySelectorAll('.cat-btn');
+  var hint = document.getElementById('calendlyHint');
+  var wrap = document.getElementById('calendlyWrap');
+  var widget = document.getElementById('calendlyWidget');
+  var altLink = document.getElementById('altLink');
+
+  function selectCategory(slug){
+    var url = CALENDLY_URLS[slug];
+    if (!url) return;
+
+    buttons.forEach(function(b){ b.classList.toggle('active', b.dataset.slug === slug); });
+    altLink.setAttribute('href', 'tarjous.html?palvelu=' + encodeURIComponent(slug));
+
+    hint.style.display = 'none';
+    wrap.classList.add('active');
+    widget.innerHTML = '';
+
+    if (window.Calendly && window.Calendly.initInlineWidget) {
+      window.Calendly.initInlineWidget({ url: url, parentElement: widget });
+    } else {
+      // widget.js ei ole vielä latautunut tai Calendly-tiliä ei ole vielä tehty
+      widget.innerHTML = '<p style="padding:24px;color:#333;background:#fff;font-family:inherit">Kalenteria ei juuri nyt voitu ladata.</p>';
+    }
+  }
+
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){ selectCategory(btn.dataset.slug); });
+  });
+
+  var params = new URLSearchParams(window.location.search);
+  var pre = params.get('palvelu');
+  if (pre && CALENDLY_URLS[pre]) {
+    // Odotetaan että widget.js ehtii latautua ennen esivalintaa.
+    var tries = 0;
+    var wait = setInterval(function(){
+      tries++;
+      if (window.Calendly || tries > 40) {
+        clearInterval(wait);
+        selectCategory(pre);
+      }
+    }, 100);
+  }
+})();
+</script>
+</body>
+</html>
