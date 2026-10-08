@@ -25,8 +25,6 @@
   --accent:var(--blue);
   --display:'Bricolage Grotesque',ui-sans-serif,system-ui,sans-serif;
   --body:'Figtree',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
-  --term-bg:#0b0f0c;
-  --amber:#ffb000;
   --mono:'DM Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   --shadow:0 14px 40px rgba(26,63,209,.10);
 }
@@ -314,79 +312,84 @@ html[lang="en"] .callout::before{content:"Featured snippet";}
 .final-cta .cta-small{font-size:14px;margin:20px auto 0;}
 .email-text{font-family:var(--mono);color:var(--ink);user-select:all;}
 
-/* ===== KIOSKI: pyörivä tarra ===== */
+/* ===== PYÖRIVÄ TARRA ===== */
 .page-hero{position:relative;}
 .page-hero.has-sticker{padding-right:210px;}
-.sticker{position:absolute;right:0;top:24px;width:170px;height:170px;transform:rotate(8deg);}
+.sticker{position:absolute;right:0;top:24px;width:170px;height:170px;transform:rotate(8deg);filter:drop-shadow(0 12px 24px rgba(26,63,209,.25));}
 .sticker svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 16s linear infinite;}
-.sticker .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--marker);font-family:var(--display);font-weight:800;text-align:center;line-height:1;}
-.sticker .center b{font-size:36px;letter-spacing:-.03em;}
-.sticker .center small{font-size:11px;letter-spacing:.12em;margin:4px 0;}
+.sticker .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-family:var(--display);font-weight:800;text-align:center;line-height:1;}
+.sticker .center b{font-size:36px;letter-spacing:-.03em;color:var(--marker);}
+.sticker .center small{font-size:11px;letter-spacing:.12em;margin:4px 0;font-family:var(--body);font-weight:700;}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ===== KIOSKI: ristikkäiset teipit ===== */
+/* ===== RISTIKKÄISET NAUHAT ===== */
 .tapes{position:relative;height:180px;margin:6px calc(50% - 50vw) 10px;overflow:hidden;}
-.tape{position:absolute;left:-5%;right:-5%;padding:12px 0;font-family:var(--display);font-weight:800;font-size:24px;text-transform:uppercase;letter-spacing:-.01em;overflow:hidden;white-space:nowrap;}
-.tape-a{top:36px;transform:rotate(-3deg);background:var(--ink);color:var(--marker);}
+.tape{position:absolute;left:-5%;right:-5%;padding:12px 0;font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.02em;overflow:hidden;white-space:nowrap;box-shadow:0 10px 24px rgba(20,30,80,.12);}
+.tape-a{top:36px;transform:rotate(-3deg);background:var(--blue);color:#fff;}
 .tape-b{top:96px;transform:rotate(2.5deg);background:var(--marker);color:var(--ink);}
 .tape .run{display:inline-flex;gap:34px;animation:tick 28s linear infinite;}
+.tape-a span::after,.tape-b span::after{content:"";}
 .tape-b .run{animation-direction:reverse;animation-duration:34s;}
 
-/* ===== HUUTOKAUPPA: klikkihintanauha ===== */
-.cpc-ticker{background:var(--term-bg);color:#e8e2d0;font-family:var(--mono);font-size:13.5px;padding:12px 0;overflow:hidden;margin:10px calc(50% - 50vw) 0;}
-.cpc-ticker .run{display:flex;gap:44px;width:max-content;animation:tick 36s linear infinite;}
-.cpc-ticker b{color:var(--amber);font-weight:500;}
-.cpc-ticker .up{color:#39d98a;} .cpc-ticker .down{color:#ff6b6b;}
-.cpc-ticker .tag{color:#8b8a7c;}
+/* ===== KLIKKIHINTANAUHA (sama tyyli kuin etusivun nauha) ===== */
+.cpc-ticker{background:var(--ink);color:#fff;font-family:var(--mono);font-size:14px;padding:14px 0;overflow:hidden;margin:10px calc(50% - 50vw) 0;}
+.cpc-ticker .run{display:flex;gap:12px;width:max-content;animation:tick 40s linear infinite;}
+.cpc-ticker .run > span{border:1px solid #3a3d48;border-radius:100px;padding:6px 14px;white-space:nowrap;}
+.cpc-ticker b{color:var(--marker);font-weight:500;}
+.cpc-ticker .up{color:#5fd99a;} .cpc-ticker .down{color:#ff8a80;}
+.cpc-ticker .run > .tag{border:0;color:var(--marker);padding-left:24px;}
 
-/* ===== HUUTOKAUPPA: budjettilaskuri ===== */
-.calc{background:var(--term-bg);color:#e8e2d0;border-radius:24px;padding:28px;margin:30px 0;font-family:var(--mono);}
-.calc h3{font-family:var(--display);color:#fff;font-size:24px;margin:0 0 4px;letter-spacing:-.02em;}
-.calc .calc-note{font-size:12.5px;color:#8b8a7c;margin:0 0 22px;line-height:1.5;}
-.calc-row{display:grid;grid-template-columns:190px minmax(0,1fr) 96px;gap:14px;align-items:center;margin-bottom:12px;font-size:14px;}
-.calc input[type=range]{width:100%;accent-color:var(--amber);}
-.calc output{color:var(--amber);text-align:right;font-weight:500;font-variant-numeric:tabular-nums;}
-.calc-out{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#2a2f26;border:1px solid #2a2f26;margin-top:20px;}
-.calc-out div{background:#0f130f;padding:14px 16px;}
-.calc-out span{display:block;font-size:11.5px;color:#8b8a7c;}
-.calc-out strong{font-family:var(--display);font-size:30px;color:#fff;font-weight:800;font-variant-numeric:tabular-nums;}
-.calc-out .pkg strong{color:var(--amber);}
-.calc-bars{display:flex;align-items:flex-end;gap:5px;height:80px;margin-top:18px;}
-.calc-bars i{flex:1;background:#3a3020;transition:height .5s cubic-bezier(.2,.8,.2,1),background .3s;}
-.calc-bars i.on{background:var(--amber);box-shadow:0 0 12px rgba(255,176,0,.5);}
+/* ===== BUDJETTILASKURI ===== */
+.calc{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;margin:30px 0;box-shadow:var(--shadow);}
+.calc h3{font-family:var(--display);font-size:24px;margin:0 0 4px;letter-spacing:-.02em;}
+.calc .calc-note{font-size:13.5px;color:var(--ink-soft);margin:0 0 22px;line-height:1.5;}
+.calc-row{display:grid;grid-template-columns:200px minmax(0,1fr) 96px;gap:14px;align-items:center;margin-bottom:14px;font-size:15px;}
+.calc input[type=range]{width:100%;accent-color:var(--blue);}
+.calc output{font-family:var(--mono);color:var(--blue);text-align:right;font-weight:500;font-variant-numeric:tabular-nums;}
+.calc-out{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:22px;}
+.calc-out div{background:var(--bg-alt);border-radius:14px;padding:14px 16px;}
+.calc-out span{display:block;font-size:12.5px;color:var(--ink-soft);}
+.calc-out strong{font-family:var(--display);font-size:30px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+.calc-out .pkg{background:var(--marker);}
+.calc-out .pkg span{color:var(--ink);}
+.calc-bars{display:flex;align-items:flex-end;gap:5px;height:80px;margin-top:20px;}
+.calc-bars i{flex:1;border-radius:6px 6px 2px 2px;background:#dfe3ee;transition:height .5s cubic-bezier(.2,.8,.2,1),background .3s;}
+.calc-bars i.on{background:var(--blue);}
+.calc-bars i.on:nth-child(4n+2){background:var(--red);} .calc-bars i.on:nth-child(4n+3){background:var(--yellow);} .calc-bars i.on:nth-child(4n){background:var(--green);}
 
-/* ===== HUUTOKAUPPA: hakutermitaulu ===== */
-.orderbook{background:var(--term-bg);color:#e8e2d0;font-family:var(--mono);border-radius:20px;overflow:hidden;margin:24px 0;font-size:13.5px;}
-.ob-head,.ob-row{display:grid;grid-template-columns:minmax(0,1fr) 90px 100px;gap:10px;padding:11px 18px;}
-.ob-head{color:#8b8a7c;font-size:11.5px;border-bottom:1px solid #2a2f26;}
-.ob-row{border-bottom:1px solid #1b1f19;animation:obflash 6s ease-in-out infinite;}
-.ob-row span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+/* ===== HAKUTERMITAULU (auditointi) ===== */
+.orderbook{border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:24px 0;font-size:14.5px;background:var(--card);box-shadow:var(--shadow);}
+.ob-head,.ob-row{display:grid;grid-template-columns:minmax(0,1fr) 90px 110px;gap:10px;padding:11px 20px;align-items:center;}
+.ob-head{color:var(--ink-soft);font-size:12px;border-bottom:1px solid var(--line);background:var(--bg-alt);}
+.ob-row{border-bottom:1px solid var(--line);animation:obflash 6s ease-in-out infinite;}
+.ob-row span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--blue);}
 .ob-head span:not(:first-child),.ob-row span:not(:first-child){text-align:right;}
-.ob-row .win{color:#39d98a;} .ob-row .blocked{color:#ff6b6b;}
-.ob-cap{padding:10px 18px;color:#8b8a7c;font-size:11.5px;}
-@keyframes obflash{0%,80%,100%{background:transparent}86%{background:rgba(255,176,0,.16)}}
+.ob-row span:nth-child(2){font-family:var(--mono);color:var(--ink-soft);}
+.ob-row .win,.ob-row .blocked{justify-self:end;font-size:12px;font-weight:700;border-radius:100px;padding:3px 10px;}
+.ob-row .win{background:#e6f4ea;color:#137333;} .ob-row .blocked{background:#fce8e6;color:#c5221f;}
+.ob-cap{padding:10px 20px;color:var(--ink-soft);font-size:12.5px;}
+@keyframes obflash{0%,80%,100%{background:transparent}86%{background:#fff8d6}}
 
 /* ===== SUODATIN: klikkaukset → asiakkaat ===== */
-.funnel{position:relative;height:420px;background:#081236;border-radius:24px;overflow:hidden;margin:26px 0;color:#e9edf8;font-family:var(--mono);}
-.f-dot{position:absolute;top:0;width:9px;height:9px;border-radius:50%;background:#5d6a93;opacity:0;animation-iteration-count:infinite;animation-timing-function:cubic-bezier(.45,0,.55,1);}
+.funnel{position:relative;height:420px;background:var(--bg-alt);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin:26px 0;font-family:var(--mono);}
+.f-dot{position:absolute;top:0;width:10px;height:10px;border-radius:50%;background:#b9bfcf;opacity:0;animation-iteration-count:infinite;animation-timing-function:cubic-bezier(.45,0,.55,1);}
 .f-pass{animation-name:fpass;} .f-block{animation-name:fblock;}
-@keyframes fpass{0%{transform:translateY(20px);opacity:0;background:#5d6a93}6%{opacity:1}46%{transform:translateY(200px);background:#5d6a93;box-shadow:none}52%{background:#4f8cff;box-shadow:0 0 14px 4px rgba(79,140,255,.75)}100%{transform:translateY(350px);background:#4f8cff;box-shadow:0 0 14px 4px rgba(79,140,255,.75);opacity:1}}
-@keyframes fblock{0%{transform:translateY(20px);opacity:0}6%{opacity:.9}46%{transform:translateY(200px);opacity:.9}70%,100%{transform:translate(var(--dx),220px);opacity:0}}
-.f-line{position:absolute;left:22px;right:22px;top:212px;height:3px;background:#4f8cff;box-shadow:0 0 18px 3px rgba(79,140,255,.7);border-radius:3px;animation:zap 1.6s ease-in-out infinite;}
-@keyframes zap{0%,100%{opacity:.55}50%{opacity:1}}
-.f-labels{position:absolute;left:22px;right:22px;top:224px;display:flex;justify-content:space-between;font-size:11px;color:#7fb0ff;gap:8px;}
-.f-top{position:absolute;left:20px;top:14px;font-size:12px;color:#7a86ad;}
-.f-bottom{position:absolute;left:22px;right:22px;bottom:14px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px dashed #2a3b7a;padding-top:10px;font-size:12px;color:#7fb0ff;}
-.f-bottom b{font-family:var(--display);font-size:30px;color:#4f8cff;}
+@keyframes fpass{0%{transform:translateY(20px);opacity:0;background:#b9bfcf}6%{opacity:1}46%{transform:translateY(200px);background:#b9bfcf;box-shadow:none}52%{background:#1a3fd1;box-shadow:0 0 0 5px rgba(26,63,209,.18)}100%{transform:translateY(350px);background:#1a3fd1;box-shadow:0 0 0 5px rgba(26,63,209,.18);opacity:1}}
+@keyframes fblock{0%{transform:translateY(20px);opacity:0}6%{opacity:1}46%{transform:translateY(200px);opacity:1}70%,100%{transform:translate(var(--dx),220px);opacity:0}}
+.f-line{position:absolute;left:22px;right:22px;top:212px;height:5px;border-radius:5px;background:linear-gradient(90deg,var(--blue) 0 25%,var(--red) 25% 50%,var(--yellow) 50% 75%,var(--green) 75%);}
+.f-labels{position:absolute;left:22px;right:22px;top:226px;display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-soft);gap:8px;}
+.f-top{position:absolute;left:20px;top:14px;font-size:12px;color:var(--ink-soft);}
+.f-bottom{position:absolute;left:22px;right:22px;bottom:14px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px dashed #c9cede;padding-top:10px;font-size:12px;color:var(--ink-soft);}
+.f-bottom b{font-family:var(--display);font-size:32px;color:var(--blue);}
 
-/* ===== HUUTOKAUPPA: tapahtumaterminaali ===== */
-.terminal{background:var(--term-bg);border-radius:18px;margin:26px 0;overflow:hidden;font-family:var(--mono);font-size:13px;}
-.terminal-bar{display:flex;gap:7px;padding:12px 14px;border-bottom:1px solid #22261f;color:#8b8a7c;font-size:12px;align-items:center;}
-.terminal-bar i{width:11px;height:11px;border-radius:50%;background:#ff5f57;}
-.terminal-bar i:nth-child(2){background:#febc2e;} .terminal-bar i:nth-child(3){background:#28c840;margin-right:8px;}
-.terminal-body{padding:14px 16px;height:236px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;color:#cfd3c4;}
+/* ===== KONVERSIOLOKI ===== */
+.terminal{background:var(--card);border:1px solid var(--line);border-radius:18px;margin:26px 0;overflow:hidden;font-family:var(--mono);font-size:13px;box-shadow:var(--shadow);}
+.terminal-bar{display:flex;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--ink-soft);font-size:12px;align-items:center;background:var(--bg-alt);}
+.terminal-bar i{width:10px;height:10px;border-radius:50%;background:var(--blue);}
+.terminal-bar i:nth-child(2){background:var(--red);} .terminal-bar i:nth-child(3){background:var(--yellow);margin-right:8px;}
+.terminal-body{padding:14px 16px;height:236px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;color:var(--ink);}
 .terminal-body div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:slidein .3s ease;}
-.terminal-body .t{color:#6f7266;} .terminal-body .ev{color:var(--amber);} .terminal-body .ok{color:#39d98a;} .terminal-body .dup{color:#ff6b6b;}
+.terminal-body .t{color:#9a9eab;} .terminal-body .ev{color:var(--blue);} .terminal-body .ok{color:#137333;} .terminal-body .dup{color:#c5221f;}
 @keyframes slidein{from{opacity:0;transform:translateY(8px)}}
 
 /* ===== ITSETARKISTUS ===== */
