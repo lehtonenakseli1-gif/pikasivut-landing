@@ -291,50 +291,33 @@
     upd();
   });
 
-  /* ---------- negatiivipeli ---------- */
-  document.querySelectorAll('[data-blockgame]').forEach(function (game) {
-    var btns = game.querySelectorAll('.bg-grid button'), score = game.querySelector('[data-score]'), msg = game.querySelector('.bg-msg');
-    btns.forEach(function (b) {
-      b.setAttribute('aria-pressed', 'false');
-      b.addEventListener('click', function () {
-        b.classList.toggle('blocked');
-        b.classList.remove('miss', 'wrong');
-        b.setAttribute('aria-pressed', b.classList.contains('blocked'));
-        score.textContent = game.querySelectorAll('.blocked').length;
+  /* ---------- hakutermiraportti: valitse negatiiviset ---------- */
+  document.querySelectorAll('[data-blockgame]').forEach(function (rep) {
+    var boxes = rep.querySelectorAll('input[type=checkbox]'), score = rep.querySelector('[data-score]'), msg = rep.querySelector('.st-msg');
+    boxes.forEach(function (b) {
+      b.addEventListener('change', function () {
+        b.closest('.st-row').classList.remove('miss', 'wrong', 'right');
+        score.textContent = rep.querySelectorAll('input:checked').length;
       });
     });
-    game.querySelector('[data-check]').addEventListener('click', function () {
-      var right = 0;
-      btns.forEach(function (b) {
-        var bad = b.dataset.bad === '1', blocked = b.classList.contains('blocked');
-        b.classList.toggle('miss', bad && !blocked);
-        b.classList.toggle('wrong', !bad && blocked);
-        if (bad === blocked) right++;
+    rep.querySelector('[data-check]').addEventListener('click', function () {
+      var right = 0, saved = 0;
+      boxes.forEach(function (b) {
+        var row = b.closest('.st-row'), bad = b.dataset.bad === '1';
+        row.classList.toggle('miss', bad && !b.checked);
+        row.classList.toggle('wrong', !bad && b.checked);
+        row.classList.toggle('right', bad && b.checked);
+        if (bad === b.checked) right++;
+        if (bad && b.checked) {
+          var nums = row.querySelectorAll('.st-num');
+          saved += parseInt(nums[0].textContent, 10) * parseFloat(nums[1].textContent.replace(',', '.'));
+        }
       });
-      msg.textContent = right === btns.length ? 'PERFECT! ' + right + '/' + btns.length + ' · BUDJETTI PELASTETTU'
-        : right + '/' + btns.length + ' OIKEIN · KELTAINEN = JÄI BLOKKAAMATTA, TURKOOSI = HYVÄ HAKU BLOKATTU';
+      msg.textContent = right === boxes.length
+        ? 'Kaikki oikein. Säästit tässä esimerkissä noin ' + Math.round(saved) + ' € kuukaudessa hauista, joista ei olisi tullut asiakkaita.'
+        : right + '/' + boxes.length + ' oikein. Keltaiset jäivät vielä negatiivisiksi lisäämättä, punaiset ovat hyviä hakuja, joita ei kannata estää.';
     });
   });
-
-  /* ---------- XP-palkki oppaissa ---------- */
-  var art = document.querySelector('[data-xp]');
-  if (art) {
-    var xp = document.createElement('div');
-    xp.className = 'xp';
-    xp.setAttribute('aria-hidden', 'true');
-    xp.innerHTML = '<span class="xp-label">XP 0%</span><span class="xp-bar"><i></i></span>';
-    document.body.appendChild(xp);
-    var lbl = xp.querySelector('.xp-label'), fill = xp.querySelector('i'), done = false;
-    function xpUpd() {
-      var r = art.getBoundingClientRect();
-      var p = Math.max(0, Math.min(1, (innerHeight - r.top) / (r.height + innerHeight * 0.2)));
-      fill.style.width = (p * 100) + '%';
-      if (p >= 0.98 && !done) { done = true; lbl.textContent = 'LEVEL UP!'; xp.classList.add('levelup'); }
-      else if (!done) lbl.textContent = 'XP ' + Math.round(p * 100) + '%';
-    }
-    addEventListener('scroll', xpUpd, { passive: true });
-    xpUpd();
-  }
 
   /* ---------- välilehden otsikko, kun käyttäjä lähtee ---------- */
   var origTitle = document.title;

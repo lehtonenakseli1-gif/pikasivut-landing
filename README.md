@@ -9,7 +9,7 @@ Pelkkä HTML + CSS + vanilla JS. Tekstit me-muodossa (yritys, ei minä), eikä p
 | --- | --- |
 | `index.html` | Etusivu: nav, hero, palvelut, vaiheet, yhteydenotto |
 | `site.css` | Koko sivuston tyylit (Hakukenttä-teema). Kaikki sivut käyttävät tätä |
-| `site.js` | Liikkuvat osat: kirjoittava hakukenttä, hakupillerit, korostuskynä, kallistuvat kortit, +1 klikkaus, hiiren väripisteet, Kokeilen onneani, tynnyrikierre (logo 5× tai haku "barrel roll"). Alasivuilla: budjettilaskuri ja klikkihintanauha (hinta), suodatin ja hakutermitaulu (auditointi), pyörivät tarrat ja teipit (toimialat), itsetarkistus, negatiivipeli, konversioterminaali ja XP-palkki (oppaat), GAME OVER (404) |
+| `site.js` | Liikkuvat osat: kirjoittava hakukenttä, hakupillerit, korostuskynä, kallistuvat kortit, +1 klikkaus, hiiren väripisteet, Kokeilen onneani, tynnyrikierre (logo 5× tai haku "barrel roll"). Alasivuilla: budjettilaskuri ja klikkihintanauha (hinta), suodatin ja hakutermitaulu (auditointi), pyörivät tarrat ja teipit (toimialat), itsetarkistus, hakutermiraportti jossa valitaan negatiiviset, konversioterminaali (oppaat) |
 | `fonts/` | Itse hostatut fontit: Bricolage Grotesque, Figtree, DM Mono |
 | `google-ads-hinta/` | Hinnasto: Perus 300, Kasvu 500, Kattava 750 €/kk, mainosbudjetti vähintään 1 000 €/kk |
 | `google-ads-auditointi/` | Google Ads -tilin auditointi |

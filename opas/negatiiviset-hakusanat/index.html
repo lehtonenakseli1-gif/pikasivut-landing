@@ -97,7 +97,7 @@
       <p class="lead">Negatiivinen hakusana kertoo Googlelle, millä hauilla mainoksesi ei saa näkyä. Se on yksi halvimmista ja nopeimmista tavoista saada samalla budjetilla enemmän yhteydenottoja.</p>
     </div>
 
-    <article class="article" data-xp>
+    <article class="article">
       <h2>Mikä on negatiivinen hakusana?</h2>
       <p>Tavallinen hakusana kertoo, millä hauilla haluat näkyä. Negatiivinen hakusana kertoo päinvastaisen: jos haku sisältää tämän sanan, mainosta ei näytetä. Jos esimerkiksi lisäät negatiiviseksi sanan "työpaikat", mainoksesi ei näy hauilla kuten "siivooja työpaikat helsinki".</p>
 
@@ -112,25 +112,22 @@
         <li><strong>Palvelut, joita et myy:</strong> esimerkiksi siivousyritys, joka ei tee yrityssiivousta, sulkee pois sanat toimisto ja yrityssiivous</li>
         <li><strong>Alueet, joita et palvele:</strong> muiden kaupunkien nimet, jos mainos muuten näkyisi niillä</li>
       </ul>
-      <div class="arcade" data-blockgame>
-        <h3>MINIPELI: BLOKKAA HUKKAHAUT</h3>
-        <p class="a-note">Olet siivousyritys. Klikkaa hakuja, joista ei ikinä tulisi asiakasta, ja paina Tarkista.</p>
-        <div class="bg-grid">
-          <button type="button" data-bad="1">siivooja työpaikat</button>
-          <button type="button" data-bad="0">kotisiivous helsinki</button>
-          <button type="button" data-bad="1">siivous itse ohje</button>
-          <button type="button" data-bad="0">muuttosiivous hinta</button>
-          <button type="button" data-bad="1">ilmainen siivous</button>
-          <button type="button" data-bad="1">siivousaineet tori</button>
-          <button type="button" data-bad="0">ikkunanpesu kotitalousvähennys</button>
-          <button type="button" data-bad="0">siivouspalvelu kotiin</button>
-          <button type="button" data-bad="1">siivoojan palkka</button>
-          <button type="button" data-bad="0">loppusiivous vuokra-asunto</button>
-          <button type="button" data-bad="1">siivous youtube</button>
-          <button type="button" data-bad="0">kotisiivous hinta</button>
-        </div>
-        <div class="bg-hud"><span>BLOKATTU: <span data-score>0</span></span><button type="button" data-check>TARKISTA ▶</button></div>
-        <p class="bg-msg" aria-live="polite"></p>
+      <div class="st-report" data-blockgame>
+        <div class="st-top"><strong>Hakutermit</strong><span>Esimerkki: siivousyritys · viimeiset 30 päivää</span></div>
+        <p class="st-note">Kokeile itse: valitse haut, jotka lisäisit negatiivisiksi hakusanoiksi, ja paina Tarkista.</p>
+        <div class="st-head"><span></span><span>Hakutermi</span><span class="st-num">Klikit</span><span class="st-num">Klikin hinta</span></div>
+          <label class="st-row"><input type="checkbox" data-bad="1"><span class="st-term">siivooja työpaikat</span><span class="st-num">14</span><span class="st-num">0,82 €</span></label>
+          <label class="st-row"><input type="checkbox" data-bad="0"><span class="st-term">kotisiivous helsinki</span><span class="st-num">38</span><span class="st-num">3,12 €</span></label>
+          <label class="st-row"><input type="checkbox" data-bad="1"><span class="st-term">siivous itse ohje</span><span class="st-num">9</span><span class="st-num">0,61 €</span></label>
+          <label class="st-row"><input type="checkbox" data-bad="0"><span class="st-term">muuttosiivous hinta</span><span class="st-num">22</span><span class="st-num">2,05 €</span></label>
+          <label class="st-row"><input type="checkbox" data-bad="1"><span class="st-term">ilmainen siivous</span><span class="st-num">6</span><span class="st-num">1,10 €</span></label>
+          <label class="st-row"><input type="checkbox" data-bad="1"><span class="st-term">siivousaineet tori</span><span class="st-num">11</span><span class="st-num">0,45 €</span></label>
+          <label class="st-row"><input type="checkbox" data-bad="0"><span class="st-term">ikkunanpesu kotitalousvähennys</span><span class="st-num">17</span><span class="st-num">1,74 €</span></label>
+          <label class="st-row"><input type="checkbox" data-bad="0"><span class="st-term">siivouspalvelu kotiin</span><span class="st-num">29</span><span class="st-num">2,88 €</span></label>
+          <label class="st-row"><input type="checkbox" data-bad="1"><span class="st-term">siivoojan palkka</span><span class="st-num">12</span><span class="st-num">0,70 €</span></label>
+          <label class="st-row"><input type="checkbox" data-bad="0"><span class="st-term">loppusiivous vuokra-asunto</span><span class="st-num">15</span><span class="st-num">2,30 €</span></label>
+        <div class="st-foot"><span><span data-score>0</span> valittu</span><button type="button" data-check>Tarkista valinnat</button></div>
+        <p class="st-msg" aria-live="polite"></p>
       </div>
 
       <h2>Täsmäystyypit negatiivisissa hakusanoissa</h2>
