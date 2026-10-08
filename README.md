@@ -1,14 +1,20 @@
 # Pikasivut — landing page
 
 Staattinen myyntisivu nettisivubisnekselle. Ei buildia, ei riippuvuuksia.
-Pelkkä HTML + CSS + vanilla JS. Ainoa ulkoinen palvelu on Google Fonts (Inter).
+Pelkkä HTML + CSS + vanilla JS. Ei ulkoisia palveluita: Inter-fontti on hostattu itse (`inter-latin.woff2`).
 
 ## Tiedostot
 
 | Tiedosto | Sisältö |
 | --- | --- |
-| `index.html` | Etusivu: nav, hero, hinnat, UKK, yhteydenotto |
-| `styles.css` | Tyylit, mobile-first, breakpointit 700px ja 960px |
+| `index.html` | Etusivu: nav, hero, palvelut, vaiheet, yhteydenotto |
+| `site.css` | Alasivujen yhteiset tyylit (kopio etusivun tyyleistä + artikkelityylit) |
+| `google-ads-hinta/` | Hinnasto: Perus 300, Kasvu 500, Kattava 750 €/kk, mainosbudjetti vähintään 1 000 €/kk |
+| `google-ads-auditointi/` | Google Ads -tilin auditointi |
+| `google-ads-siivousyritykselle/`, `google-ads-autokorjaamolle/`, `google-ads-remonttiyritykselle/` | Toimialasivut |
+| `opas/` | Oppaat (hakemisto + 3 artikkelia) |
+| `404.html` | Virhesivu (noindex) |
+| `styles.css` | Vain `privacy.html`:n ja `terms.html`:n tyylit. Etusivu ja `eng/` käyttävät inline-tyylejä |
 | `esimerkkitarjous.pdf` | Tarjousapilla generoitu esimerkki. Ei enää linkitetty sivulta — säilytetty tiedostojärjestelmässä, jos tarvitset sitä myöhemmin |
 | `privacy.html` | Tietosuojaseloste |
 | `terms.html` | Toimitusehdot |
@@ -23,17 +29,11 @@ Avaa http://localhost:4322
 
 ## Yhteydenotto
 
-Sivulla ei ole lomaketta eikä puhelinnumeroa — kaikki CTA:t ovat `mailto:`-linkkejä.
-Myynti tapahtuu kylmäsähköpostin kautta, sivu on tukimateriaali joka vahvistaa
-hinnat. Jos otat käyttöön lomakkeen (esim. Formspree), lisää se `#contact`-osioon.
-
-## Hinnat täsmäävät tarjousappiin
-
-Tämän sivun hinnoittelumalli (59 / 99 / 199 €, hosting ja verkkotunnus
-sisältyy, ei erillistä muutostyökiintiötä) on sama kuin
-[`tarjousappi/server/config/profile.fi.js`](../tarjousappi/server/config/profile.fi.js):ssä.
-**Jos muutat hintoja jompaankumpaan, päivitä myös toinen** — muuten sivu
-lupaa jotain mitä oikea tarjous ei enää vastaa.
+Lomake rakentaa JavaScriptillä `mailto:`-linkin (aihe ja viesti valmiiksi täytettynä)
+ja näyttää sähköpostiosoitteen ja puhelinnumeron varalle, jos sähköpostiohjelma ei
+aukea. Hinnat näkyvät etusivun #hinnat-osiossa, `google-ads-hinta/`-sivulla, UKK:ssa ja toimitusehdoissa. **Jos muutat hintoja, päivitä kaikki neljä** (sekä `eng/index.html`). Jos haluat oikean
+lomakepalvelun (esim. Formspree), vaihda `form.contact-form`in käsittelijä
+`index.html`:ssä ja `eng/index.html`:ssä.
 
 ## Deploy GitHub Pagesiin
 
@@ -42,3 +42,9 @@ gh repo create pikasivut-landing --public --source=. --push
 ```
 
 Sitten repossa: **Settings → Pages → Source: Deploy from a branch → `main` / `(root)`**.
+
+## Uusi alasivu
+
+Alasivut ovat tavallista HTML:ää: kopioi lähin olemassa oleva sivu kansioineen,
+vaihda title, description, canonical, og-tagit, murupolku ja sisältö, ja lisää
+osoite `sitemap.xml`:ään sekä footerin linkkilistaan.

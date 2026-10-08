@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Google Ads Management for Small &amp; Medium Businesses | Pikasivut</title>
+<title>Google Ads Management for Small Businesses | Pikasivut</title>
 <meta name="description" content="Google Ads search campaign management for small and medium-sized businesses. Clear monthly reporting, no long-term contract — and a website when yours needs one.">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://pikasivut.com/eng/">
 <link rel="alternate" hreflang="en" href="https://pikasivut.com/eng/">
 <link rel="alternate" hreflang="fi" href="https://pikasivut.com/">
@@ -37,6 +38,8 @@
   "url": "https://pikasivut.com/eng/",
   "image": "https://pikasivut.com/eng/og-image.png",
   "email": "akseli@pikasivut.com",
+  "telephone": "+358458505051",
+  "contactPoint": { "@type": "ContactPoint", "telephone": "+358458505051", "email": "akseli@pikasivut.com", "contactType": "customer service", "availableLanguage": ["fi", "en"] },
   "description": "Google Ads search campaign management for small and medium-sized businesses, plus website design and maintenance when needed.",
   "founder": { "@type": "Person", "name": "Akseli Lehtonen" },
   "address": { "@type": "PostalAddress", "addressLocality": "Vantaa", "addressCountry": "FI" },
@@ -65,6 +68,94 @@
       }
     ]
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does Google Ads management cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There are two parts: the ad budget, which you pay directly to Google, and my management fee. Management is €300, €500 or €750/month (+ VAT) depending on the package, and the ad budget must be at least €1,000/month. The packages differ in the number of campaigns, the depth of tracking and how often I optimise and report."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a sensible ad budget for a small business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The minimum is €1,000/month. In Finland a click costs €2–5 in many industries, and with a smaller budget there are so few clicks that Google's algorithm cannot learn what works and the results are not reliable. In the free consultation I check the click prices in your industry and tell you what budget makes sense."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How quickly will I see results from Google Ads?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ads usually appear in search results the same or next day after launch, and the first enquiries can come right away. The campaign improves as data builds up, so you typically get a reliable picture of results within 4–8 weeks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the monthly fee include?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every package includes building campaigns or cleaning up an existing account, keyword and negative keyword management, ad copy, a conversion tracking check, ongoing optimisation and a report on where the money went and what it brought in. Larger packages add more campaigns, more thorough tracking and more frequent optimisation and reporting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who owns the Google Ads account?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You do. The account, its history and all its data stay yours, including after we stop working together. I only get access rights, which you can remove at any time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a fixed-term contract?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The agreement runs until further notice with one month's notice. You stay because the ads pay off, not because a contract holds you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you take over an existing Google Ads account?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. I first review the current campaigns, search terms and conversion tracking and show you where the budget is being wasted. Cutting irrelevant searches often brings clearly more enquiries for the same money."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know whether the ads are working?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I make sure conversion tracking measures the right things, like calls, form submissions and quote requests, not just clicks. The monthly report shows what each enquiry cost and how the numbers are developing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need a new website for Google Ads?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not necessarily. If your current site clearly says what you do and makes it easy to get in touch, ads work well with it. If it loses the visitors the ads bring in, I can build a new site designed to support the ads."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Google Ads or SEO, which is better?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Google Ads brings visibility immediately and can be adjusted weekly, while SEO results build up over months. For many small businesses Google Ads is the fastest way to more enquiries, and the search data from ads also helps with SEO later."
+      }
+    }
+  ]
 }
 </script>
 <style>
@@ -130,7 +221,7 @@
   h1{
     font-size:clamp(34px,5.2vw,56px);
     line-height:1.08; letter-spacing:-0.02em; font-weight:800;
-    margin:0 0 22px; max-width:15ch;
+    margin:0 0 22px; max-width:20ch;
   }
   .lead{
     font-size:19px; color:var(--ink-soft); max-width:56ch; margin:0 0 34px;
@@ -208,6 +299,39 @@
   }
   .step h3{font-size:18px; margin:0 0 8px; font-weight:700;}
   .step p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* HINNAT */
+  .pricing{background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; align-items:stretch;}
+  .price-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:30px 26px; display:flex; flex-direction:column; position:relative;}
+  .price-card.featured{border:2px solid var(--accent);}
+  .price-card .badge{position:absolute; top:-12px; left:26px; background:var(--accent); color:#fff; font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:4px 10px; border-radius:100px;}
+  .price-card h3{font-size:19px; margin:0 0 6px; font-weight:800;}
+  .price-card .for{font-size:14.5px; color:var(--ink-soft); margin:0 0 18px; min-height:44px;}
+  .price-card .amount{font-size:38px; font-weight:800; letter-spacing:-.02em; line-height:1;}
+  .price-card .amount small{font-size:15px; font-weight:500; color:var(--ink-soft); letter-spacing:0;}
+  .price-card .budget{font-size:13.5px; color:var(--ink-soft); margin:8px 0 20px; padding-bottom:20px; border-bottom:1px solid var(--line);}
+  .price-card ul{list-style:none; margin:0 0 24px; padding:0; flex:1;}
+  .price-card li{display:flex; gap:10px; align-items:flex-start; font-size:14.5px; margin-bottom:10px;}
+  .price-card .btn-primary, .price-card .btn-secondary{justify-content:center;}
+  .price-note{font-size:14px; color:var(--ink-soft); margin:24px 0 0; max-width:80ch;}
+  @media (max-width: 900px){ .price-grid{grid-template-columns:1fr;} .price-card .for{min-height:0;} }
+
+  /* UKK / FAQ */
+  .faq-list{max-width:780px; border-top:1px solid var(--line);}
+  .faq-list details{border-bottom:1px solid var(--line);}
+  .faq-list summary{
+    list-style:none; cursor:pointer; padding:20px 40px 20px 0; position:relative;
+    font-size:17px; font-weight:700;
+  }
+  .faq-list summary::-webkit-details-marker{display:none;}
+  .faq-list summary::after{
+    content:"+"; position:absolute; right:4px; top:50%; transform:translateY(-50%);
+    font-size:22px; font-weight:500; color:var(--accent); transition:transform .2s;
+  }
+  .faq-list details[open] summary::after{transform:translateY(-50%) rotate(45deg);}
+  .faq-list summary h3{display:inline; font-size:inherit; font-weight:inherit; margin:0;}
+  .faq-list .faq-a{margin:0 0 20px; color:var(--ink-soft); font-size:15.5px; max-width:68ch;}
 
   /* FINAL CTA */
   .final-cta{
@@ -310,6 +434,8 @@
     <ul class="nav-links">
       <li><a href="#offer">What I Do</a></li>
       <li><a href="#how">How It Works</a></li>
+      <li><a href="#hinnat">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Get a Free Quote</a>
   </nav>
@@ -319,7 +445,7 @@
   <section class="hero" id="top">
     <div class="wrap">
       <span class="eyebrow">Google Ads Management for Small &amp; Medium Businesses</span>
-      <h1>More customers, not just more clicks.</h1>
+      <h1>Google Ads that brings in customers, not just clicks.</h1>
       <p class="lead">I build and manage your Google Ads campaigns so your budget goes to the searches that actually bring in work — not wasted clicks. If your website isn't supporting those ads, I build that too, from the same person.</p>
       <div class="hero-ctas">
         <a href="#contact" class="btn-primary">Get a Free Quote</a>
@@ -445,6 +571,63 @@
     </div>
   </section>
 
+  <section id="hinnat" class="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Pricing</h2>
+        <p class="section-sub">Three packages depending on how much advertising your business needs. Same principle in all of them: no long-term contract, and the Google Ads account stays yours.</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card">
+          
+          <h3>Basic</h3>
+          <p class="for">For a business with one or two main services that wants its ads fixed and kept in shape.</p>
+          <div class="amount">€300<small>/mo + VAT 25.5%</small></div>
+          <p class="budget">Ad budget at least €1,000/month</p>
+          <ul>
+            <li><span class="check">✓</span> 1–2 search campaigns for your core services</li>
+            <li><span class="check">✓</span> Keywords, ad copy and ad extensions</li>
+            <li><span class="check">✓</span> Conversion tracking check: calls and enquiries</li>
+            <li><span class="check">✓</span> Monthly search term review and cutting wasted searches</li>
+            <li><span class="check">✓</span> Plain-language monthly report</li>
+          </ul>
+          <a href="#contact" class="btn-secondary">Get a quote</a>
+        </div>
+        <div class="price-card featured">
+          <span class="badge">Most popular</span>
+          <h3>Growth</h3>
+          <p class="for">For a business with several services, each needing its own precisely targeted ads.</p>
+          <div class="amount">€500<small>/mo + VAT 25.5%</small></div>
+          <p class="budget">Recommended ad budget €1,500–3,000/month</p>
+          <ul>
+            <li><span class="check">✓</span> Everything in Basic</li>
+            <li><span class="check">✓</span> Up to 4 campaigns split by service or area</li>
+            <li><span class="check">✓</span> Competitor and negative keyword lists for the whole account</li>
+            <li><span class="check">✓</span> Images, sitelinks and call extensions in every campaign</li>
+            <li><span class="check">✓</span> Search terms and bids reviewed every two weeks</li>
+          </ul>
+          <a href="#contact" class="btn-primary">Get a quote</a>
+        </div>
+        <div class="price-card">
+          
+          <h3>Complete</h3>
+          <p class="for">For larger budgets, when ads are your main source of customers and every euro needs to be measured.</p>
+          <div class="amount">€750<small>/mo + VAT 25.5%</small></div>
+          <p class="budget">Recommended ad budget €3,000/month or more</p>
+          <ul>
+            <li><span class="check">✓</span> Everything in Growth</li>
+            <li><span class="check">✓</span> Unlimited campaigns: service, area, audience and brand each separately</li>
+            <li><span class="check">✓</span> Tracking built into your own Tag Manager and Google Analytics, including bookings and forms</li>
+            <li><span class="check">✓</span> The right landing page for every campaign</li>
+            <li><span class="check">✓</span> Weekly optimisation and a report every two weeks</li>
+          </ul>
+          <a href="#contact" class="btn-secondary">Get a quote</a>
+        </div>
+      </div>
+      <p class="price-note">The ad budget is paid directly to Google from your own Google Ads account and never goes through my invoicing. One month's notice in every package.</p>
+    </div>
+  </section>
+
   <section class="why">
     <div class="wrap">
       <div class="section-head">
@@ -496,6 +679,57 @@
     </div>
   </section>
 
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Google Ads FAQ</h2>
+        <p class="section-sub">Short answers to the most common questions about price, budget and working together.</p>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary><h3>How much does Google Ads management cost?</h3></summary>
+          <p class="faq-a">There are two parts: the ad budget, which you pay directly to Google, and my management fee. Management is €300, €500 or €750/month (+ VAT) depending on the package, and the ad budget must be at least €1,000/month. The packages differ in the number of campaigns, the depth of tracking and how often I optimise and report.</p>
+        </details>
+        <details>
+          <summary><h3>What is a sensible ad budget for a small business?</h3></summary>
+          <p class="faq-a">The minimum is €1,000/month. In Finland a click costs €2–5 in many industries, and with a smaller budget there are so few clicks that Google&#x27;s algorithm cannot learn what works and the results are not reliable. In the free consultation I check the click prices in your industry and tell you what budget makes sense.</p>
+        </details>
+        <details>
+          <summary><h3>How quickly will I see results from Google Ads?</h3></summary>
+          <p class="faq-a">Ads usually appear in search results the same or next day after launch, and the first enquiries can come right away. The campaign improves as data builds up, so you typically get a reliable picture of results within 4–8 weeks.</p>
+        </details>
+        <details>
+          <summary><h3>What does the monthly fee include?</h3></summary>
+          <p class="faq-a">Every package includes building campaigns or cleaning up an existing account, keyword and negative keyword management, ad copy, a conversion tracking check, ongoing optimisation and a report on where the money went and what it brought in. Larger packages add more campaigns, more thorough tracking and more frequent optimisation and reporting.</p>
+        </details>
+        <details>
+          <summary><h3>Who owns the Google Ads account?</h3></summary>
+          <p class="faq-a">You do. The account, its history and all its data stay yours, including after we stop working together. I only get access rights, which you can remove at any time.</p>
+        </details>
+        <details>
+          <summary><h3>Is there a fixed-term contract?</h3></summary>
+          <p class="faq-a">No. The agreement runs until further notice with one month&#x27;s notice. You stay because the ads pay off, not because a contract holds you.</p>
+        </details>
+        <details>
+          <summary><h3>Can you take over an existing Google Ads account?</h3></summary>
+          <p class="faq-a">Yes. I first review the current campaigns, search terms and conversion tracking and show you where the budget is being wasted. Cutting irrelevant searches often brings clearly more enquiries for the same money.</p>
+        </details>
+        <details>
+          <summary><h3>How do I know whether the ads are working?</h3></summary>
+          <p class="faq-a">I make sure conversion tracking measures the right things, like calls, form submissions and quote requests, not just clicks. The monthly report shows what each enquiry cost and how the numbers are developing.</p>
+        </details>
+        <details>
+          <summary><h3>Do I need a new website for Google Ads?</h3></summary>
+          <p class="faq-a">Not necessarily. If your current site clearly says what you do and makes it easy to get in touch, ads work well with it. If it loses the visitors the ads bring in, I can build a new site designed to support the ads.</p>
+        </details>
+        <details>
+          <summary><h3>Google Ads or SEO, which is better?</h3></summary>
+          <p class="faq-a">Google Ads brings visibility immediately and can be adjusted weekly, while SEO results build up over months. For many small businesses Google Ads is the fastest way to more enquiries, and the search data from ads also helps with SEO later.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="wrap">
       <div class="final-cta">
@@ -526,7 +760,7 @@
           </a>
           <div class="contact-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg> <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a></div>
         </div>
-        <form class="contact-form" action="mailto:akseli@pikasivut.com" method="post" enctype="text/plain">
+        <form class="contact-form">
           <label for="name">Name</label>
           <input type="text" id="name" name="Name" required>
           <label for="phone">Phone <span class="optional">(if you would rather I call)</span></label>
@@ -553,6 +787,19 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  (function(){
+    var f=document.querySelector('form.contact-form'); if(!f) return;
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var v=function(id){return document.getElementById(id).value.trim();};
+      var body='Name: '+v('name')+'\nPhone: '+v('phone')+'\n\n'+v('message');
+      var url='mailto:akseli@pikasivut.com?subject='+encodeURIComponent('Quote request from Pikasivut')+'&body='+encodeURIComponent(body);
+      var note=f.querySelector('.form-note');
+      window.location.href=url;
+      note.innerHTML='If your email app did not open, write to <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a> or call +358 45 850 5051.';
+    });
+  })();
 </script>
 
 </body>

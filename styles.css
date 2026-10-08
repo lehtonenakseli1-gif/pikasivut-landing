@@ -1,15 +1,17 @@
 /* Pikasivut — landing page styles. Mobile first. */
 
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 800;font-display:swap;src:url('/inter-latin.woff2') format('woff2');}
+
 :root {
   --bg: #faf9f6;
   --surface: #ffffff;
-  --surface-2: #f3f1ea;
-  --ink: #16233a;
-  --muted: #5b6472;
-  --accent: #e8622c;
-  --accent-deep: #c94e1e;
-  --accent-pale: #fdece3;
-  --line: #e6e2d9;
+  --surface-2: #f1efe9;
+  --ink: #1c1b19;
+  --muted: #55534d;
+  --accent: #1d4ed8;
+  --accent-deep: #1e40af;
+  --accent-pale: #e8eefc;
+  --line: #e4e1d8;
   --nav-h: 60px;
   --pad: 20px;
   --maxw: 1120px;
@@ -209,7 +211,7 @@ section { padding: 52px 0; }
   padding: 6px 12px;
   background: var(--accent-pale);
   border-radius: 100px;
-  color: #a83e12; /* darker than --accent-deep: needed for 4.5:1 on this pale background */
+  color: #1e3a8a; /* darker than --accent-deep: needed for 4.5:1 on this pale background */
   font-size: 13px;
   font-weight: 600;
 }

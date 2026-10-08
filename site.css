@@ -1,0 +1,299 @@
+/* Inter itse hostattuna: yksi variable-tiedosto kattaa painot 400-800,
+     latin-subset riittaa suomen merkeille. Poistaa kaksi ulkoista yhteytta
+     (fonts.googleapis.com + fonts.gstatic.com) latauspolulta. */
+  @font-face{
+    font-family:'Inter';
+    font-style:normal;
+    font-weight:400 800;
+    font-display:swap;
+    src:url('/inter-latin.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+
+  :root{
+    --bg:#faf9f6;
+    --bg-alt:#f1efe9;
+    --ink:#1c1b19;
+    --ink-soft:#55534d;
+    --accent:#1d4ed8;
+    --accent-ink:#ffffff;
+    --line:#e4e1d8;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    line-height:1.5;
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,249,246,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .logo{font-weight:800; font-size:20px; letter-spacing:-0.02em; text-decoration:none;}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex; gap:32px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; font-weight:500; font-size:15px; color:var(--ink-soft);}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    background:var(--accent); color:var(--accent-ink);
+    padding:10px 20px; border-radius:8px; font-weight:600; font-size:14px;
+    text-decoration:none; white-space:nowrap;
+  }
+
+  /* HERO */
+  .hero{padding:88px 0 72px;}
+  .eyebrow{
+    display:inline-block; font-size:13px; font-weight:700; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--accent); margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(34px,5.2vw,56px);
+    line-height:1.08; letter-spacing:-0.02em; font-weight:800;
+    margin:0 0 22px; max-width:20ch;
+  }
+  .lead{
+    font-size:19px; color:var(--ink-soft); max-width:56ch; margin:0 0 34px;
+  }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;}
+  .btn-primary, .btn-secondary{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:15px 26px; border-radius:9px; font-weight:600; font-size:15.5px;
+    text-decoration:none; border:1px solid transparent;
+  }
+  .btn-primary{background:var(--ink); color:#fff;}
+  .btn-primary:hover{background:#000;}
+  .btn-secondary{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn-secondary:hover{border-color:var(--ink);}
+  .hero-trust{
+    display:flex; gap:28px; flex-wrap:wrap; font-size:14px; color:var(--ink-soft);
+  }
+  .hero-trust li{display:flex; align-items:center; gap:8px; list-style:none;}
+  .hero-trust ul{display:flex; gap:28px; flex-wrap:wrap; padding:0; margin:0;}
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:none;}
+
+  /* SECTION generic */
+  section{padding:64px 0;}
+  .section-head{max-width:56ch; margin-bottom:44px;}
+  h2{font-size:clamp(26px,3.4vw,36px); letter-spacing:-0.02em; margin:0 0 14px; font-weight:800;}
+  .section-sub{color:var(--ink-soft); font-size:17px; margin:0;}
+
+  /* PROBLEM */
+  .problem{background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .problem-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .problem-card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:26px;
+  }
+  .problem-card .icon{font-size:22px; margin-bottom:14px; display:block;}
+  .problem-card h3{font-size:17px; margin:0 0 8px; font-weight:700;}
+  .problem-card p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* OFFER */
+  .offer-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .offer-card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:34px;
+  }
+  .offer-card.secondary{background:var(--bg-alt);}
+  .offer-card .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:34px; height:34px; border-radius:9px; background:var(--ink); color:#fff;
+    font-weight:700; font-size:14px; margin-bottom:20px;
+  }
+  .offer-card .tag{
+    display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.05em;
+    text-transform:uppercase; color:var(--ink-soft); background:var(--card);
+    border:1px solid var(--line); border-radius:100px; padding:3px 10px; margin-bottom:14px;
+  }
+  .offer-card h3{font-size:21px; margin:0 0 10px; font-weight:800;}
+  .offer-card p{color:var(--ink-soft); margin:0 0 18px; font-size:15.5px;}
+  .offer-card ul{margin:0; padding:0; list-style:none;}
+  .offer-card li{
+    display:flex; gap:10px; align-items:flex-start; font-size:14.5px; color:var(--ink);
+    margin-bottom:10px;
+  }
+  .check{color:var(--accent); font-weight:800; flex:none;}
+
+  /* WHY */
+  .why{background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .why-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:28px 40px;}
+  .why-item h3{font-size:17px; margin:0 0 8px; font-weight:700; display:flex; gap:10px; align-items:center;}
+  .why-item p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* HOW IT WORKS */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; counter-reset:step;}
+  .step{position:relative; padding-top:8px;}
+  .step .step-num{
+    font-size:13px; font-weight:800; color:var(--accent); letter-spacing:0.05em;
+    text-transform:uppercase; margin-bottom:10px; display:block;
+  }
+  .step h3{font-size:18px; margin:0 0 8px; font-weight:700;}
+  .step p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* HINNAT */
+  .pricing{background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; align-items:stretch;}
+  .price-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:30px 26px; display:flex; flex-direction:column; position:relative;}
+  .price-card.featured{border:2px solid var(--accent);}
+  .price-card .badge{position:absolute; top:-12px; left:26px; background:var(--accent); color:#fff; font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:4px 10px; border-radius:100px;}
+  .price-card h3{font-size:19px; margin:0 0 6px; font-weight:800;}
+  .price-card .for{font-size:14.5px; color:var(--ink-soft); margin:0 0 18px; min-height:44px;}
+  .price-card .amount{font-size:38px; font-weight:800; letter-spacing:-.02em; line-height:1;}
+  .price-card .amount small{font-size:15px; font-weight:500; color:var(--ink-soft); letter-spacing:0;}
+  .price-card .budget{font-size:13.5px; color:var(--ink-soft); margin:8px 0 20px; padding-bottom:20px; border-bottom:1px solid var(--line);}
+  .price-card ul{list-style:none; margin:0 0 24px; padding:0; flex:1;}
+  .price-card li{display:flex; gap:10px; align-items:flex-start; font-size:14.5px; margin-bottom:10px;}
+  .price-card .btn-primary, .price-card .btn-secondary{justify-content:center;}
+  .price-note{font-size:14px; color:var(--ink-soft); margin:24px 0 0; max-width:80ch;}
+  @media (max-width: 900px){ .price-grid{grid-template-columns:1fr;} .price-card .for{min-height:0;} }
+
+  /* UKK / FAQ */
+  .faq-list{max-width:780px; border-top:1px solid var(--line);}
+  .faq-list details{border-bottom:1px solid var(--line);}
+  .faq-list summary{
+    list-style:none; cursor:pointer; padding:20px 40px 20px 0; position:relative;
+    font-size:17px; font-weight:700;
+  }
+  .faq-list summary::-webkit-details-marker{display:none;}
+  .faq-list summary::after{
+    content:"+"; position:absolute; right:4px; top:50%; transform:translateY(-50%);
+    font-size:22px; font-weight:500; color:var(--accent); transition:transform .2s;
+  }
+  .faq-list details[open] summary::after{transform:translateY(-50%) rotate(45deg);}
+  .faq-list summary h3{display:inline; font-size:inherit; font-weight:inherit; margin:0;}
+  .faq-list .faq-a{margin:0 0 20px; color:var(--ink-soft); font-size:15.5px; max-width:68ch;}
+
+  /* FINAL CTA */
+  .final-cta{
+    text-align:center; background:var(--bg-alt); border:1px solid var(--line);
+    border-radius:20px; padding:56px 32px;
+  }
+  .final-cta h2{margin-bottom:14px;}
+  .final-cta p{color:var(--ink-soft); font-size:17px; max-width:48ch; margin:0 auto 30px;}
+
+  /* CONTACT */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;}
+  .contact-info h3{font-size:19px; margin:0 0 10px; font-weight:700;}
+  .contact-info p{color:var(--ink-soft); font-size:15px; margin:0 0 20px;}
+  .contact-line{display:flex; gap:10px; align-items:center; margin-bottom:12px; font-size:15px;}
+  form.contact-form{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .contact-form label{font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:-8px;}
+  .contact-form input, .contact-form textarea{
+    width:100%; padding:12px 14px; border-radius:8px; border:1px solid var(--line);
+    font-family:inherit; font-size:15px; background:var(--bg); color:var(--ink);
+  }
+  .contact-form textarea{min-height:100px; resize:vertical;}
+  .contact-form button{
+    background:var(--accent); color:#fff; border:none; padding:14px; border-radius:9px;
+    font-weight:700; font-size:15.5px; cursor:pointer; margin-top:4px;
+  }
+  .contact-form button:hover{opacity:0.92;}
+  .form-note{font-size:12.5px; color:var(--ink-soft); margin-top:-4px;}
+  .contact-form .optional{font-weight:400; text-transform:none; letter-spacing:0;}
+
+  /* IKONIT - viivatyyli, perivat currentColor */
+  .icon-line{width:22px; height:22px; display:block; margin-bottom:14px; color:var(--accent);}
+  .why-item h3 svg{width:19px; height:19px; flex:none; color:var(--accent);}
+  .contact-line svg{width:18px; height:18px; flex:none; color:var(--accent);}
+
+  /* PUHELIN-CTA */
+  .tel-cta{
+    display:inline-flex; align-items:center; gap:9px; min-height:44px;
+    font-size:16.5px; font-weight:700; color:var(--ink); text-decoration:none;
+  }
+  .tel-cta svg{width:19px; height:19px; flex:none; color:var(--accent);}
+  .tel-cta .label{font-weight:500; color:var(--ink-soft);}
+  .tel-cta:hover{color:var(--accent);}
+  .hero .tel-cta{margin:-16px 0 28px;}
+  .final-cta .tel-cta{margin-top:14px;}
+  .contact-info .tel-cta{margin-bottom:6px;}
+
+  /* REFERENSSIT */
+  .work-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .work-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px;}
+  .work-card .trade{
+    font-size:12.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--accent); margin:0 0 16px;
+  }
+  .work-card dl{margin:0;}
+  .work-card dt{
+    font-size:12px; font-weight:700; color:var(--ink-soft);
+    text-transform:uppercase; letter-spacing:0.04em; margin-top:14px;
+  }
+  .work-card dt:first-child{margin-top:0;}
+  .work-card dd{margin:4px 0 0; font-size:15px; color:var(--ink);}
+  .work-card .result{font-size:23px; font-weight:800; letter-spacing:-0.02em;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0; }
+  .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  .footer-row p{font-size:13.5px; color:var(--ink-soft); margin:0;}
+  .footer-legal{font-size:12px; color:var(--ink-soft); margin:4px 0 0;}
+  .footer-links{display:flex; gap:20px; list-style:none; padding:0; margin:0;}
+  .footer-links a{font-size:13.5px; color:var(--ink-soft); text-decoration:none;}
+  .footer-links a:hover{color:var(--ink);}
+
+  @media (max-width: 760px){
+    .nav-links{display:none;}
+    .problem-grid, .why-grid, .steps, .offer-grid, .contact-grid, .work-grid{grid-template-columns:1fr;}
+    .final-cta{padding:40px 22px;}
+  }
+
+  /* Kapeat puhelimet (360px ja alle) */
+  @media (max-width: 420px){
+    .wrap{padding:0 18px;}
+    .hero{padding:64px 0 56px;}
+    section{padding:52px 0;}
+    .hero-ctas{flex-direction:column; align-items:stretch; gap:12px;}
+    .hero-ctas a{justify-content:center;}
+    .hero-trust{gap:12px;}
+    .hero-trust li{width:100%;}
+    .offer-card, .work-card{padding:24px 20px;}
+    form.contact-form{padding:22px 20px;}
+    .final-cta{padding:34px 20px;}
+    .footer-row{flex-direction:column; align-items:flex-start;}
+  }
+
+  /* ALASIVUT */
+  .crumbs{font-size:13.5px; color:var(--ink-soft); padding:22px 0 0;}
+  .crumbs a{color:var(--ink-soft);}
+  .page-hero{padding:40px 0 24px;}
+  .page-hero h1{max-width:24ch;}
+  .article{max-width:740px; padding:8px 0 40px;}
+  .article h2{margin:44px 0 14px; font-size:clamp(22px,2.8vw,28px);}
+  .article h3{font-size:18px; margin:28px 0 8px;}
+  .article p, .article li{font-size:17px; line-height:1.65; color:#2e2d2a;}
+  .article ul, .article ol{padding-left:22px;}
+  .article li{margin-bottom:8px;}
+  .article a{color:var(--accent);}
+  .article table{width:100%; border-collapse:collapse; margin:18px 0; font-size:15.5px;}
+  .article th, .article td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top;}
+  .article th{font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft);}
+  .callout{background:var(--bg-alt); border:1px solid var(--line); border-radius:14px; padding:20px 22px; margin:26px 0;}
+  .callout p{margin:0;}
+  .related{border-top:1px solid var(--line); padding-top:28px; margin-top:20px;}
+  .related ul{list-style:none; padding:0; display:grid; gap:10px;}
+  .related a{font-weight:600;}
+  .guide-list{display:grid; gap:18px; max-width:780px;}
+  .guide-list a{display:block; text-decoration:none; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 24px;}
+  .guide-list a:hover{border-color:var(--ink);}
+  .guide-list h2{font-size:20px; margin:0 0 6px;}
+  .guide-list p{margin:0; color:var(--ink-soft);}
+  .footer-nav{display:flex; flex-wrap:wrap; gap:10px 22px; list-style:none; padding:0; margin:0 0 18px; font-size:13.5px;}
+  .footer-nav a{color:var(--ink-soft); text-decoration:none;}
+  .footer-nav a:hover{color:var(--ink);}
