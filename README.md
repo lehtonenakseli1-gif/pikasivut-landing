@@ -1,20 +1,21 @@
 # Pikasivut — landing page
 
 Staattinen myyntisivu nettisivubisnekselle. Ei buildia, ei riippuvuuksia.
-Pelkkä HTML + CSS + vanilla JS. Ei ulkoisia palveluita: Inter-fontti on hostattu itse (`inter-latin.woff2`).
+Pelkkä HTML + CSS + vanilla JS. Tekstit me-muodossa (yritys, ei minä), eikä palvelua kohdenneta erikseen pk-yrityksille. Ei ulkoisia palveluita: fontit on hostattu itse (`fonts/`).
 
 ## Tiedostot
 
 | Tiedosto | Sisältö |
 | --- | --- |
 | `index.html` | Etusivu: nav, hero, palvelut, vaiheet, yhteydenotto |
-| `site.css` | Alasivujen yhteiset tyylit (kopio etusivun tyyleistä + artikkelityylit) |
+| `site.css` | Koko sivuston tyylit (Hakukenttä-teema). Kaikki sivut käyttävät tätä |
+| `site.js` | Liikkuvat osat: kirjoittava hakukenttä, hakupillerit, korostuskynä, kallistuvat kortit, +1 klikkaus, hiiren väripisteet, Kokeilen onneani, tynnyrikierre (logo 5× tai haku "barrel roll"). Alasivuilla: budjettilaskuri ja klikkihintanauha (hinta), suodatin ja hakutermitaulu (auditointi), pyörivät tarrat ja teipit (toimialat), itsetarkistus, negatiivipeli, konversioterminaali ja XP-palkki (oppaat), GAME OVER (404) |
+| `fonts/` | Itse hostatut fontit: Bricolage Grotesque, Figtree, DM Mono |
 | `google-ads-hinta/` | Hinnasto: Perus 300, Kasvu 500, Kattava 750 €/kk, mainosbudjetti vähintään 1 000 €/kk |
 | `google-ads-auditointi/` | Google Ads -tilin auditointi |
 | `google-ads-siivousyritykselle/`, `google-ads-autokorjaamolle/`, `google-ads-remonttiyritykselle/` | Toimialasivut |
 | `opas/` | Oppaat (hakemisto + 3 artikkelia) |
 | `404.html` | Virhesivu (noindex) |
-| `styles.css` | Vain `privacy.html`:n ja `terms.html`:n tyylit. Etusivu ja `eng/` käyttävät inline-tyylejä |
 | `esimerkkitarjous.pdf` | Tarjousapilla generoitu esimerkki. Ei enää linkitetty sivulta — säilytetty tiedostojärjestelmässä, jos tarvitset sitä myöhemmin |
 | `privacy.html` | Tietosuojaseloste |
 | `terms.html` | Toimitusehdot |
@@ -29,11 +30,9 @@ Avaa http://localhost:4322
 
 ## Yhteydenotto
 
-Lomake rakentaa JavaScriptillä `mailto:`-linkin (aihe ja viesti valmiiksi täytettynä)
-ja näyttää sähköpostiosoitteen ja puhelinnumeron varalle, jos sähköpostiohjelma ei
-aukea. Hinnat näkyvät etusivun #hinnat-osiossa, `google-ads-hinta/`-sivulla, UKK:ssa ja toimitusehdoissa. **Jos muutat hintoja, päivitä kaikki neljä** (sekä `eng/index.html`). Jos haluat oikean
-lomakepalvelun (esim. Formspree), vaihda `form.contact-form`in käsittelijä
-`index.html`:ssä ja `eng/index.html`:ssä.
+Lomaketta ei ole. Kaikki tarjous-CTA:t vievät etusivun #contact-osioon (puhelin, sähköposti).
+
+Hinnat näkyvät etusivun #hinnat-osiossa, `google-ads-hinta/`-sivulla, UKK:ssa, laskurissa (`site.js`) ja toimitusehdoissa. **Jos muutat hintoja, päivitä kaikki** (myös `eng/index.html`).
 
 ## Deploy GitHub Pagesiin
 
