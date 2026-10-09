@@ -372,7 +372,11 @@
         status.innerHTML = 'Lähetys ei onnistunut. Soita <a href="tel:+358458505051">045 850 5051</a> tai kirjoita <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a>.';
       };
       if (ENDPOINT.indexOf('http') !== 0) { fail(); return; }
-      fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: body }).then(done, fail);
+      var settled = false;
+      var once = function (fn) { return function () { if (!settled) { settled = true; fn(); } }; };
+      // Googlen vastaus voi kestää useita sekunteja: kiitos näytetään viimeistään 2,5 s kuluttua, ellei virhettä ole tullut
+      setTimeout(once(done), 2500);
+      fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: body }).then(once(done), once(fail));
     });
   }
 
