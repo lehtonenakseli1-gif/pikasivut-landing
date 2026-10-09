@@ -78,3 +78,11 @@ Biolinkin lähde näkyy, kun käytät osoitetta `pikasivut.com/arvio/?s=tiktok`.
 ## Logo
 
 `logo-mark.svg` on kuvake (sininen neliö + valkoinen nuoli). Wordmark "Pika" (musta) + "sivut" (sininen) on tekstiä sivun omalla Bricolage-fontilla (`logo()` ja `big_logo()` generaattorissa). Favicon-, apple-touch-, icon-192- ja og-kuvat on renderöity samasta kuvakkeesta.
+
+## English site
+
+`/eng/` mirrors the Finnish structure: `/eng/` (home), `/eng/audit/`, `/eng/pricing/`, `/eng/faq/`,
+`/eng/guides/` (+ 3 guides), `/eng/assessment/` (form, same endpoint as `/arvio/`), `/eng/contact/`.
+Each page has a Finnish counterpart (see `FI_EN` in the generator) with `hreflang` alternates and
+an FI/EN switch in the header. Privacy policy and terms exist only in Finnish; the English footer
+links to them. The dynamic strings in `site.js` switch by `<html lang>` (object `T`).

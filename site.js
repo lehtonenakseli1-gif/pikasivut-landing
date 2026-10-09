@@ -5,6 +5,45 @@
   var doc = document.documentElement;
   doc.classList.add('js');
   var EN = doc.lang === 'en';
+  var T = EN ? {
+    pk: ['Basic', 'Growth', 'Complete'], loc: 'en-US', dec: '.',
+    eur: function (s) { return '\u20ac' + s; },
+    sending: 'Sending\u2026', send: 'Get a free assessment',
+    fail: 'Sending failed. Call <a href="tel:+358458505051">+358 45 850 5051</a> or write to <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a>.',
+    sc: function (ok, all) { return ok + '/' + all + ' in order. ' + (ok === all ? 'Great, the basics of your account are in order.' : ok >= all - 2 ? 'Almost. Fix the missing items and your budget will work noticeably better.' : 'Your account probably has clear waste. An audit would show how much.'); },
+    bgOk: function (n) { return 'All correct. In this example you saved about \u20ac' + n + ' a month on searches that would never have brought a customer.'; },
+    bgPart: function (r, a) { return r + '/' + a + ' correct. Yellow rows are still missing as negatives, red rows are good searches you should not block.'; },
+    term: [
+      ['click_to_call', 'ok', '\u2192 Call from the site \u00b7 counted once \u2713'],
+      ['generate_lead', 'ok', '\u2192 Quote request sent \u2713'],
+      ['page_view', 't', '\u2192 not a conversion, ignored'],
+      ['click_to_call', 'dup', '\u2192 same visitor, 2nd time \u00b7 not counted again'],
+      ['booking_step_5', 'ok', '\u2192 Booking completed \u2713'],
+      ['mailto_click', 'ok', '\u2192 Email \u2713'],
+      ['form_open', 't', '\u2192 form opened, not a conversion yet'],
+      ['ads_call', 'ok', '\u2192 Call straight from the ad \u2713']
+    ],
+    direct: 'direct'
+  } : {
+    pk: ['Perus', 'Kasvu', 'Kattava'], loc: 'fi-FI', dec: ',',
+    eur: function (s) { return s + ' \u20ac'; },
+    sending: 'L\u00e4hetet\u00e4\u00e4n\u2026', send: 'Pyyd\u00e4 ilmainen arvio',
+    fail: 'L\u00e4hetys ei onnistunut. Soita <a href="tel:+358458505051">045 850 5051</a> tai kirjoita <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a>.',
+    sc: function (ok, all) { return ok + '/' + all + ' kunnossa. ' + (ok === all ? 'Hienoa, tilisi perusasiat ovat kunnossa.' : ok >= all - 2 ? 'Melkein. Korjaa puuttuvat kohdat, niin budjetti tehoaa selv\u00e4sti paremmin.' : 'Tilill\u00e4 on todenn\u00e4k\u00f6isesti selv\u00e4\u00e4 hukkaa. Auditointi kertoisi, paljonko.'); },
+    bgOk: function (n) { return 'Kaikki oikein. S\u00e4\u00e4stit t\u00e4ss\u00e4 esimerkiss\u00e4 noin ' + n + ' \u20ac kuukaudessa hauista, joista ei olisi tullut asiakkaita.'; },
+    bgPart: function (r, a) { return r + '/' + a + ' oikein. Keltaiset j\u00e4iv\u00e4t viel\u00e4 negatiivisiksi lis\u00e4\u00e4m\u00e4tt\u00e4, punaiset ovat hyvi\u00e4 hakuja, joita ei kannata est\u00e4\u00e4.'; },
+    term: [
+      ['click_to_call', 'ok', '\u2192 Puhelu sivulta \u00b7 laskettu kerran \u2713'],
+      ['generate_lead', 'ok', '\u2192 Tarjouspyynt\u00f6 l\u00e4hetetty \u2713'],
+      ['page_view', 't', '\u2192 ei konversio, ohitetaan'],
+      ['click_to_call', 'dup', '\u2192 sama k\u00e4vij\u00e4 2. kerran \u00b7 ei lasketa uudelleen'],
+      ['booking_step_5', 'ok', '\u2192 Ajanvaraus valmis \u2713'],
+      ['mailto_click', 'ok', '\u2192 S\u00e4hk\u00f6posti \u2713'],
+      ['form_open', 't', '\u2192 lomake avattu, ei viel\u00e4 konversio'],
+      ['ads_call', 'ok', '\u2192 Puhelu suoraan mainoksesta \u2713']
+    ],
+    direct: 'suora'
+  };
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(pointer: fine)').matches;
 
@@ -215,17 +254,17 @@
     var cb = calc.querySelector('#c-budget'), cc = calc.querySelector('#c-cpc'), cr = calc.querySelector('#c-cr');
     var bars = calc.querySelector('.calc-bars');
     for (var bi = 0; bi < 24; bi++) bars.appendChild(document.createElement('i'));
-    var fmt = function (n) { return Math.round(n).toLocaleString('fi-FI'); };
+    var fmt = function (n) { return Math.round(n).toLocaleString(T.loc); };
     function calcUpdate() {
       var b = +cb.value, c = +cc.value, r = +cr.value;
       var clicks = b / c, leads = clicks * r / 100;
-      var pkg = b < 1500 ? [300, 'Perus'] : b < 3000 ? [500, 'Kasvu'] : [750, 'Kattava'];
-      calc.querySelector('output[for=c-budget]').textContent = fmt(b) + ' €';
-      calc.querySelector('output[for=c-cpc]').textContent = c.toFixed(2).replace('.', ',') + ' €';
-      calc.querySelector('output[for=c-cr]').textContent = r.toFixed(1).replace('.', ',') + ' %';
+      var pkg = b < 1500 ? [300, T.pk[0]] : b < 3000 ? [500, T.pk[1]] : [750, T.pk[2]];
+      calc.querySelector('output[for=c-budget]').textContent = T.eur(fmt(b));
+      calc.querySelector('output[for=c-cpc]').textContent = T.eur(c.toFixed(2).replace('.', T.dec));
+      calc.querySelector('output[for=c-cr]').textContent = r.toFixed(1).replace('.', T.dec) + (EN ? '%' : ' %');
       calc.querySelector('[data-o=clicks]').textContent = fmt(clicks);
       calc.querySelector('[data-o=leads]').textContent = fmt(leads);
-      calc.querySelector('[data-o=cpl]').textContent = fmt((b + pkg[0]) / Math.max(leads, 1)) + ' €';
+      calc.querySelector('[data-o=cpl]').textContent = T.eur(fmt((b + pkg[0]) / Math.max(leads, 1)));
       calc.querySelector('[data-o=pkg]').textContent = pkg[1];
       var lit = Math.max(1, Math.round(24 * r / 12));
       Array.prototype.forEach.call(bars.children, function (bar, k) {
@@ -257,16 +296,7 @@
   /* ---------- terminaali: konversiotapahtumat juoksevat ---------- */
   document.querySelectorAll('[data-terminal]').forEach(function (term) {
     var body = term.querySelector('.terminal-body');
-    var lines = [
-      ['ev', 'click_to_call', 'ok', '→ Puhelu sivulta · laskettu kerran ✓'],
-      ['ev', 'generate_lead', 'ok', '→ Tarjouspyyntö lähetetty ✓'],
-      ['ev', 'page_view', 't', '→ ei konversio, ohitetaan'],
-      ['ev', 'click_to_call', 'dup', '→ sama kävijä 2. kerran · ei lasketa uudelleen'],
-      ['ev', 'booking_step_5', 'ok', '→ Ajanvaraus valmis ✓'],
-      ['ev', 'mailto_click', 'ok', '→ Sähköposti ✓'],
-      ['ev', 'form_open', 't', '→ lomake avattu, ei vielä konversio'],
-      ['ev', 'ads_call', 'ok', '→ Puhelu suoraan mainoksesta ✓']
-    ];
+    var lines = T.term.map(function (l) { return ['ev', l[0], l[1], l[2]]; });
     var n = 0;
     function addLine() {
       var l = lines[n++ % lines.length], t = new Date();
@@ -286,7 +316,7 @@
     function upd() {
       var ok = box.querySelectorAll('input:checked').length, all = boxes.length;
       meter.style.width = (ok / all * 100) + '%';
-      out.textContent = ok + '/' + all + ' kunnossa. ' + (ok === all ? 'Hienoa, tilisi perusasiat ovat kunnossa.' : ok >= all - 2 ? 'Melkein. Korjaa puuttuvat kohdat, niin budjetti tehoaa selvästi paremmin.' : 'Tilillä on todennäköisesti selvää hukkaa. Auditointi kertoisi, paljonko.');
+      out.textContent = T.sc(ok, all);
     }
     boxes.forEach(function (b) { b.addEventListener('change', upd); });
     upd();
@@ -311,12 +341,10 @@
         if (bad === b.checked) right++;
         if (bad && b.checked) {
           var nums = row.querySelectorAll('.st-num');
-          saved += parseInt(nums[0].textContent, 10) * parseFloat(nums[1].textContent.replace(',', '.'));
+          saved += parseInt(nums[0].textContent, 10) * parseFloat(nums[1].textContent.replace(/[^0-9.,]/g, '').replace(',', '.'));
         }
       });
-      msg.textContent = right === boxes.length
-        ? 'Kaikki oikein. Säästit tässä esimerkissä noin ' + Math.round(saved) + ' € kuukaudessa hauista, joista ei olisi tullut asiakkaita.'
-        : right + '/' + boxes.length + ' oikein. Keltaiset jäivät vielä negatiivisiksi lisäämättä, punaiset ovat hyviä hakuja, joita ei kannata estää.';
+      msg.textContent = right === boxes.length ? T.bgOk(Math.round(saved)) : T.bgPart(right, boxes.length);
     });
   });
 
@@ -357,19 +385,19 @@
       if (!(okYt && okMail && okC)) { (!okYt ? yt : !okMail ? arvio.elements.email : arvio.elements.consent).focus(); return; }
       if (arvio.elements.website.value) return; // robotti
       var btn = arvio.querySelector('button[type=submit]');
-      btn.disabled = true; btn.textContent = 'Lähetetään…';
+      btn.disabled = true; btn.textContent = T.sending;
       status.hidden = true;
       var qs = new URLSearchParams(location.search);
       var body = new URLSearchParams({
         ytunnus: yt.value, email: arvio.elements.email.value.trim(), phone: arvio.elements.phone.value.trim(),
         goal: arvio.elements.goal.value, consent: 'yes', website: '',
-        source: qs.get('utm_source') || qs.get('s') || (document.referrer ? new URL(document.referrer).hostname : 'suora')
+        source: qs.get('utm_source') || qs.get('s') || (document.referrer ? new URL(document.referrer).hostname : T.direct)
       });
       var done = function () { arvio.dispatchEvent(new Event('arvio:sent')); arvio.hidden = true; arvio.parentNode.querySelector('.arvio-done').hidden = false; scrollTo({ top: 0, behavior: 'smooth' }); };
       var fail = function () {
-        btn.disabled = false; btn.textContent = 'Pyydä ilmainen arvio';
+        btn.disabled = false; btn.textContent = T.send;
         status.hidden = false;
-        status.innerHTML = 'Lähetys ei onnistunut. Soita <a href="tel:+358458505051">045 850 5051</a> tai kirjoita <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a>.';
+        status.innerHTML = T.fail;
       };
       if (ENDPOINT.indexOf('http') !== 0) { fail(); return; }
       var settled = false;
