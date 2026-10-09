@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pizza Service Tikkurila | Pizzat ja kebabit kotiovelle</title>
+<meta name="description" content="Pizza Service Tikkurila: klassiset pizzat, erikoispizzat, kebabit, kanat ja salaatit. Ilmainen kotiinkuljetus verkkotilauksiin 4 km säteellä, Tikkurilantie 68, Vantaa.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23e3342f'/%3E%3Ctext x='32' y='45' font-family='Arial Black,Arial' font-weight='900' font-size='38' text-anchor='middle' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bungee&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#e3342f;--red-d:#b8221a;--red-dd:#7a130e;--green:#2f9e44;--green-d:#1f7a32;
+  --cream:#fbf4ea;--cream-2:#f3e7d6;--ink:#1d1410;--ink-2:#5c4a3d;--kraft:#cfa877;--yellow:#ffd23f;
+  --radius:22px;--wrap:1200px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img,svg{display:block}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:Bungee,'Archivo Black',sans-serif;font-weight:400;line-height:1.02;margin:0}
+
+/* header */
+.top{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s}
+.top.solid{background:rgba(251,244,234,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{display:flex;align-items:center;gap:7px;font-family:'Archivo Black',sans-serif;font-size:21px;letter-spacing:.01em;color:#fff;text-decoration:none;transition:color .3s}
+.top.solid .logo{color:var(--green)}
+.logo b{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--red);color:#fff;font-size:24px;box-shadow:0 0 0 3px #fff}
+.links{display:flex;align-items:center;gap:28px}
+.links a{text-decoration:none;color:#fff;font-weight:600;font-size:15px;transition:color .3s}
+.top.solid .links a{color:var(--ink)}
+.links a:hover{color:var(--yellow)}
+.top.solid .links a:hover{color:var(--red)}
+
+/* buttons */
+.btn,.glf-button.btn{display:inline-flex!important;align-items:center;gap:10px;padding:16px 26px!important;border-radius:999px!important;font:700 16px/1 Inter,sans-serif!important;text-decoration:none;cursor:pointer;border:0;transition:transform .2s,box-shadow .2s,background .2s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn-yellow{background:var(--yellow)!important;color:var(--ink)!important;box-shadow:0 8px 0 #c99a12,0 14px 30px rgba(0,0,0,.25)}
+.btn-yellow:hover{box-shadow:0 10px 0 #c99a12,0 18px 34px rgba(0,0,0,.28)}
+.btn-yellow:active{transform:translateY(4px);box-shadow:0 3px 0 #c99a12}
+.btn-ghost{background:rgba(255,255,255,.12)!important;color:#fff!important;box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
+.btn-ghost:hover{background:rgba(255,255,255,.22)!important}
+.btn-red{background:var(--red)!important;color:#fff!important;box-shadow:0 8px 0 var(--red-dd),0 14px 30px rgba(184,34,26,.3)}
+.btn-red:active{transform:translateY(4px);box-shadow:0 3px 0 var(--red-dd)}
+.btn-sm{padding:12px 20px!important;font-size:14px!important}
+.btn svg{width:18px;height:18px}
+
+/* hero */
+#hero{position:relative;height:320vh;background:var(--red)}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 68% 55%,rgba(255,170,90,.35),transparent 55%),
+    radial-gradient(ellipse at 50% 120%,rgba(60,0,0,.55),transparent 60%),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.055) 0 56px,transparent 56px 112px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.055) 0 56px,transparent 56px 112px),
+    linear-gradient(160deg,#d42d24,#a81c15)}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.25;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.panels{position:absolute;inset:0;pointer-events:none}
+.panel{position:absolute;left:max(24px,calc((100vw - var(--wrap))/2 + 24px));top:50%;width:min(520px,44vw);transform:translateY(-44%);opacity:0;visibility:hidden;transition:opacity .6s,transform .7s cubic-bezier(.2,.8,.2,1),visibility .6s;color:#fff}
+.panel.on{opacity:1;visibility:visible;transform:translateY(-50%);pointer-events:auto}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;background:rgba(0,0,0,.18);padding:8px 14px;border-radius:999px;margin-bottom:22px}
+.kicker i{width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 4px rgba(255,210,63,.25);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(255,210,63,0)}}
+.panel h1{font-size:clamp(44px,6.2vw,86px);text-shadow:0 6px 0 rgba(0,0,0,.15)}
+.panel h1 em,.panel h2 em{font-style:normal;color:var(--yellow)}
+.panel h2{font-size:clamp(38px,5vw,70px);text-shadow:0 6px 0 rgba(0,0,0,.15)}
+.panel p{font-size:clamp(16px,1.35vw,19px);line-height:1.6;margin:22px 0 30px;color:rgba(255,255,255,.88);max-width:460px}
+.ctas{display:flex;flex-wrap:wrap;gap:14px}
+.zero{display:flex;align-items:baseline;gap:14px;margin-top:6px}
+.zero b{white-space:nowrap;font-family:Bungee,sans-serif;font-weight:400;font-size:clamp(70px,9vw,128px);line-height:.9;color:var(--yellow);text-shadow:0 8px 0 rgba(0,0,0,.18)}
+.zero span{font-weight:700;font-size:18px;line-height:1.3}
+.facts{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.facts span{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:10px 14px;border-radius:12px;font-weight:600;font-size:14px}
+.cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);color:#fff;font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px;transition:opacity .4s}
+.cue .mouse{width:24px;height:38px;border:2px solid rgba(255,255,255,.8);border-radius:14px;position:relative}
+.cue .mouse::after{content:'';position:absolute;left:50%;top:7px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:#fff;animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:0;transform:translateY(-3px)}30%{opacity:1}100%{opacity:0;transform:translateY(10px)}}
+.progress{position:absolute;right:max(24px,calc((100vw - var(--wrap))/2 + 24px));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px}
+.progress i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.35);transition:.3s}
+.progress i.on{background:var(--yellow);transform:scale(1.4)}
+.loader{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-family:Bungee,sans-serif;font-size:18px;letter-spacing:.1em;transition:opacity .6s;pointer-events:none}
+.loader.done{opacity:0}
+
+/* marquee */
+.marquee{background:var(--ink);color:var(--cream);overflow:hidden;padding:22px 0;transform:rotate(-1.5deg);margin:-26px -20px 0;position:relative;z-index:3;box-shadow:0 20px 40px rgba(0,0,0,.18)}
+.marquee .track{display:flex;width:max-content;animation:scroll 28s linear infinite}
+.marquee span{font-family:Bungee,sans-serif;font-size:clamp(22px,3vw,36px);padding:0 26px;display:flex;align-items:center;gap:52px;white-space:nowrap}
+.marquee span::after{content:'';width:22px;height:22px;border-radius:50%;background:var(--red);box-shadow:0 0 0 5px rgba(227,52,47,.25)}
+.marquee span:nth-child(even){color:var(--yellow)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* sections */
+section.sec{padding:130px 0;scroll-margin-top:60px}
+.eyebrow{display:inline-block;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:54px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(38px,5vw,64px);max-width:720px}
+.sec-head h2 em{font-style:normal;color:var(--red)}
+.sec-head p{max-width:380px;color:var(--ink-2);line-height:1.7;margin:0;font-size:16px}
+
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;perspective:1200px}
+.card{position:relative;background:#fff;border-radius:var(--radius);padding:26px 24px 26px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 24px 50px -24px rgba(80,30,10,.25);transform-style:preserve-3d;transition:transform .25s ease-out,box-shadow .25s;will-change:transform;overflow:hidden}
+.card:hover{box-shadow:0 1px 0 rgba(0,0,0,.04),0 40px 70px -26px rgba(80,30,10,.38)}
+.card .art{height:170px;margin:-6px -6px 18px;border-radius:16px;display:grid;place-items:center;transform:translateZ(40px);background:var(--bgc)}
+.card .art svg{width:82%;height:auto;filter:drop-shadow(0 14px 12px rgba(0,0,0,.18));transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.card:hover .art svg{transform:scale(1.07) rotate(-3deg)}
+.card h3{font-size:24px;transform:translateZ(30px)}
+.card p{color:var(--ink-2);line-height:1.6;font-size:15px;margin:10px 0 18px;transform:translateZ(20px)}
+.card .more{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--red);cursor:pointer;transform:translateZ(25px);background:none!important;padding:0!important;font-size:15px}
+.card .more::after{content:'→';transition:transform .2s}
+.card:hover .more::after{transform:translateX(4px)}
+.card .shine{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.55),transparent 45%);opacity:0;transition:opacity .3s;mix-blend-mode:soft-light}
+.card:hover .shine{opacity:1}
+
+/* delivery */
+.delivery{background:var(--green);color:#fff;border-radius:36px;padding:80px 70px;position:relative;overflow:hidden;display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center}
+.delivery::before{content:'';position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;border:60px solid rgba(255,255,255,.07)}
+.delivery::after{content:'';position:absolute;left:-80px;bottom:-140px;width:300px;height:300px;border-radius:50%;background:rgba(0,0,0,.08)}
+.delivery h2{font-size:clamp(40px,5vw,68px);position:relative;z-index:1}
+.delivery h2 em{font-style:normal;color:var(--yellow)}
+.delivery p{font-size:17px;line-height:1.7;color:rgba(255,255,255,.88);margin:22px 0 32px;max-width:480px;position:relative;z-index:1}
+.steps{display:grid;gap:16px;position:relative;z-index:1;counter-reset:s}
+.step{display:flex;gap:18px;align-items:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:20px 22px;transition:transform .3s,background .3s}
+.step:hover{transform:translateX(8px);background:rgba(255,255,255,.16)}
+.step::before{counter-increment:s;content:counter(s);flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--yellow);color:var(--ink);font-family:Bungee,sans-serif;font-size:22px}
+.step b{display:block;font-size:18px;margin-bottom:4px}
+.step span{color:rgba(255,255,255,.8);font-size:15px;line-height:1.5}
+.stat{display:flex;gap:34px;flex-wrap:wrap;position:relative;z-index:1}
+.stat div b{display:block;font-family:Bungee,sans-serif;font-weight:400;font-size:52px;line-height:1;color:var(--yellow)}
+.stat div span{font-size:14px;font-weight:600;color:rgba(255,255,255,.85)}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.box{background:#fff;border-radius:var(--radius);padding:40px;box-shadow:0 24px 50px -28px rgba(80,30,10,.25)}
+.box.dark{background:var(--ink);color:var(--cream)}
+.box h3{font-size:30px;margin-bottom:22px}
+.row{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-top:1px solid rgba(0,0,0,.08)}
+.box.dark .row{border-color:rgba(255,255,255,.1)}
+.row svg{flex:none;width:24px;height:24px;color:var(--red);margin-top:2px}
+.row small{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink-2);margin-bottom:4px}
+.box.dark .row small{color:#b7a596}
+.row a,.row strong{font-size:19px;font-weight:700;text-decoration:none}
+.row a:hover{color:var(--red)}
+.box .ctas{margin-top:26px}
+.pinwrap{position:relative;height:100%;min-height:300px;border-radius:16px;overflow:hidden;background:#1a2a20}
+.pinwrap svg{width:100%;height:100%;position:absolute;inset:0}
+
+/* final cta */
+.final{background:var(--red);color:#fff;text-align:center;padding:120px 0 130px;position:relative;overflow:hidden}
+.final::before{content:'';position:absolute;inset:0;opacity:.5;background:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 56px,transparent 56px 112px),repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 56px,transparent 56px 112px)}
+.final h2{font-size:clamp(44px,7vw,100px);position:relative;text-shadow:0 8px 0 rgba(0,0,0,.15)}
+.final h2 em{font-style:normal;color:var(--yellow)}
+.final p{position:relative;font-size:18px;margin:20px auto 36px;color:rgba(255,255,255,.88);max-width:560px;line-height:1.6}
+.final .ctas{justify-content:center;position:relative}
+.slice-float{position:absolute;width:120px;opacity:.9;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-22px) rotate(8deg)}}
+
+footer{background:var(--ink);color:#b7a596;padding:40px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:#e8dccf;text-decoration:none}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s,transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+@media (max-width:980px){
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .delivery{grid-template-columns:1fr;padding:56px 32px;gap:40px}
+  .contact{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .links a:not(.btn){display:none}
+  .panel{left:20px;right:20px;width:auto;top:auto;bottom:90px;transform:translateY(20px)}
+  .panel.on{transform:none}
+  .panel p{margin:14px 0 20px}
+  .stage::after{content:'';position:absolute;inset:auto 0 0 0;height:62%;background:linear-gradient(transparent,rgba(120,15,10,.75));pointer-events:none}
+  .panels{z-index:2}
+  .progress{display:none}
+  .cue{display:none}
+  section.sec{padding:90px 0}
+  .cards{grid-template-columns:1fr}
+  .box{padding:28px}
+  .logo{font-size:17px}
+}
+@media (prefers-reduced-motion:reduce){.marquee .track,.slice-float{animation:none}.reveal{opacity:1;transform:none}}
+</style>
+<script src="https://www.fbgcdn.com/embedder/js/ewm2.js" defer async></script>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#hero">PIZZA <b>S</b> SERVICE</a>
+    <nav class="links">
+      <a href="#valikoima">Valikoima</a>
+      <a href="#kuljetus">Kotiinkuljetus</a>
+      <a href="#yhteys">Yhteystiedot</a>
+      <span class="glf-button btn btn-red btn-sm" data-glf-cuid="" data-glf-ruid="937b0d40-f90f-42f0-b961-faeacca9d192">Tilaa verkosta</span>
+    </nav>
+  </div>
+</header>
+
+<section id="hero">
+  <div class="stage">
+    <canvas id="gl"></canvas>
+    <div class="grain"></div>
+    <div class="loader" id="loader">Lämmitetään uunia…</div>
+    <div class="panels">
+      <div class="panel on" data-i="0">
+        <div class="kicker"><i></i>Tikkurila · Vantaa</div>
+        <h1>Kuuma pizza <em>suoraan</em> ovelle</h1>
+        <p>Klassiset pizzat, erikoispizzat ja kasvispizzat. Lisäksi kebabit, kanat, vönerit ja salaatit.</p>
+        <div class="ctas">
+          <span class="glf-button btn btn-yellow" data-glf-cuid="" data-glf-ruid="937b0d40-f90f-42f0-b961-faeacca9d192">Näytä ruokalista ja tilaa</span>
+          <a class="btn btn-ghost" href="tel:+358505055710"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>050 505 5710</a>
+        </div>
+      </div>
+      <div class="panel" data-i="1">
+        <div class="kicker"><i></i>Verkkotilaukset</div>
+        <div class="zero"><b>0 €</b><span>kotiinkuljetus<br>kaikkiin verkkotilauksiin</span></div>
+        <p>Toimitamme 4 km säteellä ravintolasta, Tikkurilan ja Vantaan alueella. Pizza tulee ovellesi nopeasti ja kuumana.</p>
+        <div class="facts"><span>Tikkurilantie 68, Vantaa</span><span>Toimitus 4 km säteellä</span></div>
+      </div>
+      <div class="panel" data-i="2">
+        <div class="kicker"><i></i>Laatikko on auki</div>
+        <h2>Tuli <em>nälkä?</em></h2>
+        <p>Valitse suosikkisi ruokalistalta ja tilaa muutamalla klikkauksella. Me hoidamme loput.</p>
+        <div class="ctas">
+          <span class="glf-button btn btn-yellow" data-glf-cuid="" data-glf-ruid="937b0d40-f90f-42f0-b961-faeacca9d192">Tilaa nyt</span>
+          <a class="btn btn-ghost" href="#valikoima">Katso valikoima</a>
+        </div>
+      </div>
+    </div>
+    <div class="progress"><i class="on"></i><i></i><i></i></div>
+    <div class="cue" id="cue"><div class="mouse"></div>Avaa laatikko</div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>Pizzat</span><span>Kebabit</span><span>Kanat</span><span>Vönerit</span><span>Salaatit</span><span>Kasvispizzat</span>
+  <span>Pizzat</span><span>Kebabit</span><span>Kanat</span><span>Vönerit</span><span>Salaatit</span><span>Kasvispizzat</span>
+</div></div>
+
+<section class="sec" id="valikoima">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Valikoima</span><h2>Jokaiselle <em>jotain</em> herkullista</h2></div>
+      <p>Laaja valikoima pizzoja klassikoista erikoisuuksiin, sekä kebabit, kanat, vönerit ja raikkaat salaatit.</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal" style="--bgc:#fde3d8">
+        <div class="art"><svg viewBox="0 0 200 160"><path d="M38 34 Q100 10 162 34 L104 150 Q100 156 96 150 Z" fill="#f5c94c"/><path d="M30 30 Q100 2 170 30 L164 44 Q100 18 36 44 Z" fill="#d9903f"/><path d="M36 42 Q100 18 164 42 L160 50 Q100 28 40 50Z" fill="#c4361f" opacity=".85"/><circle cx="82" cy="66" r="13" fill="#b0261c"/><circle cx="120" cy="62" r="12" fill="#b0261c"/><circle cx="100" cy="98" r="11" fill="#b0261c"/><circle cx="78" cy="66" r="3" fill="#7e1810"/><circle cx="123" cy="58" r="3" fill="#7e1810"/><ellipse cx="110" cy="82" rx="9" ry="4" fill="#2f8a3a" transform="rotate(-30 110 82)"/><ellipse cx="88" cy="88" rx="8" ry="3.5" fill="#2f8a3a" transform="rotate(25 88 88)"/><circle cx="136" cy="78" r="4" fill="none" stroke="#1b1b1b" stroke-width="3"/><path d="M100 150 Q98 160 101 166" stroke="#f5c94c" stroke-width="5" stroke-linecap="round" fill="none"/></svg></div>
+        <h3>Pizzat</h3>
+        <p>Klassiset pizzat, erikoispizzat ja kasvispizzat. Kuumana uunista.</p>
+        <span class="glf-button more" data-glf-cuid="" data-glf-ruid="937b0d40-f90f-42f0-b961-faeacca9d192">Katso pizzat</span>
+        <div class="shine"></div>
+      </article>
+      <article class="card reveal d1" style="--bgc:#fbe8c8">
+        <div class="art"><svg viewBox="0 0 200 160"><path d="M60 30 L140 30 L118 150 L82 150 Z" fill="#f1dcae"/><path d="M66 36 L134 36 L130 60 L70 60 Z" fill="#9a5226"/><path d="M70 62 L130 62 L126 84 L74 84 Z" fill="#7a3c18"/><path d="M68 56 Q80 46 92 58 Q104 46 116 58 Q126 48 134 58" stroke="#3aa34a" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="84" cy="74" r="6" fill="#e3342f"/><circle cx="112" cy="72" r="6" fill="#e3342f"/><path d="M74 86 Q100 96 126 86" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M60 30 L82 150" stroke="#e2c58e" stroke-width="3"/><path d="M140 30 L118 150" stroke="#e2c58e" stroke-width="3"/><rect x="78" y="118" width="44" height="34" rx="4" fill="#e3342f"/><text x="100" y="140" text-anchor="middle" font-family="Archivo Black,Arial" font-size="13" fill="#fff">KEBAB</text></svg></div>
+        <h3>Kebabit &amp; vönerit</h3>
+        <p>Mehevät kebabit ja vönerit, täytteinä tuoreet vihannekset ja kastikkeet.</p>
+        <span class="glf-button more" data-glf-cuid="" data-glf-ruid="937b0d40-f90f-42f0-b961-faeacca9d192">Katso kebabit</span>
+        <div class="shine"></div>
+      </article>
+      <article class="card reveal d2" style="--bgc:#ffe9b8">
+        <div class="art"><svg viewBox="0 0 200 160"><ellipse cx="100" cy="132" rx="70" ry="14" fill="#e9d7b8"/><path d="M60 92 Q48 46 92 36 Q136 30 140 72 Q142 100 112 106 L96 108 Q70 112 60 92Z" fill="#c8742b"/><path d="M70 84 Q64 56 92 48 Q120 44 126 70" stroke="#e8a456" stroke-width="7" fill="none" stroke-linecap="round" opacity=".7"/><path d="M110 104 L146 128" stroke="#f4ead7" stroke-width="14" stroke-linecap="round"/><circle cx="148" cy="122" r="9" fill="#f4ead7"/><circle cx="156" cy="132" r="9" fill="#f4ead7"/><circle cx="84" cy="66" r="2.5" fill="#8a4a1a"/><circle cx="104" cy="56" r="2.5" fill="#8a4a1a"/><circle cx="96" cy="84" r="2.5" fill="#8a4a1a"/><path d="M40 120 Q46 110 56 116" stroke="#3aa34a" stroke-width="5" fill="none" stroke-linecap="round"/></svg></div>
+        <h3>Kanat</h3>
+        <p>Rapeat ja maukkaat kanaherkut, kun mieli tekee jotain muuta kuin pizzaa.</p>
+        <span class="glf-button more" data-glf-cuid="" data-glf-ruid="937b0d40-f90f-42f0-b961-faeacca9d192">Katso kanat</span>
+        <div class="shine"></div>
+      </article>
+      <article class="card reveal d3" style="--bgc:#dcf0d5">
+        <div class="art"><svg viewBox="0 0 200 160"><ellipse cx="72" cy="72" rx="26" ry="16" fill="#3aa34a"/><ellipse cx="112" cy="62" rx="30" ry="18" fill="#57b85a"/><ellipse cx="140" cy="80" rx="22" ry="14" fill="#2f8a3a"/><circle cx="92" cy="76" r="11" fill="#e3342f"/><circle cx="124" cy="84" r="10" fill="#e3342f"/><circle cx="108" cy="80" r="7" fill="#fff6d8"/><ellipse cx="80" cy="86" rx="10" ry="5" fill="#f5d36a"/><path d="M34 84 H166 Q160 140 100 142 Q40 140 34 84Z" fill="#fff"/><path d="M34 84 H166" stroke="#e8e0d2" stroke-width="4"/><path d="M48 100 H152" stroke="#e3342f" stroke-width="4" opacity=".7"/></svg></div>
+        <h3>Salaatit</h3>
+        <p>Raikkaat salaatit kevyempään makuun, sopivat myös pizzan kaveriksi.</p>
+        <span class="glf-button more" data-glf-cuid="" data-glf-ruid="937b0d40-f90f-42f0-b961-faeacca9d192">Katso salaatit</span>
+        <div class="shine"></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="kuljetus" style="padding-top:0">
+  <div class="wrap">
+    <div class="delivery reveal">
+      <div>
+        <span class="eyebrow" style="color:var(--yellow)">Kotiinkuljetus</span>
+        <h2>Ilmainen toimitus <em>verkko&shy;tilauksiin</em></h2>
+        <p>Teemme ruokatilauksesta mahdollisimman helpon. Kuljetamme ruokasi 4 kilometrin säteellä Tikkurilantie 68:sta, Tikkurilan ja Vantaan alueella.</p>
+        <div class="stat"><div><b>0 €</b><span>toimitusmaksu</span></div><div><b>4 km</b><span>toimitussäde</span></div></div>
+      </div>
+      <div class="steps">
+        <div class="step"><div><b>Avaa ruokalista</b><span>Pizzat, kebabit, kanat ja salaatit samassa paikassa.</span></div></div>
+        <div class="step"><div><b>Tilaa verkosta</b><span>Valitse ja maksa muutamalla klikkauksella.</span></div></div>
+        <div class="step"><div><b>Ovikello soi</b><span>Ruoka tulee kotiovellesi kuumana.</span></div></div>
+        <span class="glf-button btn btn-yellow" style="justify-self:start;margin-top:10px" data-glf-cuid="" data-glf-ruid="937b0d40-f90f-42f0-b961-faeacca9d192">Tilaa kotiin</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="yhteys" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Yhteystiedot</span><h2>Tule <em>syömään</em> tai hae mukaan</h2></div>
+      <p>Löydät meidät Tikkurilasta. Voit myös soittaa ja tilata puhelimitse.</p>
+    </div>
+    <div class="contact">
+      <div class="box dark reveal">
+        <h3>Pizza Service Tikkurila</h3>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><div><small>Osoite</small><strong>Tikkurilantie 68, 01300 Vantaa</strong></div></div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><div><small>Puhelin</small><a href="tel:+358505055710">050 505 5710</a></div></div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h13v10H3zM16 10h3l2 3v4h-5"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><div><small>Kotiinkuljetus</small><strong>Ilmainen verkkotilauksiin, 4 km säde</strong></div></div>
+        <div class="ctas">
+          <a class="btn btn-red" target="_blank" rel="noopener" href="https://www.google.com/maps/dir//Pizzaservice+Tikkurila,+Tikkurilantie+68,+01300+Vantaa/@60.2902359,25.0238118,16z/">Hae reitti</a>
+          <span class="glf-button btn btn-yellow" data-glf-cuid="" data-glf-ruid="937b0d40-f90f-42f0-b961-faeacca9d192">Tilaa verkosta</span>
+        </div>
+      </div>
+      <a class="pinwrap reveal d1" target="_blank" rel="noopener" href="https://www.google.com/maps/dir//Pizzaservice+Tikkurila,+Tikkurilantie+68,+01300+Vantaa/@60.2902359,25.0238118,16z/" aria-label="Avaa reitti Google Mapsissa">
+        <svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
+          <rect width="600" height="420" fill="#16241c"/>
+          <g fill="#1d3027"><rect x="20" y="20" width="120" height="90" rx="6"/><rect x="160" y="20" width="90" height="90" rx="6"/><rect x="350" y="20" width="110" height="90" rx="6"/><rect x="480" y="20" width="100" height="90" rx="6"/><rect x="20" y="250" width="120" height="70" rx="6"/><rect x="160" y="250" width="90" height="150" rx="6"/><rect x="350" y="250" width="110" height="70" rx="6"/><rect x="480" y="250" width="100" height="150" rx="6"/><rect x="20" y="340" width="120" height="60" rx="6"/><rect x="350" y="340" width="110" height="60" rx="6"/></g>
+          <path d="M0 180 H600 M300 0 V420" stroke="#2a4636" stroke-width="26"/>
+          <path d="M0 180 H600 M300 0 V420" stroke="#3c5e4a" stroke-width="2" stroke-dasharray="14 12"/>
+          <path d="M-20 60 C150 120 120 330 330 400" stroke="#123247" stroke-width="18" fill="none"/>
+          <circle cx="300" cy="180" r="70" fill="rgba(227,52,47,.12)"><animate attributeName="r" values="30;110" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="2.4s" repeatCount="indefinite"/></circle>
+          <path d="M300 186 C300 186 270 150 270 128 A30 30 0 0 1 330 128 C330 150 300 186 300 186Z" fill="#e3342f" stroke="#fff" stroke-width="3"/>
+          <text x="300" y="139" text-anchor="middle" font-family="Archivo Black,Arial" font-size="26" fill="#fff">S</text>
+          <rect x="222" y="200" width="156" height="34" rx="17" fill="#fff"/><text x="300" y="222" text-anchor="middle" font-family="Inter,Arial" font-weight="700" font-size="14" fill="#1d1410">Tikkurilantie 68</text>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <svg class="slice-float" style="left:6%;top:18%" viewBox="0 0 200 160"><path d="M38 34 Q100 10 162 34 L104 150 Q100 156 96 150 Z" fill="#f5c94c"/><path d="M30 30 Q100 2 170 30 L164 44 Q100 18 36 44 Z" fill="#d9903f"/><circle cx="82" cy="66" r="13" fill="#b0261c"/><circle cx="120" cy="62" r="12" fill="#b0261c"/><circle cx="100" cy="98" r="11" fill="#b0261c"/></svg>
+  <svg class="slice-float" style="right:7%;bottom:16%;animation-delay:-3s;transform:rotate(160deg)" viewBox="0 0 200 160"><path d="M38 34 Q100 10 162 34 L104 150 Q100 156 96 150 Z" fill="#f5c94c"/><path d="M30 30 Q100 2 170 30 L164 44 Q100 18 36 44 Z" fill="#d9903f"/><circle cx="82" cy="66" r="13" fill="#b0261c"/><circle cx="120" cy="62" r="12" fill="#b0261c"/></svg>
+  <div class="wrap">
+    <h2 class="reveal">Tilaa nyt. <em>Toimitus on ilmainen.</em></h2>
+    <p class="reveal d1">Kaikkiin verkkotilauksiin, 4 km säteellä Tikkurilantie 68:sta.</p>
+    <div class="ctas reveal d2">
+      <span class="glf-button btn btn-yellow" data-glf-cuid="" data-glf-ruid="937b0d40-f90f-42f0-b961-faeacca9d192">Näytä ruokalista ja tilaa</span>
+      <a class="btn btn-ghost" href="tel:+358505055710">Soita 050 505 5710</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© Pizza Service Tikkurila · Tikkurilantie 68, 01300 Vantaa · <a href="tel:+358505055710">050 505 5710</a></span>
+    <span>Sivuston konsepti: <a href="https://pikasivut.com" target="_blank" rel="noopener">Pikasivut</a></span>
+  </div>
+</footer>
+
+<script>
+const top_=document.getElementById('top');
+addEventListener('scroll',()=>top_.classList.toggle('solid',scrollY>innerHeight*2.9),{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    card.style.transform=`rotateY(${(x-.5)*14}deg) rotateX(${(.5-y)*12}deg) translateY(-6px)`;card.style.setProperty('--mx',x*100+'%');card.style.setProperty('--my',y*100+'%');});
+  card.addEventListener('pointerleave',()=>{card.style.transform='';});
+});
+</script>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+
+const canvas=document.getElementById('gl'),stage=canvas.parentElement,hero=document.getElementById('hero');
+const panels=[...document.querySelectorAll('.panel')],dots=[...document.querySelectorAll('.progress i')],cue=document.getElementById('cue');
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t;
+const eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const bounce=t=>{const n=7.5625,d=2.75;if(t<1/d)return n*t*t;if(t<2/d)return n*(t-=1.5/d)*t+.75;if(t<2.5/d)return n*(t-=2.25/d)*t+.9375;return n*(t-=2.625/d)*t+.984375;};
+
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(32,1,.1,100);
+
+scene.add(new THREE.HemisphereLight(0xfff3e4,0x7a1c12,1.25));
+const key=new THREE.DirectionalLight(0xfff0dc,2.6);key.position.set(-4,9,6);key.castShadow=true;key.shadow.mapSize.set(2048,2048);
+Object.assign(key.shadow.camera,{left:-6,right:6,top:6,bottom:-6,near:1,far:30});key.shadow.radius=8;key.shadow.bias=-.0004;scene.add(key);
+const rim=new THREE.DirectionalLight(0xffc48a,1.4);rim.position.set(5,4,-5);scene.add(rim);
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.ShadowMaterial({opacity:.32}));ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;scene.add(ground);
+
+await Promise.all([document.fonts.load('200px "Archivo Black"'),document.fonts.load('40px Bungee'),document.fonts.load('700 30px Inter')]).catch(()=>{});
+const maxAniso=renderer.capabilities.getMaxAnisotropy();
+function tex(w,h,draw,repeat){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');draw(x,w,h);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=maxAniso;return t;}
+function kraft(x,w,h,base){x.fillStyle=base;x.fillRect(0,0,w,h);for(let i=0;i<w*h/45;i++){x.fillStyle=`rgba(${Math.random()<.55?'110,70,30':'255,245,220'},${Math.random()*.07})`;x.fillRect(Math.random()*w,Math.random()*h,Math.random()*22+2,1);}}
+
+const W=3.3,D=3.3,H=.46,T=.045;
+const tLid=tex(1024,1024,(x,w,h)=>{kraft(x,w,h,'#d0a977');
+  x.strokeStyle='#d8322b';x.lineWidth=14;x.strokeRect(46,46,w-92,h-92);x.lineWidth=4;x.strokeRect(78,78,w-156,h-156);
+  x.fillStyle='rgba(216,50,43,.9)';for(let i=0;i<4;i++){x.save();x.translate(w/2,h/2);x.rotate(i*Math.PI/2);x.font='bold 22px Inter';x.textAlign='center';x.fillText('KUUMAA  •  TUORETTA  •  NOPEASTI',0,-h/2+66);x.restore();}
+  x.beginPath();x.arc(w/2,410,215,0,Math.PI*2);x.fillStyle='#e3342f';x.fill();x.lineWidth=14;x.strokeStyle='#fff';x.stroke();
+  x.fillStyle='#fff';x.font='300px "Archivo Black"';x.textAlign='center';x.textBaseline='middle';x.fillText('S',w/2,425);
+  x.fillStyle='#24803a';x.font='92px "Archivo Black"';x.textBaseline='alphabetic';x.fillText('PIZZA SERVICE',w/2,762);
+  x.fillStyle='#d8322b';x.font='44px Bungee';x.fillText('T I K K U R I L A',w/2,830);
+  x.fillStyle='#6e4a28';x.font='700 32px Inter';x.fillText('050 505 5710  ·  pizza-service.fi',w/2,900);});
+const tFront=tex(1024,144,(x,w,h)=>{kraft(x,w,h,'#c9a070');x.fillStyle='#d8322b';x.fillRect(0,10,w,8);x.fillRect(0,h-18,w,8);x.font='56px "Archivo Black"';x.textAlign='center';x.textBaseline='middle';x.fillText('PIZZA SERVICE TIKKURILA',w/2,h/2+2);});
+const tSide=tex(512,128,(x,w,h)=>kraft(x,w,h,'#c19866'));
+const tInner=tex(512,512,(x,w,h)=>kraft(x,w,h,'#e6cfa6'));
+const tFloor=tex(1024,1024,(x,w,h)=>{kraft(x,w,h,'#e6cfa6');for(let i=0;i<5;i++){const g=x.createRadialGradient(0,0,0,0,0,90);g.addColorStop(0,'rgba(170,110,40,.22)');g.addColorStop(1,'rgba(170,110,40,0)');x.save();x.translate(150+Math.random()*700,150+Math.random()*700);x.scale(1+Math.random(),1);x.fillStyle=g;x.fillRect(-180,-180,360,360);x.restore();}});
+const M=(map,rough=.92)=>new THREE.MeshStandardMaterial({map,roughness:rough,metalness:0});
+const mLid=M(tLid,.85),mFront=M(tFront),mSide=M(tSide),mInner=M(tInner),mFloor=M(tFloor);
+
+const root=new THREE.Group();scene.add(root);
+const boxG=new THREE.Group();root.add(boxG);
+const mesh=(geo,mat,pos)=>{const m=new THREE.Mesh(geo,mat);m.position.set(...pos);m.castShadow=true;m.receiveShadow=true;return m;};
+boxG.add(mesh(new THREE.BoxGeometry(W,T,D),[mSide,mSide,mFloor,mSide,mSide,mSide],[0,T/2,0]));
+boxG.add(mesh(new THREE.BoxGeometry(W,H,T),[mSide,mSide,mSide,mSide,mFront,mInner],[0,H/2,D/2-T/2]));
+boxG.add(mesh(new THREE.BoxGeometry(W,H,T),[mSide,mSide,mSide,mSide,mInner,mSide],[0,H/2,-D/2+T/2]));
+boxG.add(mesh(new THREE.BoxGeometry(T,H,D),[mInner,mSide,mSide,mSide,mSide,mSide],[-W/2+T/2,H/2,0]));
+boxG.add(mesh(new THREE.BoxGeometry(T,H,D),[mSide,mInner,mSide,mSide,mSide,mSide],[W/2-T/2,H/2,0]));
+const lid=new THREE.Group();lid.position.set(0,H+T*.5,-D/2);boxG.add(lid);
+lid.add(mesh(new THREE.BoxGeometry(W+.04,T,D+.04),[mSide,mSide,mLid,mInner,mSide,mSide],[0,0,D/2]));
+lid.add(mesh(new THREE.BoxGeometry(W+.04,H*.82,T),[mSide,mSide,mSide,mSide,mFront,mInner],[0,-H*.41,D+.02]));
+const glow=new THREE.PointLight(0xffa64d,0,5,1.6);glow.position.set(0,1,0);boxG.add(glow);
+
+const pizza=new THREE.Group();boxG.add(pizza);const pr=1.42;
+const tCrust=tex(512,256,(x,w,h)=>{x.fillStyle='#d99a4e';x.fillRect(0,0,w,h);for(let i=0;i<500;i++){x.fillStyle=`rgba(${Math.random()<.5?'120,60,20':'255,220,160'},${Math.random()*.25})`;x.beginPath();x.arc(Math.random()*w,Math.random()*h,Math.random()*5+1,0,7);x.fill();}for(let i=0;i<40;i++){x.fillStyle='rgba(60,25,8,.45)';x.beginPath();x.ellipse(Math.random()*w,Math.random()*h,Math.random()*9+3,Math.random()*4+2,Math.random()*3,0,7);x.fill();}});
+const tTop=tex(1024,1024,(x,w,h)=>{const c=w/2;x.fillStyle='#d99a4e';x.fillRect(0,0,w,h);
+  let g=x.createRadialGradient(c,c,200,c,c,500);g.addColorStop(0,'#c23117');g.addColorStop(1,'#952010');x.fillStyle=g;x.beginPath();x.arc(c,c,500,0,7);x.fill();
+  for(let i=0;i<140;i++){const a=Math.random()*7,d=Math.sqrt(Math.random())*440,px=c+Math.cos(a)*d,py=c+Math.sin(a)*d,r=Math.random()*55+25;g=x.createRadialGradient(px-r*.2,py-r*.2,2,px,py,r);g.addColorStop(0,'#fff0b0');g.addColorStop(.6,'#f6cf5e');g.addColorStop(1,'rgba(240,190,70,0)');x.fillStyle=g;x.beginPath();x.ellipse(px,py,r,r*.8,a,0,7);x.fill();}
+  for(let i=0;i<90;i++){const a=Math.random()*7,d=Math.sqrt(Math.random())*450;x.fillStyle=`rgba(190,110,40,${Math.random()*.45})`;x.beginPath();x.arc(c+Math.cos(a)*d,c+Math.sin(a)*d,Math.random()*12+3,0,7);x.fill();}
+  for(let i=0;i<260;i++){const a=Math.random()*7,d=Math.sqrt(Math.random())*460;x.fillStyle='rgba(40,90,30,.8)';x.fillRect(c+Math.cos(a)*d,c+Math.sin(a)*d,3,2);}
+  x.strokeStyle='rgba(110,40,15,.4)';x.lineWidth=5;for(let i=0;i<3;i++){const a=i*Math.PI/3;x.beginPath();x.moveTo(c+Math.cos(a)*510,c+Math.sin(a)*510);x.lineTo(c-Math.cos(a)*510,c-Math.sin(a)*510);x.stroke();}});
+const mCrust=M(tCrust,.75);
+const base=new THREE.Mesh(new THREE.CylinderGeometry(pr,pr*.97,.09,96),[mCrust,new THREE.MeshStandardMaterial({map:tTop,roughness:.55}),mCrust]);base.position.y=.045;base.castShadow=true;base.receiveShadow=true;pizza.add(base);
+const rimM=new THREE.Mesh(new THREE.TorusGeometry(pr-.07,.085,20,120),mCrust);rimM.rotation.x=-Math.PI/2;rimM.position.y=.1;rimM.castShadow=true;pizza.add(rimM);
+const tPep=tex(256,256,(x,w,h)=>{x.fillStyle='#a8261a';x.fillRect(0,0,w,h);const g=x.createRadialGradient(128,128,60,128,128,130);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(90,10,5,.7)');x.fillStyle=g;x.fillRect(0,0,w,h);for(let i=0;i<26;i++){x.fillStyle='rgba(255,200,170,.35)';x.beginPath();x.arc(Math.random()*w,Math.random()*h,Math.random()*9+3,0,7);x.fill();}});
+const pepG=new THREE.CylinderGeometry(.19,.19,.03,40),pepM=new THREE.MeshStandardMaterial({map:tPep,roughness:.45});
+const olG=new THREE.TorusGeometry(.06,.027,12,28),olM=new THREE.MeshStandardMaterial({color:0x161616,roughness:.3});
+const baG=new THREE.SphereGeometry(.12,16,10),baM=new THREE.MeshStandardMaterial({color:0x2b7a2f,roughness:.5});
+const peG=new THREE.TorusGeometry(.09,.02,8,28),peM=new THREE.MeshStandardMaterial({color:0x3fa34a,roughness:.4});
+const placed=[];const spot=(minD)=>{for(let k=0;k<60;k++){const a=Math.random()*Math.PI*2,d=Math.sqrt(Math.random())*(pr-.32),p=[Math.cos(a)*d,Math.sin(a)*d];if(placed.every(q=>Math.hypot(q[0]-p[0],q[1]-p[1])>minD)){placed.push(p);return p;}}return null;};
+for(let i=0;i<15;i++){const p=spot(.34);if(!p)continue;const m=new THREE.Mesh(pepG,pepM);m.position.set(p[0],.1+Math.random()*.01,p[1]);m.rotation.set((Math.random()-.5)*.12,Math.random()*3,(Math.random()-.5)*.12);m.castShadow=true;pizza.add(m);}
+for(let i=0;i<12;i++){const p=spot(.16);if(!p)continue;const m=new THREE.Mesh(olG,olM);m.position.set(p[0],.11,p[1]);m.rotation.x=-Math.PI/2+(Math.random()-.5)*.4;pizza.add(m);}
+for(let i=0;i<9;i++){const p=spot(.18);if(!p)continue;const m=new THREE.Mesh(baG,baM);m.position.set(p[0],.11,p[1]);m.scale.set(1,.13,.5);m.rotation.y=Math.random()*3;pizza.add(m);}
+for(let i=0;i<8;i++){const p=spot(.16);if(!p)continue;const m=new THREE.Mesh(peG,peM);m.position.set(p[0],.105,p[1]);m.rotation.set(-Math.PI/2,0,Math.random()*3);m.scale.set(1,.75,1);pizza.add(m);}
+pizza.position.y=T;
+
+const tSteam=tex(128,128,(x,w,h)=>{const g=x.createRadialGradient(64,64,0,64,64,64);g.addColorStop(0,'rgba(255,255,255,.9)');g.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=g;x.fillRect(0,0,w,h);});
+tSteam.colorSpace=THREE.NoColorSpace;
+const steam=[];for(let i=0;i<26;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:tSteam,transparent:true,depthWrite:false,opacity:0}));s.userData={x:(Math.random()-.5)*1.8,z:(Math.random()-.5)*1.8,ph:Math.random(),sp:.12+Math.random()*.1};boxG.add(s);steam.push(s);}
+
+let vw=1,vh=1,mobile=false;
+function resize(){vw=stage.clientWidth;vh=stage.clientHeight;mobile=vw<760;renderer.setSize(vw,vh,false);camera.aspect=vw/vh;camera.fov=mobile?44:32;if(mobile)camera.setViewOffset(vw,vh,0,vh*.24,vw,vh);else camera.clearViewOffset();camera.updateProjectionMatrix();}
+addEventListener('resize',resize);resize();
+
+let mx=0,my=0,tmx=0,tmy=0;addEventListener('pointermove',e=>{tmx=e.clientX/innerWidth*2-1;tmy=e.clientY/innerHeight*2-1;},{passive:true});
+let ps=0,cur=-1;const t0=performance.now();
+document.getElementById('loader').classList.add('done');
+function frame(now){const t=(now-t0)/1000;
+  const r=hero.getBoundingClientRect(),p=clamp(-r.top/(r.height-innerHeight));ps+=(p-ps)*.085;
+  mx+=(tmx-mx)*.06;my+=(tmy-my)*.06;
+  const intro=clamp(t/1.5),drop=(1-bounce(intro))*3.2;
+  const open=eio(clamp((ps-.03)/.4)),lift=eio(clamp((ps-.42)/.36));
+  const peek=intro>=1&&ps<.03?(.5+.5*Math.sin(t*2.4))*.07:0;
+  lid.rotation.x=-(open*1.97+peek);
+  pizza.position.y=T+lift*1.05;pizza.rotation.y=t*.12+ps*1.6;pizza.rotation.x=lift*.42;
+  boxG.position.y=drop;boxG.rotation.y=lerp(-.62,-.16,open)+mx*.22;boxG.rotation.x=my*.05;boxG.rotation.z=(1-intro)*.3;
+  root.position.x=mobile?0:lerp(2.25,1.95,ps);root.position.z=mobile?.4:0;root.scale.setScalar(mobile?.8:1);
+  const dist=(mobile?13.5:lerp(11.6,10.6,ps)),el=lerp(.9,.66,ps);
+  camera.position.set(mx*.4,Math.sin(el)*dist,Math.cos(el)*dist);camera.lookAt(mobile?0:.15,mobile?-1.6+lift*2.2:lift*.45,0);
+  glow.intensity=open*7;
+  const sa=clamp(.15+clamp((ps-.12)/.3)*.85)*intro;
+  steam.forEach(s=>{const u=s.userData,k=(t*u.sp+u.ph)%1;s.position.set(u.x+Math.sin(t+u.ph*9)*.15,T+.25+lift*1.05+k*2.1,u.z);const sc=.5+k*1.4;s.scale.set(sc,sc,sc);s.material.opacity=sa*Math.sin(k*Math.PI)*.28*(open>.05||peek>0?1:.0);});
+  const idx=ps<.3?0:ps<.68?1:2;if(idx!==cur){cur=idx;panels.forEach((el,i)=>el.classList.toggle('on',i===idx));dots.forEach((d,i)=>d.classList.toggle('on',i===idx));}
+  cue.style.opacity=ps>.05?0:1;
+  renderer.render(scene,camera);requestAnimationFrame(frame);}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
