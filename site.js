@@ -328,6 +328,55 @@
     addEventListener('resize', function () { if (innerWidth > 960) mm.removeAttribute('open'); });
   }
 
+  /* ---------- Ilmainen arvio -lomake ---------- */
+  var arvio = document.getElementById('arvio-form');
+  if (arvio) {
+    // Apps Script -web-sovelluksen osoite (asetetaan, kun käyttöönotto on valmis)
+    var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxFmf_zBQ45lB0psUKaxxtubsk5aVtn3p87HeufD5Mebf57PY44iVr12qSaSdG26pI0/exec';
+    function ytOk(v) {
+      var m = /^(\d{7})-(\d)$/.exec(v);
+      if (!m) return false;
+      var w = [7, 9, 10, 5, 8, 4, 2], sum = 0;
+      for (var i = 0; i < 7; i++) sum += parseInt(m[1].charAt(i), 10) * w[i];
+      var r = sum % 11;
+      if (r === 1) return false;
+      return (r === 0 ? 0 : 11 - r) === parseInt(m[2], 10);
+    }
+    function normYt(v) {
+      var d = v.replace(/[^0-9]/g, '');
+      return d.length === 8 ? d.slice(0, 7) + '-' + d.slice(7) : v.trim();
+    }
+    var yt = arvio.elements.ytunnus;
+    yt.addEventListener('blur', function () { yt.value = normYt(yt.value); });
+    var showErr = function (name, on) { var el = arvio.querySelector('[data-err="' + name + '"]'); if (el) el.hidden = !on; };
+    var status = arvio.querySelector('.form-status');
+    arvio.addEventListener('submit', function (e) {
+      e.preventDefault();
+      yt.value = normYt(yt.value);
+      var okYt = ytOk(yt.value), okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(arvio.elements.email.value.trim()), okC = arvio.elements.consent.checked;
+      showErr('ytunnus', !okYt); showErr('email', !okMail); showErr('consent', !okC);
+      if (!(okYt && okMail && okC)) { (!okYt ? yt : !okMail ? arvio.elements.email : arvio.elements.consent).focus(); return; }
+      if (arvio.elements.website.value) return; // robotti
+      var btn = arvio.querySelector('button[type=submit]');
+      btn.disabled = true; btn.textContent = 'Lähetetään…';
+      status.hidden = true;
+      var qs = new URLSearchParams(location.search);
+      var body = new URLSearchParams({
+        ytunnus: yt.value, email: arvio.elements.email.value.trim(), phone: arvio.elements.phone.value.trim(),
+        goal: arvio.elements.goal.value, consent: 'yes', website: '',
+        source: qs.get('utm_source') || qs.get('s') || (document.referrer ? new URL(document.referrer).hostname : 'suora')
+      });
+      var done = function () { arvio.hidden = true; arvio.parentNode.querySelector('.arvio-done').hidden = false; scrollTo({ top: 0, behavior: 'smooth' }); };
+      var fail = function () {
+        btn.disabled = false; btn.textContent = 'Pyydä ilmainen arvio';
+        status.hidden = false;
+        status.innerHTML = 'Lähetys ei onnistunut. Soita <a href="tel:+358458505051">045 850 5051</a> tai kirjoita <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a>.';
+      };
+      if (ENDPOINT.indexOf('http') !== 0) { fail(); return; }
+      fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: body }).then(done, fail);
+    });
+  }
+
   /* ---------- välilehden otsikko, kun käyttäjä lähtee ---------- */
   var origTitle = document.title;
   document.addEventListener('visibilitychange', function () {
