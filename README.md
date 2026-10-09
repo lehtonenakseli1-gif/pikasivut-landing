@@ -11,7 +11,7 @@ Pelkkä HTML + CSS + vanilla JS. Tekstit me-muodossa (yritys, ei minä), eikä p
 | `site.css` | Koko sivuston tyylit (Hakukenttä-teema). Kaikki sivut käyttävät tätä |
 | `site.js` | Liikkuvat osat: kirjoittava hakukenttä, hakupillerit, korostuskynä, kallistuvat kortit, +1 klikkaus, hiiren väripisteet, Kokeilen onneani, tynnyrikierre (logo 5× tai haku "barrel roll"). Alasivuilla: budjettilaskuri ja klikkihintanauha (hinta), suodatin ja hakutermitaulu (auditointi), pyörivät tarrat ja teipit (toimialat), itsetarkistus, hakutermiraportti jossa valitaan negatiiviset, konversioterminaali (oppaat) |
 | `fonts/` | Itse hostatut fontit: Bricolage Grotesque, Figtree, DM Mono |
-| `google-ads-hinta/` | Hinnasto: Perus 300, Kasvu 500, Kattava 750 €/kk, mainosbudjetti vähintään 1 000 €/kk |
+| `google-ads-hinta/` | Hinnasto: Perus 300, Kasvu 500, Kattava 750 €/kk, mainosbudjetin alaraja 500 €/kk, Perus-paketin suositus 1 000 €/kk |
 | `google-ads-auditointi/` | Google Ads -tilin auditointi |
 | `google-ads-siivousyritykselle/`, `google-ads-autokorjaamolle/`, `google-ads-remonttiyritykselle/` | Toimialasivut |
 | `opas/` | Oppaat (hakemisto + 3 artikkelia) |
@@ -27,6 +27,25 @@ python3 -m http.server 4322 --directory .
 ```
 
 Avaa http://localhost:4322
+
+## Sivuston rakenne
+
+Jokaisella asialla on yksi koti, eikä sisältöä toisteta sivulta toiselle:
+
+| Sivu | Tehtävä |
+| --- | --- |
+| `/` | Yleiskatsaus: ongelmat, mitä teemme (linkkikortit), miksi Pikasivut. Ei hintoja, UKK:ta eikä prosessia |
+| `/palvelut/` | Palvelut yksityiskohtaisesti, yhteistyön eteneminen, linkit toimialoihin |
+| `/google-ads-hinta/` | Paketit, hinnat ja budjettilaskuri (ainoa paikka, jossa paketit kuvataan) |
+| `/google-ads-auditointi/`, `/google-ads-*yritykselle/`, `/google-ads-autokorjaamolle/` | Auditointi ja toimialasivut (Palvelut-valikon alla) |
+| `/opas/` | Oppaat |
+| `/ukk/` | Usein kysyttyä (ainoa paikka, jossa UKK on, ja siellä FAQPage-schema) |
+| `/yhteystiedot/` | Yhteystiedot ja mitä kertoa ensimmäisessä viestissä |
+
+Navigaatio (`header()` ja `footer()` generaattorissa) on sama joka sivulla: aktiivinen sivu
+korostetaan (`aria-current`), Palvelut-kohdassa on alasvetovalikko, mobiilissa avautuva
+valikko, ja jokaisella alasivulla on "Olet täällä" -murupolku. `eng/` on edelleen
+yksisivuinen englanninkielinen versio.
 
 ## Yhteydenotto
 

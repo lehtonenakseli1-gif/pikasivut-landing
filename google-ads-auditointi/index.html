@@ -30,13 +30,19 @@
     {
       "@type": "ListItem",
       "position": 1,
-      "name": "Etusivu",
+      "name": "Pikasivut",
       "item": "https://pikasivut.com/"
     },
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "google-ads-auditointi",
+      "name": "Palvelut",
+      "item": "https://pikasivut.com/palvelut/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Google Ads -auditointi",
       "item": "https://pikasivut.com/google-ads-auditointi/"
     }
   ]
@@ -74,21 +80,36 @@
 <body>
 
 <header>
-  <nav class="wrap">
+  <nav class="wrap" aria-label="Päävalikko">
     <a href="/" class="logo" aria-label="Pikasivut, etusivulle"><span>P</span><span>i</span><span>k</span><span>a</span><span>s</span><span>i</span><span>v</span><span>u</span><span>t</span></a>
     <ul class="nav-links">
-      <li><a href="/#offer">Palvelut</a></li>
+      <li class="has-sub is-active">
+        <a href="/palvelut/" aria-current="true" class="is-active">Palvelut <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
+        <ul class="sub"><li><a href="/palvelut/">Kaikki palvelut</a></li><li><a href="/google-ads-auditointi/" aria-current="page">Google Ads -auditointi</a></li><li><a href="/google-ads-siivousyritykselle/">Siivousyrityksille</a></li><li><a href="/google-ads-autokorjaamolle/">Autokorjaamoille</a></li><li><a href="/google-ads-remonttiyritykselle/">Remontti- ja rakennusyrityksille</a></li></ul>
+      </li>
       <li><a href="/google-ads-hinta/">Hinnat</a></li>
       <li><a href="/opas/">Oppaat</a></li>
-      <li><a href="/#faq">UKK</a></li>
+      <li><a href="/ukk/">UKK</a></li>
     </ul>
-    <a href="/#contact" class="nav-cta">Pyydä ilmainen tarjous</a>
+    <div class="nav-right">
+      <a href="/yhteystiedot/" class="nav-cta">Pyydä ilmainen tarjous</a>
+      <details class="mobile-menu">
+        <summary aria-label="Avaa valikko"><span class="burger" aria-hidden="true"></span></summary>
+        <div class="mm-panel">
+          <p class="mm-label">Palvelut</p>
+          <ul><li><a href="/palvelut/">Kaikki palvelut</a></li><li><a href="/google-ads-auditointi/" aria-current="page">Google Ads -auditointi</a></li><li><a href="/google-ads-siivousyritykselle/">Siivousyrityksille</a></li><li><a href="/google-ads-autokorjaamolle/">Autokorjaamoille</a></li><li><a href="/google-ads-remonttiyritykselle/">Remontti- ja rakennusyrityksille</a></li></ul>
+          <p class="mm-label">Lisää</p>
+          <ul><li><a href="/google-ads-hinta/">Hinnat</a></li><li><a href="/opas/">Oppaat</a></li><li><a href="/ukk/">UKK</a></li></ul>
+          <a href="/yhteystiedot/" class="btn-primary mm-cta">Pyydä ilmainen tarjous</a>
+        </div>
+      </details>
+    </div>
   </nav>
 </header>
 
 <main>
   <div class="wrap">
-    <nav class="crumbs" aria-label="Murupolku"><span class="favicon" aria-hidden="true">P</span><a href="/">pikasivut.com</a> › <span>google-ads-auditointi</span></nav>
+    <nav class="crumbs" aria-label="Murupolku"><span class="here">Olet täällä:</span> <a href="/">Pikasivut</a> › <a href="/palvelut/">Palvelut</a> › <span aria-current="page">Google Ads -auditointi</span></nav>
     <div class="page-hero has-sticker">
       <div class="sticker" aria-hidden="true">
         <svg viewBox="0 0 200 200"><defs><path id="ring" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
@@ -182,27 +203,16 @@
 <footer>
   <div class="wrap">
     <nav class="serp-pages" aria-label="Sivut">
-      <div class="serp-logo" aria-hidden="true"><span>P</span><span>i</span><span>k</span><span>a</span><span>s</span><span>i</span><span>v</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span>t</span></div>
-      <div class="serp-nums"><a href="/" title="Google Ads -mainonta">1</a><a href="/google-ads-hinta/" title="Google Ads hinta">2</a><a href="/google-ads-auditointi/" title="Google Ads -tilin auditointi" aria-current="page">3</a><a href="/google-ads-siivousyritykselle/" title="Siivousyrityksille">4</a><a href="/google-ads-autokorjaamolle/" title="Autokorjaamoille">5</a><a href="/google-ads-remonttiyritykselle/" title="Remontti- ja rakennusyrityksille">6</a><a href="/opas/" title="Oppaat">7</a><a href="/google-ads-siivousyritykselle/">Seuraava ›</a></div>
+      <div class="serp-logo" aria-hidden="true"><span>P</span><span>i</span><span>k</span><span>a</span><span>s</span><span>i</span><span>v</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span class="u">u</span><span>t</span></div>
+      <div class="serp-nums"><a href="/" title="Etusivu">1</a><a href="/palvelut/" title="Palvelut">2</a><a href="/google-ads-auditointi/" title="Google Ads -auditointi" aria-current="page">3</a><a href="/google-ads-siivousyritykselle/" title="Siivousyrityksille">4</a><a href="/google-ads-autokorjaamolle/" title="Autokorjaamoille">5</a><a href="/google-ads-remonttiyritykselle/" title="Remontti- ja rakennusyrityksille">6</a><a href="/google-ads-hinta/" title="Hinnat">7</a><a href="/opas/" title="Oppaat">8</a><a href="/ukk/" title="UKK">9</a><a href="/yhteystiedot/" title="Yhteystiedot">10</a><a href="/google-ads-siivousyritykselle/">Seuraava ›</a></div>
     </nav>
-    <ul class="footer-nav">
-      <li><a href="/google-ads-hinta/">Google Ads hinta</a></li>
-      <li><a href="/google-ads-auditointi/">Google Ads -tilin auditointi</a></li>
-      <li><a href="/google-ads-siivousyritykselle/">Siivousyrityksille</a></li>
-      <li><a href="/google-ads-autokorjaamolle/">Autokorjaamoille</a></li>
-      <li><a href="/google-ads-remonttiyritykselle/">Remontti- ja rakennusyrityksille</a></li>
-      <li><a href="/opas/">Oppaat</a></li>
-    </ul>
+    <div class="footer-cols"><div class="fcol"><p>Palvelut</p><ul><li><a href="/palvelut/">Google Ads -hallinta</a></li><li><a href="/google-ads-auditointi/" aria-current="page">Auditointi</a></li><li><a href="/google-ads-hinta/">Hinnat</a></li></ul></div><div class="fcol"><p>Toimialat</p><ul><li><a href="/google-ads-siivousyritykselle/">Siivousyrityksille</a></li><li><a href="/google-ads-autokorjaamolle/">Autokorjaamoille</a></li><li><a href="/google-ads-remonttiyritykselle/">Remontti ja rakennus</a></li></ul></div><div class="fcol"><p>Opi lisää</p><ul><li><a href="/opas/">Oppaat</a></li><li><a href="/ukk/">Usein kysyttyä</a></li></ul></div><div class="fcol"><p>Pikasivut</p><ul><li><a href="/yhteystiedot/">Yhteystiedot</a></li><li><a href="/privacy.html">Tietosuoja</a></li><li><a href="/terms.html">Toimitusehdot</a></li><li><a href="/eng/">In English</a></li></ul></div></div>
     <div class="footer-row">
       <div>
         <p>© <span id="year"></span> Pikasivut. Google Ads -mainonta ja nettisivut.</p>
         <p class="footer-legal">Lehtonen Akseli Toivo Johannes · Y-tunnus 3378015-4 · ALV-tunniste FI33780154</p>
       </div>
-      <ul class="footer-links">
-      <li><a href="/privacy.html">Tietosuoja</a></li>
-      <li><a href="/terms.html">Toimitusehdot</a></li>
-      <li><a href="/eng/">In English</a></li>
-      </ul>
+      
     </div>
   </div>
 </footer>

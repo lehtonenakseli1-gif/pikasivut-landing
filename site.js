@@ -319,6 +319,15 @@
     });
   });
 
+  /* ---------- mobiilivalikko: sulkeutuu linkistä, Escapesta ja ulkopuolelta ---------- */
+  var mm = document.querySelector('.mobile-menu');
+  if (mm) {
+    mm.addEventListener('click', function (e) { if (e.target.closest('a')) mm.removeAttribute('open'); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') mm.removeAttribute('open'); });
+    document.addEventListener('click', function (e) { if (!mm.contains(e.target)) mm.removeAttribute('open'); });
+    addEventListener('resize', function () { if (innerWidth > 960) mm.removeAttribute('open'); });
+  }
+
   /* ---------- välilehden otsikko, kun käyttäjä lähtee ---------- */
   var origTitle = document.title;
   document.addEventListener('visibilitychange', function () {
