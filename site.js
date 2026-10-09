@@ -165,7 +165,7 @@
 
   /* ---------- hiiren perässä Googlen väriset pisteet ---------- */
   if (finePointer && !reduce) {
-    var colors = ['#1a3fd1', '#e8453c', '#f4b400', '#0f9d58'], ci = 0, last = 0;
+    var colors = ['#1a3fd1', '#4f6fe0', '#8aa3f0'], ci = 0, last = 0;
     addEventListener('mousemove', function (e) {
       var now = Date.now();
       if (now - last < 40) return;
@@ -174,7 +174,7 @@
       d.className = 'trail';
       d.style.left = (e.clientX - 4) + 'px';
       d.style.top = (e.clientY - 4) + 'px';
-      d.style.background = colors[ci++ % 4];
+      d.style.background = colors[ci++ % 3];
       document.body.appendChild(d);
       setTimeout(function () { d.remove(); }, 600);
     }, { passive: true });

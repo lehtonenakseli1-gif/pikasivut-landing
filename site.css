@@ -39,17 +39,13 @@ h1,h2,h3{text-wrap:balance;}
 
 /* ===== SCROLL-PALKKI ===== */
 .scrollbar{position:fixed;top:0;left:0;height:4px;width:100%;z-index:100;transform-origin:0 50%;transform:scaleX(var(--p,0));
-  background:linear-gradient(90deg,var(--blue) 0 25%,var(--red) 25% 50%,var(--yellow) 50% 75%,var(--green) 75% 100%);}
+  background:var(--blue);}
 
 /* ===== NAV ===== */
 header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
 nav.wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px;}
 .logo{font-family:var(--display);font-weight:800;font-size:25px;letter-spacing:-.03em;text-decoration:none;color:var(--ink);display:inline-flex;}
-.logo span{display:inline-block;transition:transform .25s cubic-bezier(.3,1.6,.5,1);}
-.logo:hover span{transform:translateY(-5px) rotate(-8deg);}
-.logo:hover span:nth-child(2n){transform:translateY(3px) rotate(8deg);}
-.logo span:nth-child(1){color:var(--blue);} .logo span:nth-child(2){color:var(--red);} .logo span:nth-child(3){color:var(--yellow);}
-.logo span:nth-child(4){color:var(--blue);} .logo span:nth-child(5){color:var(--green);} .logo span:nth-child(n+6){color:var(--red);}
+  .logo span{color:var(--blue);}
 .nav-links{display:flex;gap:26px;list-style:none;margin:0;padding:0;}
 .nav-links a{text-decoration:none;font-weight:500;font-size:15px;color:var(--ink-soft);position:relative;}
 .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:3px;border-radius:3px;background:var(--blue);transform:scaleX(0);transition:transform .25s;}
@@ -111,15 +107,14 @@ h1{font-family:var(--display);font-size:clamp(40px,6.4vw,74px);line-height:1.02;
 .hero-trust li{display:flex;align-items:center;gap:8px;list-style:none;}
 .hero > .wrap > ul.hero-trust{display:flex;gap:10px 26px;flex-wrap:wrap;justify-content:center;padding:0;margin:18px 0 0;}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);flex:none;}
-.hero-trust li:nth-child(2) .dot{background:var(--red);} .hero-trust li:nth-child(3) .dot{background:var(--yellow);}
 
 /* kelluvat ilmoitukset */
 .chip{position:absolute;z-index:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:13px;box-shadow:0 12px 30px rgba(20,30,80,.10);display:flex;gap:8px;align-items:center;white-space:nowrap;animation:float 6s ease-in-out infinite;pointer-events:none;}
 .chip b{font-weight:700;}
 .chip i{width:9px;height:9px;border-radius:50%;display:inline-block;}
-.chip-1{left:-2%;top:160px;} .chip-1 i{background:var(--green);}
+.chip-1{left:-2%;top:160px;}
 .chip-2{right:-2%;top:110px;animation-delay:-2s;} .chip-2 i{background:var(--blue);}
-.chip-3{left:1%;top:470px;animation-delay:-4s;} .chip-3 i{background:var(--yellow);}
+.chip-3{left:1%;top:470px;animation-delay:-4s;}
 @keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
 
 /* ===== OSIOT ===== */
@@ -143,7 +138,6 @@ h2{font-family:var(--display);font-size:clamp(28px,3.6vw,42px);letter-spacing:-.
 .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .problem-card,.offer-card,.price-card,.guide-list a,.work-card{transform-style:preserve-3d;transition:transform .25s ease, box-shadow .25s ease, border-color .25s;will-change:transform;}
 .problem-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;}
-.problem-card::before{content:attr(data-url);display:block;font-size:13px;color:var(--url);margin-bottom:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .problem-card .icon-line{display:none;}
 .problem-card h3{font-size:20px;font-weight:500;color:var(--blue);margin:0 0 8px;line-height:1.3;}
 .problem-card:hover h3{text-decoration:underline;}
@@ -155,21 +149,19 @@ h2{font-family:var(--display);font-size:clamp(28px,3.6vw,42px);letter-spacing:-.
 .offer-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:32px;position:relative;}
 .offer-card.secondary{background:var(--bg-alt);}
 .offer-card .num{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--blue);color:#fff;font-family:var(--mono);font-weight:500;font-size:14px;margin-bottom:18px;}
-.offer-card.secondary .num{background:var(--green);}
+.offer-card.secondary .num{background:var(--ink);}
 .offer-card .tag{position:absolute;top:28px;right:28px;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);border-radius:100px;padding:4px 10px;}
 .offer-card h3{font-family:var(--display);font-size:24px;letter-spacing:-.02em;margin:0 0 10px;font-weight:800;}
 .offer-card p{color:var(--ink-soft);margin:0 0 18px;font-size:15.5px;}
 .offer-card ul,.price-card ul{margin:0;padding:0;list-style:none;}
 .offer-card li{display:flex;gap:10px;align-items:flex-start;font-size:15px;margin-bottom:10px;}
-.check{color:var(--green);font-weight:800;flex:none;}
+.check{color:var(--blue);font-weight:800;flex:none;}
 .price-note{font-size:14.5px;color:var(--ink-soft);margin:26px 0 0;max-width:80ch;}
 
 /* HINNAT sponsoroituina tuloksina */
 .pricing{background:var(--bg-alt);}
 .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;}
 .price-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 26px;display:flex;flex-direction:column;position:relative;}
-.price-card::before{content:"Sponsoroitu";font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:10px;}
-html[lang="en"] .price-card::before{content:"Sponsored";}
 .price-card.featured{border-color:transparent;background:
   linear-gradient(var(--card),var(--card)) padding-box,
   repeating-linear-gradient(90deg,var(--blue) 0 10px,transparent 10px 16px) top/100% 2px no-repeat border-box,
@@ -183,7 +175,7 @@ html[lang="en"] .price-card::before{content:"Sponsored";}
 .price-card .for{font-size:14.5px;color:var(--ink-soft);margin:0 0 18px;min-height:66px;}
 .price-card .amount{font-family:var(--display);font-size:46px;font-weight:800;letter-spacing:-.03em;line-height:1;}
 .price-card .amount small{font-family:var(--body);font-size:14.5px;font-weight:500;color:var(--ink-soft);letter-spacing:0;}
-.price-card .budget{font-size:13.5px;color:var(--url);margin:10px 0 20px;padding-bottom:20px;border-bottom:1px solid var(--line);}
+.price-card .budget{font-size:13.5px;color:var(--ink-soft);margin:10px 0 20px;padding-bottom:20px;border-bottom:1px solid var(--line);}
 .price-card ul{flex:1;margin-bottom:24px;}
 .price-card li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;margin-bottom:10px;}
 
@@ -192,14 +184,13 @@ html[lang="en"] .price-card::before{content:"Sponsored";}
 .why-item{border:1px solid var(--line);border-radius:18px;padding:22px 24px;background:var(--card);}
 .why-item h3{font-size:18px;margin:0 0 8px;font-weight:700;display:flex;gap:10px;align-items:center;}
 .why-item h3 svg{width:20px;height:20px;flex:none;color:var(--blue);}
-.why-item:nth-child(2) h3 svg{color:var(--red);} .why-item:nth-child(3) h3 svg{color:var(--yellow);} .why-item:nth-child(4) h3 svg{color:var(--green);}
 .why-item p{margin:0;color:var(--ink-soft);font-size:15px;}
 
 /* VAIHEET: latauspalkki */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;position:relative;padding-top:34px;}
 .steps::before{content:"";position:absolute;left:0;right:0;top:8px;height:6px;border-radius:6px;background:var(--line);}
 .steps::after{content:"";position:absolute;left:0;top:8px;height:6px;border-radius:6px;width:calc(var(--sp,1) * 100%);
-  background:linear-gradient(90deg,var(--blue),var(--red),var(--yellow),var(--green));}
+  background:var(--blue);}
 .js .steps::after{width:calc(var(--sp,0) * 100%);}
 .step .step-num{font-family:var(--mono);font-size:13px;color:var(--blue);margin-bottom:10px;display:block;}
 .step h3{font-family:var(--display);font-size:22px;letter-spacing:-.02em;margin:0 0 8px;font-weight:800;}
@@ -223,10 +214,9 @@ html[lang="en"] .price-card::before{content:"Sponsored";}
 /* LOPPU-CTA: Googlen etusivu */
 .final-cta{text-align:center;padding:64px 24px;border-radius:28px;background:var(--bg-alt);border:1px solid var(--line);}
 .big-logo{font-family:var(--display);font-weight:800;font-size:clamp(52px,9vw,104px);letter-spacing:-.05em;line-height:1;margin:0 0 26px;display:flex;justify-content:center;}
-.big-logo span{display:inline-block;animation:bob 3s ease-in-out infinite;}
-.big-logo span:nth-child(1){color:var(--blue);} .big-logo span:nth-child(2){color:var(--red);animation-delay:.1s;} .big-logo span:nth-child(3){color:var(--yellow);animation-delay:.2s;}
-.big-logo span:nth-child(4){color:var(--blue);animation-delay:.3s;} .big-logo span:nth-child(5){color:var(--green);animation-delay:.4s;} .big-logo span:nth-child(n+6){color:var(--red);animation-delay:.5s;}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.big-logo{animation:bob 3.4s ease-in-out infinite;}
+.big-logo span{color:var(--blue);}
 .final-cta h2{margin-bottom:12px;}
 .final-cta p{color:var(--ink-soft);font-size:17px;max-width:50ch;margin:0 auto 28px;}
 .final-cta .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
@@ -234,15 +224,6 @@ html[lang="en"] .price-card::before{content:"Sponsored";}
 
 /* ===== FOOTER: Pikasivuuuuut-sivutus ===== */
 footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--bg-alt);}
-.serp-pages{display:flex;flex-direction:column;align-items:center;gap:6px;margin:0 0 30px;}
-.serp-logo{font-family:var(--display);font-weight:800;font-size:34px;letter-spacing:-.04em;display:flex;line-height:1;}
-.serp-logo span:nth-child(1){color:var(--blue);} .serp-logo span:nth-child(2){color:var(--red);} .serp-logo span:nth-child(3){color:var(--yellow);}
-.serp-logo span:nth-child(4){color:var(--blue);} .serp-logo span:nth-child(5){color:var(--green);} .serp-logo .u{color:var(--yellow);}
-.serp-logo .u:nth-child(2n){color:var(--red);} .serp-logo span:last-child{color:var(--red);}
-.serp-nums{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;}
-.serp-nums a{min-width:30px;text-align:center;font-size:14.5px;color:var(--blue);text-decoration:none;padding:4px 4px;border-radius:6px;}
-.serp-nums a:hover{text-decoration:underline;}
-.serp-nums a[aria-current]{color:var(--ink);font-weight:700;}
 .footer-nav{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;padding:0;margin:0 0 22px;font-size:14px;justify-content:center;}
 .footer-nav a{color:var(--ink-soft);text-decoration:none;}
 .footer-nav a:hover{color:var(--blue);text-decoration:underline;}
@@ -274,19 +255,16 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--bg-
 .article th,.article td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
 .article th{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);background:var(--bg-alt);}
 .callout{border:1px solid var(--line);border-radius:18px;padding:22px 24px 22px;margin:30px 0;background:var(--card);box-shadow:var(--shadow);position:relative;}
-.callout::before{content:"Suositeltu katkelma";display:block;font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-bottom:8px;}
-html[lang="en"] .callout::before{content:"Featured snippet";}
 .callout p{margin:0;}
 .related{border-top:1px solid var(--line);padding-top:28px;margin-top:24px;}
 .related h2{font-size:22px;margin:0 0 16px;}
 .related ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
 .related li{margin:0;}
 .related a{display:flex;gap:12px;align-items:center;background:var(--bg-alt);border-radius:100px;padding:12px 18px;text-decoration:none;color:var(--ink);font-size:15px;font-weight:500;transition:background .2s, transform .2s;}
-.related a::before{content:"";width:15px;height:15px;flex:none;border:2px solid var(--ink-soft);border-radius:50%;box-shadow:5px 5px 0 -3px var(--ink-soft);}
+.related a::after{content:"→";margin-left:auto;color:var(--blue);}
 .related a:hover{background:#e9ecf6;transform:translateX(4px);}
 .guide-list{display:grid;gap:18px;max-width:780px;}
 .guide-list a{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 24px;}
-.guide-list a::before{content:attr(href);display:block;font-size:13px;color:var(--url);margin-bottom:6px;}
 .guide-list h2{font-size:21px;margin:0 0 6px;color:var(--blue);font-family:var(--body);font-weight:500;letter-spacing:0;}
 .guide-list a:hover h2{text-decoration:underline;}
 .guide-list p{margin:0;color:var(--ink-soft);}
@@ -355,7 +333,6 @@ html[lang="en"] .callout::before{content:"Featured snippet";}
 .calc-bars{display:flex;align-items:flex-end;gap:5px;height:80px;margin-top:20px;}
 .calc-bars i{flex:1;border-radius:6px 6px 2px 2px;background:#dfe3ee;transition:height .5s cubic-bezier(.2,.8,.2,1),background .3s;}
 .calc-bars i.on{background:var(--blue);}
-.calc-bars i.on:nth-child(4n+2){background:var(--red);} .calc-bars i.on:nth-child(4n+3){background:var(--yellow);} .calc-bars i.on:nth-child(4n){background:var(--green);}
 
 /* ===== HAKUTERMITAULU (auditointi) ===== */
 .orderbook{border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:24px 0;font-size:14.5px;background:var(--card);box-shadow:var(--shadow);}
@@ -376,7 +353,7 @@ html[lang="en"] .callout::before{content:"Featured snippet";}
 .f-pass{animation-name:fpass;} .f-block{animation-name:fblock;}
 @keyframes fpass{0%{transform:translateY(20px);opacity:0;background:#b9bfcf}6%{opacity:1}46%{transform:translateY(200px);background:#b9bfcf;box-shadow:none}52%{background:#1a3fd1;box-shadow:0 0 0 5px rgba(26,63,209,.18)}100%{transform:translateY(350px);background:#1a3fd1;box-shadow:0 0 0 5px rgba(26,63,209,.18);opacity:1}}
 @keyframes fblock{0%{transform:translateY(20px);opacity:0}6%{opacity:1}46%{transform:translateY(200px);opacity:1}70%,100%{transform:translate(var(--dx),220px);opacity:0}}
-.f-line{position:absolute;left:22px;right:22px;top:212px;height:5px;border-radius:5px;background:linear-gradient(90deg,var(--blue) 0 25%,var(--red) 25% 50%,var(--yellow) 50% 75%,var(--green) 75%);}
+.f-line{position:absolute;left:22px;right:22px;top:212px;height:5px;border-radius:5px;background:var(--blue);}
 .f-labels{position:absolute;left:22px;right:22px;top:226px;display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-soft);gap:8px;}
 .f-top{position:absolute;left:20px;top:14px;font-size:12px;color:var(--ink-soft);}
 .f-bottom{position:absolute;left:22px;right:22px;bottom:14px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px dashed #c9cede;padding-top:10px;font-size:12px;color:var(--ink-soft);}
@@ -385,8 +362,8 @@ html[lang="en"] .callout::before{content:"Featured snippet";}
 /* ===== KONVERSIOLOKI ===== */
 .terminal{background:var(--card);border:1px solid var(--line);border-radius:18px;margin:26px 0;overflow:hidden;font-family:var(--mono);font-size:13px;box-shadow:var(--shadow);}
 .terminal-bar{display:flex;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--ink-soft);font-size:12px;align-items:center;background:var(--bg-alt);}
-.terminal-bar i{width:10px;height:10px;border-radius:50%;background:var(--blue);}
-.terminal-bar i:nth-child(2){background:var(--red);} .terminal-bar i:nth-child(3){background:var(--yellow);margin-right:8px;}
+.terminal-bar i{width:10px;height:10px;border-radius:50%;background:var(--blue);opacity:.5;}
+.terminal-bar i:nth-child(3){margin-right:8px;}
 .terminal-body{padding:14px 16px;height:236px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;color:var(--ink);}
 .terminal-body div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:slidein .3s ease;}
 .terminal-body .t{color:#9a9eab;} .terminal-body .ev{color:var(--blue);} .terminal-body .ok{color:#137333;} .terminal-body .dup{color:#c5221f;}
@@ -523,7 +500,6 @@ html[lang="en"] .callout::before{content:"Featured snippet";}
 .fcol a{color:var(--ink);text-decoration:none;font-size:14.5px;}
 .fcol a:hover{color:var(--blue);text-decoration:underline;}
 .fcol a[aria-current="page"]{color:var(--blue);font-weight:700;}
-.serp-nums a[aria-current]{border-bottom:2px solid var(--ink);}
 
 
 /* ===== ARVIOLOMAKE ===== */
@@ -571,7 +547,7 @@ html[lang="en"] .callout::before{content:"Featured snippet";}
   .problem-grid,.why-grid,.steps,.offer-grid,.contact-grid,.related ul{grid-template-columns:1fr;}
   .steps{padding-top:0;padding-left:30px;}
   .steps::before,.steps::after{top:0;bottom:0;left:6px;right:auto;width:6px;height:auto;}
-  .steps::after{height:calc(var(--sp,1) * 100%);width:6px;background:linear-gradient(180deg,var(--blue),var(--red),var(--yellow),var(--green));}
+  .steps::after{height:calc(var(--sp,1) * 100%);width:6px;background:var(--blue);}
   .js .steps::after{width:6px;height:calc(var(--sp,0) * 100%);}
   .final-cta{padding:44px 20px;}
   .ticker-label{display:none;}
