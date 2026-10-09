@@ -33,16 +33,16 @@ Jokaisella asialla on yksi koti, eikä sisältöä toisteta sivulta toiselle:
 
 | Sivu | Tehtävä |
 | --- | --- |
-| `/` | Yleiskatsaus: ongelmat, mitä teemme (linkkikortit), miksi Pikasivut. Ei hintoja, UKK:ta eikä prosessia |
-| `/palvelut/` | Palvelut yksityiskohtaisesti, yhteistyön eteneminen |
+| `/` | Yleiskatsaus: ongelmat, mistä aloitetaan (linkkikortit auditointiin, hintoihin ja oppaisiin), miksi Pikasivut |
 | `/google-ads-hinta/` | Paketit, hinnat ja budjettilaskuri (ainoa paikka, jossa paketit kuvataan) |
-| `/google-ads-auditointi/` | Auditointi (Palvelut-valikon alla) |
+| `/google-ads-auditointi/` | Google Ads -tilin auditointi |
 | `/opas/` | Oppaat |
 | `/ukk/` | Usein kysyttyä (ainoa paikka, jossa UKK on, ja siellä FAQPage-schema) |
+| `/arvio/` | Ilmainen mainonta-arvio: lomake (Y-tunnus + sähköposti), tallentuu Google Sheetsiin |
 | `/yhteystiedot/` | Yhteystiedot ja mitä kertoa ensimmäisessä viestissä |
 
 Navigaatio (`header()` ja `footer()` generaattorissa) on sama joka sivulla: aktiivinen sivu
-korostetaan (`aria-current`), Palvelut-kohdassa on alasvetovalikko, mobiilissa avautuva
+korostetaan (`aria-current`), mobiilissa avautuva
 valikko, ja jokaisella alasivulla on "Olet täällä" -murupolku. `eng/` on edelleen
 yksisivuinen englanninkielinen versio.
 
@@ -74,3 +74,7 @@ osoite `sitemap.xml`:ään sekä footerin linkkilistaan.
 yhteenveto välilehdellä "Yhteenveto"). Ei evästeitä eikä tunnisteita. Jos muokkaat skriptiä,
 julkaise uusi versio (Ota käyttöön → Hallinnoi → muokkaa → Uusi versio), jolloin osoite säilyy.
 Biolinkin lähde näkyy, kun käytät osoitetta `pikasivut.com/arvio/?s=tiktok`.
+
+## Logo
+
+`logo-mark.svg` on kuvake (sininen neliö + valkoinen nuoli). Wordmark "Pika" (musta) + "sivut" (sininen) on tekstiä sivun omalla Bricolage-fontilla (`logo()` ja `big_logo()` generaattorissa). Favicon-, apple-touch-, icon-192- ja og-kuvat on renderöity samasta kuvakkeesta.

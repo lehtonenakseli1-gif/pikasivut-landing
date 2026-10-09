@@ -45,7 +45,10 @@ h1,h2,h3{text-wrap:balance;}
 header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
 nav.wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px;}
 .logo{font-family:var(--display);font-weight:800;font-size:25px;letter-spacing:-.03em;text-decoration:none;color:var(--ink);display:inline-flex;}
-  .logo span{color:var(--blue);}
+.logo{align-items:center;gap:10px;}
+.logo-mark{width:34px;height:34px;flex:none;display:block;transition:transform .25s cubic-bezier(.3,1.6,.5,1);}
+.logo:hover .logo-mark{transform:rotate(-8deg) scale(1.06);}
+.logo .lw span,.big-logo .lw span{color:var(--blue);}
 .nav-links{display:flex;gap:26px;list-style:none;margin:0;padding:0;}
 .nav-links a{text-decoration:none;font-weight:500;font-size:15px;color:var(--ink-soft);position:relative;}
 .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:3px;border-radius:3px;background:var(--blue);transform:scaleX(0);transition:transform .25s;}
@@ -213,10 +216,10 @@ h2{font-family:var(--display);font-size:clamp(28px,3.6vw,42px);letter-spacing:-.
 
 /* LOPPU-CTA: Googlen etusivu */
 .final-cta{text-align:center;padding:64px 24px;border-radius:28px;background:var(--bg-alt);border:1px solid var(--line);}
-.big-logo{font-family:var(--display);font-weight:800;font-size:clamp(52px,9vw,104px);letter-spacing:-.05em;line-height:1;margin:0 0 26px;display:flex;justify-content:center;}
+.big-logo{font-family:var(--display);font-weight:800;font-size:clamp(52px,9vw,104px);letter-spacing:-.05em;line-height:1;margin:0 0 26px;display:flex;justify-content:center;align-items:center;gap:.22em;}
+.big-logo .logo-mark{width:.8em;height:.8em;}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 .big-logo{animation:bob 3.4s ease-in-out infinite;}
-.big-logo span{color:var(--blue);}
 .final-cta h2{margin-bottom:12px;}
 .final-cta p{color:var(--ink-soft);font-size:17px;max-width:50ch;margin:0 auto 28px;}
 .final-cta .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
