@@ -1,6 +1,7 @@
 /* Pikasivut — Hakukenttä-teeman liikkuvat osat. Ei riippuvuuksia.
    Sivu toimii ja näyttää valmiilta ilman tätä tiedostoa; tämä vain lisää liikettä. */
 (function () {
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxFmf_zBQ45lB0psUKaxxtubsk5aVtn3p87HeufD5Mebf57PY44iVr12qSaSdG26pI0/exec'; // Apps Script: lomake ja nimetön kävijälaskenta
   var doc = document.documentElement;
   doc.classList.add('js');
   var EN = doc.lang === 'en';
@@ -331,8 +332,6 @@
   /* ---------- Ilmainen arvio -lomake ---------- */
   var arvio = document.getElementById('arvio-form');
   if (arvio) {
-    // Apps Script -web-sovelluksen osoite (asetetaan, kun käyttöönotto on valmis)
-    var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxFmf_zBQ45lB0psUKaxxtubsk5aVtn3p87HeufD5Mebf57PY44iVr12qSaSdG26pI0/exec';
     function ytOk(v) {
       var m = /^(\d{7})-(\d)$/.exec(v);
       if (!m) return false;
@@ -366,7 +365,7 @@
         goal: arvio.elements.goal.value, consent: 'yes', website: '',
         source: qs.get('utm_source') || qs.get('s') || (document.referrer ? new URL(document.referrer).hostname : 'suora')
       });
-      var done = function () { arvio.hidden = true; arvio.parentNode.querySelector('.arvio-done').hidden = false; scrollTo({ top: 0, behavior: 'smooth' }); };
+      var done = function () { arvio.dispatchEvent(new Event('arvio:sent')); arvio.hidden = true; arvio.parentNode.querySelector('.arvio-done').hidden = false; scrollTo({ top: 0, behavior: 'smooth' }); };
       var fail = function () {
         btn.disabled = false; btn.textContent = 'Pyydä ilmainen arvio';
         status.hidden = false;
@@ -376,6 +375,36 @@
       fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: body }).then(done, fail);
     });
   }
+
+  /* ---------- nimetön kävijälaskenta: ei evästeitä, ei tunnistetta, ei IP-osoitetta ---------- */
+  (function () {
+    if (!navigator.sendBeacon || navigator.doNotTrack === '1' || /^(localhost|127\.)/.test(location.hostname)) return;
+    var qs = new URLSearchParams(location.search);
+    var ref = '';
+    try { ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''; } catch (e) {}
+    if (ref === location.hostname.replace(/^www\./, '')) ref = '';
+    var source = qs.get('utm_source') || qs.get('s') || ref || 'suora';
+    var device = innerWidth < 760 ? 'mobiili' : innerWidth < 1100 ? 'tabletti' : 'tietokone';
+    var track = function (type) {
+      try {
+        navigator.sendBeacon(ENDPOINT, new URLSearchParams({ type: type, path: location.pathname, source: source, ref: ref, device: device, lang: doc.lang || 'fi' }));
+      } catch (e) {}
+    };
+    track('view');
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a');
+      if (!a) return;
+      var h = a.getAttribute('href') || '';
+      if (h.indexOf('tel:') === 0) track('tel_click');
+      else if (h.indexOf('/arvio/') === 0) track('cta_click');
+    });
+    var f = document.getElementById('arvio-form');
+    if (f) {
+      var started = false;
+      f.addEventListener('focusin', function () { if (!started) { started = true; track('form_start'); } });
+      f.addEventListener('arvio:sent', function () { track('form_submit'); });
+    }
+  })();
 
   /* ---------- välilehden otsikko, kun käyttäjä lähtee ---------- */
   var origTitle = document.title;

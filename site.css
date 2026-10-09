@@ -545,6 +545,18 @@ html[lang="en"] .callout::before{content:"Featured snippet";}
 .arvio-done h2{margin-top:0;}
 .contact-alt{background:var(--bg-alt);border-radius:16px;padding:14px 18px;}
 
+
+/* ===== KIINTEÄ TOIMINTOPALKKI (vain puhelimessa) ===== */
+.mobilebar{display:none;}
+@media (max-width: 760px){
+  .mobilebar{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:45;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);box-shadow:0 -10px 30px rgba(20,30,80,.08);}
+  .mobilebar a{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:100px;font-weight:700;font-size:15.5px;text-decoration:none;min-height:48px;}
+  .mb-main{flex:1;background:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(26,63,209,.28);}
+  .mb-call{padding:0 20px;background:var(--bg-alt);color:var(--ink);border:1px solid var(--line);}
+  .mb-call svg{width:18px;height:18px;color:var(--green);}
+  body{padding-bottom:72px;}
+}
+
 /* ===== RESPONSIIVISUUS ===== */
 @media (max-width: 960px){
   .nav-links{display:none;}

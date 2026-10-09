@@ -1,0 +1,10 @@
+/* Videosivut (omana tiedostona, ei sekoitu site.css:ään) */
+.vid-wrap{max-width:380px;margin:0 auto 32px;}
+.vid-wrap video{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:24px;background:#0d0e1b;box-shadow:0 18px 50px rgba(22,23,28,.18);}
+.vid-grid{display:grid;gap:18px;max-width:780px;}
+.vid-card{display:flex;gap:22px;align-items:center;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;}
+.vid-card img{width:120px;height:auto;aspect-ratio:9/16;object-fit:cover;border-radius:12px;flex-shrink:0;background:#0d0e1b;}
+.vid-card h2{margin:0 0 6px;font-size:clamp(19px,2.4vw,24px);}
+.vid-card p{margin:0 0 8px;color:var(--ink-soft);font-size:16px;}
+.vid-meta{font-family:'DM Mono',monospace;font-size:13px;color:var(--ink-soft);}
+@media (max-width:560px){.vid-card{align-items:flex-start;}.vid-card img{width:92px;}}

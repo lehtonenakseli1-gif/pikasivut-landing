@@ -66,3 +66,12 @@ Sitten repossa: **Settings → Pages → Source: Deploy from a branch → `main`
 Alasivut ovat tavallista HTML:ää: kopioi lähin olemassa oleva sivu kansioineen,
 vaihda title, description, canonical, og-tagit, murupolku ja sisältö, ja lisää
 osoite `sitemap.xml`:ään sekä footerin linkkilistaan.
+
+## Lomake ja kävijälaskenta
+
+`apps-script/Code.gs` on Google Apps Script -web-sovellus (sidottu Google Sheets -taulukkoon
+"Pikasivut arviopyynnöt"). Sama osoite (`ENDPOINT` tiedostossa `site.js`) vastaanottaa
+`/arvio/`-lomakkeen (välilehti 1) ja nimettömän kävijälaskennan (välilehti "Tapahtumat",
+yhteenveto välilehdellä "Yhteenveto"). Ei evästeitä eikä tunnisteita. Jos muokkaat skriptiä,
+julkaise uusi versio (Ota käyttöön → Hallinnoi → muokkaa → Uusi versio), jolloin osoite säilyy.
+Biolinkin lähde näkyy, kun käytät osoitetta `pikasivut.com/arvio/?s=tiktok`.
