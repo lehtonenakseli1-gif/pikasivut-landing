@@ -81,8 +81,10 @@ Biolinkin lähde näkyy, kun käytät osoitetta `pikasivut.com/arvio/?s=tiktok`.
 
 ## English site
 
-`/eng/` mirrors the Finnish structure: `/eng/` (home), `/eng/audit/`, `/eng/pricing/`, `/eng/faq/`,
+`/eng/` mirrors the Finnish structure but is written for the US market (USD prices, US examples): `/eng/` (home), `/eng/audit/`, `/eng/pricing/`, `/eng/faq/`,
 `/eng/guides/` (+ 3 guides), `/eng/assessment/` (form, same endpoint as `/arvio/`), `/eng/contact/`.
 Each page has a Finnish counterpart (see `FI_EN` in the generator) with `hreflang` alternates and
 an FI/EN switch in the header. Privacy policy and terms exist only in Finnish; the English footer
 links to them. The dynamic strings in `site.js` switch by `<html lang>` (object `T`).
+
+EN pricing: USD $450/$750/$1,150 (min ad budget $1,500); a toggle on `/eng/pricing/` switches to EUR (€300/500/750 + 25.5% VAT, for English speakers in Finland). The default currency follows the browser time zone (Europe/Helsinki -> EUR). The EN assessment form posts `market=en` with business name + website (no Y-tunnus) and lands in the "Leads EN" sheet. `/eng/privacy/` and `/eng/terms/` are English drafts that should be reviewed by a lawyer.

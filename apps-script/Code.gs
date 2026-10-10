@@ -64,6 +64,41 @@ function setupSummary() {
   sum.setColumnWidth(1, 300);
 }
 
+var HEADERS_EN = ['Timestamp', 'Business name', 'Website', 'Email', 'Phone', 'Country', 'Goal', 'Consent', 'Source', 'Status'];
+
+// Englanninkielinen (USA-markkinan) arviolomake: yrityksen nimi + verkkosivu, ei Y-tunnusta.
+function handleEnglishLead(p, out) {
+  if (p.hp) return out.setContent('ok');
+  var clip = function (v, n) { return String(v || '').trim().slice(0, n); };
+  var biz = clip(p.business, 120), site = clip(p.site, 200), email = clip(p.email, 120);
+  if (!biz || !site || !validEmail(email) || p.consent !== 'yes') return out.setContent('invalid');
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sh = ss.getSheetByName('Leads EN');
+    if (!sh) {
+      sh = ss.insertSheet('Leads EN');
+      sh.appendRow(HEADERS_EN);
+      sh.setFrozenRows(1);
+    }
+    sh.appendRow([new Date(), biz, site, email, clip(p.phone, 40), clip(p.country, 40), clip(p.goal, 120), 'yes', clip(p.source, 60), 'new']);
+  } finally {
+    lock.releaseLock();
+  }
+  try {
+    MailApp.sendEmail({
+      to: NOTIFY_TO,
+      subject: 'New assessment request (EN): ' + biz,
+      body: 'New request from pikasivut.com/eng/assessment/\n\nBusiness: ' + biz + '\nWebsite: ' + site + '\nEmail: ' + email +
+        '\nPhone: ' + (p.phone || '-') + '\nCountry: ' + (p.country || '-') + '\nGoal: ' + (p.goal || '-') + '\nSource: ' + (p.source || '-') +
+        '\n\nSheet: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl(),
+      replyTo: email
+    });
+  } catch (err) { /* sheet already has it */ }
+  return out.setContent('ok');
+}
+
 function doPost(e) {
   var p = (e && e.parameter) || {};
   var out = ContentService.createTextOutput();
@@ -71,6 +106,7 @@ function doPost(e) {
     try { logEvent(p); } catch (err) { /* ei kaadeta */ }
     return out.setContent('ok');
   }
+  if (p.market === 'en') return handleEnglishLead(p, out);
   // Honeypot: oikea käyttäjä ei täytä tätä kenttää
   if (p.website) return out.setContent('ok');
   var yt = String(p.ytunnus || '').trim();

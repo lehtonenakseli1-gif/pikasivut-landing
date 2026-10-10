@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Advertising Assessment | Pikasivut</title>
-<meta name="description" content="Request a free advertising assessment: enter your business ID and email and we'll tell you how your company should advertise and with what budget.">
+<meta name="description" content="Request a free advertising assessment: share your business name, website and email and we'll tell you how your business should advertise and with what budget.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://pikasivut.com/eng/assessment/">
 <link rel="alternate" hreflang="fi" href="https://pikasivut.com/arvio/">
@@ -19,7 +19,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://pikasivut.com/eng/assessment/">
 <meta property="og:title" content="Free advertising assessment">
-<meta property="og:description" content="Request a free advertising assessment: enter your business ID and email and we'll tell you how your company should advertise and with what budget.">
+<meta property="og:description" content="Request a free advertising assessment: share your business name, website and email and we'll tell you how your business should advertise and with what budget.">
 <meta property="og:image" content="https://pikasivut.com/eng/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/bricolage-grotesque-400-800.woff2" as="font" type="font/woff2" crossorigin>
@@ -77,16 +77,21 @@
     <div class="page-hero">
       
       <h1>Free advertising assessment</h1>
-      <p class="lead">Enter your company's business ID and email and we'll send you an assessment of how your company should advertise, with what budget and how.</p>
+      <p class="lead">Share your business name, website and email and we'll send you an assessment of how your business should advertise, with what budget and how.</p>
     </div>
 
     <article class="article">
       <div class="arvio-wrap">
         <form class="arvio-form" id="arvio-form" novalidate>
           <div class="field">
-            <label for="f-yt">Business ID (Y-tunnus)</label>
-            <input id="f-yt" name="ytunnus" type="text" inputmode="numeric" autocomplete="off" placeholder="1234567-8" maxlength="9" required>
-            <p class="field-err" data-err="ytunnus" hidden>Check the business ID. The format is 1234567-8.</p>
+            <label for="f-biz">Business name</label>
+            <input id="f-biz" name="business" type="text" autocomplete="organization" placeholder="Bright Flow Plumbing" required>
+            <p class="field-err" data-err="business" hidden>Enter your business name.</p>
+          </div>
+          <div class="field">
+            <label for="f-site">Website</label>
+            <input id="f-site" name="site" type="text" inputmode="url" autocomplete="url" placeholder="brightflowplumbing.com" required>
+            <p class="field-err" data-err="site" hidden>Enter your website address, for example example.com.</p>
           </div>
           <div class="field">
             <label for="f-email">Email</label>
@@ -95,20 +100,29 @@
           </div>
           <div class="field">
             <label for="f-phone">Phone (optional)</label>
-            <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+358 45 123 4567">
+            <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+1 555 123 4567">
+          </div>
+          <div class="field">
+            <label for="f-country">Where is your business?</label>
+            <select id="f-country" name="country">
+              <option>United States</option>
+              <option>Canada</option>
+              <option>Finland</option>
+              <option>Other</option>
+            </select>
           </div>
           <div class="field">
             <label for="f-goal">What is your main goal?</label>
             <select id="f-goal" name="goal">
               <option value="">Select</option>
-              <option>More enquiries and customers</option>
-              <option>A better cost per enquiry on current advertising</option>
+              <option>More leads and customers</option>
+              <option>A better cost per lead on current advertising</option>
               <option>I haven't advertised yet and want to start</option>
               <option>I don't know yet</option>
             </select>
           </div>
-          <div class="field hp" aria-hidden="true"><label for="f-website">Do not fill this in</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
-          <label class="consent"><input type="checkbox" name="consent" value="yes" required> <span>I agree that Pikasivut sends the assessment to my email and contacts me afterwards about advertising. My data is handled according to the <a href="/privacy.html">privacy policy</a> (in Finnish).</span></label>
+          <div class="field hp" aria-hidden="true"><label for="f-hp">Do not fill this in</label><input id="f-hp" name="hp" type="text" tabindex="-1" autocomplete="off"></div>
+          <label class="consent"><input type="checkbox" name="consent" value="yes" required> <span>I agree that Pikasivut sends the assessment to my email and contacts me afterwards about advertising. My data is handled according to the <a href="/eng/privacy/">privacy policy</a>.</span></label>
           <p class="field-err" data-err="consent" hidden>Tick the consent so we can send the assessment.</p>
           <button type="submit" class="btn-primary">Get a free assessment</button>
           <p class="form-status" role="status" aria-live="polite" hidden></p>
@@ -122,7 +136,7 @@
 
       <h2>What does the assessment include?</h2>
       <ul>
-        <li>A recommendation on how your company should advertise on Google</li>
+        <li>A recommendation on how your business should advertise on Google</li>
         <li>An estimate of a suitable ad budget</li>
         <li>A recommended <a href="/eng/pricing/">package</a> and what it includes</li>
         <li>Next steps, if you want to go ahead</li>
@@ -135,7 +149,7 @@
 
 <footer>
   <div class="wrap">
-    <div class="footer-cols"><div class="fcol"><p>Explore</p><ul><li><a href="/eng/audit/">Audit</a></li><li><a href="/eng/pricing/">Pricing</a></li></ul></div><div class="fcol"><p>Learn more</p><ul><li><a href="/eng/guides/">Guides</a></li><li><a href="/eng/faq/">FAQ</a></li></ul></div><div class="fcol"><p>Pikasivut</p><ul><li><a href="/eng/assessment/" aria-current="page">Free assessment</a></li><li><a href="/eng/contact/">Contact</a></li><li><a href="/privacy.html">Privacy (in Finnish)</a></li><li><a href="/terms.html">Terms (in Finnish)</a></li><li><a href="/arvio/">Suomeksi</a></li></ul></div></div>
+    <div class="footer-cols"><div class="fcol"><p>Explore</p><ul><li><a href="/eng/audit/">Audit</a></li><li><a href="/eng/pricing/">Pricing</a></li></ul></div><div class="fcol"><p>Learn more</p><ul><li><a href="/eng/guides/">Guides</a></li><li><a href="/eng/faq/">FAQ</a></li></ul></div><div class="fcol"><p>Pikasivut</p><ul><li><a href="/eng/assessment/" aria-current="page">Free assessment</a></li><li><a href="/eng/contact/">Contact</a></li><li><a href="/eng/privacy/">Privacy policy</a></li><li><a href="/eng/terms/">Terms of service</a></li><li><a href="/arvio/">Suomeksi</a></li></ul></div></div>
     <div class="footer-row">
       <div>
         <p>© <span id="year"></span> Pikasivut. Google Ads management and websites.</p>

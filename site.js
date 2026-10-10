@@ -6,7 +6,7 @@
   doc.classList.add('js');
   var EN = doc.lang === 'en';
   var T = EN ? {
-    pk: ['Basic', 'Growth', 'Complete'], loc: 'en-US', dec: '.',
+    pk: ['Starter', 'Growth', 'Complete'], loc: 'en-US', dec: '.',
     eur: function (s) { return '\u20ac' + s; },
     sending: 'Sending\u2026', send: 'Get a free assessment',
     fail: 'Sending failed. Please write to <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a>.',
@@ -110,9 +110,9 @@
   var ad = document.querySelector('.ad-preview');
   if (input && ad) {
     var demos = EN ? [
-      ['home cleaning helsinki', 'cleaningcompany.fi/home-cleaning', 'Home Cleaning in Helsinki | See the Price and Book', 'The same cleaner every time. 100% quality guarantee. Pick a free slot online.'],
-      ['car repair near me', 'garage.fi/service', 'Scheduled Service for All Makes | Book a Time', 'Fixed price up front. Service book stamp. Book online 24/7.'],
-      ['bathroom renovation price', 'renovation.fi/bathroom', 'Turnkey Bathroom Renovation | Get a Quote', 'We handle the household tax deduction for you. Certified waterproofing.']
+      ['plumber near me', 'brightflowplumbing.com/emergency', 'Emergency Plumber Near You | Same-Day Service', 'Licensed and insured. Upfront pricing. Call or book online, 24/7.'],
+      ['ac repair phoenix', 'coolairhvac.com/repair', 'AC Repair in Phoenix | Fast, Fair Pricing', 'Same-day repairs on all makes. Free estimates. Book online in 60 seconds.'],
+      ['roof replacement cost', 'summitroofing.com/estimate', 'Roof Replacement | Get a Free Estimate', 'Fixed-price quotes. 25-year workmanship warranty. Financing available.']
     ] : [
       ['kotisiivous helsinki', 'siivousyritys.fi/kotisiivous', 'Kotisiivous Helsingissä | Näe hinta heti ja varaa', 'Tuttu siivooja joka kerta. 100 % laatutakuu. Valitse vapaa aika netistä.'],
       ['autokorjaamo lähellä', 'korjaamo.fi/huolto', 'Määräaikaishuolto kaikille merkeille | Varaa aika', 'Kiinteä hinta etukäteen. Huoltokirjamerkintä. Ajanvaraus netissä 24/7.'],
@@ -255,24 +255,35 @@
     var bars = calc.querySelector('.calc-bars');
     for (var bi = 0; bi < 24; bi++) bars.appendChild(document.createElement('i'));
     var fmt = function (n) { return Math.round(n).toLocaleString(T.loc); };
+    var CFG = {
+      eur: { sym: '\u20ac', b: [500, 6000, 250, 1500], c: [1, 6, 0.1, 3], r: [2, 12, 0.5, 6], th: [1500, 3000], fee: [300, 500, 750] },
+      usd: { sym: '$', b: [1000, 15000, 500, 3000], c: [1, 25, 0.5, 8], r: [2, 15, 0.5, 7], th: [3000, 6000], fee: [450, 750, 1150] }
+    };
+    var cur = EN ? 'usd' : 'eur';
+    var money = function (s) { return EN ? CFG[cur].sym + s : s + ' \u20ac'; };
     function calcUpdate() {
-      var b = +cb.value, c = +cc.value, r = +cr.value;
+      var b = +cb.value, c = +cc.value, r = +cr.value, K = CFG[cur];
       var clicks = b / c, leads = clicks * r / 100;
-      var pkg = b < 1500 ? [300, T.pk[0]] : b < 3000 ? [500, T.pk[1]] : [750, T.pk[2]];
-      calc.querySelector('output[for=c-budget]').textContent = T.eur(fmt(b));
-      calc.querySelector('output[for=c-cpc]').textContent = T.eur(c.toFixed(2).replace('.', T.dec));
+      var pkg = b < K.th[0] ? [K.fee[0], T.pk[0]] : b < K.th[1] ? [K.fee[1], T.pk[1]] : [K.fee[2], T.pk[2]];
+      calc.querySelector('output[for=c-budget]').textContent = money(fmt(b));
+      calc.querySelector('output[for=c-cpc]').textContent = money(c.toFixed(2).replace('.', T.dec));
       calc.querySelector('output[for=c-cr]').textContent = r.toFixed(1).replace('.', T.dec) + (EN ? '%' : ' %');
       calc.querySelector('[data-o=clicks]').textContent = fmt(clicks);
       calc.querySelector('[data-o=leads]').textContent = fmt(leads);
-      calc.querySelector('[data-o=cpl]').textContent = T.eur(fmt((b + pkg[0]) / Math.max(leads, 1)));
+      calc.querySelector('[data-o=cpl]').textContent = money(fmt((b + pkg[0]) / Math.max(leads, 1)));
       calc.querySelector('[data-o=pkg]').textContent = pkg[1];
       var lit = Math.max(1, Math.round(24 * r / 12));
       Array.prototype.forEach.call(bars.children, function (bar, k) {
-        bar.style.height = Math.min(100, 18 + (b / 6000) * 82 * (0.55 + 0.45 * Math.abs(Math.sin(k * 1.7)))) + '%';
+        bar.style.height = Math.min(100, 18 + (b / CFG[cur].b[1]) * 82 * (0.55 + 0.45 * Math.abs(Math.sin(k * 1.7)))) + '%';
         bar.classList.toggle('on', k % Math.max(1, Math.round(24 / lit)) === 0);
       });
     }
     [cb, cc, cr].forEach(function (el) { el.addEventListener('input', calcUpdate); });
+    calc.setCurrency = function (c) {
+      cur = c; var K = CFG[c];
+      [[cb, K.b], [cc, K.c], [cr, K.r]].forEach(function (p) { p[0].min = p[1][0]; p[0].max = p[1][1]; p[0].step = p[1][2]; p[0].value = p[1][3]; });
+      calcUpdate();
+    };
     calcUpdate();
   }
 
@@ -357,9 +368,51 @@
     addEventListener('resize', function () { if (innerWidth > 960) mm.removeAttribute('open'); });
   }
 
+  /* ---------- valuuttavalitsin (USD / EUR), vain englanninkielisellä sivustolla ---------- */
+  if (EN) {
+    var curBtns = document.querySelectorAll('[data-set-cur]');
+    var qsCur = new URLSearchParams(location.search).get('cur');
+    var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    var curNow = qsCur === 'eur' || qsCur === 'usd' ? qsCur : (tz === 'Europe/Helsinki' ? 'eur' : 'usd');
+    var applyCur = function (c) {
+      curNow = c;
+      document.querySelectorAll('[data-cur]').forEach(function (el) { el.hidden = el.dataset.cur !== c; });
+      curBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setCur === c)); });
+      var cc2 = document.querySelector('[data-calc]'); if (cc2 && cc2.setCurrency) cc2.setCurrency(c);
+    };
+    curBtns.forEach(function (b) { b.addEventListener('click', function () { applyCur(b.dataset.setCur); }); });
+    applyCur(curNow);
+  }
+
   /* ---------- Ilmainen arvio -lomake ---------- */
   var arvio = document.getElementById('arvio-form');
-  if (arvio) {
+  if (arvio && arvio.elements.business) {
+    // Englanninkielinen (USA) arviolomake: yrityksen nimi + verkkosivu, ei Y-tunnusta
+    var enErr = function (name, on) { var el = arvio.querySelector('[data-err="' + name + '"]'); if (el) el.hidden = !on; };
+    var enStatus = arvio.querySelector('.form-status');
+    arvio.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = arvio.elements;
+      var okB = f.business.value.trim().length > 1, okS = /\./.test(f.site.value.trim()) && f.site.value.trim().length > 3;
+      var okM = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim()), okC = f.consent.checked;
+      enErr('business', !okB); enErr('site', !okS); enErr('email', !okM); enErr('consent', !okC);
+      if (!(okB && okS && okM && okC)) { (!okB ? f.business : !okS ? f.site : !okM ? f.email : f.consent).focus(); return; }
+      if (f.hp.value) return;
+      var btn = arvio.querySelector('button[type=submit]');
+      btn.disabled = true; btn.textContent = T.sending; enStatus.hidden = true;
+      var qs = new URLSearchParams(location.search);
+      var body = new URLSearchParams({
+        market: 'en', business: f.business.value.trim(), site: f.site.value.trim(), email: f.email.value.trim(), phone: f.phone.value.trim(),
+        country: f.country.value, goal: f.goal.value, consent: 'yes', hp: '',
+        source: qs.get('utm_source') || qs.get('s') || (document.referrer ? new URL(document.referrer).hostname : T.direct)
+      });
+      var done = function () { arvio.dispatchEvent(new Event('arvio:sent')); arvio.hidden = true; arvio.parentNode.querySelector('.arvio-done').hidden = false; scrollTo({ top: 0, behavior: 'smooth' }); };
+      var fail = function () { btn.disabled = false; btn.textContent = T.send; enStatus.hidden = false; enStatus.innerHTML = T.fail; };
+      var settled = false, once = function (fn) { return function () { if (!settled) { settled = true; fn(); } }; };
+      setTimeout(once(done), 2500);
+      fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: body }).then(once(done), once(fail));
+    });
+  } else if (arvio) {
     function ytOk(v) {
       var m = /^(\d{7})-(\d)$/.exec(v);
       if (!m) return false;

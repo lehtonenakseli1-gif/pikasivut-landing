@@ -541,6 +541,14 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--bg-
 .lang-switch{font-family:var(--mono);font-size:12.5px;font-weight:500;text-decoration:none;color:var(--ink-soft);border:1px solid var(--line);border-radius:100px;padding:7px 12px;transition:color .2s,border-color .2s;}
 .lang-switch:hover{color:var(--blue);border-color:var(--blue);}
 
+
+/* ===== VALUUTTAVALITSIN ===== */
+.cur-toggle{display:inline-flex;gap:4px;padding:4px;background:var(--bg-alt);border:1px solid var(--line);border-radius:100px;margin:6px 0 4px;flex-wrap:wrap;}
+.cur-toggle button{border:0;background:transparent;font:600 14px var(--body);color:var(--ink-soft);padding:9px 16px;border-radius:100px;cursor:pointer;transition:background .2s,color .2s;}
+.cur-toggle button[aria-pressed="true"]{background:var(--blue);color:#fff;}
+.cur-toggle button:not([aria-pressed="true"]):hover{color:var(--ink);}
+[data-cur][hidden]{display:none !important;}
+
 /* ===== RESPONSIIVISUUS ===== */
 @media (max-width: 960px){
   .nav-links{display:none;}
