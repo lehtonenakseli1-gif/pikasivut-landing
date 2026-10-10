@@ -4,13 +4,13 @@
   <url>
     <loc>https://pikasivut.com/</loc>
     <xhtml:link rel="alternate" hreflang="fi" href="https://pikasivut.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://pikasivut.com/eng/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pikasivut.com/us/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pikasivut.com/"/>
     <lastmod>2026-10-08</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/</loc>
+    <loc>https://pikasivut.com/us/</loc>
     <lastmod>2026-10-08</lastmod>
     <priority>0.9</priority>
   </url>
@@ -70,57 +70,57 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/audit/</loc>
+    <loc>https://pikasivut.com/us/audit/</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/pricing/</loc>
+    <loc>https://pikasivut.com/us/pricing/</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/faq/</loc>
+    <loc>https://pikasivut.com/us/faq/</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/guides/why-google-ads-brings-no-leads/</loc>
+    <loc>https://pikasivut.com/us/guides/why-google-ads-brings-no-leads/</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/guides/negative-keywords/</loc>
+    <loc>https://pikasivut.com/us/guides/negative-keywords/</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/guides/conversion-tracking/</loc>
+    <loc>https://pikasivut.com/us/guides/conversion-tracking/</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/guides/</loc>
+    <loc>https://pikasivut.com/us/guides/</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/assessment/</loc>
+    <loc>https://pikasivut.com/us/assessment/</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/contact/</loc>
+    <loc>https://pikasivut.com/us/contact/</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/privacy/</loc>
+    <loc>https://pikasivut.com/us/privacy/</loc>
     <lastmod>2026-10-10</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pikasivut.com/eng/terms/</loc>
+    <loc>https://pikasivut.com/us/terms/</loc>
     <lastmod>2026-10-10</lastmod>
     <priority>0.6</priority>
   </url>

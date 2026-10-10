@@ -241,9 +241,9 @@
     var now = Date.now();
     logoHits = logoHits.filter(function (t) { return now - t < 2000; });
     logoHits.push(now);
-    if (location.pathname === '/' || location.pathname === '/eng/') e.preventDefault();
+    if (location.pathname === '/' || location.pathname === '/us/') e.preventDefault();
     if (logoHits.length >= 5) { logoHits = []; barrelRoll(); }
-    else if (location.pathname === '/' || location.pathname === '/eng/') scrollTo({ top: 0, behavior: 'smooth' });
+    else if (location.pathname === '/' || location.pathname === '/us/') scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   /* ================= ALASIVUJEN ERIKOISUUDET ================= */
