@@ -8,10 +8,11 @@
 <meta name="description" content="Varaa aika huoltoon tai korjaukseen Kyläsaaren Autokorjaamolta Helsingissä. Valitse palvelu ja sopiva aika suoraan kalenterista.">
 <meta name="theme-color" content="#0F1420">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230F1420'/><path d='M7 21c0-1 1-6 2-8s2-2 4-2h6c2 0 3 0 4 2s2 7 2 8v3H7v-3Z' fill='none' stroke='%23E8A33D' stroke-width='1.6'/><circle cx='11' cy='23' r='1.6' fill='%23E8A33D'/><circle cx='21' cy='23' r='1.6' fill='%23E8A33D'/></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script src="seuranta.js"></script>
 <style>
+@font-face{font-family:Inter;font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Inter;font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 :root{
   --bg:#0F1420; --surface:#161D2E; --surface-2:#1C2438; --text:#F4F6FB; --muted:#96A0BC;
   --accent:#E8A33D; --accent-deep:#C4841F; --line:#29314A; --nav-h:64px; --pad:20px; --maxw:1120px;
@@ -37,7 +38,7 @@ section{padding:52px 0}
 .btn-lg{padding:16px 26px;font-size:16px}
 
 /* ---------- Nav ---------- */
-.nav{position:sticky;top:0;z-index:50;height:var(--nav-h);background:rgba(15,20,32,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:50;height:var(--nav-h);background:rgba(15,20,32,.97);border-bottom:1px solid var(--line)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%}
 .logo{display:flex;flex-direction:column;line-height:1.15;color:var(--text);font-weight:800;letter-spacing:-.01em;text-decoration:none}
 .logo span{font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
@@ -73,6 +74,15 @@ section{padding:52px 0}
 .cat-btn-alt strong{display:block;color:var(--accent);font-size:15px}
 .cat-btn-alt span{display:block;margin-top:4px;color:var(--muted);font-size:13.5px;font-weight:500}
 
+.cat-group-label{display:block;margin:4px 0 10px;color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.cat-group-label.second{margin-top:26px}
+.cat-btn .cat-text{display:flex;flex-direction:column;gap:3px}
+.cat-btn .cat-meta{color:var(--muted);font-size:13px;font-weight:500}
+.cat-btn.active .cat-meta{color:var(--accent)}
+.quote-box{display:none;padding:26px 24px;background:var(--surface);border:1px solid var(--line);border-radius:14px;text-align:center}
+.quote-box.active{display:block}
+.quote-box p{margin:0 auto 18px;max-width:46ch;color:var(--muted)}
+
 /* ---------- Lisätiedot ---------- */
 .lisatiedot-input{width:100%;min-height:90px;padding:14px 16px;background:var(--surface-2);border:1.5px solid var(--line);border-radius:10px;color:var(--text);font:inherit;font-size:15px;resize:vertical}
 .lisatiedot-input:focus{outline:none;border-color:var(--accent)}
@@ -80,12 +90,12 @@ section{padding:52px 0}
 .lisatiedot-error{display:none;margin-top:8px;color:var(--accent);font-size:13.5px;font-weight:600}
 .lisatiedot-error.active{display:block}
 
-/* ---------- Calendly ---------- */
-.calendly-section{margin-top:32px}
-.calendly-hint{padding:36px 24px;text-align:center;color:var(--muted);background:var(--surface);border:1.5px dashed var(--line);border-radius:14px}
-.calendly-wrap{display:none;margin-top:8px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff}
-.calendly-wrap.active{display:block}
-#calendlyWidget{min-width:280px;height:700px}
+/* ---------- Cal.com ---------- */
+.cal-section{margin-top:32px}
+.cal-hint{padding:36px 24px;text-align:center;color:var(--muted);background:var(--surface);border:1.5px dashed var(--line);border-radius:14px}
+.cal-wrap{display:none;margin-top:8px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.cal-wrap.active{display:block}
+#calWidget{min-width:280px;height:700px}
 
 .alt-link{display:block;margin-top:28px;text-align:center;font-size:14px;color:var(--muted)}
 .alt-link a{color:var(--accent);font-weight:700;text-decoration:underline}
@@ -109,6 +119,7 @@ section{padding:52px 0}
   .nav-quote{display:inline-flex}
 }
 </style>
+<script src="ui.js" defer></script>
 </head>
 <body>
 
@@ -120,9 +131,9 @@ section{padding:52px 0}
       <a href="index.html#kokemukset">Arvostelut</a>
       <a href="index.html#yhteystiedot">Yhteystiedot</a>
     </nav>
-    <span class="nav-call">
+    <span class="nav-call" data-track="phone">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-      044 961 0348
+      044&nbsp;961 0348
     </span>
     <a class="btn btn-primary btn-sm nav-quote" href="varaa-aika.html">Varaa aika</a>
     <button class="nav-toggle" id="navToggle" aria-label="Avaa valikko" aria-expanded="false" aria-controls="navMenu">
@@ -143,36 +154,46 @@ section{padding:52px 0}
       <div class="crumb"><a href="index.html#top">← Etusivulle</a></div>
       <span class="eyebrow">Ajanvaraus</span>
       <h1>Varaa aika</h1>
-      <p>Valitse ensin mistä on kyse, ja saat suoraan näkyviin vapaat ajat kalenterista.</p>
+      <p>Valitse ensin mistä on kyse, ja saat suoraan näkyviin vapaat ajat kalenterista. Hinnat sisältävät alv:n.</p>
     </div>
   </section>
 
   <section>
     <div class="wrap section-inner">
       <span class="step-label">1. Mistä on kyse?</span>
-      <div class="cat-grid" id="catGrid">
-        <button class="cat-btn" type="button" data-slug="maaraaikaishuollot">Määräaikaishuolto <span class="arrow">→</span></button>
-        <button class="cat-btn" type="button" data-slug="moottori-vaihteisto">Moottori- ja vaihteistokorjaus <span class="arrow">→</span></button>
-        <button class="cat-btn" type="button" data-slug="vikadiagnostiikka">Vikadiagnostiikka <span class="arrow">→</span></button>
-        <button class="cat-btn" type="button" data-slug="kori-maalaus">Kori- ja maalaustyö <span class="arrow">→</span></button>
-        <button class="cat-btn" type="button" data-slug="muut">Muu huolto <span class="arrow">→</span></button>
+      <span class="cat-group-label">Varaa aika suoraan kalenterista</span>
+      <div class="cat-grid">
+        <button class="cat-btn" type="button" data-slug="maaraaikaishuollot"><span class="cat-text">Määräaikaishuolto<span class="cat-meta">Alk. 199&nbsp;€ · noin 1,5&nbsp;h</span></span> <span class="arrow">→</span></button>
+        <button class="cat-btn" type="button" data-slug="sahkotyot"><span class="cat-text">Sähkötyöt<span class="cat-meta">Alk. 95&nbsp;€/h · 1 h</span></span> <span class="arrow">→</span></button>
+        <button class="cat-btn" type="button" data-slug="jarrupalvelut"><span class="cat-text">Jarrupalvelut<span class="cat-meta">90&nbsp;€/h · noin 2,5&nbsp;h</span></span> <span class="arrow">→</span></button>
+        <button class="cat-btn" type="button" data-slug="vikadiagnostiikka"><span class="cat-text">Vikadiagnostiikka<span class="cat-meta">90&nbsp;€/h · 1 h</span></span> <span class="arrow">→</span></button>
+      </div>
+      <span class="cat-group-label second">Näistä annamme ensin arvion</span>
+      <div class="cat-grid">
+        <button class="cat-btn" type="button" data-slug="moottori-vaihteisto"><span class="cat-text">Moottori- ja vaihteistokorjaus<span class="cat-meta">Moottoriremontti alk. 2&nbsp;900&nbsp;€</span></span> <span class="arrow">→</span></button>
+        <button class="cat-btn" type="button" data-slug="kori-maalaus"><span class="cat-text">Kori-, maalaus- ja hitsaustyöt<span class="cat-meta">100&nbsp;€/h</span></span> <span class="arrow">→</span></button>
+        <button class="cat-btn" type="button" data-slug="muut"><span class="cat-text">Muu huolto<span class="cat-meta">Alusta, ilmastointi, DPF ym.</span></span> <span class="arrow">→</span></button>
         <button class="cat-btn cat-btn-alt" type="button" data-slug="en-tieda">
           <strong>En tiedä tarkalleen mistä on kyse</strong>
-          <span>Kerro oireet alla, niin näet vapaat ajat →</span>
+          <span>Kerro oireet alla, niin katsomme asian →</span>
         </button>
       </div>
 
       <div class="lisatiedot-section">
         <span class="step-label" style="margin-top:28px" id="lisatiedotLabel">2. Lisätietoja <span style="color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0">(valinnainen)</span></span>
         <textarea id="lisatiedotInput" class="lisatiedot-input" placeholder="Esim. auton merkki ja malli, tai mikä vaivaa"></textarea>
-        <span class="lisatiedot-error" id="lisatiedotError">Kerro lyhyesti mistä on kyse, niin näet vapaat ajat.</span>
+        <span class="lisatiedot-error" id="lisatiedotError">Kerro lyhyesti mistä on kyse, niin pääset eteenpäin.</span>
       </div>
 
-      <div class="calendly-section">
-        <span class="step-label" style="margin-top:8px">3. Valitse sopiva aika</span>
-        <div class="calendly-hint" id="calendlyHint">Valitse ensin palvelu yllä, niin näet vapaat ajat.</div>
-        <div class="calendly-wrap" id="calendlyWrap">
-          <div id="calendlyWidget"></div>
+      <div class="cal-section">
+        <span class="step-label" style="margin-top:8px" id="step3Label">3. Valitse sopiva aika</span>
+        <div class="cal-hint" id="calHint">Valitse ensin palvelu yllä, niin näet vapaat ajat.</div>
+        <div class="quote-box" id="quoteBox">
+          <p id="quoteText">Tähän työhön emme varaa aikaa suoraan, koska hinta ja kesto riippuvat auton tilanteesta. Lähetä tiedot, niin annamme arvion ja sovimme ajan.</p>
+          <a class="btn btn-primary btn-lg" id="quoteBtn" href="tarjous.html">Jatka tarjouspyyntöön</a>
+        </div>
+        <div class="cal-wrap" id="calWrap">
+          <div id="calWidget"></div>
         </div>
       </div>
 
@@ -188,14 +209,42 @@ section{padding:52px 0}
   <div class="wrap">
     <strong>Kyläsaaren Autokorjaamo Oy</strong>
     Y-tunnus 3626234-4 · Kyläsaarenkatu 7 B, 00580 Helsinki<br>
-    Puh. 044 961 0348 · Ma–Pe 8–17
+    Puh. 044&nbsp;961 0348 · Ma–Pe 8–17 · <a href="tietosuoja.html" style="color:inherit;text-decoration:underline">Tietosuojaseloste</a>
     <div class="demo">
       Tämä on <a href="https://pikasivut.com" style="color:var(--accent);font-weight:700;text-decoration:underline">Pikasivut.com</a>:n tekemä sivuehdotus Kyläsaaren Autokorjaamo Oy:lle, ei yrityksen virallinen sivusto.
     </div>
   </div>
 </footer>
 
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal;
+      let ar = arguments;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        d.head.appendChild(d.createElement("script")).src = A;
+        cal.loaded = true;
+      }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const namespace = ar[1];
+        api.q = api.q || [];
+        if (typeof namespace === "string") {
+          cal.ns[namespace] = cal.ns[namespace] || api;
+          p(cal.ns[namespace], ar);
+          p(cal, ["initNamespace", namespace]);
+        } else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", { origin: "https://cal.com" });
+</script>
 <script>
 (function(){
   var toggle = document.getElementById('navToggle');
@@ -209,48 +258,69 @@ section{padding:52px 0}
   menu.addEventListener('click', function(e){ if(e.target.closest('a')) closeMenu(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
 
-  // HUOM Akselille: nämä Calendly-linkit ovat placeholdereita. Kun olet
-  // luonut oman Calendly-tilin ja tehnyt yhden tapahtumatyypin per palvelu,
-  // korvaa alla olevat osoitteet oikeilla (Calendly antaa jokaiselle
-  // tapahtumalle oman linkin, esim. https://calendly.com/oma-tunnus/tapahtuma).
-  var CALENDLY_URLS = {
-    'maaraaikaishuollot': 'https://calendly.com/kylasaaren-autokorjaamo/maaraaikaishuollot',
-    'moottori-vaihteisto': 'https://calendly.com/kylasaaren-autokorjaamo/moottori-vaihteisto',
-    'vikadiagnostiikka': 'https://calendly.com/kylasaaren-autokorjaamo/vikadiagnostiikka',
-    'kori-maalaus': 'https://calendly.com/kylasaaren-autokorjaamo/kori-maalaus',
-    'muut': 'https://calendly.com/kylasaaren-autokorjaamo/muu-huolto',
-    // "En tiedä tarkalleen mistä on kyse" käyttää toistaiseksi samaa
-    // yleiskalenteria kuin "Muu huolto". Jos haluat sille oman
-    // tapahtumatyypin (esim. pidemmän, diagnoosia varten varatun ajan),
-    // tee se Calendlyssä ja vaihda osoite tähän.
-    'en-tieda': 'https://calendly.com/kylasaaren-autokorjaamo/muu-huolto',
+  // Kalenterista varattavat palvelut: täsmälleen ne tapahtumat, jotka on
+  // luotu Cal.comiin käyttäjälle kylasaaren-autokorjaamo.
+  var CAL_LINKS = {
+    'maaraaikaishuollot': 'kylasaaren-autokorjaamo/maaraaikaishuollot',
+    'sahkotyot': 'kylasaaren-autokorjaamo/sahkotyot',
+    'jarrupalvelut': 'kylasaaren-autokorjaamo/jarrupalvelut',
+    'vikadiagnostiikka': 'kylasaaren-autokorjaamo/vikadiagnostiikka',
   };
 
-  // Näille valinnoille lisätiedot-kenttä on pakollinen, koska kategoria
-  // itsessään ei kerro mistä autossa on kyse.
+  // Palvelut ilman kalenteria ohjataan tarjouslomakkeelle; arvo on
+  // tarjous.html:n palvelu-valikon option value.
+  var QUOTE_SERVICES = {
+    'moottori-vaihteisto': 'moottori-vaihteisto',
+    'kori-maalaus': 'kori-maalaus',
+    'muut': 'muu',
+    'en-tieda': 'muu',
+  };
+
+  // Kalenteripalvelujen vastineet tarjouslomakkeen valikossa (varalinkkiä varten).
+  var FORM_VALUE_FOR_CAL = {
+    'maaraaikaishuollot': 'maaraaikaishuollot',
+    'sahkotyot': 'sahkoviat',
+    'jarrupalvelut': 'jarrut-alusta',
+    'vikadiagnostiikka': 'vikadiagnostiikka',
+  };
+
   var REQUIRE_DETAILS = { 'en-tieda': true };
 
   var buttons = document.querySelectorAll('.cat-btn');
-  var hint = document.getElementById('calendlyHint');
-  var wrap = document.getElementById('calendlyWrap');
-  var widget = document.getElementById('calendlyWidget');
+  var hint = document.getElementById('calHint');
+  var wrap = document.getElementById('calWrap');
+  var widget = document.getElementById('calWidget');
   var altLink = document.getElementById('altLink');
   var lisatiedotInput = document.getElementById('lisatiedotInput');
   var lisatiedotLabel = document.getElementById('lisatiedotLabel');
   var lisatiedotError = document.getElementById('lisatiedotError');
+  var quoteBox = document.getElementById('quoteBox');
+  var quoteBtn = document.getElementById('quoteBtn');
+  var step3Label = document.getElementById('step3Label');
   var currentSlug = null;
+  var shownCal = { slug: null, notes: null };
 
-  // HUOM Akselille: jotta lisätiedot-kenttä näkyy myös Calendly-varauksessa,
-  // lisää jokaiseen Calendly-tapahtumaan yksi mukautettu kysymys (esim.
-  // "Auton tiedot / lisätiedot") — se on silloin ensimmäinen kysymys ja
-  // täyttyy automaattisesti tästä kentästä (prefill.customAnswers.a1).
+  // Lisätiedot-kenttä välittyy Cal.comin varauslomakkeen valmiiksi
+  // täytettyyn "Additional notes" -kenttään automaattisesti (config.notes),
+  // ilman että Cal.comissa tarvitsee tehdä mitään erillistä asetusta.
+  function quoteUrl(slug){
+    var q = new URLSearchParams();
+    q.set('palvelu', QUOTE_SERVICES[slug] || FORM_VALUE_FOR_CAL[slug] || 'muu');
+    if (slug === 'en-tieda') q.set('muu', 'En tiedä tarkalleen');
+    if (slug === 'muut') q.set('muu', 'Muu huolto');
+    var details = lisatiedotInput.value.trim();
+    if (details) q.set('lisatiedot', details);
+    return 'tarjous.html?' + q.toString();
+  }
+
   function selectCategory(slug){
-    var url = CALENDLY_URLS[slug];
-    if (!url) return;
+    var calLink = CAL_LINKS[slug];
+    var isQuote = !calLink && QUOTE_SERVICES.hasOwnProperty(slug);
+    if (!calLink && !isQuote) return;
 
     currentSlug = slug;
     buttons.forEach(function(b){ b.classList.toggle('active', b.dataset.slug === slug); });
-    altLink.setAttribute('href', 'tarjous.html?palvelu=' + encodeURIComponent(slug));
+    altLink.setAttribute('href', quoteUrl(slug));
 
     var detailsRequired = !!REQUIRE_DETAILS[slug];
     var hasDetails = !!lisatiedotInput.value.trim();
@@ -258,31 +328,40 @@ section{padding:52px 0}
       ? '2. Lisätietoja <span style="color:var(--accent);font-weight:700;text-transform:none;letter-spacing:0">(pakollinen)</span>'
       : '2. Lisätietoja <span style="color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0">(valinnainen)</span>';
     lisatiedotInput.classList.toggle('required', detailsRequired && !hasDetails);
+    lisatiedotError.classList.toggle('active', detailsRequired && !hasDetails);
+    step3Label.textContent = isQuote ? '3. Lähetä tiedot' : '3. Valitse sopiva aika';
 
-    if (detailsRequired && !hasDetails) {
-      lisatiedotError.classList.add('active');
-      hint.style.display = 'block';
-      hint.textContent = 'Kerro ensin lyhyesti mistä on kyse yllä olevaan kenttään, niin näet vapaat ajat.';
-      wrap.classList.remove('active');
-      widget.innerHTML = '';
+    var notes = lisatiedotInput.value.trim();
+    if (calLink && shownCal.slug === slug && shownCal.notes === notes && wrap.classList.contains('active')) {
       return;
     }
-    lisatiedotError.classList.remove('active');
 
-    hint.style.display = 'none';
-    wrap.classList.add('active');
+    wrap.classList.remove('active');
+    quoteBox.classList.remove('active');
     widget.innerHTML = '';
+    shownCal = { slug: null, notes: null };
 
-    if (window.Calendly && window.Calendly.initInlineWidget) {
-      window.Calendly.initInlineWidget({
-        url: url,
-        parentElement: widget,
-        prefill: { customAnswers: { a1: lisatiedotInput.value.trim() } },
-      });
-    } else {
-      // widget.js ei ole vielä latautunut tai Calendly-tiliä ei ole vielä tehty
-      widget.innerHTML = '<p style="padding:24px;color:#333;background:#fff;font-family:inherit">Kalenteria ei juuri nyt voitu ladata.</p>';
+    if (detailsRequired && !hasDetails) {
+      hint.style.display = 'block';
+      hint.textContent = 'Kerro ensin lyhyesti mistä on kyse yllä olevaan kenttään.';
+      return;
     }
+    hint.style.display = 'none';
+
+    if (isQuote) {
+      quoteBtn.setAttribute('href', quoteUrl(slug));
+      quoteBox.classList.add('active');
+      return;
+    }
+
+    wrap.classList.add('active');
+    shownCal = { slug: slug, notes: notes };
+    // Lisätiedot välittyvät Cal.comin varauslomakkeen "Additional notes" -kenttään.
+    Cal('inline', {
+      elementOrSelector: widget,
+      calLink: calLink,
+      config: { notes: notes },
+    });
   }
 
   buttons.forEach(function(btn){
@@ -293,23 +372,31 @@ section{padding:52px 0}
   lisatiedotInput.addEventListener('input', function(){
     clearTimeout(lisatiedotTimer);
     lisatiedotTimer = setTimeout(function(){
-      if (currentSlug) selectCategory(currentSlug);
+      if (!currentSlug) return;
+      // Näkyvää kalenteria ei ladata uudelleen kesken kirjoittamisen; se päivitetään kun kenttä menettää fokuksen.
+      if (CAL_LINKS[currentSlug] && wrap.classList.contains('active')) return;
+      selectCategory(currentSlug);
     }, 600);
   });
+  lisatiedotInput.addEventListener('change', function(){
+    if (currentSlug) selectCategory(currentSlug);
+  });
+
+  // Mittaus. Kuuntelijat rekisteröidään kerran; kTrack ohittaa saman varauksen toistot.
+  Cal('on', { action: 'bookingSuccessfulV2', callback: function(e){
+    var d = (e && e.detail && e.detail.data) || {};
+    window.kTrack && window.kTrack('booking_completed', { service: currentSlug, transaction_id: d.uid || d.bookingId || ('cal-' + Date.now()) });
+  }});
+  Cal('on', { action: 'linkFailed', callback: function(){ window.kTrack && window.kTrack('cal_link_failed', { service: currentSlug }); }});
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){ window.kTrack && window.kTrack('service_selected', { service: btn.dataset.slug }); });
+  });
+  quoteBtn.addEventListener('click', function(){ window.kTrack && window.kTrack('quote_continue_click', { service: currentSlug }); });
 
   var params = new URLSearchParams(window.location.search);
   var pre = params.get('palvelu');
-  if (pre && CALENDLY_URLS[pre]) {
-    // Odotetaan että widget.js ehtii latautua ennen esivalintaa.
-    var tries = 0;
-    var wait = setInterval(function(){
-      tries++;
-      if (window.Calendly || tries > 40) {
-        clearInterval(wait);
-        selectCategory(pre);
-      }
-    }, 100);
-  }
+  // Cal.comin lataaja jonottaa kutsut, joten esivalinta voidaan tehdä heti.
+  if (pre) selectCategory(pre);
 })();
 </script>
 </body>

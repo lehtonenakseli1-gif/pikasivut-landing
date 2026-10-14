@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Kyläsaaren Autokorjaamo — Helsinki | Huollot, korjaukset, vikadiagnostiikka</title>
-<meta name="description" content="Luotettava autokorjaamo Kyläsaarenkadulla Helsingissä. Kaikki automerkit, nykyaikainen vikadiagnostiikka, 12 kk takuu. Puh. 044 961 0348.">
+<meta name="description" content="Luotettava autokorjaamo Kyläsaarenkadulla Helsingissä. Kaikki automerkit, nykyaikainen vikadiagnostiikka, takuu 12 kk tai 15 000 km. Puh. 044&nbsp;961 0348.">
 <meta name="theme-color" content="#0F1420">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230F1420'/><path d='M7 21c0-1 1-6 2-8s2-2 4-2h6c2 0 3 0 4 2s2 7 2 8v3H7v-3Z' fill='none' stroke='%23E8A33D' stroke-width='1.6'/><circle cx='11' cy='23' r='1.6' fill='%23E8A33D'/><circle cx='21' cy='23' r='1.6' fill='%23E8A33D'/></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script src="seuranta.js"></script>
 <style>
+@font-face{font-family:Inter;font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Inter;font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 :root{
   --bg:#0F1420; --surface:#161D2E; --surface-2:#1C2438; --text:#F4F6FB; --muted:#96A0BC;
   --accent:#E8A33D; --accent-deep:#C4841F; --line:#29314A; --nav-h:64px; --pad:20px; --maxw:1120px;
@@ -39,7 +40,7 @@ section{padding:52px 0}
 .btn-lg{padding:16px 26px;font-size:16px}
 
 /* ---------- Nav ---------- */
-.nav{position:sticky;top:0;z-index:50;height:var(--nav-h);background:rgba(15,20,32,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:50;height:var(--nav-h);background:rgba(15,20,32,.97);border-bottom:1px solid var(--line)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%}
 .logo{display:flex;flex-direction:column;line-height:1.15;color:var(--text);font-weight:800;letter-spacing:-.01em;text-decoration:none}
 .logo span{font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
@@ -58,12 +59,19 @@ section{padding:52px 0}
 .hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;padding:0}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:65% 45%}
 .hero-scrim{position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,20,32,.97) 8%,rgba(15,20,32,.75) 42%,rgba(15,20,32,.25) 75%,rgba(15,20,32,.35) 100%)}
-.hero-content{position:relative;padding:64px 0 40px}
+.hero-content{position:relative;padding-top:64px;padding-bottom:40px}
 .hero h1{font-size:34px;max-width:14ch}
 .hero .lead{margin-top:16px;max-width:46ch;font-size:16.5px;color:#D8DCE0}
 .hero-actions{display:flex;flex-direction:column;gap:12px;margin-top:26px}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:8px 14px;background:rgba(22,29,46,.85);border:1px solid var(--line);border-radius:100px;font-size:13.5px;color:var(--text)}
 .hero-badge b{color:var(--accent)}
+a.hero-badge{text-decoration:none}a.hero-badge:hover{border-color:var(--accent)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:22px}
+.hero-meta .hero-badge{margin-top:0}
+.open-status{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:100px;background:rgba(22,29,46,.85);border:1px solid var(--line);font-size:13.5px;color:var(--text)}
+.open-status:empty{display:none}
+.open-status::before{content:"";width:8px;height:8px;border-radius:50%;background:#7d8597}
+.open-status.is-open::before{background:#3ecf8e;box-shadow:0 0 0 3px rgba(62,207,142,.18)}
 
 /* ---------- Stats ---------- */
 .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
@@ -79,6 +87,9 @@ section{padding:52px 0}
 .service:hover{border-color:var(--accent);transform:translateY(-2px)}
 .service h3{font-size:16px}
 .service p{margin-top:6px;font-size:14px}
+.svc-icon{display:grid;place-items:center;width:40px;height:40px;margin-bottom:12px;border-radius:10px;background:rgba(232,163,61,.12);color:var(--accent)}
+.svc-icon svg{width:22px;height:22px}
+.service .card-price{display:block;margin-top:10px;color:var(--text);font-size:14px;font-weight:700}
 .service .more{display:inline-block;margin-top:12px;color:var(--accent);font-size:13.5px;font-weight:700}
 .service-cta{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;background:transparent;border:1.5px dashed rgba(232,163,61,.45)}
 .service-cta:hover{background:rgba(232,163,61,.06)}
@@ -93,12 +104,30 @@ section{padding:52px 0}
 .reason .icon{display:grid;place-items:center;width:30px;height:30px;flex:none;background:rgba(232,163,61,.14);border-radius:8px;color:var(--accent)}
 .reason p{font-size:15px;color:var(--text)}
 
+/* ---------- Prosessi ---------- */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:s}
+.steps li{position:relative;padding:22px 20px 20px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.steps h3{font-size:17px;margin-top:12px}
+.steps p{margin-top:6px;font-size:14.5px}
+.step-n{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);font-weight:800;font-size:15px}
 /* ---------- Testimonials ---------- */
 #kokemukset{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .reviews{display:grid;gap:16px}
 .review{padding:22px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px}
 .review .stars{color:var(--accent);font-size:14px;letter-spacing:2px}
 .review p{margin-top:10px;font-size:15px;color:var(--text);line-height:1.55}
+.review .src{display:inline-block;margin-right:6px;padding:2px 7px;border-radius:5px;background:rgba(232,163,61,.12);color:var(--accent);font-size:11.5px;font-weight:700;letter-spacing:.02em}
+.reviews-more{margin-top:22px;text-align:center}
+.reviews-more a{color:var(--accent);font-weight:700;text-decoration:none}
+.reviews-more a:hover{text-decoration:underline}
+.faq-wrap{max-width:820px}
+details{border-bottom:1px solid var(--line)}
+details summary{list-style:none;cursor:pointer;padding:18px 36px 18px 0;position:relative;color:var(--text);font-weight:700;font-size:16px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";position:absolute;right:4px;top:14px;color:var(--accent);font-size:24px;font-weight:400;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 18px;font-size:15px}
+details a{color:var(--accent)}
 .review .who{margin-top:14px;font-size:13px;color:var(--muted)}
 
 /* ---------- Yhteystiedot / CTA ---------- */
@@ -109,6 +138,9 @@ section{padding:52px 0}
 .cta-detail{display:block;margin-top:16px;font-size:13.5px;color:var(--muted)}
 .phone-plain{display:inline-flex;align-items:center;gap:8px;color:var(--text);font-weight:700;font-size:15px}
 .map-embed{margin-top:32px;border-radius:14px;overflow:hidden;border:1px solid var(--line);max-width:640px;margin-left:auto;margin-right:auto}
+.map-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;height:280px;padding:20px;background:var(--surface-2)}
+.map-placeholder p{margin:0;color:var(--text);font-weight:600}
+.map-note{font-size:12.5px;color:var(--muted)}
 .map-embed iframe{width:100%;height:280px;border:0;display:block}
 .map-link{display:block;margin-top:10px;font-size:13px;color:var(--muted);text-decoration:underline}
 .map-link:hover{color:var(--text)}
@@ -132,6 +164,7 @@ section{padding:52px 0}
   .services{grid-template-columns:repeat(2,1fr)}
   .split{grid-template-columns:1fr 1fr;align-items:center}
   .reviews{grid-template-columns:repeat(3,1fr)}
+  .steps{grid-template-columns:repeat(3,1fr)}
   .cta-actions{flex-direction:row;justify-content:center}
 }
 /* ---------- Desktop ---------- */
@@ -141,10 +174,14 @@ section{padding:52px 0}
   .nav-call{display:inline-flex}
   .nav-quote{display:inline-flex}
   .hero h1{font-size:52px}
-  .services{grid-template-columns:repeat(3,1fr)}
+  .services{grid-template-columns:repeat(4,1fr)}
   .section-head{margin-bottom:40px}
 }
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"AutoRepair","name":"Kyläsaaren Autokorjaamo Oy","telephone":"+358449610348","email":"kylasaarenautokorjaamo@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Kyläsaarenkatu 7 B","postalCode":"00580","addressLocality":"Helsinki","addressCountry":"FI"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"}]}
+</script>
+<script src="ui.js" defer></script>
 </head>
 <body>
 
@@ -156,9 +193,9 @@ section{padding:52px 0}
       <a href="#kokemukset">Arvostelut</a>
       <a href="#yhteystiedot">Yhteystiedot</a>
     </nav>
-    <span class="nav-call">
+    <span class="nav-call" data-track="phone">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-      044 961 0348
+      044&nbsp;961 0348
     </span>
     <a class="btn btn-primary btn-sm nav-quote" href="varaa-aika.html">Varaa aika</a>
     <button class="nav-toggle" id="navToggle" aria-label="Avaa valikko" aria-expanded="false" aria-controls="navMenu">
@@ -177,7 +214,7 @@ section{padding:52px 0}
 
   <!-- ============ HERO ============ -->
   <section class="hero">
-    <img class="hero-img" src="kuvat/hero-nostimella.jpg" alt="Mekaanikko tarkastaa autoa nostimella Kyläsaaren Autokorjaamolla">
+    <img fetchpriority="high" width="1200" height="800" class="hero-img" src="kuvat/hero-nostimella.webp" alt="Mekaanikko tarkastaa autoa nostimella Kyläsaaren Autokorjaamolla">
     <div class="hero-scrim"></div>
     <div class="wrap hero-content">
       <span class="eyebrow">Autokorjaamo Helsinki</span>
@@ -187,16 +224,16 @@ section{padding:52px 0}
         <a class="btn btn-primary btn-lg" href="varaa-aika.html">Varaa aika</a>
         <a class="btn btn-outline btn-lg" href="#palvelut">Katso palvelut</a>
       </div>
-      <span class="hero-badge"><b>★ 4,6</b>&nbsp;·&nbsp;21 arvostelua&nbsp;·&nbsp;044 961 0348</span>
+      <div class="hero-meta"><a class="hero-badge" href="https://autojerry.fi/autokorjaamo/helsinki/kylasaaren-autokorjaamo-oy-g/" target="_blank" rel="noopener"><b>★ 4,3</b>&nbsp;·&nbsp;28 arvostelua AutoJerryssä ↗</a><span class="open-status" data-open-status></span></div>
     </div>
   </section>
 
   <!-- ============ STATS ============ -->
   <section class="stats" style="padding:0">
     <div class="wrap">
-      <div class="stat"><b>4,6 / 5</b><span>21 arvostelua</span></div>
+      <div class="stat"><b>4,3 / 5</b><span>28 arvostelua AutoJerryssä</span></div>
       <div class="stat"><b>2 asentajaa</b><span>ammattitaitoista</span></div>
-      <div class="stat"><b>12 kk</b><span>takuu työlle ja osille</span></div>
+      <div class="stat"><b>12 kk</b><span>tai 15&nbsp;000 km takuu työlle ja osille</span></div>
       <div class="stat"><b>Kaikki merkit</b><span>ja mallit</span></div>
     </div>
   </section>
@@ -207,14 +244,16 @@ section{padding:52px 0}
       <div class="section-head">
         <span class="eyebrow">Palvelut</span>
         <h2>Kaikki auton huolto- ja korjaustyöt.</h2>
-        <p>Yhdestä paikasta, samalla korjaamolla — ei tarvitse juosta eri liikkeissä.</p>
+        <p>Yhdestä paikasta, samalla korjaamolla — ei tarvitse juosta eri liikkeissä. Kaikki hinnat sisältävät alv:n.</p>
       </div>
       <div class="services">
-        <a class="service" href="palvelut/maaraaikaishuollot.html"><h3>Määräaikaishuollot</h3><p>Valmistajan huolto-ohjelman mukaisesti, kaikille merkeille.</p><span class="more">Lue lisää →</span></a>
-        <a class="service" href="palvelut/moottori-vaihteisto.html"><h3>Moottori- ja vaihteistokorjaukset</h3><p>Isommatkin työt, oikealla diagnoosilla ensin.</p><span class="more">Lue lisää →</span></a>
-        <a class="service" href="palvelut/vikadiagnostiikka.html"><h3>Vikadiagnostiikka</h3><p>Nykyaikaiset laitteet — löydämme syyn, emme vain oireen.</p><span class="more">Lue lisää →</span></a>
-        <a class="service" href="palvelut/muut.html"><h3>Muut huollot</h3><p>Sähköviat, jarrut ja alusta, ilmastointi sekä DPF- ja päästöjärjestelmät.</p><span class="more">Lue lisää →</span></a>
-        <a class="service" href="palvelut/kori-maalaus.html"><h3>Kori- ja maalaustyöt</h3><p>Kolarikorjauksista pintanaarmuihin.</p><span class="more">Lue lisää →</span></a>
+        <a class="service" href="palvelut/maaraaikaishuollot.html"><span class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h3l2-2h6l2 3 4-2v2l-4 4H7l-2-2H3z"/><path d="M19 18l1 2"/></svg></span><h3>Määräaikaishuollot</h3><p>Valmistajan huolto-ohjelman mukaisesti, kaikille merkeille.</p><span class="card-price">Alkaen 199&nbsp;€</span><span class="more">Lue lisää →</span></a>
+        <a class="service" href="palvelut/moottori-vaihteisto.html"><span class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h2V9h4V7H8V5h8v2h-2v2h3l2 2h1V9h2v8h-2v-2h-1v3h-8l-2-2H6v2H4z"/></svg></span><h3>Moottori- ja vaihteistokorjaukset</h3><p>Isommatkin työt, oikealla diagnoosilla ensin.</p><span class="card-price">Moottoriremontti alk. 2&nbsp;900&nbsp;€</span><span class="more">Lue lisää →</span></a>
+        <a class="service" href="palvelut/vikadiagnostiikka.html"><span class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M7 13l2-3 2 2 3-4 3 5"/><path d="M8 21h8M12 17v4"/></svg></span><h3>Vikadiagnostiikka</h3><p>Nykyaikaiset laitteet — löydämme syyn, emme vain oireen.</p><span class="card-price">90&nbsp;€/h</span><span class="more">Lue lisää →</span></a>
+        <a class="service" href="palvelut/jarrupalvelut.html"><span class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2"/></svg></span><h3>Jarrupalvelut</h3><p>Jarrupalat, -levyt ja -nesteet. Varaa aika suoraan netistä.</p><span class="card-price">90&nbsp;€/h</span><span class="more">Lue lisää →</span></a>
+        <a class="service" href="palvelut/sahkotyot.html"><span class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L5 14h6l-1 8 8-12h-6z"/></svg></span><h3>Sähkötyöt</h3><p>Valot, anturit, akku ja lataus. Varaa aika suoraan netistä.</p><span class="card-price">Alkaen 95&nbsp;€/h</span><span class="more">Lue lisää →</span></a>
+        <a class="service" href="palvelut/muut.html"><span class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span><h3>Muut huollot</h3><p>Alustatyöt, ilmastointi sekä DPF- ja päästöjärjestelmät.</p><span class="card-price">90&nbsp;€/h</span><span class="more">Lue lisää →</span></a>
+        <a class="service" href="palvelut/kori-maalaus.html"><span class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15l2-6h12l2 6"/><path d="M3 15h18v4H3z"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/></svg></span><h3>Kori- ja maalaustyöt</h3><p>Kolarikorjauksista pintanaarmuihin.</p><span class="card-price">100&nbsp;€/h</span><span class="more">Lue lisää →</span></a>
         <a class="service service-cta" href="tarjous.html"><h3>Etkö löytänyt oikeaa?</h3><p>Kerro tarpeesi omin sanoin — katsomme asian.</p><span class="more">Pyydä tarjous →</span></a>
       </div>
     </div>
@@ -224,7 +263,7 @@ section{padding:52px 0}
   <section id="miksi">
     <div class="wrap split">
       <div class="split-img">
-        <img src="kuvat/diagnostiikka.jpg" alt="Mekaanikko tekee vikadiagnostiikkaa auton alustalle">
+        <img loading="lazy" decoding="async" width="840" height="1120" src="kuvat/korjaamo-halli.webp" alt="Siisti korjaamohalli, auto nostimella">
       </div>
       <div>
         <span class="eyebrow">Miksi meidät</span>
@@ -252,6 +291,22 @@ section{padding:52px 0}
     </div>
   </section>
 
+  <!-- ============ NÄIN TYÖ ETENEE ============ -->
+  <section id="prosessi">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Näin työ etenee</span>
+        <h2>Ei yllätyksiä laskussa.</h2>
+        <p>Tiedät aina etukäteen, mitä tehdään ja mitä se maksaa.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="step-n">1</span><h3>Varaa aika tai kerro oireet</h3><p>Varaa huolto, jarrutyö tai sähkötyö suoraan kalenterista. Isommista töistä pyydä arvio lomakkeella.</p></li>
+        <li><span class="step-n">2</span><h3>Vika selvitetään ensin</h3><p>Etsimme vian todellisen syyn ja kerromme löydökset ja hinnan ennen korjausta. Mahdollisista lisätöistä sovitaan aina etukäteen.</p></li>
+        <li><span class="step-n">3</span><h3>Korjaus ja takuu</h3><p>Työ tehdään sovitusti, ja työlle ja varaosille annetaan 12 kuukauden tai 15&nbsp;000 kilometrin takuu.</p></li>
+      </ol>
+    </div>
+  </section>
+
   <!-- ============ KOKEMUKSET ============ -->
   <section id="kokemukset">
     <div class="wrap">
@@ -264,19 +319,35 @@ section{padding:52px 0}
         <div class="review">
           <div class="stars">★★★★★</div>
           <p>&ldquo;Erittäin hyvää ja nopeaa palvelua! Korjaamolta soitettiin jarrunesteiden vaihtotarpeesta ennen työn tekemistä. Auto valmistui vielä odotettua nopeammin.&rdquo;</p>
-          <div class="who">Ilkka M. · KIA Ceed</div>
+          <div class="who"><span class="src">AutoJerry</span> Ilkka M. · KIA Ceed</div>
         </div>
         <div class="review">
           <div class="stars">★★★★★</div>
           <p>&ldquo;Asentajat ammattitaitoisia, homma valmiina sovittuna aikana ja asiakaspalvelu ystävällistä. Kokonaisuutena kohtuuhintainen ja nopea.&rdquo;</p>
-          <div class="who">Pekka I. · Mitsubishi Pajero</div>
+          <div class="who"><span class="src">AutoJerry</span> Pekka I. · Mitsubishi Pajero</div>
         </div>
         <div class="review">
           <div class="stars">★★★★★</div>
-          <p>&ldquo;Heti pääsi työn alle ja työ tehtiin nopeasti. Erittäin hyvä ja ystävällinen palvelu. Suosittelen.&rdquo;</p>
-          <div class="who">Kalevi · Ford Kuga</div>
+          <p>&ldquo;Arvio piti paikkansa, ja mahdollisista lisäkuluista kerrottiin avoimesti ennen korjausta.&rdquo;</p>
+          <div class="who"><span class="src">AutoJerry</span> Simo K. · Mini Countryman · Jarrut</div>
         </div>
       </div>
+      <p class="reviews-more"><a href="https://autojerry.fi/autokorjaamo/helsinki/kylasaaren-autokorjaamo-oy-g/" target="_blank" rel="noopener">Lue kaikki 28 arvostelua AutoJerryssä ↗</a></p>
+    </div>
+  </section>
+
+  <!-- ============ UKK ============ -->
+  <section id="ukk">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="eyebrow">Usein kysyttyä</span>
+        <h2>Kysymyksiä ennen varausta?</h2>
+      </div>
+      <details><summary>Huollatteko kaikki automerkit?</summary><p>Kyllä. Huollamme ja korjaamme kaikki automerkit ja -mallit.</p></details>
+      <details><summary>Säilyykö uuden auton takuu, jos huollatan auton teillä?</summary><p>Teemme määräaikaishuollot valmistajan huolto-ohjelman mukaisesti ja kirjaamme huollon asianmukaisesti, jotta huoltohistoria ja takuu pysyvät kunnossa.</p></details>
+      <details><summary>Kerrotteko hinnan ennen työtä?</summary><p>Kyllä. Kerromme löydöksistä ja hinnasta ennen korjausta, ja mahdollisista lisätöistä sovitaan aina ennen kuin niitä tehdään.</p></details>
+      <details><summary>Mikä takuu töillä on?</summary><p>Työlle ja varaosille annetaan 12 kuukauden tai 15&nbsp;000 kilometrin takuu.</p></details>
+      <details><summary>Kauanko määräaikaishuolto kestää?</summary><p>Noin 1,5 tuntia. Voit <a href="varaa-aika.html?palvelu=maaraaikaishuollot">varata ajan suoraan netistä</a>.</p></details>
     </div>
   </section>
 
@@ -288,15 +359,20 @@ section{padding:52px 0}
       <p>Vastaamme nopeasti. Kyläsaarenkatu 7 B, hyvien kulkuyhteyksien varrella.</p>
       <div class="cta-actions">
         <a class="btn btn-primary btn-lg" href="varaa-aika.html">Varaa aika</a>
-        <span class="phone-plain">
+        <span class="phone-plain" data-track="phone">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-          044 961 0348
+          044&nbsp;961 0348
         </span>
       </div>
       <span class="cta-detail">Ma–Pe 8–17 · Kyläsaarenkatu 7 B, 00580 Helsinki</span>
+      <span class="open-status" data-open-status style="margin-top:12px"></span>
 
-      <div class="map-embed">
-        <iframe src="https://www.google.com/maps?q=Kyl%C3%A4saarenkatu+7B,+00580+Helsinki&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Kyläsaaren Autokorjaamo kartalla"></iframe>
+      <div class="map-embed map-consent" data-map-src="https://www.google.com/maps?q=Kyl%C3%A4saarenkatu+7B,+00580+Helsinki&amp;output=embed" data-map-title="Kyläsaaren Autokorjaamo kartalla">
+        <div class="map-placeholder">
+          <p>Kyläsaarenkatu 7 B, 00580 Helsinki</p>
+          <button type="button" class="btn btn-outline">Näytä kartta</button>
+          <span class="map-note">Kartta ladataan Google Mapsista, joka voi asettaa evästeitä.</span>
+        </div>
       </div>
       <a class="map-link" href="https://maps.google.com/?q=Kyläsaarenkatu+7B,+00580+Helsinki" target="_blank" rel="noopener">Avaa isompana Google Mapsissa ↗</a>
     </div>
@@ -307,7 +383,7 @@ section{padding:52px 0}
   <div class="wrap">
     <strong>Kyläsaaren Autokorjaamo Oy</strong>
     Y-tunnus 3626234-4 · Kyläsaarenkatu 7 B, 00580 Helsinki<br>
-    Puh. 044 961 0348 · Ma–Pe 8–17
+    Puh. 044&nbsp;961 0348 · Ma–Pe 8–17 · <a href="tietosuoja.html" style="color:inherit;text-decoration:underline">Tietosuojaseloste</a>
     <div class="demo">
       Tämä on <a href="https://pikasivut.com" style="color:var(--accent);font-weight:700;text-decoration:underline">Pikasivut.com</a>:n tekemä sivuehdotus Kyläsaaren Autokorjaamo Oy:lle, ei yrityksen virallinen sivusto. Tiedot ja arvostelut koottu julkisista lähteistä (AutoJerry.fi). Kuvat: Pexels-arkistokuvia, eivät oikeasta korjaamosta.
     </div>
