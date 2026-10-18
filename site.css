@@ -585,6 +585,68 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--bg-
   .footer-row{flex-direction:column;align-items:flex-start;}
   .nav-cta{padding:10px 14px;font-size:13.5px;}
 }
+
+/* ===== ISOT NÄYTÖT: leveämpi sisältö ja suuremmat tekstit ===== */
+@media (min-width: 1600px){
+  .wrap{max-width:1380px;padding:0 40px;}
+  nav.wrap{height:80px;}
+  .mm-panel{top:80px;}
+  .logo{font-size:28px;} .logo-mark{width:38px;height:38px;}
+  .nav-links{gap:34px;} .nav-links a{font-size:16.5px;}
+  .nav-cta{font-size:16px;padding:12px 24px;}
+  .hero{padding:96px 0 64px;}
+  h1{font-size:clamp(60px,4.2vw,92px);}
+  .page-hero h1{font-size:clamp(44px,3.4vw,72px);}
+  .lead{font-size:22px;max-width:60ch;}
+  h2{font-size:clamp(36px,2.6vw,52px);}
+  .section-sub{font-size:20px;}
+  section{padding:92px 0;}
+  .search{max-width:880px;min-height:74px;} .search input{font-size:22px;} .search button{font-size:16px;padding:14px 24px;}
+  .ad-preview{max-width:880px;} .ad-preview .ad-title{font-size:24px;} .ad-preview .ad-desc{font-size:16px;}
+  .btn-primary,.btn-secondary{font-size:17px;padding:17px 30px;}
+  .problem-card h3,.service-card h3{font-size:22px;} .problem-card p,.service-card p,.why-item p,.step p{font-size:17px;}
+  .why-item h3{font-size:20px;} .offer-card p,.offer-card li{font-size:17px;}
+  .price-card .amount{font-size:54px;} .price-card li,.price-card .for{font-size:16px;} .price-card h3{font-size:26px;}
+  .faq-list{max-width:900px;} .faq-list summary{font-size:19px;padding:22px 60px 22px 26px;} .faq-list .faq-a{font-size:17px;}
+  .article{max-width:840px;} .article p,.article li{font-size:19.5px;} .article h2{font-size:clamp(28px,2vw,38px);}
+  .article h3{font-size:22px;} .article table{font-size:17px;}
+  .final-cta{padding:80px 32px;} .final-cta p{font-size:19px;}
+  .contact-cards{grid-template-columns:minmax(0,600px);} .contact-card strong{font-size:34px;}
+  .calc,.selfcheck,.st-report,.terminal,.orderbook{font-size:16px;}
+  .footer-cols a{font-size:16px;} .footer-row p{font-size:15px;}
+  .ticker-track span,.cpc-ticker{font-size:15.5px;}
+}
+@media (min-width: 2200px){
+  .wrap{max-width:1700px;padding:0 48px;}
+  nav.wrap{height:92px;}
+  .mm-panel{top:92px;}
+  .logo{font-size:33px;} .logo-mark{width:44px;height:44px;}
+  .nav-links a{font-size:19px;} .nav-links{gap:42px;}
+  .nav-cta{font-size:18px;padding:14px 28px;}
+  .hero{padding:120px 0 80px;}
+  h1{font-size:clamp(84px,3.7vw,118px);}
+  .page-hero h1{font-size:clamp(62px,3vw,92px);}
+  .lead{font-size:26px;}
+  h2{font-size:clamp(50px,2.3vw,68px);}
+  .section-sub{font-size:23px;}
+  section{padding:120px 0;}
+  .search{max-width:1040px;min-height:86px;} .search input{font-size:26px;} .search button{font-size:19px;padding:16px 30px;}
+  .ad-preview{max-width:1040px;} .ad-preview .ad-title{font-size:29px;} .ad-preview .ad-desc{font-size:19px;} .ad-preview .ad-top{font-size:15px;}
+  .btn-primary,.btn-secondary{font-size:20px;padding:20px 36px;}
+  .problem-card h3,.service-card h3{font-size:27px;} .problem-card p,.service-card p,.why-item p,.step p{font-size:20px;}
+  .why-item h3{font-size:24px;} .sc-more{font-size:18px;}
+  .price-card .amount{font-size:66px;} .price-card li,.price-card .for{font-size:19px;} .price-card h3{font-size:31px;} .price-card .budget{font-size:16px;}
+  .faq-list{max-width:1060px;} .faq-list summary{font-size:22px;} .faq-list .faq-a{font-size:20px;}
+  .article{max-width:980px;} .article p,.article li{font-size:23px;} .article h2{font-size:clamp(34px,1.7vw,46px);}
+  .article h3{font-size:26px;} .article table{font-size:20px;}
+  .final-cta{padding:100px 40px;} .final-cta p{font-size:23px;}
+  .contact-cards{grid-template-columns:minmax(0,720px);} .contact-card strong{font-size:40px;}
+  .calc,.selfcheck,.st-report,.terminal,.orderbook{font-size:19px;}
+  .footer-cols a{font-size:19px;} .footer-row p{font-size:17px;}
+  .ticker-track span,.cpc-ticker{font-size:18px;}
+  .chip{font-size:15px;}
+}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none !important;transition:none !important;}
   html{scroll-behavior:auto;}
