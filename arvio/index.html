@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
 <title>Ilmainen mainonta-arvio | Pikasivut</title>
-<meta name="description" content="Pyydä ilmainen mainonta-arvio: laita Y-tunnus ja sähköposti, niin kerromme, miten yrityksesi kannattaisi mainostaa ja millä budjetilla.">
+<meta name="description" content="Pyydä ilmainen mainonta-arvio: laita yrityksen nimi ja sähköposti, niin kerromme, miten yrityksesi kannattaisi mainostaa ja millä budjetilla.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://pikasivut.com/arvio/">
 <link rel="alternate" hreflang="fi" href="https://pikasivut.com/arvio/">
@@ -19,12 +20,12 @@
 <meta property="og:locale" content="fi_FI">
 <meta property="og:url" content="https://pikasivut.com/arvio/">
 <meta property="og:title" content="Ilmainen mainonta-arvio">
-<meta property="og:description" content="Pyydä ilmainen mainonta-arvio: laita Y-tunnus ja sähköposti, niin kerromme, miten yrityksesi kannattaisi mainostaa ja millä budjetilla.">
+<meta property="og:description" content="Pyydä ilmainen mainonta-arvio: laita yrityksen nimi ja sähköposti, niin kerromme, miten yrityksesi kannattaisi mainostaa ja millä budjetilla.">
 <meta property="og:image" content="https://pikasivut.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/bricolage-grotesque-400-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/figtree-400-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/site.css?v=20261025">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -77,16 +78,16 @@
       
       
       <h1>Ilmainen mainonta-arvio</h1>
-      <p class="lead">Laita yrityksesi Y-tunnus ja sähköposti, niin lähetämme sinulle arvion siitä, miten yrityksesi kannattaisi mainostaa, millä budjetilla ja miten.</p>
+      <p class="lead">Laita yrityksesi nimi ja sähköposti, niin lähetämme sinulle arvion siitä, miten yrityksesi kannattaisi mainostaa, millä budjetilla ja miten.</p>
     </div>
 
     <article class="article">
       <div class="arvio-wrap">
         <form class="arvio-form" id="arvio-form" novalidate>
           <div class="field">
-            <label for="f-yt">Y-tunnus</label>
-            <input id="f-yt" name="ytunnus" type="text" inputmode="numeric" autocomplete="off" placeholder="1234567-8" maxlength="9" required>
-            <p class="field-err" data-err="ytunnus" hidden>Tarkista Y-tunnus. Muoto on 1234567-8.</p>
+            <label for="f-yritys">Yrityksen nimi</label>
+            <input id="f-yritys" name="yritys" type="text" autocomplete="organization" maxlength="120" placeholder="Yrityksesi nimi" required>
+            <p class="field-err" data-err="yritys" hidden>Kirjoita yrityksesi nimi.</p>
           </div>
           <div class="field">
             <label for="f-email">Sähköposti</label>
@@ -139,7 +140,7 @@
     <div class="footer-row">
       <div>
         <p>© <span id="year"></span> Pikasivut. Google Ads -mainonta ja nettisivut.</p>
-        <p class="footer-legal">Pikasivut · Y-tunnus 3378015-4 · ALV-tunniste FI33780154</p>
+        <p class="footer-legal">Pikasivut · Y-tunnus 3378015-4 · ALV-tunniste FI33780154 · Puhelin 045&nbsp;850&nbsp;5051</p>
       </div>
       
     </div>
@@ -147,6 +148,6 @@
 </footer>
 
 
-<script src="/site.js" defer></script>
+<script src="/site.js?v=20261025" defer></script>
 </body>
 </html>

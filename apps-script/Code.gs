@@ -2,20 +2,18 @@
  * Pikasivut: ilmainen mainonta-arvio -lomakkeen vastaanotto.
  * Google Apps Script, sidottu Google Sheets -taulukkoon. Julkaistu web-sovelluksena:
  * Execute as: Me, Who has access: Anyone.
- * Sivun lomake (arvio/) lähettää tiedot POST-pyynnöllä tähän.
+ * Lomakkeet (arvio/ ja mainossivun hintalaskuri google-ads-hallinta/) lähettävät yrityksen nimen, sähköpostin
+ * ja muut tiedot POST-pyynnöllä tähän. Kenttä 'lomake' kertoo lähteen (oletus 'arvio'); gclid/gbraid/wbraid
+ * tulevat vain, jos kävijä on hyväksynyt markkinointievästeet.
  */
 var NOTIFY_TO = 'akseli@pikasivut.com';
-var HEADERS = ['Aikaleima', 'Y-tunnus', 'Sähköposti', 'Puhelin', 'Tavoite', 'Suostumus', 'Lähde', 'Tila'];
+// Sarakkeet A–L. I–L lisätty 2026-10-25: lomakkeen nimi ja Google Adsin klikkitunnisteet (offline-konversioita varten).
+var HEADERS = ['Aikaleima', 'Yrityksen nimi', 'Sähköposti', 'Puhelin', 'Tavoite', 'Suostumus', 'Lähde', 'Tila', 'Lomake', 'GCLID', 'GBRAID', 'WBRAID'];
 
-function validYtunnus(v) {
-  var m = /^(\d{7})-(\d)$/.exec(String(v || '').trim());
-  if (!m) return false;
-  var w = [7, 9, 10, 5, 8, 4, 2], sum = 0;
-  for (var i = 0; i < 7; i++) sum += parseInt(m[1].charAt(i), 10) * w[i];
-  var r = sum % 11;
-  if (r === 1) return false;
-  var check = r === 0 ? 0 : 11 - r;
-  return check === parseInt(m[2], 10);
+// Estää taulukkokaavan tulkinnan (=, +, -, @ alussa): arvo tallentuu tekstinä.
+function cell(v) {
+  v = String(v || '');
+  return /^[=+\-@]/.test(v) ? "'" + v : v;
 }
 
 function validEmail(v) {
@@ -66,7 +64,7 @@ function setupSummary() {
 
 var HEADERS_EN = ['Timestamp', 'Business name', 'Website', 'Email', 'Phone', 'Country', 'Goal', 'Consent', 'Source', 'Status'];
 
-// Englanninkielinen (USA-markkinan) arviolomake: yrityksen nimi + verkkosivu, ei Y-tunnusta.
+// Englanninkielinen (USA-markkinan) arviolomake: yrityksen nimi + verkkosivu.
 function handleEnglishLead(p, out) {
   if (p.hp) return out.setContent('ok');
   var clip = function (v, n) { return String(v || '').trim().slice(0, n); };
@@ -109,9 +107,10 @@ function doPost(e) {
   if (p.market === 'en') return handleEnglishLead(p, out);
   // Honeypot: oikea käyttäjä ei täytä tätä kenttää
   if (p.website) return out.setContent('ok');
-  var yt = String(p.ytunnus || '').trim();
+  // p.ytunnus: vanhan, välimuistissa olevan sivun lähetys ei katoa
+  var yritys = String(p.yritys || p.ytunnus || '').replace(/[\r\n]+/g, ' ').trim().slice(0, 120);
   var email = String(p.email || '').trim();
-  if (!validYtunnus(yt) || !validEmail(email) || p.consent !== 'yes') {
+  if (yritys.length < 2 || !validEmail(email) || p.consent !== 'yes') {
     return out.setContent('invalid');
   }
   var lock = LockService.getScriptLock();
@@ -121,18 +120,28 @@ function doPost(e) {
     if (sh.getLastRow() === 0) {
       sh.appendRow(HEADERS);
       sh.setFrozenRows(1);
+    } else if (sh.getRange('B1').getValue() === 'Y-tunnus') {
+      // Vanha taulukko: otsikkoriviä ei luoda uudelleen, vain B1 päivitetään
+      sh.getRange('B1').setValue('Yrityksen nimi (vanhoissa riveissä Y-tunnus)');
     }
-    sh.appendRow([new Date(), yt, email, String(p.phone || '').trim(), String(p.goal || ''), 'kyllä', String(p.source || ''), 'uusi']);
+    if (sh.getRange('I1').getValue() === '') {
+      // Vanha taulukko: lisätään uusien sarakkeiden otsikot kerran
+      sh.getRange('I1:L1').setValues([['Lomake', 'GCLID', 'GBRAID', 'WBRAID']]);
+    }
+    var lomake = String(p.lomake || 'arvio').slice(0, 40);
+    var gclid = String(p.gclid || '').slice(0, 200), gbraid = String(p.gbraid || '').slice(0, 200), wbraid = String(p.wbraid || '').slice(0, 200);
+    sh.appendRow([new Date(), cell(yritys), cell(email), cell(String(p.phone || '').trim()), cell(String(p.goal || '')), 'kyllä', cell(String(p.source || '')), 'uusi',
+      cell(lomake), cell(gclid), cell(gbraid), cell(wbraid)]);
   } finally {
     lock.releaseLock();
   }
   try {
     MailApp.sendEmail({
       to: NOTIFY_TO,
-      subject: 'Uusi mainonta-arvio: ' + yt,
-      body: 'Uusi pyyntö pikasivut.com/arvio/\n\nY-tunnus: ' + yt + '\nSähköposti: ' + email +
+      subject: (lomake === 'arvio' ? 'Uusi mainonta-arvio: ' : 'Uusi yhteydenotto (' + lomake + '): ') + yritys,
+      body: 'Uusi pyyntö pikasivut.com/arvio/\n\nYritys: ' + yritys + '\nSähköposti: ' + email +
         '\nPuhelin: ' + (p.phone || '-') + '\nTavoite: ' + (p.goal || '-') + '\nLähde: ' + (p.source || '-') +
-        '\n\nPRH: https://www.ytj.fi/fi/index/yritystiedot.html?yTunnus=' + yt.replace('-', '') +
+        '\nLomake: ' + lomake + '\nGCLID: ' + (gclid || '-') +
         '\n\nTaulukko: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl(),
       replyTo: email
     });

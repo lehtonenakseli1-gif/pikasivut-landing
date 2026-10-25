@@ -1,15 +1,15 @@
-/* Pikasivut — Hakukenttä-teeman liikkuvat osat. Ei riippuvuuksia.
-   Sivu toimii ja näyttää valmiilta ilman tätä tiedostoa; tämä vain lisää liikettä. */
+/* Pikasivut — Hakukenttä-teeman interaktiiviset osat. Ei riippuvuuksia.
+   Sivu toimii ja näyttää valmiilta ilman tätä tiedostoa; tämä vain lisää interaktiota. */
 (function () {
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxFmf_zBQ45lB0psUKaxxtubsk5aVtn3p87HeufD5Mebf57PY44iVr12qSaSdG26pI0/exec'; // Apps Script: lomake ja nimetön kävijälaskenta
+  var SEND_TIMEOUT_MS = 20000; // lomakkeen lähetyksen aikakatkaisu
   var doc = document.documentElement;
   doc.classList.add('js');
   var EN = doc.lang === 'en';
   var T = EN ? {
-    pk: ['Starter', 'Growth', 'Complete'], loc: 'en-US', dec: '.',
-    eur: function (s) { return '\u20ac' + s; },
     sending: 'Sending\u2026', send: 'Get a free assessment',
-    fail: 'Sending failed. Please write to <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a>.',
+    errA: ['We couldn\'t submit the form. Please check your details and try again, or email us at ', '.'],
+    errB: ['We didn\'t get confirmation that your request was saved. Please try again, or email us at ', '.'],
     sc: function (ok, all) { return ok + '/' + all + ' in order. ' + (ok === all ? 'Great, the basics of your account are in order.' : ok >= all - 2 ? 'Almost. Fix the missing items and your budget will work noticeably better.' : 'Your account probably has clear waste. An audit would show how much.'); },
     bgOk: function (n) { return 'All correct. In this example you saved about \u20ac' + n + ' a month on searches that would never have brought a customer.'; },
     bgPart: function (r, a) { return r + '/' + a + ' correct. Yellow rows are still missing as negatives, red rows are good searches you should not block.'; },
@@ -25,10 +25,9 @@
     ],
     direct: 'direct'
   } : {
-    pk: ['Perus', 'Kasvu', 'Kattava'], loc: 'fi-FI', dec: ',',
-    eur: function (s) { return s + ' \u20ac'; },
     sending: 'L\u00e4hetet\u00e4\u00e4n\u2026', send: 'Pyyd\u00e4 ilmainen arvio',
-    fail: 'L\u00e4hetys ei onnistunut. Kirjoita osoitteeseen <a href="mailto:akseli@pikasivut.com">akseli@pikasivut.com</a>.',
+    errA: ['L\u00e4hetys ei mennyt l\u00e4pi. Tarkista tiedot ja yrit\u00e4 uudelleen, tai l\u00e4het\u00e4 pyynt\u00f6 s\u00e4hk\u00f6postilla: ', '.'],
+    errB: ['Emme saaneet vahvistusta siit\u00e4, ett\u00e4 pyynt\u00f6 tallentui. Yrit\u00e4 uudelleen, tai l\u00e4het\u00e4 pyynt\u00f6 s\u00e4hk\u00f6postilla: ', '.'],
     sc: function (ok, all) { return ok + '/' + all + ' kunnossa. ' + (ok === all ? 'Hienoa, tilisi perusasiat ovat kunnossa.' : ok >= all - 2 ? 'Melkein. Korjaa puuttuvat kohdat, niin budjetti tehoaa selv\u00e4sti paremmin.' : 'Tilill\u00e4 on todenn\u00e4k\u00f6isesti selv\u00e4\u00e4 hukkaa. Auditointi kertoisi, paljonko.'); },
     bgOk: function (n) { return 'Kaikki oikein. S\u00e4\u00e4stit t\u00e4ss\u00e4 esimerkiss\u00e4 noin ' + n + ' \u20ac kuukaudessa hauista, joista ei olisi tullut asiakkaita.'; },
     bgPart: function (r, a) { return r + '/' + a + ' oikein. Keltaiset j\u00e4iv\u00e4t viel\u00e4 negatiivisiksi lis\u00e4\u00e4m\u00e4tt\u00e4, punaiset ovat hyvi\u00e4 hakuja, joita ei kannata est\u00e4\u00e4.'; },
@@ -45,60 +44,23 @@
     direct: 'suora'
   };
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var finePointer = window.matchMedia('(pointer: fine)').matches;
 
   /* ---------- vuosi footeriin ---------- */
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 
-  /* ---------- scroll-palkki ja vaihepalkki ---------- */
-  var bar = document.createElement('div');
-  bar.className = 'scrollbar';
-  bar.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(bar);
-  var steps = document.querySelector('.steps');
-  function onScroll() {
-    var h = doc.scrollHeight - innerHeight;
-    bar.style.setProperty('--p', h > 0 ? Math.min(1, scrollY / h) : 0);
-    if (steps) {
-      var r = steps.getBoundingClientRect();
-      var p = (innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.35);
-      steps.style.setProperty('--sp', Math.max(0, Math.min(1, p)));
-    }
-  }
-  addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  /* ---------- korostuskynä ja kirjoittuvat hakupillerit näkyviin tullessa ---------- */
-  function typeInto(el, text, speed, done) {
-    if (reduce) { el.textContent = text; if (done) done(); return; }
-    var i = 0;
-    el.textContent = '';
-    (function step() {
-      el.textContent = text.slice(0, ++i);
-      if (i < text.length) setTimeout(step, speed + Math.random() * speed);
-      else if (done) done();
-    })();
-  }
+  /* ---------- korostuskynä näkyviin tullessa ---------- */
   // Oma näkyvyystarkistus IntersectionObserverin sijaan: toimii varmasti myös
   // taustavälilehdissä ja kuvakaappauksissa.
   var pending = [];
-  function reveal(el) {
-    if (el.classList.contains('hl')) el.classList.add('is-in');
-    else typeInto(el, el.dataset.full, 45);
-  }
   function checkPending() {
     pending = pending.filter(function (el) {
       var r = el.getBoundingClientRect();
-      if (r.top < innerHeight * 0.92 && r.bottom > 0) { reveal(el); return false; }
+      if (r.top < innerHeight * 0.92 && r.bottom > 0) { el.classList.add('is-in'); return false; }
       return true;
     });
   }
   document.querySelectorAll('.hl').forEach(function (el) { pending.push(el); });
-  document.querySelectorAll('.q-text').forEach(function (el) {
-    el.dataset.full = el.textContent;
-    if (!reduce) { el.textContent = ''; pending.push(el); }
-  });
   addEventListener('scroll', checkPending, { passive: true });
   addEventListener('resize', checkPending);
   checkPending();
@@ -114,7 +76,7 @@
       ['ac repair phoenix', 'coolairhvac.com/repair', 'AC Repair in Phoenix | Fast, Fair Pricing', 'Same-day repairs on all makes. Free estimates. Book online in 60 seconds.'],
       ['roof replacement cost', 'summitroofing.com/estimate', 'Roof Replacement | Get a Free Estimate', 'Fixed-price quotes. 25-year workmanship warranty. Financing available.']
     ] : [
-      ['kotisiivous helsinki', 'siivousyritys.fi/kotisiivous', 'Kotisiivous Helsingissä | Näe hinta heti ja varaa', 'Tuttu siivooja joka kerta. 100 % laatutakuu. Valitse vapaa aika netistä.'],
+      ['kotisiivous helsinki', 'siivousyritys.fi/kotisiivous', 'Kotisiivous Helsingissä | Näe hinta heti ja varaa', 'Valitse sopiva aika netistä. Hinta näkyy ennen varausta.'],
       ['autokorjaamo lähellä', 'korjaamo.fi/huolto', 'Määräaikaishuolto kaikille merkeille | Varaa aika', 'Kiinteä hinta etukäteen. Huoltokirjamerkintä. Ajanvaraus netissä 24/7.'],
       ['kylpyhuoneremontti hinta', 'remontti.fi/kylpyhuone', 'Kylpyhuoneremontti avaimet käteen | Pyydä tarjous', 'Kotitalousvähennys hoidetaan puolestasi. Vedeneristys sertifioidusti.']
     ];
@@ -152,7 +114,6 @@
     function runSearch() {
       var q = input.value.trim();
       if (!q) return;
-      if (/barrel roll|tynnyri/i.test(q)) { barrelRoll(); return; }
       var slug = q.toLowerCase().replace(/[^a-z0-9åäö]+/g, '-').replace(/^-|-$/g, '').slice(0, 30);
       showAd('sinunyrityksesi.fi/' + slug,
         cap(q).slice(0, 40) + (EN ? ' | Your Business Here' : ' | Sinun yrityksesi tässä'),
@@ -166,143 +127,7 @@
     demoLoop();
   }
 
-  /* ---------- kelluvien ilmoitusten kellonajat oikeiksi ---------- */
-  document.querySelectorAll('.chip [data-ago]').forEach(function (el) {
-    var t = new Date(Date.now() - el.dataset.ago * 60000);
-    el.textContent = ('0' + t.getHours()).slice(-2) + ':' + ('0' + t.getMinutes()).slice(-2);
-  });
-
-  /* ---------- 3D-kallistus korteille ---------- */
-  if (finePointer && !reduce) {
-    document.querySelectorAll('.problem-card, .offer-card, .price-card, .guide-list a').forEach(function (card) {
-      card.addEventListener('mousemove', function (e) {
-        var r = card.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5, yy = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = 'perspective(900px) rotateY(' + (x * 8) + 'deg) rotateX(' + (-yy * 8) + 'deg) translateY(-4px)';
-        card.classList.add('is-tilting');
-      });
-      card.addEventListener('mouseleave', function () { card.style.transform = ''; card.classList.remove('is-tilting'); });
-    });
-  }
-
-  /* ---------- klikkaus: +1 klikkaus, joka viides on asiakas ---------- */
-  var clicks = 0;
-  if (!reduce) {
-    document.addEventListener('click', function (e) {
-      if (e.target.closest('input, textarea, summary, select')) return;
-      clicks++;
-      var win = clicks % 5 === 0;
-      var s = document.createElement('div');
-      s.className = 'click-pop' + (win ? ' win' : '');
-      s.textContent = win ? (EN ? '+1 customer!' : '+1 asiakas!') : (EN ? '+1 click' : '+1 klikkaus');
-      s.style.left = e.clientX + 'px';
-      s.style.top = e.clientY + 'px';
-      document.body.appendChild(s);
-      setTimeout(function () { s.remove(); }, 1000);
-    });
-  }
-
-  /* ---------- hiiren perässä Googlen väriset pisteet ---------- */
-  if (finePointer && !reduce) {
-    var colors = ['#1a3fd1', '#4f6fe0', '#8aa3f0'], ci = 0, last = 0;
-    addEventListener('mousemove', function (e) {
-      var now = Date.now();
-      if (now - last < 40) return;
-      last = now;
-      var d = document.createElement('div');
-      d.className = 'trail';
-      d.style.left = (e.clientX - 4) + 'px';
-      d.style.top = (e.clientY - 4) + 'px';
-      d.style.background = colors[ci++ % 3];
-      document.body.appendChild(d);
-      setTimeout(function () { d.remove(); }, 600);
-    }, { passive: true });
-  }
-
-  /* ---------- Kokeilen onneani: satunnainen alasivu ---------- */
-  document.querySelectorAll('[data-lucky]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      var pages = ['/google-ads-hinta/', '/google-ads-auditointi/', '/google-ads-siivousyritykselle/', '/google-ads-autokorjaamolle/', '/google-ads-remonttiyritykselle/', '/opas/google-ads-ei-tuo-yhteydenottoja/', '/opas/negatiiviset-hakusanat/', '/opas/konversioseuranta/'];
-      e.preventDefault();
-      location.href = pages[Math.floor(Math.random() * pages.length)];
-    });
-  });
-
-  /* ---------- tynnyrikierre: logo viisi kertaa nopeasti tai haku "barrel roll" ---------- */
-  function barrelRoll() {
-    if (reduce) return;
-    document.body.classList.remove('barrel-roll');
-    void document.body.offsetWidth;
-    document.body.classList.add('barrel-roll');
-    setTimeout(function () { document.body.classList.remove('barrel-roll'); }, 1500);
-  }
-  var logoHits = [], logo = document.querySelector('header .logo');
-  if (logo) logo.addEventListener('click', function (e) {
-    var now = Date.now();
-    logoHits = logoHits.filter(function (t) { return now - t < 2000; });
-    logoHits.push(now);
-    if (location.pathname === '/' || location.pathname === '/us/') e.preventDefault();
-    if (logoHits.length >= 5) { logoHits = []; barrelRoll(); }
-    else if (location.pathname === '/' || location.pathname === '/us/') scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
   /* ================= ALASIVUJEN ERIKOISUUDET ================= */
-
-  /* ---------- budjettilaskuri (hintasivu) ---------- */
-  var calc = document.querySelector('[data-calc]');
-  if (calc) {
-    var cb = calc.querySelector('#c-budget'), cc = calc.querySelector('#c-cpc'), cr = calc.querySelector('#c-cr');
-    var bars = calc.querySelector('.calc-bars');
-    for (var bi = 0; bi < 24; bi++) bars.appendChild(document.createElement('i'));
-    var fmt = function (n) { return Math.round(n).toLocaleString(T.loc); };
-    var CFG = {
-      eur: { sym: '\u20ac', b: [500, 6000, 250, 1500], c: [1, 6, 0.1, 3], r: [2, 12, 0.5, 6], th: [1500, 3000], fee: [300, 500, 750] },
-      usd: { sym: '$', b: [1000, 15000, 500, 3000], c: [1, 25, 0.5, 8], r: [2, 15, 0.5, 7], th: [3000, 6000], fee: [450, 750, 1150] }
-    };
-    var cur = EN ? 'usd' : 'eur';
-    var money = function (s) { return EN ? CFG[cur].sym + s : s + ' \u20ac'; };
-    function calcUpdate() {
-      var b = +cb.value, c = +cc.value, r = +cr.value, K = CFG[cur];
-      var clicks = b / c, leads = clicks * r / 100;
-      var pkg = b < K.th[0] ? [K.fee[0], T.pk[0]] : b < K.th[1] ? [K.fee[1], T.pk[1]] : [K.fee[2], T.pk[2]];
-      calc.querySelector('output[for=c-budget]').textContent = money(fmt(b));
-      calc.querySelector('output[for=c-cpc]').textContent = money(c.toFixed(2).replace('.', T.dec));
-      calc.querySelector('output[for=c-cr]').textContent = r.toFixed(1).replace('.', T.dec) + (EN ? '%' : ' %');
-      calc.querySelector('[data-o=clicks]').textContent = fmt(clicks);
-      calc.querySelector('[data-o=leads]').textContent = fmt(leads);
-      calc.querySelector('[data-o=cpl]').textContent = money(fmt((b + pkg[0]) / Math.max(leads, 1)));
-      calc.querySelector('[data-o=pkg]').textContent = pkg[1];
-      var lit = Math.max(1, Math.round(24 * r / 12));
-      Array.prototype.forEach.call(bars.children, function (bar, k) {
-        bar.style.height = Math.min(100, 18 + (b / CFG[cur].b[1]) * 82 * (0.55 + 0.45 * Math.abs(Math.sin(k * 1.7)))) + '%';
-        bar.classList.toggle('on', k % Math.max(1, Math.round(24 / lit)) === 0);
-      });
-    }
-    [cb, cc, cr].forEach(function (el) { el.addEventListener('input', calcUpdate); });
-    calc.setCurrency = function (c) {
-      cur = c; var K = CFG[c];
-      [[cb, K.b], [cc, K.c], [cr, K.r]].forEach(function (p) { p[0].min = p[1][0]; p[0].max = p[1][1]; p[0].step = p[1][2]; p[0].value = p[1][3]; });
-      calcUpdate();
-    };
-    calcUpdate();
-  }
-
-  /* ---------- suodatin: pisteet putoavat, harva pääsee läpi ---------- */
-  document.querySelectorAll('[data-funnel]').forEach(function (box) {
-    var seed = 11;
-    var rnd = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
-    for (var k = 0; k < 40; k++) {
-      var d = document.createElement('span');
-      var pass = k % 6 === 2, left = 6 + rnd() * 86;
-      d.className = 'f-dot ' + (pass ? 'f-pass' : 'f-block');
-      d.style.left = left.toFixed(1) + '%';
-      d.style.animationDelay = (rnd() * 7).toFixed(2) + 's';
-      d.style.animationDuration = (5.5 + rnd() * 2).toFixed(2) + 's';
-      d.style.setProperty('--dx', ((left < 50 ? -1 : 1) * Math.round(80 + rnd() * 120)) + 'px');
-      if (reduce) d.style.top = (30 + rnd() * 330) + 'px';
-      box.appendChild(d);
-    }
-  });
 
   /* ---------- terminaali: konversiotapahtumat juoksevat ---------- */
   document.querySelectorAll('[data-terminal]').forEach(function (term) {
@@ -378,7 +203,6 @@
       curNow = c;
       document.querySelectorAll('[data-cur]').forEach(function (el) { el.hidden = el.dataset.cur !== c; });
       curBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setCur === c)); });
-      var cc2 = document.querySelector('[data-calc]'); if (cc2 && cc2.setCurrency) cc2.setCurrency(c);
     };
     curBtns.forEach(function (b) { b.addEventListener('click', function () { applyCur(b.dataset.setCur); }); });
     applyCur(curNow);
@@ -386,8 +210,55 @@
 
   /* ---------- Ilmainen arvio -lomake ---------- */
   var arvio = document.getElementById('arvio-form');
+
+  // Lähettää lomakkeen Apps Scriptille ja lukee vastauksen: 'ok' = tallentui, 'invalid' = tiedot hylättiin
+  // (virhe A), kaikki muu (muu vastaus, HTTP-virhe, verkkovirhe, aikakatkaisu) = virhe B.
+  function submitLead(btn, status, body, mailto) {
+    var done = false;
+    var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer;
+    var timeout = new Promise(function (resolve, reject) {
+      timer = setTimeout(function () { if (ctrl) ctrl.abort(); reject(new Error('timeout')); }, SEND_TIMEOUT_MS);
+    });
+    var request = new Promise(function (resolve) {
+      resolve(fetch(ENDPOINT, { method: 'POST', body: body, signal: ctrl ? ctrl.signal : undefined }));
+    }).then(function (res) {
+      if (!res.ok) throw new Error('http ' + res.status);
+      return res.text();
+    });
+    var fail = function (kind) {
+      var parts = kind === 'A' ? T.errA : T.errB, link = document.createElement('a');
+      btn.disabled = false; btn.textContent = T.send;
+      link.href = mailto; link.textContent = 'akseli@pikasivut.com';
+      status.textContent = '';
+      status.appendChild(document.createTextNode(parts[0]));
+      status.appendChild(link);
+      status.appendChild(document.createTextNode(parts[1]));
+      status.hidden = false;
+      status.tabIndex = -1;
+      status.focus();
+    };
+    Promise.race([request, timeout]).then(function (text) {
+      clearTimeout(timer);
+      if (done) return;
+      done = true;
+      var answer = String(text).trim();
+      if (answer === 'ok') {
+        arvio.dispatchEvent(new Event('arvio:sent'));
+        arvio.hidden = true;
+        arvio.parentNode.querySelector('.arvio-done').hidden = false;
+        scrollTo({ top: 0, behavior: 'smooth' });
+      } else fail(answer === 'invalid' ? 'A' : 'B');
+    }, function () {
+      clearTimeout(timer);
+      if (done) return;
+      done = true;
+      fail('B');
+    });
+  }
+
   if (arvio && arvio.elements.business) {
-    // Englanninkielinen (USA) arviolomake: yrityksen nimi + verkkosivu, ei Y-tunnusta
+    // Englanninkielinen (USA) arviolomake: yrityksen nimi + verkkosivu
     var enErr = function (name, on) { var el = arvio.querySelector('[data-err="' + name + '"]'); if (el) el.hidden = !on; };
     var enStatus = arvio.querySelector('.form-status');
     arvio.addEventListener('submit', function (e) {
@@ -399,6 +270,7 @@
       if (!(okB && okS && okM && okC)) { (!okB ? f.business : !okS ? f.site : !okM ? f.email : f.consent).focus(); return; }
       if (f.hp.value) return;
       var btn = arvio.querySelector('button[type=submit]');
+      if (btn.disabled) return;
       btn.disabled = true; btn.textContent = T.sending; enStatus.hidden = true;
       var qs = new URLSearchParams(location.search);
       var body = new URLSearchParams({
@@ -406,58 +278,34 @@
         country: f.country.value, goal: f.goal.value, consent: 'yes', hp: '',
         source: qs.get('utm_source') || qs.get('s') || (document.referrer ? new URL(document.referrer).hostname : T.direct)
       });
-      var done = function () { arvio.dispatchEvent(new Event('arvio:sent')); arvio.hidden = true; arvio.parentNode.querySelector('.arvio-done').hidden = false; scrollTo({ top: 0, behavior: 'smooth' }); };
-      var fail = function () { btn.disabled = false; btn.textContent = T.send; enStatus.hidden = false; enStatus.innerHTML = T.fail; };
-      var settled = false, once = function (fn) { return function () { if (!settled) { settled = true; fn(); } }; };
-      setTimeout(once(done), 2500);
-      fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: body }).then(once(done), once(fail));
+      var mailto = 'mailto:akseli@pikasivut.com?subject=Free%20Google%20Ads%20assessment&body=' +
+        encodeURIComponent('Business: ' + f.business.value.trim() + '\nWebsite: ' + f.site.value.trim() + '\n');
+      submitLead(btn, enStatus, body, mailto);
     });
   } else if (arvio) {
-    function ytOk(v) {
-      var m = /^(\d{7})-(\d)$/.exec(v);
-      if (!m) return false;
-      var w = [7, 9, 10, 5, 8, 4, 2], sum = 0;
-      for (var i = 0; i < 7; i++) sum += parseInt(m[1].charAt(i), 10) * w[i];
-      var r = sum % 11;
-      if (r === 1) return false;
-      return (r === 0 ? 0 : 11 - r) === parseInt(m[2], 10);
-    }
-    function normYt(v) {
-      var d = v.replace(/[^0-9]/g, '');
-      return d.length === 8 ? d.slice(0, 7) + '-' + d.slice(7) : v.trim();
-    }
-    var yt = arvio.elements.ytunnus;
-    yt.addEventListener('blur', function () { yt.value = normYt(yt.value); });
     var showErr = function (name, on) { var el = arvio.querySelector('[data-err="' + name + '"]'); if (el) el.hidden = !on; };
     var status = arvio.querySelector('.form-status');
     arvio.addEventListener('submit', function (e) {
       e.preventDefault();
-      yt.value = normYt(yt.value);
-      var okYt = ytOk(yt.value), okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(arvio.elements.email.value.trim()), okC = arvio.elements.consent.checked;
-      showErr('ytunnus', !okYt); showErr('email', !okMail); showErr('consent', !okC);
-      if (!(okYt && okMail && okC)) { (!okYt ? yt : !okMail ? arvio.elements.email : arvio.elements.consent).focus(); return; }
+      var yritys = arvio.elements.yritys;
+      var okYr = yritys.value.trim().length >= 2, okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(arvio.elements.email.value.trim()), okC = arvio.elements.consent.checked;
+      showErr('yritys', !okYr); showErr('email', !okMail); showErr('consent', !okC);
+      if (!(okYr && okMail && okC)) { (!okYr ? yritys : !okMail ? arvio.elements.email : arvio.elements.consent).focus(); return; }
       if (arvio.elements.website.value) return; // robotti
       var btn = arvio.querySelector('button[type=submit]');
+      if (btn.disabled) return;
       btn.disabled = true; btn.textContent = T.sending;
       status.hidden = true;
       var qs = new URLSearchParams(location.search);
+      var name = yritys.value.trim().slice(0, 120);
       var body = new URLSearchParams({
-        ytunnus: yt.value, email: arvio.elements.email.value.trim(), phone: arvio.elements.phone.value.trim(),
+        yritys: name, email: arvio.elements.email.value.trim(), phone: arvio.elements.phone.value.trim(),
         goal: arvio.elements.goal.value, consent: 'yes', website: '',
         source: qs.get('utm_source') || qs.get('s') || (document.referrer ? new URL(document.referrer).hostname : T.direct)
       });
-      var done = function () { arvio.dispatchEvent(new Event('arvio:sent')); arvio.hidden = true; arvio.parentNode.querySelector('.arvio-done').hidden = false; scrollTo({ top: 0, behavior: 'smooth' }); };
-      var fail = function () {
-        btn.disabled = false; btn.textContent = T.send;
-        status.hidden = false;
-        status.innerHTML = T.fail;
-      };
-      if (ENDPOINT.indexOf('http') !== 0) { fail(); return; }
-      var settled = false;
-      var once = function (fn) { return function () { if (!settled) { settled = true; fn(); } }; };
-      // Googlen vastaus voi kestää useita sekunteja: kiitos näytetään viimeistään 2,5 s kuluttua, ellei virhettä ole tullut
-      setTimeout(once(done), 2500);
-      fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: body }).then(once(done), once(fail));
+      var mailto = 'mailto:akseli@pikasivut.com?subject=Ilmainen%20mainonta-arvio&body=' +
+        encodeURIComponent('Yritys: ' + name + '\nTavoite: ' + (arvio.elements.goal.value || '-') + '\n');
+      submitLead(btn, status, body, mailto);
     });
   }
 
@@ -480,8 +328,7 @@
       var a = e.target.closest && e.target.closest('a');
       if (!a) return;
       var h = a.getAttribute('href') || '';
-      if (h.indexOf('tel:') === 0) track('tel_click');
-      else if (h.indexOf('/arvio/') === 0) track('cta_click');
+      if (h.indexOf('/arvio/') === 0) track('cta_click');
     });
     var f = document.getElementById('arvio-form');
     if (f) {
@@ -490,10 +337,4 @@
       f.addEventListener('arvio:sent', function () { track('form_submit'); });
     }
   })();
-
-  /* ---------- välilehden otsikko, kun käyttäjä lähtee ---------- */
-  var origTitle = document.title;
-  document.addEventListener('visibilitychange', function () {
-    document.title = document.hidden ? (EN ? 'Your customers are searching right now…' : 'Asiakkaasi hakevat sinua juuri nyt…') : origTitle;
-  });
 })();

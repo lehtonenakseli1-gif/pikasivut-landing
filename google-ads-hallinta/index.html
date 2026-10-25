@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* Google Tag Manager -kontin ID (Pikasivut). Jos tähän laitetaan paikkamerkki GTM-XXXXXXX, GTM ei lataudu eikä evästemodaalia näytetä. */
+  var GTM_ID = 'GTM-W7BH9F5S';
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  // Consent Mode v2: oletuksena kaikki kielletty, ennen GTM:ää
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+  gtag('set', 'ads_data_redaction', true);
+  // Aiempi valinta (localStorage) -> heti update ennen GTM:ää
+  // avain 'pikasivut_suostumus', arvo JSON {valinta:'kaikki'|'valttamattomat', aika:ISO}
+  try {
+    var _s = JSON.parse(localStorage.getItem('pikasivut_suostumus') || 'null');
+    if (_s && _s.valinta === 'kaikki') {
+      gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
+    }
+  } catch (e) {}
+  // GTM latautuu vain, jos ID ei ole paikkamerkki ja on muotoa GTM-XXXX
+  if (GTM_ID !== 'GTM-XXXXXXX' && /^GTM-[A-Z0-9]{4,}$/.test(GTM_ID)) {
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s);
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', GTM_ID);
+  }
+</script>
+<meta name="format-detection" content="telephone=no">
+<title>Google Ads -hallinta, joka tuo yhteydenottoja | Pikasivut</title>
+<meta name="description" content="Ulkoista Google Ads -mainonnan hallinta asiantuntijalle. Laske heti suositeltu mainosbudjetti, paketti ja arvio yhteydenotoista. Hallinta alk. 320 €/kk + alv.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/bricolage-grotesque-400-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/figtree-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="mainos.css?v=20261025d">
+<script src="laskuri.js?v=20261025d" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Onko sopimuksessa sitoumusta?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ei määräaikaa. Sopimus on voimassa toistaiseksi ja irtisanomisaika on yksi kuukausi." }
+    },
+    {
+      "@type": "Question",
+      "name": "Sisältyykö mainosbudjetti hintaan?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ei. Mainosbudjetti maksetaan suoraan Googlelle omalta Google Ads -tililtäsi, eikä se kulje meidän laskutuksemme kautta. Hallinnointimaksu tulee sen päälle. Mainosbudjetin alaraja on 500 €/kk." }
+    },
+    {
+      "@type": "Question",
+      "name": "Kauanko käynnistys kestää?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Kampanja on yleensä käynnissä tai nykyinen tili siivottu muutamassa arkipäivässä siitä, kun saamme pääsyn tiliisi. Mainokset näkyvät yleensä samana tai seuraavana päivänä. Ensimmäinen kuukausi on oppimista, optimoidut luvut näkyvät yleensä 2–3 kuukaudessa." }
+    },
+    {
+      "@type": "Question",
+      "name": "Omistanko Google Ads -tilin?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Kyllä. Tili, sen historia ja kaikki data ovat sinun myös yhteistyön päättyessä. Saamme tiliin vain käyttöoikeuden, jonka voit poistaa milloin tahansa." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="evaste" id="evaste-banneri" role="dialog" aria-modal="true" aria-labelledby="evaste-otsikko" aria-describedby="evaste-teksti" hidden>
+  <div class="evaste-kortti">
+    <h2 id="evaste-otsikko" tabindex="-1">Evästeasetukset</h2>
+    <p id="evaste-teksti">Käytämme evästeitä Google Ads -mainonnan mittaamiseen ja kohdentamiseen sekä kävijäanalytiikkaan vain, jos hyväksyt. Sivu ja laskuri toimivat myös ilman niitä. Voit muuttaa valintaa milloin tahansa sivun alalaidasta. <a href="/privacy.html" target="_blank" rel="noopener">Tietosuojaseloste</a></p>
+    <div class="evaste-napit">
+      <button type="button" class="evaste-nappi" id="evaste-hyvaksy">Hyväksy</button>
+      <button type="button" class="evaste-nappi" id="evaste-valttamattomat">Vain välttämättömät</button>
+    </div>
+  </div>
+</div>
+
+
+<header class="ylapalkki">
+  <div class="wrap">
+    <div class="logo"><svg class="logo-mark" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="11" fill="#1d4ed8"/><path d="M13 31 L31 13 M20 13 H31 V24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lw">Pika<span>sivut</span></span></div>
+  </div>
+</header>
+
+<main>
+
+<!-- 2. HERO + LASKURI -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-teksti">
+      <p class="ylateksti">Google Ads -asiantuntija · mainonnan ulkoistus</p>
+      <h1>Google <span class="nw">Ads -hallinta</span>, joka tuo yhteydenottoja</h1>
+      <p class="lause">Rakennamme ja hoidamme Google <span class="nw">Ads -kampanjasi</span> niin, että budjetti menee hakuihin, joista tulee puheluita ja tarjouspyyntöjä. Vastaa viiteen kysymykseen, niin näet suositellun budjetin, paketin ja arvion yhteydenotoista.</p>
+    </div>
+
+    <div class="kortti" id="laskuri">
+      <form id="laskuri-form" novalidate>
+        <h2>Laske mainonnan hinta ja tulos</h2>
+
+        <div class="kysymykset">
+          <fieldset class="kys" id="q-tavoite">
+            <legend>Mitä haluat mainonnalta?</legend>
+            <div class="valinnat">
+              <div class="opt"><input type="radio" name="tavoite" id="t-lomake" value="lomake"><label for="t-lomake">Tarjous&shy;pyyntöjä tai lomakkeita</label></div>
+              <div class="opt"><input type="radio" name="tavoite" id="t-puhelu" value="puhelu"><label for="t-puhelu">Puheluita</label></div>
+              <div class="opt"><input type="radio" name="tavoite" id="t-ajanvaraus" value="ajanvaraus"><label for="t-ajanvaraus">Ajanvarauksia</label></div>
+              <div class="opt"><input type="radio" name="tavoite" id="t-kauppa" value="kauppa"><label for="t-kauppa">Verkkokauppa&shy;ostoja</label></div>
+            </div>
+            <p class="err" id="e-tavoite" hidden>Valitse tai täytä tämä.</p>
+          </fieldset>
+
+          <div class="kys">
+            <label class="q" for="q-palvelut">Montako eri palvelua tai tuotetta mainostetaan?</label>
+            <div class="stepper">
+              <button type="button" id="pal-vahenna" aria-label="Vähennä palveluita">&minus;</button>
+              <input type="text" id="q-palvelut" name="palvelut" inputmode="numeric" autocomplete="off" value="1" maxlength="3" role="spinbutton" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1" aria-describedby="h-palvelut">
+              <button type="button" id="pal-lisaa" aria-label="Lisää palveluita">+</button>
+            </div>
+            <p class="apu" id="h-palvelut">Jokainen palvelu saa oman kampanjan.</p>
+            <p class="err" id="e-palvelut" hidden>Valitse tai täytä tämä.</p>
+          </div>
+
+          <div class="kys">
+            <label class="q" for="q-hinta">Palvelun tai tuotteen keskimääräinen hinta</label>
+            <div class="kentta-yksikko">
+              <input type="text" id="q-hinta" name="hinta" inputmode="numeric" autocomplete="off" placeholder="esim. 500" maxlength="12" aria-describedby="h-hinta">
+              <span class="yksikko" aria-hidden="true">€</span>
+            </div>
+            <p class="apu" id="h-hinta">Suunnilleen riittää, alv mukana tai ilman.</p>
+            <p class="err" id="e-hinta" hidden>Valitse tai täytä tämä.</p>
+          </div>
+
+          <div class="kys">
+            <label class="q" for="q-yht" id="l-yht">Montako yhteydenottoa haluat kuukaudessa?</label>
+            <input type="text" id="q-yht" name="yhteydenotot" inputmode="numeric" autocomplete="off" placeholder="esim. 20" maxlength="8">
+            <p class="err" id="e-yht" hidden>Valitse tai täytä tämä.</p>
+          </div>
+
+          <fieldset class="kys" id="q-alue">
+            <legend>Mainostetaanko paikallisesti vai koko Suomessa?</legend>
+            <div class="valinnat">
+              <div class="opt"><input type="radio" name="alue" id="a-paikallinen" value="paikallinen" checked><label for="a-paikallinen">Paikallisesti</label></div>
+              <div class="opt"><input type="radio" name="alue" id="a-suomi" value="suomi"><label for="a-suomi">Koko Suomessa</label></div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="tulos-alue" id="tulos-alue">
+          <p class="tayta" id="tayta" role="status" hidden>Täytä kaikki kohdat, niin luvut päivittyvät.</p>
+          <!-- Avattu tila: kiitos tulee tähän, lomake piiloon -->
+          <div class="kiitos" id="kiitos" hidden>
+            <h3 id="kiitos-otsikko" tabindex="-1">Kiitos! Tässä laskelmasi.</h3>
+            <p>Katsomme tilanteesi ja otamme yhteyttä sähköpostilla tai puhelimella.</p>
+          </div>
+
+          <p class="suositus">Suositeltu paketti: <b id="paketti-nimi">Perus</b></p>
+          <p class="sr-only" id="lukitus-selite">Näet luvut, kun lähetät yhteystiedot.</p>
+
+          <dl class="rivit lukittu" id="rivit">
+            <div class="rivi" data-rivi="budjetti"><dt>Mainosbudjetti / kk</dt><dd><span class="arvo" aria-hidden="true">0 000 €</span><span class="lisa" hidden></span></dd></div>
+            <div class="rivi" data-rivi="hallinta"><dt>Hallinta / kk</dt><dd><span class="arvo" aria-hidden="true">000 €</span><span class="lisa" hidden></span></dd></div>
+            <div class="rivi" data-rivi="kokonais"><dt>Kokonaiskulu / kk</dt><dd><span class="arvo" aria-hidden="true">0 000 €</span><span class="lisa" hidden></span></dd></div>
+            <div class="rivi" data-rivi="hinta"><dt>Hinta per yhteydenotto</dt><dd><span class="arvo" aria-hidden="true">00–00 €</span><span class="lisa" hidden></span></dd></div>
+            <div class="rivi" data-rivi="yht"><dt>Yhteydenottoja / kk</dt><dd><span class="arvo" aria-hidden="true">00–00</span><span class="lisa" hidden></span></dd></div>
+            <div class="rivi pitka" data-rivi="kannat"><dt>Kannattavuus</dt><dd><span class="arvo" aria-hidden="true">Kulut 0 000 €/kk, palvelun hinta 000 € → 00 kauppaa kuukaudessa kattaa kulut.</span><span class="lisa" hidden></span></dd></div>
+          </dl>
+
+          <div class="lisat avautuu" id="lisat" hidden>
+            <div class="lisa-lohko" id="realismi">
+              <h3>Realismitarkistus</h3>
+              <ul id="realismi-lista"></ul>
+            </div>
+            <div class="lisa-lohko">
+              <h3>Aikajana</h3>
+              <p>1. kuukausi: oppimisvaihe. Google kerää dataa ja karsimme turhia hakuja, joten hinta per yhteydenotto on yleensä haarukan yläpäässä tai sen yli.</p>
+              <p>2.–3. kuukausi: optimoidut luvut näkyvät yleensä tässä vaiheessa, ja niitä yllä oleva arvio kuvaa.</p>
+            </div>
+            <p class="huomautus">Arvio, ei lupaus. Luvut perustuvat tyypillisiin klikkihintoihin ja yhteydenottoprosentteihin; oikeat luvut riippuvat alasta, kilpailusta ja sivustasi.</p>
+          </div>
+
+          <div class="lomake-osa" id="lomake-osa">
+            <h3>Näe koko laskelma</h3>
+            <p>Laskelma avautuu heti. Katsomme myös tilanteesi ja otamme yhteyttä.</p>
+
+            <div class="kys">
+              <label class="q" for="f-yritys">Yrityksen nimi</label>
+              <input type="text" id="f-yritys" name="yritys" autocomplete="organization" maxlength="120">
+              <p class="err" id="e-yritys" hidden>Kirjoita yrityksesi nimi.</p>
+            </div>
+            <div class="kys">
+              <label class="q" for="f-email">Sähköposti</label>
+              <input type="email" id="f-email" name="email" autocomplete="email">
+              <p class="err" id="e-email" hidden>Tarkista sähköpostiosoite.</p>
+            </div>
+            <div class="kys">
+              <label class="q" for="f-phone">Puhelin</label>
+              <input type="tel" id="f-phone" name="phone" inputmode="tel" autocomplete="tel">
+              <p class="err" id="e-phone" hidden>Tarkista puhelinnumero.</p>
+            </div>
+
+            <div class="hp" aria-hidden="true"><label for="f-website">Älä täytä tätä</label><input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
+
+            <div class="kys">
+              <label class="suostumus"><input type="checkbox" id="f-consent" name="consent" value="yes"> <span>Hyväksyn, että Pikasivut tallentaa antamani tiedot ja laskurin vastaukset ja ottaa minuun yhteyttä mainonnasta. Tiedot käsitellään <a href="/privacy.html" target="_blank" rel="noopener">tietosuojaselosteen</a> mukaan.</span></label>
+              <p class="err" id="e-consent" hidden>Rastita suostumus, niin voimme näyttää laskelman.</p>
+            </div>
+
+            <button type="submit" class="btn blokki" id="laheta">Näytä laskelma</button>
+            <p class="pieni">Emme myy tai luovuta tietojasi markkinointiin. Ei uutiskirjettä.</p>
+          </div>
+
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+
+    <ul class="pisteet">
+      <li>Hallinta alk. 320 €/kk + alv</li>
+      <li>Irtisanomisaika 1 kuukausi</li>
+      <li>Google Ads -tili on aina sinun</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 3. KOLME HYÖTYÄ -->
+<section class="osio alt" id="hyodyt">
+  <div class="wrap">
+    <h2>Miksi ulkoistaa mainonta meille</h2>
+    <div class="kolme">
+      <div>
+        <h3>Nopea käynnistys</h3>
+        <p>Kampanja on yleensä käynnissä tai nykyinen tili siivottu muutamassa arkipäivässä siitä, kun saamme pääsyn tiliisi.</p>
+      </div>
+      <div>
+        <h3>Ei pitkää sitoumusta</h3>
+        <p>Sopimus on voimassa toistaiseksi ja irtisanomisaika on yksi kuukausi. Pysyt asiakkaana, koska mainonta tuottaa, et siksi että sopimus sitoo.</p>
+      </div>
+      <div>
+        <h3>Tili on sinun</h3>
+        <p>Google Ads -tili, sen historia ja kaikki data ovat sinun myös yhteistyön päättyessä. Mainosbudjetti veloitetaan suoraan omalta tililtäsi.</p>
+      </div>
+    </div>
+    <!-- REFERENSSIT: tähän asiakasesimerkit, kun asiakkailta on lupa (Isojoo, Kyläsaari). -->
+  </div>
+</section>
+
+<!-- 4. PAKETIT -->
+<section class="osio" id="paketit">
+  <div class="wrap">
+    <h2>Neljä pakettia, ero vain kampanjoiden määrässä</h2>
+    <p class="ala">Kaikki hinnat ovat kuukausihintoja + alv 25,5 %. Mainosbudjetti maksetaan suoraan Googlelle, ja sen alaraja on 500 €/kk.</p>
+    <div class="paketit">
+      <article class="paketti" data-paketti="Perus">
+        <p class="merkki" hidden>Laskurin suositus</p>
+        <h3>Perus</h3>
+        <p class="hinta">320 €/kk</p>
+        <p class="kamp">1 kampanja</p>
+      </article>
+      <article class="paketti" data-paketti="Kasvu">
+        <p class="merkki" hidden>Laskurin suositus</p>
+        <h3>Kasvu</h3>
+        <p class="hinta">490 €/kk</p>
+        <p class="kamp">2–4 kampanjaa</p>
+      </article>
+      <article class="paketti" data-paketti="Kattava">
+        <p class="merkki" hidden>Laskurin suositus</p>
+        <h3>Kattava</h3>
+        <p class="hinta">750 €/kk</p>
+        <p class="kamp">5–9 kampanjaa</p>
+      </article>
+      <article class="paketti" data-paketti="Skaala">
+        <p class="merkki" hidden>Laskurin suositus</p>
+        <h3>Skaala</h3>
+        <p class="hinta pieni-hinta">Sovitaan erikseen</p>
+        <p class="kamp">10 tai useampi kampanja</p>
+      </article>
+    </div>
+    <div class="kaikissa">
+      <h3>Kaikissa paketeissa</h3>
+      <ul>
+        <li>Kampanjoiden rakentaminen tai nykyisen tilin siivous</li>
+        <li>Hakusanat, negatiiviset hakusanat, mainostekstit ja mainoslaajennukset</li>
+        <li>Konversioseurannan tarkistus: puhelut ja yhteydenotot</li>
+        <li>Hakutermien läpikäynti ja turhien hakujen karsinta kuukausittain</li>
+        <li>Kuukausiraportti selkokielellä</li>
+      </ul>
+    </div>
+    <p class="napin-rivi"><a class="btn" href="#laskuri">Laske oma arviosi</a></p>
+  </div>
+</section>
+
+<!-- 5. MIKSI MAINONTA EI TOIMI -->
+<section class="osio alt" id="miksi-ei-toimi">
+  <div class="wrap">
+    <h2>Miksi mainonta ei yleensä tuo asiakkaita</h2>
+    <p class="ala">Useimmiten syy on jokin näistä neljästä, ei Google Ads itse.</p>
+    <ol class="syyt">
+      <li><span class="nro" aria-hidden="true">01</span><div><h3>Tiliä ei hoideta aktiivisesti</h3><p>Tili on pystytetty kerran ja unohdettu. Hakusanat, budjetit ja turhat haut eivät ole päivittyneet kuukausiin, ja raha valuu klikkauksiin, joista ei tule asiakkaita.</p></div></li>
+      <li><span class="nro" aria-hidden="true">02</span><div><h3>Yhteydenpito on huonoa tai puutteellista</h3><p>Et tiedä, mitä tilillä tehdään tai mihin raha meni. Raportteja tulee harvoin, eikä kukaan kerro selkokielellä, mitä mainonnalla saatiin.</p></div></li>
+      <li><span class="nro" aria-hidden="true">03</span><div><h3>Yhteyshenkilö ei ole se, joka tekee mainokset</h3><p>Myyjä lupaa, mutta tiliä hoitaa joku, jota et koskaan tapaa. Tieto katoaa matkalla ja muutokset viivästyvät. Meillä mainokset tekee sama ihminen, jonka kanssa puhut.</p></div></li>
+      <li><span class="nro" aria-hidden="true">04</span><div><h3>Sivu ei tue mainontaa</h3><p>Mainos tuo kävijän sivulle, jota ei ole suunniteltu muuttamaan kävijää asiakkaaksi. Silloin hyväkin kampanja tuottaa vähän.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6. UKK -->
+<section class="osio" id="ukk">
+  <div class="wrap">
+    <h2>Usein kysyttyä</h2>
+    <div class="ukk">
+      <details><summary>Onko sopimuksessa sitoumusta?</summary><p>Ei määräaikaa. Sopimus on voimassa toistaiseksi ja irtisanomisaika on yksi kuukausi.</p></details>
+      <details><summary>Sisältyykö mainosbudjetti hintaan?</summary><p>Ei. Mainosbudjetti maksetaan suoraan Googlelle omalta Google Ads -tililtäsi, eikä se kulje meidän laskutuksemme kautta. Hallinnointimaksu tulee sen päälle. Mainosbudjetin alaraja on 500 €/kk.</p></details>
+      <details><summary>Kauanko käynnistys kestää?</summary><p>Kampanja on yleensä käynnissä tai nykyinen tili siivottu muutamassa arkipäivässä siitä, kun saamme pääsyn tiliisi. Mainokset näkyvät yleensä samana tai seuraavana päivänä. Ensimmäinen kuukausi on oppimista, optimoidut luvut näkyvät yleensä 2–3 kuukaudessa.</p></details>
+      <details><summary>Omistanko Google Ads -tilin?</summary><p>Kyllä. Tili, sen historia ja kaikki data ovat sinun myös yhteistyön päättyessä. Saamme tiliin vain käyttöoikeuden, jonka voit poistaa milloin tahansa.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 7. LOPPU-CTA -->
+<section class="loppu-cta">
+  <div class="wrap">
+    <h2>Katso, mitä mainonta sinulle maksaisi</h2>
+    <p>Viisi kysymystä, ja näet suositellun budjetin, paketin ja arvion yhteydenotoista.</p>
+    <p class="napin-rivi"><a class="btn vaalea" href="#laskuri" id="loppu-cta-nappi">Laske oma arviosi</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="alatunniste">
+  <div class="wrap">
+    <p>© 2026 Pikasivut</p>
+    <p class="linkit"><a href="/privacy.html">Tietosuoja</a> <a href="/terms.html">Toimitusehdot</a> <button type="button" class="linkki-nappi" id="evaste-asetukset" hidden>Evästeasetukset</button></p>
+  </div>
+</footer>
+</body>
+</html>
