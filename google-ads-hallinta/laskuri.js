@@ -3,9 +3,10 @@
 var ASETUKSET = {
   minBudjetti: 500,              // mainosbudjetin alaraja €/kk (sama kuin hinnastossa)
   minBudjettiPerKampanja: 250,   // ohjeellinen vähimmäisbudjetti per kampanja €/kk
-  budjettiKatto: 10000,          // suurin tuloksissa näytettävä budjetti €/kk
+  budjettiKatto: 10000,          // suurin tuloksissa näytettävä budjetti €/kk (suositusta suuremmat)
   budjetinPyoristys: 100,        // budjettitasot pyöristetään ylöspäin tähän
-  budjettiKertoimet: [1, 2, 3, 5], // tuloksissa näytettävät budjetit = aloitusbudjetti × nämä
+  suositusBudjetti: 1000,       // suositeltu mainosbudjetti €/kk (vähintään alaraja)
+  suositusKertoimet: [2, 3],     // suosituksen jälkeen näytettävät budjetit = suositus × nämä
   alv: 0.255,                    // kuluttajahinnasta poistettava alv
   // Klikkihinta (€) palvelun hinnan mukaan. Välissä interpoloidaan logaritmisesti
   // hinnan suhteen; alle ensimmäisen ja yli viimeisen käytetään reuna-arvoja.
@@ -131,7 +132,7 @@ var ASETUKSET = {
     var paketti = pakettiPalveluille(n);
     var skaala = paketti.hinta === null;
     var hallinta = paketti.hinta;
-    // 5. aloitusbudjetti ja kysyntäraja
+    // 5. budjetin alaraja ja kysyntäraja
     var lattia = Math.max(A.minBudjetti, ylos(n * A.minBudjettiPerKampanja, A.budjetinPyoristys));
     var maxKlikit = n * alue.klikkikattoPerPalvelu;
     var kulutettavissa = maxKlikit * cpcKeski;
@@ -142,30 +143,38 @@ var ASETUKSET = {
       var yMinRaw = Math.min(kulu / cplMax, maxKlikit * cvr.min);
       var yMaxRaw = Math.min(kulu / cplMin, maxKlikit * cvr.max);
       var yMin = Math.round(yMinRaw), yMax = Math.max(yMin, Math.round(yMaxRaw));
-      var K = skaala ? kulu : kulu + hallinta;
-      var hMin = Math.round(K / Math.max(yMaxRaw, 1e-9));
-      var hMax = Math.round(K / Math.max(yMinRaw, 1));
+      var K = skaala ? kulu : kulu + hallinta;            // kokonaiskulu (kannattavuuteen)
+      // hinta per yhteydenotto = pelkkä mainoskulu, ilman hallinnointia
+      var hMin = Math.round(kulu / Math.max(yMaxRaw, 1e-9));
+      var hMax = Math.round(kulu / Math.max(yMinRaw, 1));
       if (hMax < hMin) hMax = hMin;
       return { budjetti: B, kulu: kulu, rajoittaa: B > kulutettavissa, yhtMin: yMin, yhtMax: yMax,
                yhtMinRaw: yMinRaw, yhtMaxRaw: yMaxRaw, K: K, hintaMin: hMin, hintaMax: hMax };
     }
+    // alaraja, suositus ja suosituksen kerrannaiset; isompia ei näytetä, jos hakuja ei riitä
+    var suositus = Math.max(lattia, ylos(A.suositusBudjetti, A.budjetinPyoristys));
+    var budjetit = [lattia, suositus];
+    A.suositusKertoimet.forEach(function (k) {
+      var B = ylos(suositus * k, A.budjetinPyoristys);
+      if (B <= A.budjettiKatto) budjetit.push(B);
+    });
     var tasot = [];
-    for (var i = 0; i < A.budjettiKertoimet.length; i++) {
-      var B = ylos(lattia * A.budjettiKertoimet[i], A.budjetinPyoristys);
-      if (i > 0 && B > A.budjettiKatto) break;
-      if (tasot.length && tasot[tasot.length - 1].budjetti === B) continue;
-      var t0 = taso(B);
+    for (var i = 0; i < budjetit.length; i++) {
+      if (tasot.length && tasot[tasot.length - 1].budjetti >= budjetit[i]) continue;
+      var t0 = taso(budjetit[i]);
+      t0.suositus = budjetit[i] === suositus;
       tasot.push(t0);
       if (t0.rajoittaa) break;                          // isompi budjetti ei tuo lisää
     }
-    var alku = tasot[0];
+    // kannattavuus ja tiivistelmä suositellulla budjetilla (tai suurimmalla järkevällä, jos hakuja ei riitä)
+    var alku = tasot.filter(function (x) { return x.suositus; })[0] || tasot[tasot.length - 1];
 
-    // 7. kannattavuus aloitusbudjetilla
+    // 7. kannattavuus suositellulla budjetilla
     var kaupat = Math.ceil(alku.K / Pnetto);
     var yhtKeski = alku.kulu / cplKeski;
     var kannattava = kaupat <= yhtKeski;
     var hintaTeksti = kuluttaja ? fmt(Math.round(Pnetto)) + ' € (alv 0 %)' : fmt(P) + ' €';
-    var kannatRivi1 = 'Kulut ' + fmt(alku.K) + ' €/kk aloitusbudjetilla, palvelun hinta ' + hintaTeksti + ' → ' +
+    var kannatRivi1 = 'Kulut ' + fmt(alku.K) + ' €/kk ' + (alku.suositus ? 'suositellulla budjetilla' : 'budjetilla ' + fmt(alku.budjetti) + ' €') + ', palvelun hinta ' + hintaTeksti + ' → ' +
       fmt(kaupat) + (kaupat === 1 ? ' kauppa' : ' kauppaa') + ' kuukaudessa kattaa kulut.' +
       (skaala ? ' (mainosbudjetilla laskettuna, ilman hallinnointia)' : '');
     var kannatRivi2;
@@ -180,8 +189,8 @@ var ASETUKSET = {
 
     // 8. realismitarkistus
     var realismi = [];
-    if (alku.rajoittaa) {
-      realismi.push({ tyyppi: 'markkina', teksti: 'Hakuja on ' + alue.nimi + ' niin vähän, että koko ' + eur(alku.budjetti) + ' budjetti ei välttämättä kulu. Maksat vain klikkauksista.' });
+    if (tasot[0].rajoittaa || !alku.suositus) {
+      realismi.push({ tyyppi: 'markkina', teksti: 'Hakuja on ' + alue.nimi + ' niin vähän, että koko ' + eur(tasot[tasot.length - 1].budjetti) + ' budjetti ei välttämättä kulu. Maksat vain klikkauksista.' });
     } else if (tasot[tasot.length - 1].rajoittaa) {
       realismi.push({ tyyppi: 'markkina', teksti: 'Yli noin ' + eur(ylos(kulutettavissa, A.budjetinPyoristys)) + ' kuukausibudjetilla hakuja ei todennäköisesti riitä enempään ' + alue.nimi + ' ' + n + (n === 1 ? ' palvelulla.' : ' palvelulla tai kategorialla.') });
     }
@@ -478,13 +487,12 @@ var ASETUKSET = {
     var sanat = t.sanat;
     el.budjetitOtsikko.textContent = 'Odotetut ' + sanat.mon + ' eri mainosbudjeteilla';
     t.tasot.forEach(function (tt, i) {
-      var nimi = fmt(tt.budjetti) + ' €/kk' + (i === 0 ? ' (aloitus)' : '');
+      var nimi = fmt(tt.budjetti) + ' €/kk' + (tt.suositus ? ' (suositus)' : (i === 0 ? ' (alaraja)' : ''));
       if (!avattu) {
-        teeRivi(el.budjetit, 'b' + i, nimi, ['00–00 ' + sanat.lkm], '00–00 € / ' + sanat.yks);
+        teeRivi(el.budjetit, 'b' + i, nimi, ['00–00 ' + sanat.lkm]);
         return;
       }
-      var lisa = haarukka(tt.hintaMin, tt.hintaMax, '€') + ' / ' + sanat.yks + (t.skaala ? ', ilman hallinnointia' : ', sis. hallinnoinnin');
-      if (tt.rajoittaa) lisa += ' · hakuja ei riitä koko budjetille';
+      var lisa = tt.rajoittaa ? 'hakuja ei riitä koko budjetille' : '';
       var maara = tt.yhtMax < 1 ? 'alle 1 ' + sanat.lkm : haarukka(tt.yhtMin, tt.yhtMax) + ' ' + sanat.lkm;
       teeRivi(el.budjetit, 'b' + i, nimi, [maara + ' / kk'], lisa);
     });
@@ -496,9 +504,11 @@ var ASETUKSET = {
     himmenna(false);
     var t = laske(s);
     piirraBudjetit(t);
-    if (!avattu) return;
+    if (!avattu) { teeRivi(el.rivit, 'hinta', 'Hinta per ' + t.sanat.yks + ' optimoinnin jälkeen', ['00–00 €']); return; }
     teeRivi(el.rivit, 'hallinta', 'Hallinta (' + t.paketti + ')', [t.skaala ? 'Sovitaan erikseen' : fmt(t.hallinta) + ' €/kk + alv'],
       'mainosbudjetti maksetaan suoraan Googlelle, alv 0 %');
+    teeRivi(el.rivit, 'hinta', 'Hinta per ' + t.sanat.yks + ' optimoinnin jälkeen', [haarukka(t.alku.hintaMin, t.alku.hintaMax, '€')],
+      'mainoskulu, ilman hallinnointia');
     teeRivi($('rivit-kannat'), 'kannat', 'Kannattavuus', [t.kannatRivi1, t.kannatRivi2], 'Laskettu myyntihinnalla ilman alv:ta, ei katteella.');
 
     // realismitarkistus
