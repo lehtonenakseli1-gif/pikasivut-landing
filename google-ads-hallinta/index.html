@@ -33,7 +33,7 @@
 </script>
 <meta name="format-detection" content="telephone=no">
 <title>Google Ads -hallinta, joka tuo yhteydenottoja | Pikasivut</title>
-<meta name="description" content="Ulkoista Google Ads -mainonnan hallinta asiantuntijalle. Laske heti suositeltu mainosbudjetti, paketti ja arvio yhteydenotoista. Hallinta alk. 320 €/kk + alv.">
+<meta name="description" content="Ulkoista Google Ads -mainonnan hallinta asiantuntijalle. Laske heti suositeltu paketti ja arvio yhteydenotoista eri budjeteilla. Hallinta alk. 320 €/kk + alv.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -41,8 +41,8 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/bricolage-grotesque-400-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/figtree-400-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="mainos.css?v=20261025d">
-<script src="laskuri.js?v=20261025d" defer></script>
+<link rel="stylesheet" href="mainos.css?v=20261113a">
+<script src="laskuri.js?v=20261113a" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -99,7 +99,7 @@
     <div class="hero-teksti">
       <p class="ylateksti">Google Ads -asiantuntija · mainonnan ulkoistus</p>
       <h1>Google <span class="nw">Ads -hallinta</span>, joka tuo yhteydenottoja</h1>
-      <p class="lause">Rakennamme ja hoidamme Google <span class="nw">Ads -kampanjasi</span> niin, että budjetti menee hakuihin, joista tulee puheluita ja tarjouspyyntöjä. Vastaa viiteen kysymykseen, niin näet suositellun budjetin, paketin ja arvion yhteydenotoista.</p>
+      <p class="lause">Rakennamme ja hoidamme Google <span class="nw">Ads -kampanjasi</span> niin, että budjetti menee hakuihin, joista tulee puheluita ja tarjouspyyntöjä. Vastaa viiteen kysymykseen, niin näet suositellun paketin ja arvion yhteydenotoista eri budjeteilla.</p>
     </div>
 
     <div class="kortti" id="laskuri">
@@ -109,40 +109,44 @@
         <div class="kysymykset">
           <fieldset class="kys" id="q-tavoite">
             <legend>Mitä haluat mainonnalta?</legend>
+            <p class="apu">Voit valita useamman.</p>
             <div class="valinnat">
-              <div class="opt"><input type="radio" name="tavoite" id="t-lomake" value="lomake"><label for="t-lomake">Tarjous&shy;pyyntöjä tai lomakkeita</label></div>
-              <div class="opt"><input type="radio" name="tavoite" id="t-puhelu" value="puhelu"><label for="t-puhelu">Puheluita</label></div>
-              <div class="opt"><input type="radio" name="tavoite" id="t-ajanvaraus" value="ajanvaraus"><label for="t-ajanvaraus">Ajanvarauksia</label></div>
-              <div class="opt"><input type="radio" name="tavoite" id="t-kauppa" value="kauppa"><label for="t-kauppa">Verkkokauppa&shy;ostoja</label></div>
+              <div class="opt"><input type="checkbox" name="tavoite" id="t-lomake" value="lomake"><label for="t-lomake">Tarjous&shy;pyyntöjä tai lomakkeita</label></div>
+              <div class="opt"><input type="checkbox" name="tavoite" id="t-puhelu" value="puhelu"><label for="t-puhelu">Puheluita</label></div>
+              <div class="opt"><input type="checkbox" name="tavoite" id="t-ajanvaraus" value="ajanvaraus"><label for="t-ajanvaraus">Ajanvarauksia</label></div>
+              <div class="opt"><input type="checkbox" name="tavoite" id="t-kauppa" value="kauppa"><label for="t-kauppa">Verkkokauppa&shy;ostoja</label></div>
             </div>
-            <p class="err" id="e-tavoite" hidden>Valitse tai täytä tämä.</p>
+            <p class="err" id="e-tavoite" hidden>Valitse vähintään yksi.</p>
           </fieldset>
 
           <div class="kys">
-            <label class="q" for="q-palvelut">Montako eri palvelua tai tuotetta mainostetaan?</label>
+            <label class="q" for="q-palvelut">Montako eri palvelua tai kategoriaa mainostetaan?</label>
             <div class="stepper">
               <button type="button" id="pal-vahenna" aria-label="Vähennä palveluita">&minus;</button>
               <input type="text" id="q-palvelut" name="palvelut" inputmode="numeric" autocomplete="off" value="1" maxlength="3" role="spinbutton" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1" aria-describedby="h-palvelut">
               <button type="button" id="pal-lisaa" aria-label="Lisää palveluita">+</button>
             </div>
-            <p class="apu" id="h-palvelut">Jokainen palvelu saa oman kampanjan.</p>
+            <p class="apu" id="h-palvelut">Jokainen palvelu tai kategoria saa oman kampanjan.</p>
             <p class="err" id="e-palvelut" hidden>Valitse tai täytä tämä.</p>
           </div>
 
+          <fieldset class="kys" id="q-kohde">
+            <legend>Mainostetaanko kuluttajille vai yrityksille?</legend>
+            <div class="valinnat">
+              <div class="opt"><input type="radio" name="kohde" id="k-kuluttaja" value="kuluttaja"><label for="k-kuluttaja">Kuluttajille</label></div>
+              <div class="opt"><input type="radio" name="kohde" id="k-yritys" value="yritys"><label for="k-yritys">Yrityksille</label></div>
+            </div>
+            <p class="err" id="e-kohde" hidden>Valitse toinen.</p>
+          </fieldset>
+
           <div class="kys">
-            <label class="q" for="q-hinta">Palvelun tai tuotteen keskimääräinen hinta</label>
+            <label class="q" for="q-hinta" id="l-hinta">Palvelun tai tuotteen keskimääräinen hinta</label>
             <div class="kentta-yksikko">
               <input type="text" id="q-hinta" name="hinta" inputmode="numeric" autocomplete="off" placeholder="esim. 500" maxlength="12" aria-describedby="h-hinta">
               <span class="yksikko" aria-hidden="true">€</span>
             </div>
-            <p class="apu" id="h-hinta">Suunnilleen riittää, alv mukana tai ilman.</p>
+            <p class="apu" id="h-hinta">Suunnilleen riittää.</p>
             <p class="err" id="e-hinta" hidden>Valitse tai täytä tämä.</p>
-          </div>
-
-          <div class="kys">
-            <label class="q" for="q-yht" id="l-yht">Montako yhteydenottoa haluat kuukaudessa?</label>
-            <input type="text" id="q-yht" name="yhteydenotot" inputmode="numeric" autocomplete="off" placeholder="esim. 20" maxlength="8">
-            <p class="err" id="e-yht" hidden>Valitse tai täytä tämä.</p>
           </div>
 
           <fieldset class="kys" id="q-alue">
@@ -166,12 +170,17 @@
           <p class="sr-only" id="lukitus-selite">Näet luvut, kun lähetät yhteystiedot.</p>
 
           <dl class="rivit lukittu" id="rivit">
-            <div class="rivi" data-rivi="budjetti"><dt>Mainosbudjetti / kk</dt><dd><span class="arvo" aria-hidden="true">0 000 €</span><span class="lisa" hidden></span></dd></div>
             <div class="rivi" data-rivi="hallinta"><dt>Hallinta / kk</dt><dd><span class="arvo" aria-hidden="true">000 €</span><span class="lisa" hidden></span></dd></div>
-            <div class="rivi" data-rivi="kokonais"><dt>Kokonaiskulu / kk</dt><dd><span class="arvo" aria-hidden="true">0 000 €</span><span class="lisa" hidden></span></dd></div>
-            <div class="rivi" data-rivi="hinta"><dt>Hinta per yhteydenotto</dt><dd><span class="arvo" aria-hidden="true">00–00 €</span><span class="lisa" hidden></span></dd></div>
-            <div class="rivi" data-rivi="yht"><dt>Yhteydenottoja / kk</dt><dd><span class="arvo" aria-hidden="true">00–00</span><span class="lisa" hidden></span></dd></div>
-            <div class="rivi pitka" data-rivi="kannat"><dt>Kannattavuus</dt><dd><span class="arvo" aria-hidden="true">Kulut 0 000 €/kk, palvelun hinta 000 € → 00 kauppaa kuukaudessa kattaa kulut.</span><span class="lisa" hidden></span></dd></div>
+          </dl>
+          <h3 class="budjetit-otsikko" id="budjetit-otsikko">Odotetut yhteydenotot eri mainosbudjeteilla</h3>
+          <dl class="rivit lukittu" id="budjetit">
+            <div class="rivi" data-rivi="b0"><dt>500 €/kk (aloitus)</dt><dd><span class="arvo" aria-hidden="true">00–00 yhteydenottoa</span></dd></div>
+            <div class="rivi" data-rivi="b1"><dt>1 000 €/kk</dt><dd><span class="arvo" aria-hidden="true">00–00 yhteydenottoa</span></dd></div>
+            <div class="rivi" data-rivi="b2"><dt>1 500 €/kk</dt><dd><span class="arvo" aria-hidden="true">00–00 yhteydenottoa</span></dd></div>
+            <div class="rivi" data-rivi="b3"><dt>2 500 €/kk</dt><dd><span class="arvo" aria-hidden="true">00–00 yhteydenottoa</span></dd></div>
+          </dl>
+          <dl class="rivit lukittu" id="rivit-kannat">
+            <div class="rivi pitka" data-rivi="kannat"><dt>Kannattavuus</dt><dd><span class="arvo" aria-hidden="true">Kulut 0 000 €/kk aloitusbudjetilla, palvelun hinta 000 € → 00 kauppaa kuukaudessa kattaa kulut.</span><span class="lisa" hidden></span></dd></div>
           </dl>
 
           <div class="lisat avautuu" id="lisat" hidden>
@@ -231,22 +240,34 @@
   </div>
 </section>
 
-<!-- 3. KOLME HYÖTYÄ -->
+<!-- 3. MIKSI MEILLE -->
 <section class="osio alt" id="hyodyt">
   <div class="wrap">
     <h2>Miksi ulkoistaa mainonta meille</h2>
     <div class="kolme">
       <div>
+        <h3>Tiliä hoidetaan joka kuukausi</h3>
+        <p>Käymme hakutermit läpi, karsimme turhat haut ja säädämme budjetteja jatkuvasti, jotta raha menee klikkauksiin, joista tulee asiakkaita.</p>
+      </div>
+      <div>
+        <h3>Puhut sen kanssa, joka tekee mainokset</h3>
+        <p>Sama ihminen suunnittelee ja hoitaa kampanjasi ja vastaa kysymyksiisi. Tieto ei katoa matkalla, ja muutokset tehdään nopeasti.</p>
+      </div>
+      <div>
+        <h3>Tiedät, mihin raha meni</h3>
+        <p>Saat kuukausiraportin selkokielellä: mitä mainonta maksoi, montako yhteydenottoa tuli ja mitä seuraavaksi muutetaan.</p>
+      </div>
+      <div>
+        <h3>Myös sivu tukee mainontaa</h3>
+        <p>Tarkistamme sivun, jolle mainos vie, ja kerromme, jos se jarruttaa yhteydenottoja. Teemme verkkosivuja itsekin, joten korjaus onnistuu tarvittaessa samasta paikasta.</p>
+      </div>
+      <div>
         <h3>Nopea käynnistys</h3>
         <p>Kampanja on yleensä käynnissä tai nykyinen tili siivottu muutamassa arkipäivässä siitä, kun saamme pääsyn tiliisi.</p>
       </div>
       <div>
-        <h3>Ei pitkää sitoumusta</h3>
-        <p>Sopimus on voimassa toistaiseksi ja irtisanomisaika on yksi kuukausi. Pysyt asiakkaana, koska mainonta tuottaa, et siksi että sopimus sitoo.</p>
-      </div>
-      <div>
-        <h3>Tili on sinun</h3>
-        <p>Google Ads -tili, sen historia ja kaikki data ovat sinun myös yhteistyön päättyessä. Mainosbudjetti veloitetaan suoraan omalta tililtäsi.</p>
+        <h3>Ei pitkää sitoumusta, tili on sinun</h3>
+        <p>Irtisanomisaika on yksi kuukausi. Google Ads -tili, sen historia ja data ovat sinun myös yhteistyön päättyessä, ja budjetti veloitetaan suoraan omalta tililtäsi.</p>
       </div>
     </div>
     <!-- REFERENSSIT: tähän asiakasesimerkit, kun asiakkailta on lupa (Isojoo, Kyläsaari). -->
@@ -298,22 +319,8 @@
   </div>
 </section>
 
-<!-- 5. MIKSI MAINONTA EI TOIMI -->
-<section class="osio alt" id="miksi-ei-toimi">
-  <div class="wrap">
-    <h2>Miksi mainonta ei yleensä tuo asiakkaita</h2>
-    <p class="ala">Useimmiten syy on jokin näistä neljästä, ei Google Ads itse.</p>
-    <ol class="syyt">
-      <li><span class="nro" aria-hidden="true">01</span><div><h3>Tiliä ei hoideta aktiivisesti</h3><p>Tili on pystytetty kerran ja unohdettu. Hakusanat, budjetit ja turhat haut eivät ole päivittyneet kuukausiin, ja raha valuu klikkauksiin, joista ei tule asiakkaita.</p></div></li>
-      <li><span class="nro" aria-hidden="true">02</span><div><h3>Yhteydenpito on huonoa tai puutteellista</h3><p>Et tiedä, mitä tilillä tehdään tai mihin raha meni. Raportteja tulee harvoin, eikä kukaan kerro selkokielellä, mitä mainonnalla saatiin.</p></div></li>
-      <li><span class="nro" aria-hidden="true">03</span><div><h3>Yhteyshenkilö ei ole se, joka tekee mainokset</h3><p>Myyjä lupaa, mutta tiliä hoitaa joku, jota et koskaan tapaa. Tieto katoaa matkalla ja muutokset viivästyvät. Meillä mainokset tekee sama ihminen, jonka kanssa puhut.</p></div></li>
-      <li><span class="nro" aria-hidden="true">04</span><div><h3>Sivu ei tue mainontaa</h3><p>Mainos tuo kävijän sivulle, jota ei ole suunniteltu muuttamaan kävijää asiakkaaksi. Silloin hyväkin kampanja tuottaa vähän.</p></div></li>
-    </ol>
-  </div>
-</section>
-
-<!-- 6. UKK -->
-<section class="osio" id="ukk">
+<!-- 5. UKK -->
+<section class="osio alt" id="ukk">
   <div class="wrap">
     <h2>Usein kysyttyä</h2>
     <div class="ukk">
@@ -325,11 +332,11 @@
   </div>
 </section>
 
-<!-- 7. LOPPU-CTA -->
+<!-- 6. LOPPU-CTA -->
 <section class="loppu-cta">
   <div class="wrap">
     <h2>Katso, mitä mainonta sinulle maksaisi</h2>
-    <p>Viisi kysymystä, ja näet suositellun budjetin, paketin ja arvion yhteydenotoista.</p>
+    <p>Viisi kysymystä, ja näet suositellun paketin ja arvion yhteydenotoista eri budjeteilla.</p>
     <p class="napin-rivi"><a class="btn vaalea" href="#laskuri" id="loppu-cta-nappi">Laske oma arviosi</a></p>
   </div>
 </section>

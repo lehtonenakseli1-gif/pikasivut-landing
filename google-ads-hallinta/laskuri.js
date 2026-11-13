@@ -3,8 +3,10 @@
 var ASETUKSET = {
   minBudjetti: 500,              // mainosbudjetin alaraja €/kk (sama kuin hinnastossa)
   minBudjettiPerKampanja: 250,   // ohjeellinen vähimmäisbudjetti per kampanja €/kk
-  budjettiKatto: 10000,          // tätä suurempi tarve = epärealistinen -> ehdotetaan pienempää määrää
-  budjetinPyoristys: 100,        // suositeltu budjetti pyöristetään ylöspäin tähän
+  budjettiKatto: 10000,          // suurin tuloksissa näytettävä budjetti €/kk
+  budjetinPyoristys: 100,        // budjettitasot pyöristetään ylöspäin tähän
+  budjettiKertoimet: [1, 2, 3, 5], // tuloksissa näytettävät budjetit = aloitusbudjetti × nämä
+  alv: 0.255,                    // kuluttajahinnasta poistettava alv
   // Klikkihinta (€) palvelun hinnan mukaan. Välissä interpoloidaan logaritmisesti
   // hinnan suhteen; alle ensimmäisen ja yli viimeisen käytetään reuna-arvoja.
   klikkihinta: [
@@ -20,11 +22,14 @@ var ASETUKSET = {
   },
   // Osuus klikkaajista, joka ottaa yhteyttä OPTIMOINNIN JÄLKEEN (2–3 kk)
   tavoite: {
-    lomake:     { min: 0.05,  max: 0.08, yksikko: 'yhteydenottoa' },
-    puhelu:     { min: 0.06,  max: 0.10, yksikko: 'puhelua' },
-    ajanvaraus: { min: 0.04,  max: 0.07, yksikko: 'ajanvarausta' },
-    kauppa:     { min: 0.015, max: 0.03, yksikko: 'ostoa' }
+    lomake:     { min: 0.05,  max: 0.08 },
+    puhelu:     { min: 0.06,  max: 0.10 },
+    ajanvaraus: { min: 0.04,  max: 0.07 },
+    kauppa:     { min: 0.015, max: 0.03 }
   },
+  // Kun valitaan useampi tavoite: suurin osuus kokonaan + tämä osuus muiden osuuksista
+  // (sama kävijä ei sekä soita että lähetä lomaketta, joten osuudet eivät summaudu)
+  lisatavoitteenOsuus: 0.3,
   // Paketit kampanjamäärän mukaan; hinta null = sovitaan erikseen
   paketit: [
     { nimi: 'Perus',   kampanjatMin: 1,  kampanjatMax: 1,        hinta: 320 },
@@ -38,15 +43,22 @@ var ASETUKSET = {
   'use strict';
 
   var A = ASETUKSET;
+  var TAVOITTEET = ['lomake', 'puhelu', 'ajanvaraus', 'kauppa'];
 
   /* ---------- sanamuodot (kielioppi, ei laskennan säätöä) ---------- */
-  // yks = yksikkö, mon = nominatiivin monikko, gen = genetiivi, nimi = lyhyt nimi yhteenvetoon
+  // yks = yksikkö, mon = monikko, lkm = luvun perään (partitiivi), ptv = monikon partitiivi, nimi = lyhyt nimi yhteenvetoon
   var SANAT = {
-    lomake:     { yks: 'yhteydenotto', mon: 'yhteydenotot', gen: 'yhteydenoton', ptv: 'yhteydenottoja', nimi: 'tarjouspyynnöt' },
-    puhelu:     { yks: 'puhelu',       mon: 'puhelut',      gen: 'yhteydenoton', ptv: 'yhteydenottoja', nimi: 'puhelut' },
-    ajanvaraus: { yks: 'ajanvaraus',   mon: 'ajanvaraukset', gen: 'yhteydenoton', ptv: 'yhteydenottoja', nimi: 'ajanvaraukset' },
-    kauppa:     { yks: 'osto',         mon: 'ostot',        gen: 'oston',        ptv: 'ostoja',         nimi: 'verkkokauppaostot' }
+    lomake:     { yks: 'yhteydenotto', mon: 'yhteydenotot',  lkm: 'yhteydenottoa', ptv: 'yhteydenottoja', nimi: 'tarjouspyynnöt' },
+    puhelu:     { yks: 'puhelu',       mon: 'puhelut',       lkm: 'puhelua',       ptv: 'puheluita',      nimi: 'puhelut' },
+    ajanvaraus: { yks: 'ajanvaraus',   mon: 'ajanvaraukset', lkm: 'ajanvarausta',  ptv: 'ajanvarauksia',  nimi: 'ajanvaraukset' },
+    kauppa:     { yks: 'osto',         mon: 'ostot',         lkm: 'ostoa',         ptv: 'ostoja',         nimi: 'verkkokauppaostot' }
   };
+  var SANAT_YHT = { yks: 'yhteydenotto', mon: 'yhteydenotot', lkm: 'yhteydenottoa', ptv: 'yhteydenottoja' };
+  var SANAT_SEKA = { yks: 'yhteydenotto tai osto', mon: 'yhteydenotot ja ostot', lkm: 'yhteydenottoa tai ostoa', ptv: 'yhteydenottoja ja ostoja' };
+  function sanatTavoitteille(lista) {
+    if (lista.length === 1) return SANAT[lista[0]];
+    return lista.indexOf('kauppa') >= 0 ? SANAT_SEKA : SANAT_YHT;
+  }
 
   /* ---------- apufunktiot ---------- */
   var nf = new Intl.NumberFormat('fi-FI', { maximumFractionDigits: 2 });
@@ -57,14 +69,7 @@ var ASETUKSET = {
     return suffix ? s + ' ' + suffix : s;
   }
   function clamp(x, lo, hi) { return Math.min(hi, Math.max(lo, x)); }
-
-  // "Laske 48:lla" / "Laske 41:llä": pääte seuraa luvun viimeisen sanan vokaalisointua
-  function llaPaate(n) {
-    if (n % 100 >= 11 && n % 100 <= 19) return ':lla'; // yksitoista … yhdeksäntoista
-    if (n % 100 === 0) return ':lla';        // sata, tuhat
-    if (n % 10 === 0) return ':llä';         // kymmenen, -kymmentä
-    return ({ 1: ':llä', 2: ':lla', 3: ':lla', 4: ':llä', 5: ':llä', 6: ':lla', 7: ':llä', 8: ':lla', 9: ':llä' })[n % 10];
-  }
+  function ylos(x, askel) { return Math.ceil(x / askel) * askel; }
 
   function pakettiPalveluille(n) {
     for (var i = 0; i < A.paketit.length; i++) {
@@ -87,106 +92,116 @@ var ASETUKSET = {
     return { min: k[0].min, max: k[0].max };
   }
 
+  // Yhdistetty konversio-osuus valituille tavoitteille
+  function konversioOsuus(lista) {
+    var j = lista.slice().sort(function (a, b) { return A.tavoite[b].max - A.tavoite[a].max; });
+    var min = A.tavoite[j[0]].min, max = A.tavoite[j[0]].max;
+    for (var i = 1; i < j.length; i++) {
+      min += A.lisatavoitteenOsuus * A.tavoite[j[i]].min;
+      max += A.lisatavoitteenOsuus * A.tavoite[j[i]].max;
+    }
+    return { min: min, max: max };
+  }
+
   /* ---------- LASKENTA (puhdas funktio, ei DOM:ia) ----------
-     syotteet: { tavoite, palvelut, hinta, yhteydenotot, alue } */
+     syotteet: { tavoitteet: [..], palvelut, kohde: 'kuluttaja'|'yritys', hinta, alue }
+     hinta = kävijän syöttämä: kuluttajille alv mukana, yrityksille alv 0 % */
   function laske(s) {
-    var g = s.tavoite;
-    var tav = A.tavoite[g];
-    var sanat = SANAT[g];
+    var tavoitteet = TAVOITTEET.filter(function (g) { return s.tavoitteet.indexOf(g) >= 0; });
+    var sanat = sanatTavoitteille(tavoitteet);
+    var vainKauppa = tavoitteet.length === 1 && tavoitteet[0] === 'kauppa';
     var alue = A.alue[s.alue];
     var n = clamp(Math.round(s.palvelut), 1, 15);
     var P = Number(s.hinta);
-    var L = Math.max(1, Math.round(s.yhteydenotot));
+    var kuluttaja = s.kohde === 'kuluttaja';
+    var Pnetto = kuluttaja ? P / (1 + A.alv) : P;   // myyjälle jäävä hinta ilman alv:ta
 
-    // 1. klikkihinta
+    // 1. klikkihinta (syötetyn hinnan mukaan, kuten kävijä hinnan näkee)
     var cpcP = klikkihinta(P);
     var cpcMin = cpcP.min * alue.klikkikerroin;
     var cpcMax = cpcP.max * alue.klikkikerroin;
+    var cpcKeski = (cpcMin + cpcMax) / 2;
     // 2. konversio-osuus
-    var cvrMin = tav.min, cvrMax = tav.max;
+    var cvr = konversioOsuus(tavoitteet);
     // 3. mainoskulu per yhteydenotto
-    var cplMin = cpcMin / cvrMax;
-    var cplMax = cpcMax / cvrMin;
+    var cplMin = cpcMin / cvr.max;
+    var cplMax = cpcMax / cvr.min;
     var cplKeski = Math.sqrt(cplMin * cplMax);
     // 4. kampanjat ja paketti
-    var kampanjat = n;
-    var paketti = pakettiPalveluille(kampanjat);
-    // 5. budjettilattia
-    var lattia = Math.max(A.minBudjetti, kampanjat * A.minBudjettiPerKampanja);
-    // 6. kysyntäraja
-    var maxKlikit = kampanjat * alue.klikkikattoPerPalvelu;
-    var maxYht = Math.floor(maxKlikit * (cvrMin + cvrMax) / 2);
-    // 7. budjettiraja
-    var maxYhtBudjetti = Math.floor(A.budjettiKatto / cplKeski);
-    // 8. realistinen tavoite
-    var Lr = Math.max(1, Math.min(L, maxYht, maxYhtBudjetti));
-    // 9. suositeltu budjetti
-    var B = Math.max(lattia, Math.ceil(Lr * cplKeski / A.budjetinPyoristys) * A.budjetinPyoristys);
-    // 10. odotetut yhteydenotot
-    var yhtMinRaw = Math.min(B / cplMax, maxKlikit * cvrMin);
-    var yhtMaxRaw = Math.min(B / cplMin, maxKlikit * cvrMax);
-    var yhtMin = Math.max(1, Math.round(yhtMinRaw));
-    var yhtMax = Math.max(yhtMin, Math.round(yhtMaxRaw));
-    // 11. hallinta ja kokonaiskulu
+    var paketti = pakettiPalveluille(n);
     var skaala = paketti.hinta === null;
     var hallinta = paketti.hinta;
-    var K = skaala ? B : B + hallinta;
-    // 12. kokonaishinta per yhteydenotto
-    var hintaMin = Math.round(K / Math.max(yhtMaxRaw, 1e-9));
-    var hintaMax = Math.round(K / Math.max(yhtMinRaw, 1));
-    if (hintaMax < hintaMin) hintaMax = hintaMin;
-    // 13. kulutettavissa
-    var kulutettavissa = maxKlikit * (cpcMin + cpcMax) / 2;
-    // 14. kannattavuus
-    var kaupat = Math.ceil(K / P);
-    var yhtKeski = B / cplKeski;
+    // 5. aloitusbudjetti ja kysyntäraja
+    var lattia = Math.max(A.minBudjetti, ylos(n * A.minBudjettiPerKampanja, A.budjetinPyoristys));
+    var maxKlikit = n * alue.klikkikattoPerPalvelu;
+    var kulutettavissa = maxKlikit * cpcKeski;
+
+    // 6. tulokset eri budjeteilla
+    function taso(B) {
+      var kulu = Math.min(B, kulutettavissa);          // budjetti ei kulu, jos hakuja ei riitä
+      var yMinRaw = Math.min(kulu / cplMax, maxKlikit * cvr.min);
+      var yMaxRaw = Math.min(kulu / cplMin, maxKlikit * cvr.max);
+      var yMin = Math.round(yMinRaw), yMax = Math.max(yMin, Math.round(yMaxRaw));
+      var K = skaala ? kulu : kulu + hallinta;
+      var hMin = Math.round(K / Math.max(yMaxRaw, 1e-9));
+      var hMax = Math.round(K / Math.max(yMinRaw, 1));
+      if (hMax < hMin) hMax = hMin;
+      return { budjetti: B, kulu: kulu, rajoittaa: B > kulutettavissa, yhtMin: yMin, yhtMax: yMax,
+               yhtMinRaw: yMinRaw, yhtMaxRaw: yMaxRaw, K: K, hintaMin: hMin, hintaMax: hMax };
+    }
+    var tasot = [];
+    for (var i = 0; i < A.budjettiKertoimet.length; i++) {
+      var B = ylos(lattia * A.budjettiKertoimet[i], A.budjetinPyoristys);
+      if (i > 0 && B > A.budjettiKatto) break;
+      if (tasot.length && tasot[tasot.length - 1].budjetti === B) continue;
+      var t0 = taso(B);
+      tasot.push(t0);
+      if (t0.rajoittaa) break;                          // isompi budjetti ei tuo lisää
+    }
+    var alku = tasot[0];
+
+    // 7. kannattavuus aloitusbudjetilla
+    var kaupat = Math.ceil(alku.K / Pnetto);
+    var yhtKeski = alku.kulu / cplKeski;
     var kannattava = kaupat <= yhtKeski;
-    var kannatRivi1 = 'Kulut ' + fmt(K) + ' €/kk, palvelun hinta ' + fmt(P) + ' € → ' +
+    var hintaTeksti = kuluttaja ? fmt(Math.round(Pnetto)) + ' € (alv 0 %)' : fmt(P) + ' €';
+    var kannatRivi1 = 'Kulut ' + fmt(alku.K) + ' €/kk aloitusbudjetilla, palvelun hinta ' + hintaTeksti + ' → ' +
       fmt(kaupat) + (kaupat === 1 ? ' kauppa' : ' kauppaa') + ' kuukaudessa kattaa kulut.' +
       (skaala ? ' (mainosbudjetilla laskettuna, ilman hallinnointia)' : '');
     var kannatRivi2;
     if (kannattava) {
       var suhde = Math.max(1, Math.round(yhtKeski / kaupat));
-      if (g === 'kauppa') kannatRivi2 = 'Eli arvioidut ostot kattavat kulut.';
+      if (vainKauppa) kannatRivi2 = 'Eli arvioidut ostot kattavat kulut.';
       else if (suhde === 1) kannatRivi2 = 'Eli lähes jokaisen yhteydenoton pitäisi päätyä kauppaan.';
       else kannatRivi2 = 'Eli noin joka ' + suhde + '. yhteydenoton pitäisi päätyä kauppaan.';
     } else {
       kannatRivi2 = 'Kulujen kattamiseen tarvitaan enemmän kauppoja kuin ' + sanat.ptv + ' arviolta tulee. Mainonta kannattaa silloin vain, jos sama asiakas ostaa useita kertoja.';
     }
-    // 15. realismitarkistus
+
+    // 8. realismitarkistus
     var realismi = [];
-    var yks = tav.yksikko;
-    if (L > maxYht) {
-      realismi.push({ tyyppi: 'kysynta', nappi: Lr,
-        teksti: 'Hakuja on todennäköisesti liian vähän ' + fmt(L) + ' ' + yks + ' kuukaudessa, kun mainostetaan ' + alue.nimi + ' ' + kampanjat + ' palvelulla. Realistinen tavoite on noin ' + fmt(Lr) + ' ' + yks + '/kk.' });
-    } else if (L > maxYhtBudjetti) {
-      realismi.push({ tyyppi: 'budjetti', nappi: Lr,
-        teksti: fmt(L) + ' ' + yks + ' kuukaudessa vaatisi arviolta noin ' + eur(Math.round(L * cplKeski / 100) * 100) + ' mainosbudjetin. Suosittelemme aloittamaan noin ' + fmt(Lr) + ' ' + yks + '/kk ja kasvattamaan, kun luvut ovat näkyvissä.' });
+    if (alku.rajoittaa) {
+      realismi.push({ tyyppi: 'markkina', teksti: 'Hakuja on ' + alue.nimi + ' niin vähän, että koko ' + eur(alku.budjetti) + ' budjetti ei välttämättä kulu. Maksat vain klikkauksista.' });
+    } else if (tasot[tasot.length - 1].rajoittaa) {
+      realismi.push({ tyyppi: 'markkina', teksti: 'Yli noin ' + eur(ylos(kulutettavissa, A.budjetinPyoristys)) + ' kuukausibudjetilla hakuja ei todennäköisesti riitä enempään ' + alue.nimi + ' ' + n + (n === 1 ? ' palvelulla.' : ' palvelulla tai kategorialla.') });
     }
-    if (yhtMin > L) {
-      realismi.push({ tyyppi: 'lattia', teksti: 'Budjetin alaraja tuo todennäköisesti jo enemmän kuin ' + fmt(L) + ' ' + yks + ' kuukaudessa.' });
-    }
-    if (B > kulutettavissa) {
-      realismi.push({ tyyppi: 'markkina', teksti: 'Hakuja on ' + alue.nimi + ' niin vähän, että koko ' + eur(B) + ' budjetti ei välttämättä kulu. Maksat vain klikkauksista.' });
-    }
-    if (cplKeski > P) {
+    if (cplKeski > Pnetto) {
       realismi.push({ tyyppi: 'hinta', teksti: 'Mainoskulu per ' + sanat.yks + ' on arviolta suurempi kuin palvelusi hinta.' });
     }
     var ok = realismi.length === 0;
-    if (ok) realismi.push({ tyyppi: 'ok', teksti: (g === 'kauppa' ? 'Ostotavoite' : 'Yhteydenottotavoite') + ' on realistinen tällä arviolla.' });
+    if (ok) realismi.push({ tyyppi: 'ok', teksti: 'Hakuja riittää näille budjeteille tällä arviolla.' });
 
     return {
-      syote: { tavoite: g, palvelut: n, hinta: P, yhteydenotot: L, alue: s.alue },
-      cpcMin: cpcMin, cpcMax: cpcMax, cvrMin: cvrMin, cvrMax: cvrMax,
+      syote: { tavoitteet: tavoitteet, palvelut: n, kohde: s.kohde, hinta: P, hintaNetto: Pnetto, alue: s.alue },
+      cpcMin: cpcMin, cpcMax: cpcMax, cvrMin: cvr.min, cvrMax: cvr.max,
       cplMin: cplMin, cplMax: cplMax, cplKeski: cplKeski,
-      kampanjat: kampanjat, paketti: paketti.nimi, pakettiHinta: hallinta, skaala: skaala,
-      lattia: lattia, maxKlikit: maxKlikit, maxYht: maxYht, maxYhtBudjetti: maxYhtBudjetti,
-      Lr: Lr, B: B, yhtMin: yhtMin, yhtMax: yhtMax, yhtMinRaw: yhtMinRaw, yhtMaxRaw: yhtMaxRaw,
-      hallinta: hallinta, K: K, hintaMin: hintaMin, hintaMax: hintaMax,
-      kulutettavissa: kulutettavissa, kaupat: kaupat, yhtKeski: yhtKeski, kannattava: kannattava,
+      kampanjat: n, paketti: paketti.nimi, pakettiHinta: hallinta, skaala: skaala, hallinta: hallinta,
+      lattia: lattia, maxKlikit: maxKlikit, kulutettavissa: kulutettavissa,
+      tasot: tasot, alku: alku,
+      kaupat: kaupat, yhtKeski: yhtKeski, kannattava: kannattava,
       kannatRivi1: kannatRivi1, kannatRivi2: kannatRivi2,
       realismi: realismi, realismiOk: ok,
-      yksikko: yks, sanat: sanat, alueNimi: alue.nimi
+      sanat: sanat, alueNimi: alue.nimi
     };
   }
 
@@ -213,18 +228,22 @@ var ASETUKSET = {
   var lahettaa = false;
 
   var el = {
-    tavoiteRyhma: $('q-tavoite'), palvelut: $('q-palvelut'), hinta: $('q-hinta'), yht: $('q-yht'),
-    yhtLabel: $('l-yht'), alueRyhma: $('q-alue'),
+    tavoiteRyhma: $('q-tavoite'), kohdeRyhma: $('q-kohde'), palvelut: $('q-palvelut'), hinta: $('q-hinta'),
+    hintaLabel: $('l-hinta'), hintaApu: $('h-hinta'), alueRyhma: $('q-alue'),
     vahenna: $('pal-vahenna'), lisaa: $('pal-lisaa'),
-    paketinNimi: $('paketti-nimi'), rivit: $('rivit'), lisat: $('lisat'), realismiLista: $('realismi-lista'),
+    paketinNimi: $('paketti-nimi'), rivit: $('rivit'), budjetit: $('budjetit'), budjetitOtsikko: $('budjetit-otsikko'),
+    lisat: $('lisat'), realismiLista: $('realismi-lista'),
     kiitos: $('kiitos'), kiitosOtsikko: $('kiitos-otsikko'), lomakeOsa: $('lomake-osa'),
     yritys: $('f-yritys'), email: $('f-email'), phone: $('f-phone'), website: $('f-website'), consent: $('f-consent'),
     nappi: $('laheta'), status: $('status'), loppuCta: $('loppu-cta-nappi'), kortti: $('laskuri')
   };
 
   /* ---------- lukijat ---------- */
-  function valittuTavoite() {
-    var r = form.querySelector('input[name="tavoite"]:checked');
+  function valitutTavoitteet() {
+    return Array.prototype.map.call(form.querySelectorAll('input[name="tavoite"]:checked'), function (r) { return r.value; });
+  }
+  function valittuKohde() {
+    var r = form.querySelector('input[name="kohde"]:checked');
     return r ? r.value : '';
   }
   function valittuAlue() {
@@ -242,7 +261,7 @@ var ASETUKSET = {
   // Luvun jäsennys: välilyönnit (myös nbsp) pois. Muoto 1.000 / 20,000 / 1.000.000 = tuhaterottimet,
   // muuten pilkku on desimaalierotin (2,5 = 2.5). Palauttaa NaN, jos muoto ei kelpaa.
   function parsiLuku(str) {
-    var s = String(str).replace(/[\s\u00a0]/g, '');
+    var s = String(str).replace(/[\s ]/g, '');
     if (s === '') return NaN;
     if (/^\d{1,3}([.,]\d{3})+$/.test(s)) return parseInt(s.replace(/[.,]/g, ''), 10);
     s = s.replace(',', '.');
@@ -251,10 +270,6 @@ var ASETUKSET = {
   }
   var HINTA_MAX = 1000000;
   function lueHinta() { return parsiLuku(el.hinta.value); }
-  function lueYht() {
-    var v = parsiLuku(el.yht.value);
-    return (isNaN(v) || v % 1 !== 0) ? NaN : v;
-  }
 
   /* ---------- virheet ---------- */
   function naytaVirhe(kentta, errId, viesti, ryhma) {
@@ -290,14 +305,14 @@ var ASETUKSET = {
   // kentän validointi; palauttaa true jos kunnossa. Käsittelee virheen näyttämisen
   var tarkistukset = [
     { id: 'tavoite', kentta: function () { return form.querySelector('input[name="tavoite"]'); }, ryhma: el.tavoiteRyhma, err: 'e-tavoite',
-      ok: function () { return valittuTavoite() !== ''; }, viesti: 'Valitse tai täytä tämä.' },
+      ok: function () { return valitutTavoitteet().length > 0; }, viesti: 'Valitse vähintään yksi.' },
     { id: 'palvelut', kentta: function () { return el.palvelut; }, err: 'e-palvelut',
       ok: function () { return !isNaN(luePalvelut()); }, viesti: 'Valitse tai täytä tämä.' },
+    { id: 'kohde', kentta: function () { return form.querySelector('input[name="kohde"]'); }, ryhma: el.kohdeRyhma, err: 'e-kohde',
+      ok: function () { return valittuKohde() !== ''; }, viesti: 'Valitse toinen.' },
     { id: 'hinta', kentta: function () { return el.hinta; }, err: 'e-hinta',
       ok: function () { var h = lueHinta(); return !isNaN(h) && h >= 1 && h <= HINTA_MAX; },
-      viesti: function () { var h = lueHinta(); return (!isNaN(h) && h > HINTA_MAX) ? 'Tarkista hinta.' : 'Valitse tai täytä tämä.'; } },
-    { id: 'yht', kentta: function () { return el.yht; }, err: 'e-yht',
-      ok: function () { var y = lueYht(); return !isNaN(y) && y >= 1 && y <= 1000; }, viesti: 'Valitse tai täytä tämä.' }
+      viesti: function () { var h = lueHinta(); return (!isNaN(h) && h > HINTA_MAX) ? 'Tarkista hinta.' : 'Valitse tai täytä tämä.'; } }
   ];
   var yhteystiedot = [
     { id: 'yritys', kentta: function () { return el.yritys; }, err: 'e-yritys',
@@ -365,24 +380,20 @@ var ASETUKSET = {
   });
 
   el.hinta.addEventListener('input', function () {
-    el.hinta.value = el.hinta.value.replace(/[^\d\s\u00a0,.]/g, '');
+    el.hinta.value = el.hinta.value.replace(/[^\d\s ,.]/g, '');
     muutos('hinta');
-  });
-  el.yht.addEventListener('input', function () {
-    el.yht.value = el.yht.value.replace(/[^\d\s\u00a0,.]/g, '');
-    muutos('yht');
   });
 
   // Enter laskurin kentissä ei lähetä lomaketta
-  [el.palvelut, el.hinta, el.yht].forEach(function (i) {
+  [el.palvelut, el.hinta].forEach(function (i) {
     i.addEventListener('keydown', function (e) { if (e.key === 'Enter') e.preventDefault(); });
   });
 
   form.querySelectorAll('input[name="tavoite"]').forEach(function (r) {
-    r.addEventListener('change', function () {
-      paivitaTavoiteTekstit();
-      muutos('tavoite');
-    });
+    r.addEventListener('change', function () { muutos('tavoite'); });
+  });
+  form.querySelectorAll('input[name="kohde"]').forEach(function (r) {
+    r.addEventListener('change', function () { paivitaHintaTekstit(); muutos('kohde'); });
   });
   form.querySelectorAll('input[name="alue"]').forEach(function (r) {
     r.addEventListener('change', function () { muutos('alue'); });
@@ -397,19 +408,18 @@ var ASETUKSET = {
     });
   });
 
-  /* ---------- tavoitteesta riippuvat tekstit ---------- */
-  function paivitaTavoiteTekstit() {
-    var g = valittuTavoite();
-    el.yhtLabel.textContent = g === 'kauppa' ? 'Montako ostoa haluat kuukaudessa?' : 'Montako yhteydenottoa haluat kuukaudessa?';
-    var sanat = SANAT[g] || SANAT.lomake;
-    var rivit = el.rivit.querySelectorAll('[data-rivi]');
-    // lukitussa tilassa nimet sanamuodon mukaan; avatussa laskelma päivittää ne
-    if (!avattu) {
-      rivit.forEach(function (r) {
-        var nimi = r.querySelector('dt');
-        if (r.getAttribute('data-rivi') === 'hinta') nimi.textContent = 'Hinta per ' + sanat.yks;
-        if (r.getAttribute('data-rivi') === 'yht') nimi.textContent = g === 'kauppa' ? 'Ostoja / kk' : (g === 'puhelu' ? 'Puheluita / kk' : g === 'ajanvaraus' ? 'Ajanvarauksia / kk' : 'Yhteydenottoja / kk');
-      });
+  /* ---------- hinnan alv-ohje kohderyhmän mukaan ---------- */
+  function paivitaHintaTekstit() {
+    var k = valittuKohde();
+    if (k === 'kuluttaja') {
+      el.hintaLabel.textContent = 'Palvelun tai tuotteen keskimääräinen hinta (sis. alv)';
+      el.hintaApu.textContent = 'Kuluttajahinta alv 25,5 % mukana, suunnilleen riittää. Kannattavuus lasketaan ilman alv:ta.';
+    } else if (k === 'yritys') {
+      el.hintaLabel.textContent = 'Palvelun tai tuotteen keskimääräinen hinta (alv 0 %)';
+      el.hintaApu.textContent = 'Yrityshinta ilman alv:ta, suunnilleen riittää.';
+    } else {
+      el.hintaLabel.textContent = 'Palvelun tai tuotteen keskimääräinen hinta';
+      el.hintaApu.textContent = 'Suunnilleen riittää.';
     }
   }
 
@@ -426,83 +436,86 @@ var ASETUKSET = {
     });
   }
 
-  /* ---------- tulosten piirto (vain avatussa tilassa) ---------- */
-  function asetaRivi(nimi, teksti, arvot, lisa) {
-    var r = el.rivit.querySelector('[data-rivi="' + nimi + '"]');
+  /* ---------- tulosten piirto ---------- */
+  function teeRivi(dl, nimi, teksti, arvot, lisa) {
+    var r = dl.querySelector('[data-rivi="' + nimi + '"]');
+    if (!r) {
+      r = document.createElement('div');
+      r.className = 'rivi';
+      r.setAttribute('data-rivi', nimi);
+      r.appendChild(document.createElement('dt'));
+      r.appendChild(document.createElement('dd'));
+      dl.appendChild(r);
+    }
     if (teksti !== null) r.querySelector('dt').textContent = teksti;
     var dd = r.querySelector('dd');
     dd.textContent = '';
     arvot.forEach(function (a) {
       var s = document.createElement('span');
       s.className = 'arvo';
+      if (!avattu) s.setAttribute('aria-hidden', 'true');
       // ei rivinvaihtoa luvun ja €-merkin väliin eikä "+":n jälkeen
-      s.textContent = nimi === 'kannat' ? a : a.replace(/ €/g, '\u00a0€').replace(/\+ /g, '+\u00a0');
+      s.textContent = nimi === 'kannat' ? a : a.replace(/ €/g, ' €').replace(/\+ /g, '+ ');
       dd.appendChild(s);
     });
     if (lisa) {
       var l = document.createElement('span');
       l.className = 'lisa';
+      if (!avattu) l.setAttribute('aria-hidden', 'true');
       l.textContent = lisa;
       dd.appendChild(l);
     }
   }
 
-  var viimeisin = null;
   function himmenna(paalle) {
     $('tulos-alue').classList.toggle('himmea', paalle);
     $('tayta').hidden = !paalle;
   }
+
+  // Budjettitasot näkyvät myös lukitussa tilassa (julkinen tieto); luvut vain avatussa
+  function piirraBudjetit(t) {
+    el.budjetit.textContent = '';
+    var sanat = t.sanat;
+    el.budjetitOtsikko.textContent = 'Odotetut ' + sanat.mon + ' eri mainosbudjeteilla';
+    t.tasot.forEach(function (tt, i) {
+      var nimi = fmt(tt.budjetti) + ' €/kk' + (i === 0 ? ' (aloitus)' : '');
+      if (!avattu) {
+        teeRivi(el.budjetit, 'b' + i, nimi, ['00–00 ' + sanat.lkm], '00–00 € / ' + sanat.yks);
+        return;
+      }
+      var lisa = haarukka(tt.hintaMin, tt.hintaMax, '€') + ' / ' + sanat.yks + (t.skaala ? ', ilman hallinnointia' : ', sis. hallinnoinnin');
+      if (tt.rajoittaa) lisa += ' · hakuja ei riitä koko budjetille';
+      var maara = tt.yhtMax < 1 ? 'alle 1 ' + sanat.lkm : haarukka(tt.yhtMin, tt.yhtMax) + ' ' + sanat.lkm;
+      teeRivi(el.budjetit, 'b' + i, nimi, [maara + ' / kk'], lisa);
+    });
+  }
+
   function piirraTulokset() {
     var s = lueSyotteet();
-    if (!s) { himmenna(true); return; }
+    if (!s) { if (avattu) himmenna(true); return; }
     himmenna(false);
     var t = laske(s);
-    viimeisin = t;
-    var sanat = t.sanat;
-    asetaRivi('budjetti', 'Suositeltu mainosbudjetti', [fmt(t.B) + ' €/kk'], 'maksetaan suoraan Googlelle');
-    asetaRivi('hallinta', 'Hallinta (' + t.paketti + ')', [t.skaala ? 'Sovitaan erikseen' : fmt(t.hallinta) + ' €/kk + alv']);
-    asetaRivi('kokonais', 'Kokonaiskulu',
-      [t.skaala ? fmt(t.B) + ' €/kk + hallinnointi' : fmt(t.K) + ' €/kk'],
-      'alv 0 %; hallinnan päälle alv 25,5 %');
-    var cplHaar = haarukka(Math.round(t.cplMin), Math.round(t.cplMax), '€');
-    var hintaHaar = haarukka(t.hintaMin, t.hintaMax, '€');
-    var hintaLisa;
-    if (!t.skaala) hintaLisa = 'sis. hallinnoinnin · mainoskulu ' + cplHaar;
-    else if (hintaHaar === cplHaar) hintaLisa = 'mainoskulu, ilman hallinnointia';
-    else hintaLisa = 'ilman hallinnointia · mainoskulu ' + cplHaar;
-    asetaRivi('hinta', 'Hinta per ' + sanat.yks + ' optimoinnin jälkeen', [hintaHaar], hintaLisa);
-    asetaRivi('yht', 'Odotetut ' + sanat.mon + ' / kk', [haarukka(t.yhtMin, t.yhtMax)]);
-    asetaRivi('kannat', 'Kannattavuus', [t.kannatRivi1, t.kannatRivi2], 'Laskettu myyntihinnalla, ei katteella.');
+    piirraBudjetit(t);
+    if (!avattu) return;
+    teeRivi(el.rivit, 'hallinta', 'Hallinta (' + t.paketti + ')', [t.skaala ? 'Sovitaan erikseen' : fmt(t.hallinta) + ' €/kk + alv'],
+      'mainosbudjetti maksetaan suoraan Googlelle, alv 0 %');
+    teeRivi($('rivit-kannat'), 'kannat', 'Kannattavuus', [t.kannatRivi1, t.kannatRivi2], 'Laskettu myyntihinnalla ilman alv:ta, ei katteella.');
 
     // realismitarkistus
     el.realismiLista.textContent = '';
     t.realismi.forEach(function (r) {
       var li = document.createElement('li');
       if (r.tyyppi === 'ok') li.className = 'ok';
-      var p = document.createElement('span');
-      p.textContent = r.teksti;
-      li.appendChild(p);
-      if (r.nappi) {
-        li.appendChild(document.createElement('br'));
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'btn pieni-nappi';
-        b.textContent = 'Laske ' + fmt(r.nappi) + llaPaate(r.nappi);
-        b.addEventListener('click', function () {
-          el.yht.value = String(r.nappi);
-          muutos('yht');
-        });
-        li.appendChild(b);
-      }
+      li.textContent = r.teksti;
       el.realismiLista.appendChild(li);
     });
   }
 
   function lueSyotteet() {
-    var g = valittuTavoite();
-    var n = luePalvelut(), P = lueHinta(), L = lueYht();
-    if (!g || isNaN(n) || isNaN(P) || P < 1 || P > HINTA_MAX || isNaN(L) || L < 1 || L > 1000) return null;
-    return { tavoite: g, palvelut: n, hinta: P, yhteydenotot: L, alue: valittuAlue() };
+    var g = valitutTavoitteet(), k = valittuKohde();
+    var n = luePalvelut(), P = lueHinta();
+    if (!g.length || !k || isNaN(n) || isNaN(P) || P < 1 || P > HINTA_MAX) return null;
+    return { tavoitteet: g, palvelut: n, kohde: k, hinta: P, alue: valittuAlue() };
   }
 
   /* ---------- muutoskäsittelijä ---------- */
@@ -513,7 +526,7 @@ var ASETUKSET = {
       if (t.id !== mika) return;
       if (!$(t.err).hidden || avattu) aja(t);
     });
-    if (avattu) piirraTulokset();
+    piirraTulokset();
   }
 
   /* ---------- seuranta ---------- */
@@ -683,11 +696,15 @@ var ASETUKSET = {
 
   /* ---------- lähetys ---------- */
   function rakennaLahetys(t) {
-    var g = t.syote.tavoite;
-    var palveluTeksti = t.syote.palvelut === 1 ? '1 palvelu' : (t.syote.palvelut === 15 ? '15+ palvelua' : t.syote.palvelut + ' palvelua');
-    var yhtHaar = haarukka(t.yhtMin, t.yhtMax);
-    var goal = 'Laskuri: ' + SANAT[g].nimi + ' · ' + palveluTeksti + ' · ' + fmt(t.syote.hinta) + ' € · ' + t.syote.yhteydenotot + '/kk · ' +
-      t.alueNimi + ' → ' + t.paketti + ', budjetti ' + fmt(t.B) + ' €/kk, ' + yhtHaar + ' ' + A.tavoite[g].yksikko + '/kk';
+    var g = t.syote.tavoitteet;
+    var n = t.syote.palvelut;
+    var palveluTeksti = n === 1 ? '1 palvelu' : (n === 15 ? '15+ palvelua' : n + ' palvelua');
+    var kohdeTeksti = t.syote.kohde === 'kuluttaja' ? 'kuluttajille' : 'yrityksille';
+    var hintaTeksti = fmt(t.syote.hinta) + (t.syote.kohde === 'kuluttaja' ? ' € sis. alv' : ' € alv 0');
+    var budjetitTeksti = t.tasot.map(function (tt) { return fmt(tt.budjetti) + ' €: ' + haarukka(tt.yhtMin, tt.yhtMax); }).join(', ');
+    var goal = 'Laskuri: ' + g.map(function (x) { return SANAT[x].nimi; }).join(' + ') + ' · ' + palveluTeksti + ' · ' + kohdeTeksti + ' · ' +
+      hintaTeksti + ' · ' + t.alueNimi + ' → ' + t.paketti + ' · ' + t.sanat.mon + '/kk budjeteilla ' + budjetitTeksti;
+    var a = t.alku;
     var body = new URLSearchParams();
     body.set('lomake', 'google-ads-hallinta');
     body.set('yritys', el.yritys.value.trim());
@@ -696,18 +713,19 @@ var ASETUKSET = {
     body.set('consent', 'yes');
     body.set('website', el.website.value);
     body.set('goal', goal);
-    body.set('l_tavoite', g);
-    body.set('l_palvelut', String(t.syote.palvelut));
+    body.set('l_tavoite', g.join(','));
+    body.set('l_palvelut', String(n));
+    body.set('l_kohde', t.syote.kohde);
     body.set('l_hinta', String(t.syote.hinta));
-    body.set('l_yhteydenotot', String(t.syote.yhteydenotot));
     body.set('l_alue', t.syote.alue);
     body.set('t_paketti', t.paketti);
-    body.set('t_budjetti', String(t.B));
+    body.set('t_budjetti', String(a.budjetti));
     body.set('t_hallinta', t.skaala ? 'sovitaan erikseen' : String(t.hallinta));
-    body.set('t_kokonais', String(t.K));
-    body.set('t_hinta_per_yht', t.hintaMin + '–' + t.hintaMax);
-    body.set('t_yhteydenotot', t.yhtMin + '–' + t.yhtMax);
+    body.set('t_kokonais', String(a.K));
+    body.set('t_hinta_per_yht', a.hintaMin + '–' + a.hintaMax);
+    body.set('t_yhteydenotot', a.yhtMin + '–' + a.yhtMax);
     body.set('t_kaupat', String(t.kaupat));
+    body.set('t_budjetit', budjetitTeksti);
     body.set('source', source);
     body.set('page', location.pathname);
     // Klikkitunnisteet vain markkinointisuostumuksella
@@ -772,18 +790,17 @@ var ASETUKSET = {
   function avaaLaskelma(t) {
     avattu = true;
     // seuranta (vain kerran, ei henkilötietoja)
-    var tiedot = { event: 'calculator_submit', paketti: t.paketti, budjetti: t.B, tavoite: t.syote.tavoite };
+    var tiedot = { event: 'calculator_submit', paketti: t.paketti, budjetti: t.alku.budjetti, tavoite: t.syote.tavoitteet.join(','), kohde: t.syote.kohde };
     window.dataLayer.push(tiedot);
     // GTM hoitaa konversion dataLayer-tapahtumasta; erillistä gtag('event', ...) -kutsua ei tehdä (tuplakonversion esto)
     track('form_submit');
 
-    el.rivit.classList.remove('lukittu');
+    document.querySelectorAll('.rivit').forEach(function (d) { d.classList.remove('lukittu'); });
     document.getElementById('lukitus-selite').hidden = true;
     el.lomakeOsa.hidden = true;
     el.kiitos.hidden = false;
     el.lisat.hidden = false;
     piirraTulokset();
-    paivitaTavoiteTekstit();
     paivitaLoppuCta();
 
     el.kiitosOtsikko.focus({ preventScroll: true });
@@ -799,12 +816,13 @@ var ASETUKSET = {
     a.addEventListener('click', function (e) {
       e.preventDefault();
       el.kortti.scrollIntoView({ behavior: reduce ? 'instant' : 'smooth', block: 'start' });
-      var eka = form.querySelector('input[name="tavoite"]:checked') || form.querySelector('input[name="tavoite"]');
+      var eka = form.querySelector('input[name="tavoite"]');
       if (eka) { ohitaSeuranta = true; eka.focus({ preventScroll: true }); ohitaSeuranta = false; }
     });
   });
 
   /* ---------- alkutila ---------- */
-  paivitaTavoiteTekstit();
+  paivitaHintaTekstit();
   paivitaPaketti();
+  piirraTulokset();
 })();
