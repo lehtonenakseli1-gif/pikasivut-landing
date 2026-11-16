@@ -478,3 +478,21 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--bg-
   html{scroll-behavior:auto;}
   .js .hl{background-size:100% 40%;}
 }
+
+/* ---------- us/case-study ---------- */
+.cs-eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 14px;}
+.cs-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:12px 0 8px;max-width:900px;}
+.cs-stats>div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 24px;display:grid;gap:4px;}
+.cs-stats b{font-family:var(--display);font-size:clamp(36px,5vw,52px);line-height:1;color:var(--blue);font-variant-numeric:tabular-nums;}
+.cs-stats span{font-size:16px;font-weight:600;}
+.cs-stats small{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);}
+.cs-split{display:flex;height:44px;border-radius:12px;overflow:hidden;margin:18px 0 6px;font-family:var(--mono);font-size:14px;}
+.cs-split div{display:flex;align-items:center;padding:0 14px;white-space:nowrap;min-width:0;}
+.cs-split .q{background:var(--blue);color:#fff;}
+.cs-split .c{background:var(--bg-alt);color:var(--ink);border:1px solid var(--line);border-left:none;border-radius:0 12px 12px 0;}
+.article ul.cs-tickets{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.article ul.cs-tickets li{margin:0;border:1.5px dashed var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:2px;font-size:15px;color:var(--ink-soft);background:var(--card);}
+.cs-tickets span{font-family:var(--mono);font-size:12px;}
+.cs-tickets strong{color:var(--ink);font-size:16.5px;}
+.article p.cs-note{font-size:14.5px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:18px;margin-top:40px;}
+@media (max-width:640px){.cs-stats,.article ul.cs-tickets{grid-template-columns:1fr;}}
