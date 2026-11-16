@@ -104,6 +104,10 @@ h2{font-family:var(--display);font-size:clamp(28px,3.6vw,42px);letter-spacing:-.
 .problem-card h3{font-size:20px;font-weight:500;color:var(--blue);margin:0 0 8px;line-height:1.3;}
 .problem-card:hover h3{text-decoration:underline;}
 .problem-card p{margin:0;color:var(--ink-soft);font-size:15px;}
+.problem .fix{margin-top:18px;padding-top:16px;border-top:1px dashed var(--line);}
+.problem .fix h4{font-size:16px;font-weight:700;margin:0 0 6px;display:flex;gap:8px;align-items:center;color:var(--ink);}
+.problem .fix h4 svg{width:18px;height:18px;flex:none;color:var(--blue);}
+.problem .why-grid{margin-top:20px;}
 
 .check{color:var(--blue);font-weight:800;flex:none;}
 .price-note{font-size:14.5px;color:var(--ink-soft);margin:26px 0 0;max-width:80ch;}

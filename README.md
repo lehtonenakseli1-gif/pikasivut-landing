@@ -9,7 +9,7 @@ Pelkkä HTML + CSS + vanilla JS. Tekstit me-muodossa (yritys, ei minä), eikä p
 | --- | --- |
 | `index.html` | Etusivu: nav, hero, palvelut, vaiheet, yhteydenotto |
 | `site.css` | Koko sivuston tyylit (Hakukenttä-teema). Kaikki sivut käyttävät tätä |
-| `site.js` | Interaktiiviset osat: etusivun hero-hakudemo (itsekirjoittuva hakukenttä ja mainoksen vaihto), korostuskynä (`.hl`), mobiilivalikko, USD/EUR-valitsin (`us/`), arviolomake virheviesteineen (lukee Apps Scriptin vastauksen), nimetön kävijälaskenta sekä oppaiden interaktiiviset osat (itsetarkistus, hakutermiraportti jossa valitaan negatiiviset, konversioterminaali). Hakutermitaulu (auditointi) on pelkkää staattista HTML:ää ja CSS:ää |
+| `site.js` | Interaktiiviset osat: etusivun hero-hakudemo (itsekirjoittuva hakukenttä ja mainoksen vaihto), korostuskynä (`.hl`), mobiilivalikko, arviolomake virheviesteineen (lukee Apps Scriptin vastauksen), nimetön kävijälaskenta sekä oppaiden interaktiiviset osat (itsetarkistus, hakutermiraportti jossa valitaan negatiiviset, konversioterminaali). Hakutermitaulu (auditointi) on pelkkää staattista HTML:ää ja CSS:ää |
 | `fonts/` | Itse hostatut fontit: Bricolage Grotesque, Figtree, DM Mono |
 | `google-ads-hinta/` | Hinnasto: Perus 320 € (1 kampanja), Kasvu 490 € (2–4), Kattava 750 € (5–9), Skaala 10+ (sovitaan erikseen); paketit eroavat vain kampanjoiden määrältä; mainosbudjetin alaraja 500 €/kk |
 | `google-ads-hallinta/` | Mainossivu Google Ads -kampanjoiden laskeutumissivuksi (noindex, ei navigaatiossa eikä sitemapissa). Hintalaskuri tiedostossa `laskuri.js`: säädettävät arvot `ASETUKSET`-objektissa tiedoston alussa. Oma tyyli `mainos.css`. Lähettää laskelmapyynnöt samaan Apps Script -osoitteeseen. |

@@ -193,21 +193,6 @@
     addEventListener('resize', function () { if (innerWidth > 960) mm.removeAttribute('open'); });
   }
 
-  /* ---------- valuuttavalitsin (USD / EUR), vain englanninkielisellä sivustolla ---------- */
-  if (EN) {
-    var curBtns = document.querySelectorAll('[data-set-cur]');
-    var qsCur = new URLSearchParams(location.search).get('cur');
-    var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
-    var curNow = qsCur === 'eur' || qsCur === 'usd' ? qsCur : (tz === 'Europe/Helsinki' ? 'eur' : 'usd');
-    var applyCur = function (c) {
-      curNow = c;
-      document.querySelectorAll('[data-cur]').forEach(function (el) { el.hidden = el.dataset.cur !== c; });
-      curBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setCur === c)); });
-    };
-    curBtns.forEach(function (b) { b.addEventListener('click', function () { applyCur(b.dataset.setCur); }); });
-    applyCur(curNow);
-  }
-
   /* ---------- Ilmainen arvio -lomake ---------- */
   var arvio = document.getElementById('arvio-form');
 
