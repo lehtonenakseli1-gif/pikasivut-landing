@@ -16,7 +16,6 @@ Pelkkä HTML + CSS + vanilla JS. Tekstit me-muodossa (yritys, ei minä), eikä p
 | `google-ads-auditointi/` | Google Ads -tilin auditointi |
 | `opas/` | Oppaat (hakemisto + 3 artikkelia) |
 | `404.html` | Virhesivu (noindex) |
-| `esimerkkitarjous.pdf` | Tarjousapilla generoitu esimerkki. Ei enää linkitetty sivulta — säilytetty tiedostojärjestelmässä, jos tarvitset sitä myöhemmin |
 | `privacy.html` | Tietosuojaseloste |
 | `terms.html` | Toimitusehdot |
 
