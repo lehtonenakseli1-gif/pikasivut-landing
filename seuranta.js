@@ -85,6 +85,21 @@
 
   /* ---------- 2b. Tapahtumat myös Clarityyn (vain jos Clarity on ladattu, eli suostumuksella) ----------
      Näin Clarityn tallenteet voi suodattaa esim. tapahtumalla calculator_submit tai phone_click. */
+  // Clarity ladataan vain evästehyväksynnällä: heti, jos valinta on jo tallennettu, tai kun kävijä hyväksyy
+  // (consent_update). Sama __psClarity-vahti on GTM:n Clarity-tagissa, joten kaksoislatausta ei tule.
+  var CLARITY_ID = 'zh67xy7ndp';
+  function lataaClarity() {
+    if (window.__psClarity) return;
+    window.__psClarity = true;
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', CLARITY_ID);
+    window.clarity('consent');
+  }
+  if (lueSuostumus() === 'kaikki') lataaClarity();
+
   if (!window.__psClarityForward) {
     window.__psClarityForward = true;
     var alkupPush = window.dataLayer.push;
@@ -93,6 +108,7 @@
       try {
         for (var i = 0; i < arguments.length; i++) {
           var o = arguments[i];
+          if (o && o.event === 'consent_update' && o.suostumus === 'kaikki') lataaClarity();
           if (o && typeof o.event === 'string' && o.event.indexOf('gtm.') !== 0 && typeof window.clarity === 'function') {
             window.clarity('event', o.event);
           }
