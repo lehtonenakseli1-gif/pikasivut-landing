@@ -53,6 +53,11 @@ ul,ol{margin:0;padding:0;}
 .btn.blokki{width:100%;}
 .btn:disabled{opacity:.65;cursor:default;}
 .btn.vaalea{background:#fff;color:var(--ink);}
+.btn.reuna{background:#fff;color:var(--ink);border:1.5px solid var(--edge);}
+.btn.reuna:hover{background:var(--bg-alt);}
+.btn.reuna-tumma{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.6);}
+.btn.reuna-tumma:hover{background:rgba(255,255,255,.1);}
+.napin-rivi{display:flex;flex-wrap:wrap;gap:.75rem;}
 .btn.vaalea:hover{background:var(--tint);}
 
 /* ===== hero ===== */

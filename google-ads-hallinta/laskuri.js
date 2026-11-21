@@ -3,10 +3,10 @@
 var ASETUKSET = {
   minBudjetti: 500,              // mainosbudjetin alaraja €/kk (sama kuin hinnastossa)
   minBudjettiPerKampanja: 250,   // ohjeellinen vähimmäisbudjetti per kampanja €/kk
-  budjettiKatto: 10000,          // suurin tuloksissa näytettävä budjetti €/kk (suositusta suuremmat)
+  budjettiKatto: 5000,          // suurin tuloksissa näytettävä budjetti €/kk (suositusta suuremmat)
   budjetinPyoristys: 100,        // budjettitasot pyöristetään ylöspäin tähän
   suositusBudjetti: 1000,       // suositeltu mainosbudjetti €/kk (vähintään alaraja)
-  suositusKertoimet: [2, 3],     // suosituksen jälkeen näytettävät budjetit = suositus × nämä
+  suositusKertoimet: [2, 5],     // suosituksen jälkeen näytettävät budjetit = suositus × nämä
   alv: 0.255,                    // kuluttajahinnasta poistettava alv
   // Klikkihinta (€) palvelun hinnan mukaan. Välissä interpoloidaan logaritmisesti
   // hinnan suhteen; alle ensimmäisen ja yli viimeisen käytetään reuna-arvoja.
@@ -23,7 +23,7 @@ var ASETUKSET = {
     paikallinen: { nimi: 'paikallisesti', klikkikerroin: 1.0,  klikkikattoPerPalvelu: 300 },
     suomi:       { nimi: 'koko Suomessa', klikkikerroin: 1.15, klikkikattoPerPalvelu: 1500 }
   },
-  // Osuus klikkaajista, joka ottaa yhteyttä OPTIMOINNIN JÄLKEEN (2–3 kk)
+  // Osuus klikkaajista, joka ottaa yhteyttä OPTIMOINNIN JÄLKEEN (1–2 kk)
   tavoite: {
     lomake:     { min: 0.05,  max: 0.08 },
     puhelu:     { min: 0.06,  max: 0.10 },
