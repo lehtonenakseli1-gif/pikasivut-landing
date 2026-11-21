@@ -757,21 +757,37 @@ var ASETUKSET = {
     if (TESTI) {
       console.info('[testitila] lähetys', Object.fromEntries(body));
       return new Promise(function (resolve, reject) {
-        setTimeout(function () { TESTI_VIRHE ? reject(new Error('testivirhe')) : resolve(); }, 600);
+        setTimeout(function () {
+          if (!TESTI_VIRHE) return resolve();
+          var v = new Error('testivirhe');
+          v.laji = qs.get('laji') === 'A' ? 'A' : 'B'; // ?testi=virhe&laji=A = palvelin hylkäsi tiedot
+          reject(v);
+        }, 600);
       });
     }
     var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
     var ajastin = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
-    // no-cors kuten site.js:ssä: Apps Scriptin CORS-otsikoita ei voi varmistaa, eikä vastausta voi lukea.
-    // Resolve (opaque-vastaus palautui) = onnistui; reject tai 15 s aikakatkaisu = virhe. Asiakaspään
-    // validointi vastaa palvelimen validointia (yritys >= 2 merkkiä, sama sähköpostiregex, consent).
-    var pyynto = { method: 'POST', mode: 'no-cors', body: body };
+    // Kuten /arvio/-lomake (site.js submitLead): vastaus luetaan. 'ok' = tallentui taulukkoon,
+    // 'invalid' = palvelin hylkäsi tiedot (virhe A), kaikki muu (HTTP-virhe, Apps Scriptin virhesivu,
+    // verkkovirhe, 15 s aikakatkaisu) = vahvistus puuttuu (virhe B). Laskelma avautuu vain 'ok':lla.
+    var pyynto = { method: 'POST', body: body };
     if (ctrl) pyynto.signal = ctrl.signal;
-    return fetch(ENDPOINT, pyynto).then(function () { clearTimeout(ajastin); },
-      function (err) { clearTimeout(ajastin); throw err; });
+    return fetch(ENDPOINT, pyynto).then(function (res) {
+      if (!res.ok) throw new Error('http ' + res.status);
+      return res.text();
+    }).then(function (teksti) {
+      clearTimeout(ajastin);
+      var vastaus = String(teksti).trim();
+      if (vastaus === 'ok') return;
+      var virhe = new Error('vastaus ' + vastaus.slice(0, 40));
+      virhe.laji = vastaus === 'invalid' ? 'A' : 'B';
+      throw virhe;
+    }, function (err) { clearTimeout(ajastin); throw err; });
   }
 
-  var VIRHE_HTML = 'Lähetys ei onnistunut. Yritä uudelleen, tai lähetä sähköpostia osoitteeseen <a class="sposti" href="mailto:akseli@pikasivut.com">akseli@<wbr>pikasivut.com</a>';
+  var SPOSTI_HTML = '<a class="sposti" href="mailto:akseli@pikasivut.com">akseli@<wbr>pikasivut.com</a>';
+  var VIRHE_A_HTML = 'Lähetys ei mennyt läpi. Tarkista tiedot ja yritä uudelleen, tai lähetä sähköpostia osoitteeseen ' + SPOSTI_HTML;
+  var VIRHE_B_HTML = 'Emme saaneet vahvistusta siitä, että tiedot tallentuivat. Yritä uudelleen, tai lähetä sähköpostia osoitteeseen ' + SPOSTI_HTML;
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -796,11 +812,11 @@ var ASETUKSET = {
     lahetaPalvelimelle(body).then(function () {
       lahettaa = false;
       avaaLaskelma(t);
-    }).catch(function () {
+    }).catch(function (err) {
       lahettaa = false;
       el.nappi.disabled = false;
       el.nappi.textContent = 'Näytä laskelma';
-      el.status.innerHTML = VIRHE_HTML;
+      el.status.innerHTML = err && err.laji === 'A' ? VIRHE_A_HTML : VIRHE_B_HTML;
       // virheviesti ei saa jäädä evästepalkin (scroll-padding-bottom hoitaa palkin) eikä ruudun alareunan alle
       el.status.scrollIntoView({ block: 'nearest', behavior: reduce ? 'instant' : 'auto' });
     });
