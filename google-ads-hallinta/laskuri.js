@@ -861,3 +861,12 @@ var ASETUKSET = {
   paivitaHintaTekstit();
   piirraTulokset();
 })();
+
+/* Mobiilivalikko: sulkeutuu linkin klikkauksesta ja Esc-näppäimellä (sama kuin site.js:ssä) */
+(function () {
+  var mm = document.querySelector('.paapalkki .mobile-menu');
+  if (!mm) return;
+  mm.addEventListener('click', function (e) { if (e.target.closest('a')) mm.removeAttribute('open'); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') mm.removeAttribute('open'); });
+  document.addEventListener('click', function (e) { if (!mm.contains(e.target)) mm.removeAttribute('open'); });
+})();

@@ -41,8 +41,8 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/bricolage-grotesque-400-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/figtree-400-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="mainos.css?v=20261121d">
-<script src="laskuri.js?v=20261121e" defer></script>
+<link rel="stylesheet" href="mainos.css?v=20261121e">
+<script src="laskuri.js?v=20261121f" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -87,10 +87,27 @@
 </div>
 
 
-<header class="ylapalkki">
-  <div class="wrap">
-    <div class="logo"><svg class="logo-mark" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="11" fill="#1d4ed8"/><path d="M13 31 L31 13 M20 13 H31 V24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lw">Pika<span>sivut</span></span></div>
-  </div>
+<header class="paapalkki">
+  <nav class="wrap" aria-label="Päävalikko">
+    <a href="/" class="logo" aria-label="Pikasivut, etusivulle"><svg class="logo-mark" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="11" fill="#1d4ed8"/><path d="M13 31 L31 13 M20 13 H31 V24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lw">Pika<span>sivut</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/google-ads-auditointi/">Auditointi</a></li>
+      <li><a href="/google-ads-hinta/">Hinnat</a></li>
+      <li><a href="#laskuri" class="is-active" aria-current="page">Laskuri</a></li>
+      <li><a href="/opas/">Oppaat</a></li>
+      <li><a href="/ukk/">UKK</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="/arvio/" class="nav-cta">Ilmainen arvio</a>
+      <details class="mobile-menu">
+        <summary aria-label="Avaa valikko"><span class="burger" aria-hidden="true"></span></summary>
+        <div class="mm-panel">
+          <ul><li><a href="/google-ads-auditointi/">Auditointi</a></li><li><a href="/google-ads-hinta/">Hinnat</a></li><li><a href="#laskuri" aria-current="page">Laskuri</a></li><li><a href="/opas/">Oppaat</a></li><li><a href="/ukk/">UKK</a></li></ul>
+          <a href="/arvio/" class="btn blokki">Pyydä ilmainen arvio</a>
+        </div>
+      </details>
+    </div>
+  </nav>
 </header>
 
 <main>
@@ -103,6 +120,7 @@
       <p class="hinta-rivi"><strong>300 € + 10 % mainosbudjetista</strong> kuukaudessa + alv</p>
       <p class="hinta-ala">Tarvittaessa teemme nettisivut veloituksetta uusille asiakkaille. Budjettia ei koskaan nosteta ilman sinun hyväksyntääsi. Irtisanomisaika on yksi kalenterikuukausi.</p>
       <p class="soita-rivi"><img src="akseli.jpg?v=20261121b" alt="" width="640" height="640" decoding="async"><span>Kysyttävää? Soita: <a href="tel:+358458505051">045&nbsp;850&nbsp;5051</a></span></p>
+      <p class="hero-tarjous"><a class="btn reuna" href="/arvio/">Pyydä tarjous</a></p>
       <p class="lause">Teemme ja hoidamme Googlen hakusanamainonnan puolestasi, jotta budjetti menee hakuihin, joista tulee puheluita ja tarjouspyyntöjä.</p>
     </div>
 
