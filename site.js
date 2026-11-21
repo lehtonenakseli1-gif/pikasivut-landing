@@ -293,6 +293,10 @@
         goal: goalTeksti, consent: 'yes', website: '',
         source: qs.get('utm_source') || qs.get('s') || (document.referrer ? new URL(document.referrer).hostname : T.direct)
       });
+      // Mainosklikkauksen tunnisteet (seuranta.js, vain evästesuostumuksella) offline-konversioita varten
+      var tunn = typeof window.pikasivutTunnisteet === 'function' ? window.pikasivutTunnisteet() : {};
+      ['gclid', 'gbraid', 'wbraid'].forEach(function (k) { if (tunn[k]) body.set(k, tunn[k]); });
+      if (Object.keys(tunn).length && body.get('source') === T.direct) body.set('source', 'google-ads (aiempi käynti)');
       var mailto = 'mailto:akseli@pikasivut.com?subject=Ilmainen%20mainonta-arvio&body=' +
         encodeURIComponent('Yritys: ' + name + '\nTavoite: ' + (goalTeksti || '-') + '\n');
       submitLead(btn, status, body, mailto);
