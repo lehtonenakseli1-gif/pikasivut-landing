@@ -482,7 +482,7 @@ var ASETUKSET = {
       r.className = 'rivi';
       r.setAttribute('data-rivi', 'b' + i);
       var dt = document.createElement('dt');
-      dt.textContent = fmt(tt.budjetti) + ' €/kk' + (tt.suositus ? ' (suositus)' : (tt.alaraja ? ' (alaraja)' : ''));
+      dt.textContent = fmt(tt.budjetti) + ' €/kk' + (tt.suositus ? ' (suositus alkuun, jos et ole aiemmin mainostanut)' : (tt.alaraja ? ' (alaraja)' : ''));
       var dd = document.createElement('dd');
       var hall = document.createElement('span');
       hall.className = 'hall';
