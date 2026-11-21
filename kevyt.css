@@ -1,0 +1,61 @@
+/* Kevyt de-slop: vain etusivu ja hintasivu (<body class="kevyt">), ladataan site.css:n jälkeen.
+   Kaikki säännöt .kevyt-alkuisia, jotta mikään muu sivu (eikä us/) muutu.
+   Ei korttilaatikoita, ei varjoja napeissa, ei liikkuvaa korostusta. */
+
+.kevyt{--rule:#b9bdcb;}
+
+/* ===== etusivun hero ===== */
+/* H1: 2-3 riviä kapealla puhelimella, enintään 2 riviä leveällä näytöllä; rem-pohjainen, skaalautuu html-fontin mukana */
+.kevyt .hero h1{font-size:clamp(1.55rem,.95rem + 3.3vw,3.6rem);line-height:1.08;letter-spacing:-.03em;max-width:none;overflow-wrap:break-word;}
+.kevyt h1 .nw{white-space:nowrap;}
+
+@media (min-width:1600px){
+  .kevyt .hero h1{font-size:clamp(3.75rem,3.3vw,5.75rem);}
+}
+
+/* ===== ongelmakortit: ei korttia, vain ohut yläviiva ===== */
+.kevyt .problem-card{background:none;border:0;border-radius:0;border-top:1px solid var(--rule);padding:1.1rem 0 0;}
+.kevyt .problem-card h3{color:var(--ink);font-weight:700;}
+.kevyt .problem-card:hover h3{text-decoration:none;}
+
+/* ===== "Miten hoidamme mainontasi": ei laatikoita, ei ikoneita ===== */
+.kevyt .why-item{background:none;border:0;border-radius:0;border-top:1px solid var(--rule);padding:1.1rem 0 0;}
+.kevyt .why-grid{gap:1.75rem 2.5rem;}
+
+/* ===== napit: ei varjoa, ei nostoa (värinvaihto riittää) ===== */
+.kevyt .btn-primary,.kevyt .nav-cta,.kevyt .mb-main{box-shadow:none;}
+.kevyt .btn-primary:hover,.kevyt .nav-cta:hover{transform:none;box-shadow:none;}
+
+/* ===== hintasivu ===== */
+.kevyt .callout{box-shadow:none;}
+
+.kevyt .hinta-lohko{display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem;align-items:start;}
+.kevyt .hinta-iso{border:1px solid var(--rule);border-radius:.75rem;padding:1.5rem 1.25rem;background:var(--card);}
+.kevyt .hinta-iso .amount{font-family:var(--display);font-weight:800;font-size:clamp(2rem,1.1rem + 3vw,3.4rem);letter-spacing:-.03em;line-height:1.05;color:var(--ink);}
+.kevyt .hinta-selite{font-size:1.0625rem;font-weight:600;color:var(--ink);margin:.5rem 0 0;}
+.kevyt .hinta-huom{font-size:.9375rem;color:var(--ink-soft);margin:.75rem 0 0;}
+.kevyt .hinta-iso .btn-primary{margin-top:1.25rem;}
+
+.kevyt .hinta-esim{min-width:0;}
+.kevyt .hinta-esim .table-wrap{overflow-x:visible;}
+.kevyt .hinta-taulu{width:100%;border-collapse:collapse;font-size:1rem;font-variant-numeric:tabular-nums;}
+.kevyt .hinta-taulu caption{text-align:left;font-weight:700;color:var(--ink);padding:0 0 .5rem;}
+.kevyt .hinta-taulu th,.kevyt .hinta-taulu td{padding:.7rem .4rem;text-align:right;border-bottom:1px solid var(--line);background:none;}
+.kevyt .hinta-taulu th:first-child,.kevyt .hinta-taulu td:first-child{text-align:left;padding-left:0;}
+.kevyt .hinta-taulu th:last-child,.kevyt .hinta-taulu td:last-child{padding-right:0;}
+.kevyt .hinta-taulu thead th{font-size:.8125rem;font-weight:600;text-transform:none;letter-spacing:0;color:var(--ink-soft);border-bottom:1.5px solid var(--rule);}
+.kevyt .hinta-taulu tbody td:last-child{font-weight:700;}
+.kevyt .hinta-esim .hinta-huom{margin-top:.6rem;}
+
+.kevyt .price-includes{border-color:var(--rule);border-radius:.75rem;}
+.kevyt .price-includes ul{display:block;column-count:2;column-gap:2rem;padding-left:1.25rem;}
+.kevyt .price-includes li{display:list-item;break-inside:avoid;}
+.kevyt .price-includes li::marker{color:var(--ink-soft);}
+
+@media (max-width:760px){
+  .kevyt .price-includes ul{column-count:1;}
+}
+@media (min-width:1024px){
+  .kevyt .hinta-lohko{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:2.5rem;}
+  .kevyt .hinta-iso{padding:2rem 1.75rem;}
+}

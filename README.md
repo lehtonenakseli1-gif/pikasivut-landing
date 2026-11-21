@@ -11,7 +11,7 @@ Pelkkä HTML + CSS + vanilla JS. Tekstit me-muodossa (yritys, ei minä), eikä p
 | `site.css` | Koko sivuston tyylit (Hakukenttä-teema). Kaikki sivut käyttävät tätä |
 | `site.js` | Interaktiiviset osat: etusivun hero-hakudemo (itsekirjoittuva hakukenttä ja mainoksen vaihto), korostuskynä (`.hl`), mobiilivalikko, arviolomake virheviesteineen (lukee Apps Scriptin vastauksen), nimetön kävijälaskenta sekä oppaiden interaktiiviset osat (itsetarkistus, hakutermiraportti jossa valitaan negatiiviset, konversioterminaali). Hakutermitaulu (auditointi) on pelkkää staattista HTML:ää ja CSS:ää |
 | `fonts/` | Itse hostatut fontit: Bricolage Grotesque, Figtree, DM Mono |
-| `google-ads-hinta/` | Hinnasto: Perus 320 € (1 kampanja), Kasvu 490 € (2–4), Kattava 750 € (5–9), Skaala 10+ (sovitaan erikseen); paketit eroavat vain kampanjoiden määrältä; mainosbudjetin alaraja 500 €/kk |
+| `google-ads-hinta/` | Hinnasto: hallinnointi 300 € + 10 % mainosbudjetista /kk + alv, mainosbudjetin alaraja 500 €/kk; ei paketteja |
 | `google-ads-hallinta/` | Mainossivu Google Ads -kampanjoiden laskeutumissivuksi (noindex, ei navigaatiossa eikä sitemapissa). Hintalaskuri tiedostossa `laskuri.js`: säädettävät arvot `ASETUKSET`-objektissa tiedoston alussa. Oma tyyli `mainos.css`. Lähettää laskelmapyynnöt samaan Apps Script -osoitteeseen. |
 | `google-ads-auditointi/` | Google Ads -tilin auditointi |
 | `opas/` | Oppaat (hakemisto + 3 artikkelia) |
@@ -35,7 +35,7 @@ Jokaisella asialla on yksi koti, eikä sisältöä toisteta sivulta toiselle:
 | Sivu | Tehtävä |
 | --- | --- |
 | `/` | Yleiskatsaus: ongelmat, mistä aloitetaan (linkkikortit auditointiin, hintoihin ja oppaisiin), miksi Pikasivut |
-| `/google-ads-hinta/` | Paketit ja hinnat (ainoa paikka, jossa paketit kuvataan) |
+| `/google-ads-hinta/` | Hinta ja esimerkit |
 | `/google-ads-auditointi/` | Google Ads -tilin auditointi |
 | `/opas/` | Oppaat |
 | `/ukk/` | Usein kysyttyä (ainoa paikka, jossa UKK on, ja siellä FAQPage-schema) |
