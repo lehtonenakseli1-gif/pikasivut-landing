@@ -17,6 +17,8 @@ var ASETUKSET = {
   ],
   // Alue: klikkikerroin kertoo klikkihinnan; klikkikatto = arvioitu klikkimäärä/kk
   // per palvelu, jota enempää hakuja ei yleensä ole (kysyntäraja)
+  // Palvelujen määrää ei enää kysytä: kysyntäraja = klikkikattoPerPalvelu × tämä (tyypillinen palvelumäärä)
+  kysyntaPalvelut: 3,
   alue: {
     paikallinen: { nimi: 'paikallisesti', klikkikerroin: 1.0,  klikkikattoPerPalvelu: 300 },
     suomi:       { nimi: 'koko Suomessa', klikkikerroin: 1.15, klikkikattoPerPalvelu: 1500 }
@@ -142,7 +144,7 @@ var ASETUKSET = {
     var cplMax = cpcMax / cvr.min;
     var cplKeski = Math.sqrt(cplMin * cplMax);
     // 4. budjetin alaraja ja kysyntäraja
-    var maxKlikit = n * alue.klikkikattoPerPalvelu;
+    var maxKlikit = A.kysyntaPalvelut * alue.klikkikattoPerPalvelu;
     var kulutettavissa = maxKlikit * cpcKeski;
 
     // 5. tulokset eri budjeteilla
@@ -716,11 +718,10 @@ var ASETUKSET = {
   function rakennaLahetys(t) {
     var g = t.syote.tavoitteet;
     var n = t.syote.palvelut;
-    var palveluTeksti = n === 1 ? '1 palvelu' : (n === 15 ? '15+ palvelua' : n + ' palvelua');
     var kohdeTeksti = t.syote.kohde === 'kuluttaja' ? 'kuluttajille' : 'yrityksille';
     var hintaTeksti = fmt(t.syote.hinta) + (t.syote.kohde === 'kuluttaja' ? ' € sis. alv' : ' € alv 0');
     var budjetitTeksti = t.tasot.map(function (tt) { return fmt(tt.budjetti) + ' €: ' + haarukka(tt.yhtMin, tt.yhtMax); }).join(', ');
-    var goal = 'Laskuri: ' + g.map(function (x) { return SANAT[x].nimi; }).join(' + ') + ' · ' + palveluTeksti + ' · ' + kohdeTeksti + ' · ' +
+    var goal = 'Laskuri: ' + g.map(function (x) { return SANAT[x].nimi; }).join(' + ') + ' · ' + kohdeTeksti + ' · ' +
       hintaTeksti + ' · ' + t.alueNimi + ' · hallinnointi ' + luku(t.hallinta) + ' €/kk suositusbudjetilla · ' + t.sanat.mon + '/kk budjeteilla ' + budjetitTeksti;
     var a = t.alku;
     var body = new URLSearchParams();

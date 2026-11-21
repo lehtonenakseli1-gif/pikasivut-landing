@@ -41,8 +41,8 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/bricolage-grotesque-400-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/figtree-400-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="mainos.css?v=20261121b">
-<script src="laskuri.js?v=20261121c" defer></script>
+<link rel="stylesheet" href="mainos.css?v=20261121c">
+<script src="laskuri.js?v=20261121d" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -102,14 +102,14 @@
       <h1><span class="nw">Google-mainonta</span>, joka tuo yhteydenottoja</h1>
       <p class="hinta-rivi"><strong>300 € + 10 % mainosbudjetista</strong> kuukaudessa + alv</p>
       <p class="hinta-ala">Tarvittaessa teemme nettisivut veloituksetta uusille asiakkaille. Budjettia ei koskaan nosteta ilman sinun hyväksyntääsi. Irtisanomisaika 1 kuukausi.</p>
-      <p class="soita-rivi">Kysyttävää? Soita <a href="tel:+358458505051">045&nbsp;850&nbsp;5051</a></p>
+      <p class="soita-rivi"><img src="akseli.jpg?v=20261121b" alt="" width="640" height="640" decoding="async"><span>Kysyttävää? Soita minulle: <a href="tel:+358458505051">045&nbsp;850&nbsp;5051</a></span></p>
       <p class="lause">Teemme ja hoidamme Googlen hakusanamainonnan puolestasi, jotta budjetti menee hakuihin, joista tulee puheluita ja tarjouspyyntöjä.</p>
     </div>
 
     <div class="kortti" id="laskuri">
       <form id="laskuri-form" novalidate>
         <h2>Laske mainonnan hinta ja tulos</h2>
-        <p class="kortti-ala">Viisi kysymystä. Hinnan näet heti, arvion yhteydenotoista yhteystietojen jälkeen.</p>
+        <p class="kortti-ala">Neljä kysymystä. Hinnan näet heti, arvion yhteydenotoista yhteystietojen jälkeen.</p>
 
         <div class="kysymykset">
           <fieldset class="kys" id="q-tavoite">
@@ -124,7 +124,8 @@
             <p class="err" id="e-tavoite" hidden>Valitse vähintään yksi.</p>
           </fieldset>
 
-          <div class="kys">
+          <!-- Palvelujen määrää ei enää kysytä (Akseli 21.11.): piilotettu, arvo 1 pitää laskurin logiikan ennallaan. -->
+          <div class="kys" hidden>
             <label class="q" for="q-palvelut">Montako eri palvelua tai kategoriaa mainostetaan?</label>
             <div class="stepper">
               <button type="button" id="pal-vahenna" aria-label="Vähennä palveluita">&minus;</button>
@@ -321,7 +322,7 @@
 <section class="loppu-cta">
   <div class="wrap">
     <h2>Katso, mitä mainonta sinulle maksaisi</h2>
-    <p>Viisi kysymystä, ja näet hinnan ja arvion yhteydenotoista eri budjeteilla.</p>
+    <p>Neljä kysymystä, ja näet hinnan ja arvion yhteydenotoista eri budjeteilla.</p>
     <p class="napin-rivi"><a class="btn vaalea" href="#laskuri" id="loppu-cta-nappi">Laske oma arviosi</a></p>
   </div>
 </section>
