@@ -46,6 +46,25 @@
   ]
 }
 </script>
+<style>
+.arvio-sivu{display:none;}
+@media (min-width:1024px){
+  .arvio-article{max-width:none;}
+  .arvio-article > :not(.arvio-rivi){max-width:740px;}
+  .arvio-rivi{display:grid;grid-template-columns:minmax(0,560px) minmax(0,26rem);gap:4rem;align-items:start;}
+  .arvio-rivi .arvio-wrap{max-width:none;}
+  .arvio-sivu{display:block;padding-top:.5rem;}
+  .as-tekija{display:flex;align-items:center;gap:.9rem;padding-bottom:1.25rem;border-bottom:1px solid var(--line);}
+  .as-tekija img{width:4rem;height:4rem;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--line);}
+  .as-tekija strong{display:block;color:var(--ink);}
+  .as-tekija span{display:block;color:var(--ink-soft);font-size:.9rem;}
+  .arvio-sivu h2{font-size:1.25rem;margin:1.5rem 0 .75rem;}
+  .as-askeleet{margin:0;padding-left:1.25rem;display:grid;gap:.75rem;color:var(--ink-soft);}
+  .as-askeleet strong{color:var(--ink);}
+  .as-faktat{list-style:none;margin:1.5rem 0 0;padding:1.25rem 0 0;border-top:1px solid var(--line);display:grid;gap:.6rem;font-size:.95rem;}
+  .as-faktat span{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;}
+}
+</style>
 </head>
 <body>
 
@@ -81,7 +100,8 @@
       <p class="lead">Laita yrityksesi nimi ja sähköposti, niin lähetämme sinulle arvion siitä, miten yrityksesi kannattaisi mainostaa, millä budjetilla ja miten.</p>
     </div>
 
-    <article class="article">
+    <article class="article arvio-article">
+      <div class="arvio-rivi">
       <div class="arvio-wrap">
         <form class="arvio-form" id="arvio-form" novalidate>
           <div class="field">
@@ -119,6 +139,24 @@
           <p>Pyyntö on vastaanotettu. Lähetämme arvion antamaasi sähköpostiin.</p>
           <p>Sillä välin voit lukea <a href="/opas/">oppaitamme</a>.</p>
         </div>
+      </div>
+      <aside class="arvio-sivu" aria-label="Tietoa arviosta">
+        <div class="as-tekija">
+          <img src="/akseli.jpg?v=20261121" alt="" width="640" height="640" loading="lazy" decoding="async">
+          <div><strong>Arvion tekee Akseli Lehtonen</strong><span>Google Ads -mainontaa viisi vuotta</span></div>
+        </div>
+        <h2>Näin se etenee</h2>
+        <ol class="as-askeleet">
+          <li><strong>Lähetä tiedot.</strong> Lomakkeen täyttäminen vie minuutin.</li>
+          <li><strong>Käyn tilanteesi läpi.</strong> Katson yrityksesi, kilpailijat ja hakumäärät ja lähetän arvion sähköpostiin, yleensä yhden arkipäivän sisällä.</li>
+          <li><strong>Päätät itse.</strong> Jos haluat edetä, kampanjat ovat käynnissä muutamassa arkipäivässä.</li>
+        </ol>
+        <ul class="as-faktat">
+          <li><span>Hinta</span>300 € + 10 % mainosbudjetista /kk + alv</li>
+          <li><span>Sitoumus</span>Irtisanomisaika yksi kalenterikuukausi</li>
+          <li><span>Nettisivut</span>Tarvittaessa veloituksetta uusille asiakkaille</li>
+        </ul>
+      </aside>
       </div>
 
       <h2>Mitä arvio sisältää?</h2>
