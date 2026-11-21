@@ -62,6 +62,8 @@ ul,ol{margin:0;padding:0;}
 .hinta-rivi{font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,1rem + 1vw,1.625rem);line-height:1.2;letter-spacing:-.01em;color:var(--ink);text-wrap:balance;}
 .hinta-rivi strong{font-weight:800;}
 .hinta-ala{font-size:.9375rem;color:var(--ink-soft);margin-top:.5rem;text-wrap:balance;}
+.soita-rivi{font-size:.9375rem;color:var(--ink-soft);margin-top:.5rem;}
+.soita-rivi a{color:var(--ink);font-weight:700;}
 .lause{color:var(--ink-soft);font-size:1rem;line-height:1.5;margin-top:.9rem;}
 
 /* ===== laskurikortti ===== */
