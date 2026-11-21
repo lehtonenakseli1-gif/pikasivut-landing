@@ -283,13 +283,18 @@
       status.hidden = true;
       var qs = new URLSearchParams(location.search);
       var name = yritys.value.trim().slice(0, 120);
+      // Nettisivujen osoite kulkee goal-tekstissä, jotta Apps Scriptiä ei tarvitse muuttaa
+      // (kenttä EI saa olla nimeltään "website": se on palvelimen hunajapurkki)
+      var sivusto = arvio.elements.sivusto ? arvio.elements.sivusto.value.trim().slice(0, 200) : '';
+      var tavoite = arvio.elements.goal.value;
+      var goalTeksti = sivusto ? (tavoite ? tavoite + ' · ' : '') + 'Sivut: ' + sivusto : tavoite;
       var body = new URLSearchParams({
         yritys: name, email: arvio.elements.email.value.trim(), phone: arvio.elements.phone.value.trim(),
-        goal: arvio.elements.goal.value, consent: 'yes', website: '',
+        goal: goalTeksti, consent: 'yes', website: '',
         source: qs.get('utm_source') || qs.get('s') || (document.referrer ? new URL(document.referrer).hostname : T.direct)
       });
       var mailto = 'mailto:akseli@pikasivut.com?subject=Ilmainen%20mainonta-arvio&body=' +
-        encodeURIComponent('Yritys: ' + name + '\nTavoite: ' + (arvio.elements.goal.value || '-') + '\n');
+        encodeURIComponent('Yritys: ' + name + '\nTavoite: ' + (goalTeksti || '-') + '\n');
       submitLead(btn, status, body, mailto);
     });
   }
