@@ -553,6 +553,28 @@ var ASETUKSET = {
       if (!$(t.err).hidden || avattu) aja(t);
     });
     piirraTulokset();
+    raportoiVaihe(mika);
+  }
+
+  /* Laskurin vaiheseuranta (dataLayer -> GTM / Clarity): kukin kysymys kerran, kun siihen on kelvollinen vastaus,
+     ja calculator_prices_ready kun kaikki neljä on vastattu (hinnat ja budjettirivit täydet). */
+  var VAIHEET = ['tavoite', 'kohde', 'hinta', 'alue'];
+  var vaiheTehty = {}, hinnatTehty = false;
+  function vaiheKunnossa(v) {
+    if (v === 'tavoite') return valitutTavoitteet().length > 0;
+    if (v === 'kohde') return valittuKohde() !== '';
+    if (v === 'hinta') { var h = lueHinta(); return !isNaN(h) && h >= 1 && h <= HINTA_MAX; }
+    if (v === 'alue') return !!valittuAlue();
+    return false;
+  }
+  function raportoiVaihe(mika) {
+    if (VAIHEET.indexOf(mika) < 0 || vaiheTehty[mika] || !vaiheKunnossa(mika)) return;
+    vaiheTehty[mika] = true;
+    window.dataLayer.push({ event: 'calculator_step', vaihe: mika, vaiheita_valmiina: Object.keys(vaiheTehty).length });
+    if (!hinnatTehty && VAIHEET.every(function (v) { return vaiheTehty[v] || vaiheKunnossa(v); })) {
+      hinnatTehty = true;
+      window.dataLayer.push({ event: 'calculator_prices_ready' });
+    }
   }
 
   /* ---------- seuranta ---------- */
@@ -587,6 +609,16 @@ var ASETUKSET = {
   }
   form.addEventListener('focusin', ensiVuorovaikutus);
   form.addEventListener('click', ensiVuorovaikutus);
+  // Yhteystietojen täyttö alkoi (laskelman avaus): kerran
+  var yhteysAloitettu = false;
+  [el.yritys, el.email, el.phone].forEach(function (k) {
+    if (!k) return;
+    k.addEventListener('focus', function () {
+      if (yhteysAloitettu || ohitaSeuranta) return;
+      yhteysAloitettu = true;
+      window.dataLayer.push({ event: 'calculator_contact_start' });
+    });
+  });
 
   /* ---------- suostumus (Consent Mode v2), evästebanneri ja klikkitunnisteet ----------
      GTM_ID ja consent default -merkinnät ovat sivun head-skriptissä (index.html). */

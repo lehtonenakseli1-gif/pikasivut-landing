@@ -10,7 +10,8 @@
      arvio_start     arviolomakkeen ensimmäinen kosketus { sivu }
      arvio_submit    arviolomake tallentui (palvelin vastasi 'ok') { tavoite, sivu }
      consent_update  evästevalinta                  { suostumus: 'kaikki' | 'valttamattomat' }
-   Mainossivun laskuri lähettää lisäksi calculator_start ja calculator_submit (laskuri.js). */
+   Mainossivun laskuri lähettää lisäksi calculator_start, calculator_step {vaihe}, calculator_prices_ready,
+   calculator_contact_start ja calculator_submit (laskuri.js). Kaikki tapahtumat välitetään myös Clarityyn. */
 (function () {
   'use strict';
   var GTM_ID = 'GTM-W7BH9F5S';
@@ -81,6 +82,25 @@
     return ulos;
   };
   if (!vainTapahtumat && suostumus === 'kaikki') tallennaTunnisteet();
+
+  /* ---------- 2b. Tapahtumat myös Clarityyn (vain jos Clarity on ladattu, eli suostumuksella) ----------
+     Näin Clarityn tallenteet voi suodattaa esim. tapahtumalla calculator_submit tai phone_click. */
+  if (!window.__psClarityForward) {
+    window.__psClarityForward = true;
+    var alkupPush = window.dataLayer.push;
+    window.dataLayer.push = function () {
+      var tulos = alkupPush.apply(window.dataLayer, arguments);
+      try {
+        for (var i = 0; i < arguments.length; i++) {
+          var o = arguments[i];
+          if (o && typeof o.event === 'string' && o.event.indexOf('gtm.') !== 0 && typeof window.clarity === 'function') {
+            window.clarity('event', o.event);
+          }
+        }
+      } catch (e) {}
+      return tulos;
+    };
+  }
 
   /* ---------- 3. Tapahtumat ---------- */
   function push(o) { o.sivu = sivu; window.dataLayer.push(o); }
