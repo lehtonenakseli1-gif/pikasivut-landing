@@ -1,0 +1,85 @@
+/* Pikasivut: oppaiden tyylit (opassivut ja /opas/-etusivu).
+   Ladataan site.css:n jälkeen vain /opas/-sivuilla. Kaikki säännöt ovat .opas-alkuisia,
+   jotta mikään muu sivu ei muutu. Koko skaalautuu kuten site.css: --os kasvaa ≥1600 ja ≥2200 px. */
+
+.opas{--os:1;}
+@media (min-width:1600px){.opas{--os:1.12;}}
+@media (min-width:2200px){.opas{--os:1.32;}}
+
+/* Kiinteät palkit eivät saa peittää tab-fokusta (WCAG 2.4.11): yläpalkki aina, mobiilin toimintopalkki ≤760 px.
+   seuranta.js ylikirjoittaa alareunan arvon inline-tyylillä, kun evästepalkki on auki. */
+:root:has(body.opas){scroll-padding-top:6rem;}
+@media (max-width:760px){:root:has(body.opas){scroll-padding-bottom:5rem;}}
+
+/* ===== Päivitysrivi ===== */
+.opas .opas-meta{font-size:calc(.9375rem*var(--os));color:var(--ink-soft);margin:1rem 0 0;line-height:1.4;}
+
+/* ===== Tiivistelmä ja esimerkki ===== */
+.opas .tiivistelma,.opas .esimerkki{background:var(--bg-alt);border:1px solid var(--line);border-radius:.75rem;padding:calc(1.1rem*var(--os)) calc(1.25rem*var(--os));margin:0 0 1.5rem;box-shadow:none;}
+.opas .tiivistelma .tiivistelma-otsikko{font-weight:700;color:var(--ink);margin:0 0 .4rem;line-height:1.4;}
+.opas .tiivistelma ul,.opas .esimerkki ul{margin:0;}
+.opas .tiivistelma li:last-child,.opas .esimerkki li:last-child{margin-bottom:0;}
+.opas .esimerkki p{margin:0;}
+.opas .esimerkki p + p{margin-top:.75rem;}
+
+/* ===== Taulukot artikkelissa ===== */
+.opas .article caption{text-align:left;font-weight:700;color:var(--ink);padding:0 0 .5rem .125rem;}
+.opas .article tbody th[scope=row]{text-transform:none;letter-spacing:0;font-size:inherit;color:var(--ink);font-weight:600;background:none;}
+.opas .article .laskelma td{text-align:right;font-variant-numeric:tabular-nums;}
+.opas .article .laskelma tbody tr:nth-child(3) :is(th,td),
+.opas .article .laskelma tbody tr:last-child :is(th,td){font-weight:700;}
+@media (max-width:480px){
+  .opas .article table{font-size:.8125rem;}
+  .opas .article th,.opas .article td{padding:.55rem .45rem;}
+  .opas .article thead th{font-size:.75rem;letter-spacing:.02em;}
+}
+@media (max-width:374px){
+  .opas .article table{font-size:.75rem;}
+  .opas .article th,.opas .article td{padding:.5rem .35rem;}
+  .opas .article tbody th,.opas .article td{-webkit-hyphens:auto;hyphens:auto;}
+  .opas .article thead th{font-size:.6875rem;letter-spacing:0;}
+}
+
+/* ===== Loppu-CTA: pieni teksti skaalautuu isoilla näytöillä (site.css jättää sen 14 px:ään) ===== */
+.opas .final-cta .cta-small{font-size:calc(.875rem*var(--os));}
+
+/* ===== Painikkeet: ei varjoa, ei nostoa ===== */
+.opas .btn-primary,.opas .btn-secondary,.opas .nav-cta,.opas .mb-main{box-shadow:none;}
+.opas .btn-primary:hover,.opas .btn-secondary:hover,.opas .nav-cta:hover,.opas .mb-main:hover{transform:none;box-shadow:none;}
+
+/* ===== /opas/-etusivu ===== */
+.opas-etusivu main{font-size:calc(1rem*var(--os));}
+
+.opas-etusivu .opas-hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:.25em 1.5em;margin-top:calc(1.5rem*var(--os));}
+.opas-etusivu .opas-hero-cta a:not(.btn-primary){display:inline-block;padding:.6em 0;font-weight:600;text-decoration:underline;text-underline-offset:.2em;}
+
+.opas-etusivu .opas-ryhma{padding:calc(2.25rem*var(--os)) 0 0;}
+.opas-etusivu .opas-ryhma + .opas-ryhma{margin-top:calc(2.5rem*var(--os));}
+.opas-etusivu .opas-ryhma-intro h2{font-size:1.625em;margin:0 0 .5em;}
+.opas-etusivu .opas-ryhma-intro p{margin:0;color:var(--ink-soft);line-height:1.55;max-width:34ch;}
+
+.opas-etusivu .opas-lista{list-style:none;margin:1.25em 0 0;padding:0;}
+.opas-etusivu .opas-lista li{margin:0;border-top:1px solid var(--line);}
+.opas-etusivu .opas-lista li:last-child{border-bottom:1px solid var(--line);}
+.opas-etusivu .opas-lista a{display:block;padding:1.15em 0;color:inherit;text-decoration:none;border-radius:.4em;}
+.opas-etusivu .opas-lista h3{font-family:var(--body);font-weight:600;font-size:1.25em;line-height:1.3;letter-spacing:0;color:var(--blue);margin:0 0 .3em;}
+.opas-etusivu .opas-lista a:hover h3,.opas-etusivu .opas-lista a:focus-visible h3{text-decoration:underline;text-underline-offset:.15em;}
+.opas-etusivu .opas-lista p{margin:0;color:var(--ink-soft);line-height:1.55;max-width:62ch;}
+.opas-etusivu .opas-lista .lukuaika{margin-top:.55em;font-size:.875em;}
+
+.opas-etusivu .opas-tekija{display:flex;align-items:center;gap:1.5em;margin-top:calc(2.5rem*var(--os));padding:calc(2.25rem*var(--os)) 0 calc(1rem*var(--os));border-top:1px solid var(--line);}
+.opas-etusivu .opas-tekija img{width:5.5em;height:5.5em;border-radius:50%;object-fit:cover;flex:none;}
+.opas-etusivu .opas-tekija h2{font-size:1.4em;margin:0 0 .4em;}
+.opas-etusivu .opas-tekija p{margin:0;max-width:62ch;line-height:1.6;color:#2c2e36;}
+@media (max-width:560px){
+  .opas-etusivu .opas-tekija{flex-direction:column;align-items:flex-start;gap:1em;}
+}
+
+@media (min-width:1024px){
+  .opas-etusivu .opas-ryhma{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);column-gap:calc(3rem*var(--os));padding-top:calc(3rem*var(--os));}
+  .opas-etusivu .opas-ryhma + .opas-ryhma{margin-top:calc(3rem*var(--os));border-top:1px solid var(--line);}
+  .opas-etusivu .opas-ryhma-intro h2{font-size:1.875em;}
+  .opas-etusivu .opas-lista{margin-top:0;}
+  .opas-etusivu .opas-lista li:first-child{border-top:0;}
+  .opas-etusivu .opas-lista li:first-child a{padding-top:0;}
+}
