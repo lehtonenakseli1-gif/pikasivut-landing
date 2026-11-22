@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Evästepalkki – esimerkki | Pikasivut</title>
+<script>
+  /* Consent Mode v2: oletuksena kaikki kielletty. Tässä esimerkissä GTM:ää ei ladata,
+     kutsut näkyvät vain dataLayerissa ja sivun lokissa. */
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+  gtag('set', 'ads_data_redaction', true);
+</script>
+<style>
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:400 800;font-display:swap;src:url('../../fonts/bricolage-grotesque-400-800.woff2') format('woff2');}
+@font-face{font-family:'Figtree';font-style:normal;font-weight:400 700;font-display:swap;src:url('../../fonts/figtree-400-700.woff2') format('woff2');}
+:root{
+  --ink:#16171c;--ink-soft:#585c68;--line:#e3e5ec;--bg-alt:#f5f6fa;
+  --blue:#1a3fd1;--blue-dark:#0f2a96;--red:#e8453c;--yellow:#f4b400;--green:#0f9d58;
+  --display:'Bricolage Grotesque',ui-sans-serif,system-ui,sans-serif;
+  --body:'Figtree',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r:10px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{font-family:var(--body);color:var(--ink);background:#fff;line-height:1.55;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px;}
+@media (min-width:768px){.wrap{padding:0 32px;}}
+
+/* ----- taustasivu (vain esimerkkiä varten) ----- */
+.demo-head{border-bottom:1px solid var(--line);padding:1rem 0;font-family:var(--display);font-weight:800;font-size:1.25rem;}
+.demo-main{padding:3rem 0 22rem;}
+.demo-main h1{font-family:var(--display);font-size:clamp(1.9rem,5vw,3rem);line-height:1.1;margin:0 0 1rem;}
+.demo-main p{max-width:40rem;color:var(--ink-soft);}
+.loki{margin-top:2rem;background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.25rem;max-width:40rem;}
+.loki h2{font-size:1rem;margin:0 0 .5rem;}
+.loki pre{margin:0;font-size:.8125rem;white-space:pre-wrap;word-break:break-word;}
+.demo-foot{border-top:1px solid var(--line);padding:1.5rem 0;font-size:.875rem;color:var(--ink-soft);}
+.linkki-nappi{background:none;border:0;padding:0;font:inherit;color:var(--blue);text-decoration:underline;cursor:pointer;}
+
+/* ===== Evästepalkki: ei-estävä alapalkki, 3 nappia + kytkimet ===== */
+.evaste{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#16171c;color:#fff;
+  border-top:4px solid var(--blue);
+  border-image:linear-gradient(90deg,var(--blue) 0 25%,var(--red) 25% 50%,var(--yellow) 50% 75%,var(--green) 75%) 1;
+  box-shadow:0 -10px 30px rgba(22,23,28,.25);}
+.evaste[hidden]{display:none;}
+.evaste-sisus{display:flex;flex-direction:column;gap:.85rem;padding-top:1rem;padding-bottom:calc(1rem + env(safe-area-inset-bottom,0px));}
+.evaste-alku{display:flex;align-items:flex-start;gap:.85rem;min-width:0;}
+.evaste .keksi{width:2.5rem;height:2.5rem;flex:none;transform:rotate(-8deg);}
+.evaste h2{font-family:var(--body);font-size:1.0625rem;font-weight:700;margin:0 0 .25rem;color:#fff;}
+.evaste h2:focus{outline:none;}
+.evaste h2:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;}
+.evaste p{margin:0;font-size:.875rem;line-height:1.45;color:#c9cbd3;}
+.evaste p a{color:#9fb3ff;}
+
+/* kytkimet */
+.evaste-valinnat{display:flex;flex-wrap:wrap;gap:.4rem .5rem;margin:0;padding:0;border:0;}
+.evaste-valinnat legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+.kytkin{display:inline-flex;align-items:center;gap:.55rem;padding:.45rem .7rem .45rem .5rem;border:1px solid #3a3c46;border-radius:999px;font-size:.875rem;font-weight:600;color:#fff;cursor:pointer;user-select:none;}
+.kytkin input{position:absolute;opacity:0;width:1px;height:1px;}
+.kytkin .rata{position:relative;width:2.25rem;height:1.3rem;border-radius:999px;background:#4a4d59;flex:none;transition:background .15s;}
+.kytkin .rata::after{content:"";position:absolute;top:.15rem;left:.15rem;width:1rem;height:1rem;border-radius:50%;background:#fff;transition:transform .15s;}
+.kytkin input:checked + .rata{background:var(--blue);}
+.kytkin input:checked + .rata::after{transform:translateX(.95rem);}
+.kytkin input:focus-visible + .rata{outline:3px solid var(--yellow);outline-offset:2px;}
+.kytkin.lukittu{cursor:default;color:#9a9caa;}
+.kytkin.lukittu input:checked + .rata{background:#5b6fbf;}
+
+/* napit: kaikki samankokoisia; "Salli kaikki" täytetty, muut valkoisella reunalla */
+.evaste-napit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;}
+.evaste-nappi{min-height:3rem;padding:.35rem .4rem;border-radius:var(--r);font-family:var(--body);font-weight:700;font-size:.9375rem;line-height:1.2;cursor:pointer;
+  background:transparent;color:#fff;border:2px solid #fff;}
+.evaste-nappi:hover{background:rgba(255,255,255,.1);}
+.evaste-nappi.ensisijainen{background:var(--blue);border-color:var(--blue);}
+.evaste-nappi.ensisijainen:hover{background:#2c52e8;border-color:#2c52e8;}
+.evaste-nappi:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;}
+
+@media (max-width:374px){
+  .evaste p{font-size:.8125rem;}
+  .evaste-nappi{font-size:.875rem;padding:.3rem .4rem;}
+  .kytkin{font-size:.8125rem;}
+}
+/* tabletti ja tietokone: 1. rivi keksi + teksti, 2. rivi kytkimet vasemmalla ja 3 nappia oikealla */
+@media (min-width:768px) and (min-height:501px){
+  .evaste-sisus{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2.25rem 2.5rem;padding-top:3.25rem;padding-bottom:3.25rem;}
+  .evaste-vasen{display:contents;}
+  .evaste-alku{grid-column:1 / -1;align-items:center;gap:2rem;}
+  .evaste .keksi{width:6rem;height:6rem;}
+  .evaste h2{font-size:1.875rem;margin-bottom:.5rem;}
+  .evaste p{font-size:1.25rem;line-height:1.6;max-width:64rem;}
+  .evaste .wrap{max-width:1400px;}
+  .evaste-valinnat{gap:.6rem .75rem;}
+  .kytkin{font-size:1rem;padding:.6rem 1rem .6rem .65rem;gap:.7rem;}
+  .kytkin .rata{width:2.75rem;height:1.55rem;}
+  .kytkin .rata::after{width:1.25rem;height:1.25rem;}
+  .kytkin input:checked + .rata::after{transform:translateX(1.2rem);}
+  .evaste-napit{display:flex;gap:.75rem;}
+  .evaste-nappi{width:13rem;min-height:4.25rem;font-size:1.1875rem;}
+}
+/* kapeampi läppäri / tabletti: kytkimet omalle rivilleen, napit sen alle oikealle */
+@media (min-width:768px) and (max-width:1299px) and (min-height:501px){
+  .evaste-valinnat{grid-column:1 / -1;}
+  .evaste-napit{grid-column:1 / -1;justify-content:flex-end;}
+}
+@media (min-width:768px) and (max-width:1023px) and (min-height:501px){
+  .evaste-napit{justify-content:stretch;}
+  .evaste-nappi{flex:1 1 0;width:auto;}
+}
+/* matala näyttö (puhelin vaakatasossa): kaikki tiiviimmäksi */
+@media (max-height:500px) and (min-width:480px){
+  .evaste-sisus{flex-direction:row;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;padding-top:.5rem;padding-bottom:.5rem;}
+  .evaste-vasen{flex:1 1 20rem;display:flex;flex-direction:column;gap:.4rem;}
+  .evaste .keksi{display:none;}
+  .evaste h2{display:inline;font-size:.875rem;margin-right:.3rem;}
+  .evaste-teksti p{display:inline;font-size:.8125rem;}
+  .kytkin{padding:.25rem .55rem .25rem .4rem;font-size:.8125rem;}
+  .evaste-napit{display:flex;flex-direction:row;}
+  .evaste-nappi{min-height:2.5rem;font-size:.875rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="evaste" id="evaste-banneri" role="region" aria-labelledby="evaste-otsikko" hidden>
+  <div class="wrap evaste-sisus">
+    <div class="evaste-vasen">
+      <div class="evaste-alku">
+        <svg class="keksi" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M33.5 6.2c6.4-.6 13 1.6 19.4 7.1-2.8 1.7-3.6 5.1-1.2 7.4 2.1 2 5.6 2 7.9.2 1.9 6.2 1.7 13.4-1.4 20.2-4.6 10.1-14.2 16.8-25.6 16.3C19.1 56.9 8.6 49 6.3 36.6 3.9 23.7 11 11.2 22.4 7.5c3.6-1.1 7.4-1.2 11.1-1.3z" fill="#e8b46a" stroke="#4a2c12" stroke-width="2.4" stroke-linejoin="round"/><path d="M19.2 19.6l4.8-2.3 2.6 3.6-3.1 3.4-4.6-1.2zM35.4 26.1l4.5.9-.4 4.9-5.3.3-1.1-3.6zM21.3 37.4l4.1-1.5 2.4 3.8-2.6 3.4-4.4-1.5zM39.8 43.2l4.7-1.6.7 4.2-3.6 2.6-2.7-2.1zM29.6 13.8l3.1-.7 1.4 2.8-2.6 1.6-2.4-1.4z" fill="#4a2c12"/></svg>
+        <div class="evaste-teksti">
+          <h2 id="evaste-otsikko" tabindex="-1">Evästeasetukset</h2>
+          <p>Käytämme evästeitä kävijäanalytiikkaan sekä Google Ads -mainonnan mittaamiseen ja kohdentamiseen vain, jos hyväksyt. Sivu toimii myös ilman niitä, ja voit muuttaa valintaa sivun alalaidasta. <a href="/privacy.html" target="_blank" rel="noopener">Tietosuojaseloste</a></p>
+        </div>
+      </div>
+      <fieldset class="evaste-valinnat">
+        <legend>Valitse sallitut evästeet</legend>
+        <label class="kytkin lukittu" title="Sivun toiminnan kannalta välttämättömät, aina päällä"><input type="checkbox" checked disabled><span class="rata"></span>Välttämättömät</label>
+        <label class="kytkin"><input type="checkbox" id="evaste-analytiikka"><span class="rata"></span>Analytiikka</label>
+        <label class="kytkin"><input type="checkbox" id="evaste-markkinointi"><span class="rata"></span>Markkinointi</label>
+      </fieldset>
+    </div>
+    <div class="evaste-napit">
+      <button type="button" class="evaste-nappi" id="evaste-hylkaa">Hylkää kaikki</button>
+      <button type="button" class="evaste-nappi" id="evaste-valitut">Salli valitut</button>
+      <button type="button" class="evaste-nappi ensisijainen" id="evaste-kaikki">Salli kaikki</button>
+    </div>
+  </div>
+</div>
+
+<header class="demo-head"><div class="wrap">Pikasivut</div></header>
+<main class="demo-main wrap">
+  <h1>Evästepalkin esimerkki</h1>
+  <p>Ei-estävä alapalkki: sivua voi selata ja käyttää ilman valintaa. Kolme samankokoista nappia: <strong>Hylkää kaikki</strong> ja <strong>Salli valitut</strong> valkoisella reunalla, <strong>Salli kaikki</strong> täytetty. Analytiikka ja Markkinointi ovat oletuksena pois päältä.</p>
+  <p>Valinta tallentuu selaimeen ja lähettää Googlelle Consent Mode v2 -päivityksen. Analytiikka = <code>analytics_storage</code>, Markkinointi = <code>ad_storage</code>, <code>ad_user_data</code> ja <code>ad_personalization</code>.</p>
+  <div class="loki" aria-live="polite">
+    <h2>Viimeisin suostumuspäivitys</h2>
+    <pre id="loki">Ei valintaa vielä: kaikki kielletty (oletus).</pre>
+  </div>
+</main>
+<footer class="demo-foot"><div class="wrap"><button type="button" class="linkki-nappi" id="evaste-asetukset">Evästeasetukset</button></div></footer>
+
+<script>
+(function () {
+  var AVAIN = 'pikasivut_suostumus';
+  var $ = function (id) { return document.getElementById(id); };
+  var banneri = $('evaste-banneri'), ana = $('evaste-analytiikka'), mark = $('evaste-markkinointi');
+
+  function lue() { try { return JSON.parse(localStorage.getItem(AVAIN) || 'null'); } catch (e) { return null; } }
+  function tallenna(v) { try { localStorage.setItem(AVAIN, JSON.stringify(v)); } catch (e) {} }
+
+  function paivita(analytiikka, markkinointi) {
+    var m = markkinointi ? 'granted' : 'denied';
+    var tila = { analytics_storage: analytiikka ? 'granted' : 'denied', ad_storage: m, ad_user_data: m, ad_personalization: m };
+    gtag('consent', 'update', tila);
+    $('loki').textContent = "gtag('consent', 'update', " + JSON.stringify(tila, null, 2) + ")";
+  }
+
+  function valitse(analytiikka, markkinointi) {
+    tallenna({ analytiikka: analytiikka, markkinointi: markkinointi, aika: new Date().toISOString() });
+    paivita(analytiikka, markkinointi);
+    banneri.hidden = true;
+    $('evaste-asetukset').focus({ preventScroll: true });
+  }
+
+  function nayta() {
+    var s = lue();
+    ana.checked = !!(s && s.analytiikka);
+    mark.checked = !!(s && s.markkinointi);
+    banneri.hidden = false;
+    $('evaste-otsikko').focus({ preventScroll: true });
+  }
+
+  $('evaste-hylkaa').addEventListener('click', function () { valitse(false, false); });
+  $('evaste-valitut').addEventListener('click', function () { valitse(ana.checked, mark.checked); });
+  $('evaste-kaikki').addEventListener('click', function () { valitse(true, true); });
+  $('evaste-asetukset').addEventListener('click', nayta);
+
+  var aiempi = lue();
+  if (aiempi) { paivita(!!aiempi.analytiikka, !!aiempi.markkinointi); } else { banneri.hidden = false; }
+})();
+</script>
+</body>
+</html>
