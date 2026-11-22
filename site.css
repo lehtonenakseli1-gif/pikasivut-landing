@@ -497,3 +497,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--bg-
 .cs-tickets strong{color:var(--ink);font-size:16.5px;}
 .article p.cs-note{font-size:14.5px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:18px;margin-top:40px;}
 @media (max-width:640px){.cs-stats,.article ul.cs-tickets{grid-template-columns:1fr;}}
+
+/* ===== siniset korostukset (22.11.): yläotsikko viivalla, otsikon alleviivaus, numeroidut kortit ===== */
+.osio-label{display:inline-flex;align-items:center;gap:.75rem;font-family:var(--body);font-weight:700;font-size:.8125rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem;}
+.osio-label::before{content:"";width:2rem;height:2px;background:var(--blue);flex:none;}

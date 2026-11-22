@@ -349,3 +349,16 @@ html{scroll-padding-top:5rem;}
 #evaste-valttamattomat:hover{background:#e3e5ec;}
 .evaste-nappi:focus-visible{outline:3px solid #f4b400;outline-offset:2px;}
 .evaste h2:focus-visible{outline-color:#f4b400;}
+
+/* ===== siniset korostukset (22.11.): yläotsikko viivalla, otsikon alleviivaus, numeroidut kortit ===== */
+.osio-label{display:inline-flex;align-items:center;gap:.75rem;font-family:var(--body);font-weight:700;font-size:.8125rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem;}
+.osio-label::before{content:"";width:2rem;height:2px;background:var(--blue);flex:none;}
+.osio h2::after,.kortti > h2::after{content:"";display:block;width:7.5rem;height:3px;margin-top:1rem;background:linear-gradient(90deg,var(--blue) 0 5.25rem,transparent 5.25rem 6.1rem,var(--blue-dark) 6.1rem 7.5rem);}
+.osio .osio-label + h2{margin-top:0;}
+.vahvuudet{counter-reset:kortti;}
+.vahvuudet > div{counter-increment:kortti;position:relative;padding-right:3rem;}
+.vahvuudet > div::before{content:"";position:absolute;top:-2px;left:0;width:3.5rem;height:3px;background:var(--blue);}
+.vahvuudet > div::after{content:"0" counter(kortti);position:absolute;top:1rem;right:0;font-family:'DM Mono',ui-monospace,monospace;font-size:.8125rem;line-height:1;color:#fff;background:var(--blue-dark);padding:.35rem .45rem;}
+.kortti{border-top:4px solid var(--blue);}
+.sisaltyy{border-left:3px solid var(--blue);padding-left:1.25rem;}
+.loppu-cta{background:var(--blue-dark);}

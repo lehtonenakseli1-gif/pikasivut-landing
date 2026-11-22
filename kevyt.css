@@ -81,3 +81,18 @@
 .kevyt .tietoa-oppaat a{display:block;padding:12px 0;font-weight:600;text-decoration:none;}
 .kevyt .tietoa-oppaat a:hover{text-decoration:underline;}
 @media (min-width:960px){.kevyt .tietoa-grid{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:56px;}.kevyt .tietoa-oppaat{border-top:0;padding-top:6px;}}
+
+/* ===== siniset korostukset etusivulle (22.11.) ===== */
+.kevyt .section-head h2::after,.kevyt .tietoa h2::after{content:"";display:block;width:7.5rem;height:3px;margin-top:1rem;background:linear-gradient(90deg,var(--blue) 0 5.25rem,transparent 5.25rem 6.1rem,var(--blue-dark) 6.1rem 7.5rem);}
+.kevyt .problem-grid,.kevyt .why-grid,.kevyt .service-grid{counter-reset:kortti;}
+.kevyt .problem-card,.kevyt .why-item{counter-increment:kortti;position:relative;border-top:1px solid var(--rule);padding-right:3rem;}
+.kevyt .problem-card::before,.kevyt .why-item::before{content:"";position:absolute;top:-2px;left:0;width:3.5rem;height:3px;background:var(--blue);}
+.kevyt .problem-card::after,.kevyt .why-item::after,.kevyt .service-card::after{content:"0" counter(kortti);position:absolute;top:1.1rem;right:0;font-family:var(--mono);font-size:.8125rem;font-weight:500;line-height:1;color:#fff;background:var(--blue-dark);padding:.35rem .45rem;}
+.kevyt .service-card{counter-increment:kortti;position:relative;border-top:3px solid var(--blue);padding-right:3.5rem;}
+.kevyt .service-card::after{top:1rem;right:1rem;}
+.kevyt .service-card:hover{border-color:var(--blue);}
+.kevyt .tekija-etu{border-top:3px solid var(--blue);}
+.kevyt .final-cta{background:var(--blue-dark);border:0;color:#fff;}
+.kevyt .final-cta h2,.kevyt .final-cta p{color:#fff;}
+.kevyt .final-cta .btn-primary{background:#fff;color:var(--blue-dark);}
+.kevyt .final-cta .btn-primary:hover{background:#e8edff;color:var(--blue-dark);}
