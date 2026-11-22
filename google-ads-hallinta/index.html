@@ -4,19 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
-  /* Google Tag Manager -kontin ID (Pikasivut). Jos tähän laitetaan paikkamerkki GTM-XXXXXXX, GTM ei lataudu eikä evästepalkkia näytetä. */
+  /* Google Tag Manager -kontin ID (Pikasivut). Jos tähän laitetaan paikkamerkki GTM-XXXXXXX, GTM ei lataudu. */
   var GTM_ID = 'GTM-W7BH9F5S';
   window.dataLayer = window.dataLayer || [];
   function gtag(){ dataLayer.push(arguments); }
   // Consent Mode v2: oletuksena kaikki kielletty, ennen GTM:ää
   gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
   gtag('set', 'ads_data_redaction', true);
-  // Aiempi valinta (localStorage) -> heti update ennen GTM:ää
-  // avain 'pikasivut_suostumus', arvo JSON {valinta:'kaikki'|'valttamattomat', aika:ISO}
+  // Aiempi valinta (localStorage) -> heti update ennen GTM:ää. Palkki ja valinnan tallennus: /seuranta.js
+  // avain 'pikasivut_suostumus', arvo JSON {valinta, analytiikka:bool, markkinointi:bool, aika} (vanha {valinta:'kaikki'} = molemmat)
   try {
     var _s = JSON.parse(localStorage.getItem('pikasivut_suostumus') || 'null');
-    if (_s && _s.valinta === 'kaikki') {
-      gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
+    if (_s) {
+      var _a = typeof _s.analytiikka === 'boolean' ? _s.analytiikka : _s.valinta === 'kaikki';
+      var _m = typeof _s.markkinointi === 'boolean' ? _s.markkinointi : _s.valinta === 'kaikki';
+      if (_a || _m) {
+        var _t = _m ? 'granted' : 'denied';
+        gtag('consent', 'update', { ad_storage: _t, ad_user_data: _t, ad_personalization: _t, analytics_storage: _a ? 'granted' : 'denied' });
+      }
     }
   } catch (e) {}
   // GTM latautuu vain, jos ID ei ole paikkamerkki ja on muotoa GTM-XXXX
@@ -42,8 +47,8 @@
 <link rel="preload" href="/fonts/bricolage-grotesque-400-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/figtree-400-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="mainos.css?v=20261122e">
-<script src="/seuranta.js?v=20261122d" data-vain-tapahtumat></script>
-<script src="laskuri.js?v=20261122a" defer></script>
+<script src="/seuranta.js?v=20261122f" data-vain-tapahtumat></script>
+<script src="laskuri.js?v=20261122b" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -74,23 +79,6 @@
 </script>
 </head>
 <body>
-<div class="evaste" id="evaste-banneri" role="region" aria-labelledby="evaste-otsikko" hidden>
-  <div class="wrap evaste-sisus">
-    <div class="evaste-alku">
-    <svg class="keksi" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M33.5 6.2c6.4-.6 13 1.6 19.4 7.1-2.8 1.7-3.6 5.1-1.2 7.4 2.1 2 5.6 2 7.9.2 1.9 6.2 1.7 13.4-1.4 20.2-4.6 10.1-14.2 16.8-25.6 16.3C19.1 56.9 8.6 49 6.3 36.6 3.9 23.7 11 11.2 22.4 7.5c3.6-1.1 7.4-1.2 11.1-1.3z" fill="#e8b46a" stroke="#4a2c12" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M10.6 30.4c.9-.6 2-.6 2.9.3M45.2 33.6c1.2-.2 2.1.5 2.3 1.6M29.6 47.9c1-.7 2.3-.7 3.2.1M17.6 46.1c.6-.9 1.6-1.2 2.6-.7" fill="none" stroke="#b9823f" stroke-width="1.6" stroke-linecap="round"/><path d="M19.2 19.6l4.8-2.3 2.6 3.6-3.1 3.4-4.6-1.2zM35.4 26.1l4.5.9-.4 4.9-5.3.3-1.1-3.6zM21.3 37.4l4.1-1.5 2.4 3.8-2.6 3.4-4.4-1.5zM39.8 43.2l4.7-1.6.7 4.2-3.6 2.6-2.7-2.1zM29.6 13.8l3.1-.7 1.4 2.8-2.6 1.6-2.4-1.4zM47.9 27.4l2.6-.4.6 2.6-2.4 1z" fill="#4a2c12" stroke="#4a2c12" stroke-width="1" stroke-linejoin="round"/><path d="M57.6 13.6a1.3 1.4 0 1 0 .1 0zM61 10.4a.9 1 0 1 0 .1 0zM55.4 8.7a1.1 1 0 1 0 .1 0z" fill="#e8b46a" stroke="#4a2c12" stroke-width="1.2"/></svg>
-    <div class="evaste-teksti">
-      <h2 id="evaste-otsikko" tabindex="-1">Evästeasetukset</h2>
-      <p id="evaste-teksti">Käytämme evästeitä Google Ads -mainonnan mittaamiseen ja kohdentamiseen sekä kävijäanalytiikkaan vain, jos hyväksyt. Sivu toimii myös ilman niitä. Voit muuttaa valintaa sivun alalaidasta. <a href="/privacy.html" target="_blank" rel="noopener">Tietosuojaseloste</a></p>
-    </div>
-    </div>
-    <div class="evaste-napit">
-      <button type="button" class="evaste-nappi" id="evaste-hyvaksy">Hyväksy</button>
-      <button type="button" class="evaste-nappi" id="evaste-valttamattomat">Vain välttämättömät</button>
-    </div>
-  </div>
-</div>
-
-
 <header class="paapalkki">
   <nav class="wrap" aria-label="Päävalikko">
     <a href="/" class="logo" aria-label="Pikasivut, etusivulle"><svg class="logo-mark" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="11" fill="#1d4ed8"/><path d="M13 31 L31 13 M20 13 H31 V24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lw">Pika<span>sivut</span></span></a>
@@ -362,7 +350,7 @@
 <footer class="alatunniste">
   <div class="wrap">
     <p>© 2026 Pikasivut · Puhelin <a href="tel:+358458505051">045&nbsp;850&nbsp;5051</a></p>
-    <p class="linkit"><a href="/privacy.html">Tietosuoja</a> <a href="/terms.html">Toimitusehdot</a> <button type="button" class="linkki-nappi" id="evaste-asetukset" hidden>Evästeasetukset</button></p>
+    <p class="linkit"><a href="/privacy.html">Tietosuoja</a> <a href="/terms.html">Toimitusehdot</a></p>
   </div>
 </footer>
 </body>
