@@ -68,3 +68,16 @@
 .kevyt .tekija-etu h3{margin:0 0 .35rem;}
 .kevyt .tekija-etu p{margin:0;color:var(--ink-soft);max-width:38rem;}
 @media (max-width:560px){.kevyt .tekija-etu{flex-direction:column;align-items:flex-start;}}
+
+/* ===== Google-mainonta lyhyesti (etusivu, 22.11.) ===== */
+.kevyt .tietoa{padding-top:48px;padding-bottom:24px;}
+.kevyt .tietoa-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;}
+.kevyt .tietoa h2{margin:0 0 16px;}
+.kevyt .tietoa p{color:var(--ink-soft);max-width:62ch;margin:0 0 14px;line-height:1.65;}
+.kevyt .tietoa-oppaat{border-top:1px solid var(--rule);padding-top:20px;}
+.kevyt .tietoa-oppaat h3{font-size:1.05rem;margin:0 0 10px;}
+.kevyt .tietoa-oppaat ul{list-style:none;margin:0;padding:0;}
+.kevyt .tietoa-oppaat li{border-bottom:1px solid var(--line);}
+.kevyt .tietoa-oppaat a{display:block;padding:12px 0;font-weight:600;text-decoration:none;}
+.kevyt .tietoa-oppaat a:hover{text-decoration:underline;}
+@media (min-width:960px){.kevyt .tietoa-grid{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:56px;}.kevyt .tietoa-oppaat{border-top:0;padding-top:6px;}}
