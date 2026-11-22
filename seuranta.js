@@ -157,17 +157,19 @@
   function rakennaPalkki() {
     var css = document.createElement('style');
     css.textContent =
-      '.ps-evaste{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;border-top:1px solid #d6d9e2;box-shadow:0 -10px 30px rgba(22,23,28,.12);font-family:var(--body,system-ui,sans-serif);}' +
-      '.ps-evaste-sisus{max-width:1120px;margin:0 auto;padding:1.1rem 1rem calc(1.1rem + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:.9rem;}' +
-      '.ps-evaste-teksti{font-size:.9375rem;line-height:1.5;color:var(--ink-soft,#585c68);margin:0;}' +
-      '.ps-evaste-teksti strong{display:block;font-size:1.125rem;color:var(--ink,#16171c);margin:0 0 .3rem;}' +
+      '.ps-evaste{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff7e0;border-top:3px solid #f2b84b;box-shadow:0 -10px 30px rgba(22,23,28,.14);font-family:var(--body,system-ui,sans-serif);}' +
+      '.ps-evaste-sisus{max-width:1200px;margin:0 auto;padding:1.1rem 1rem calc(1.1rem + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:.9rem;}' +
+      '.ps-evaste-alku{display:flex;align-items:flex-start;gap:.85rem;}' +
+      '.ps-keksi{width:2.75rem;height:2.75rem;flex:none;transform:rotate(-8deg);}' +
+      '.ps-evaste-teksti{font-size:.9375rem;line-height:1.5;color:#4b4a45;margin:0;}' +
+      '.ps-evaste-teksti strong{display:block;font-size:1.125rem;color:#16171c;margin:0 0 .3rem;}' +
       '.ps-evaste-teksti a{color:var(--blue,#1a3fd1);}' +
       '.ps-evaste-napit{display:flex;gap:.6rem;}' +
       '.ps-evaste-nappi{flex:1 1 0;min-height:3rem;padding:.5rem .8rem;border:0;border-radius:100px;background:var(--blue,#1a3fd1);color:#fff;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;}' +
       '.ps-evaste-nappi:hover{background:var(--blue-dark,#0f2a96);}' +
       '.ps-evaste-asetukset{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;}' +
-      '@media (min-width:768px){.ps-evaste-sisus{flex-direction:row;align-items:center;gap:2rem;padding:1.5rem 1.5rem;}.ps-evaste-teksti{flex:1 1 auto;font-size:1rem;}.ps-evaste-napit{flex:none;}.ps-evaste-nappi{flex:none;width:13rem;min-height:3.25rem;font-size:1.0625rem;}}' +
-      '@media (max-height:500px) and (min-width:480px){.ps-evaste-sisus{flex-direction:row;align-items:center;gap:1rem;padding:.5rem 1rem;}.ps-evaste-teksti{font-size:.8125rem;}.ps-evaste-teksti strong{display:inline;font-size:inherit;margin-right:.3rem;}.ps-evaste-napit{flex:none;flex-direction:column;gap:.35rem;}.ps-evaste-nappi{min-height:2.25rem;font-size:.875rem;width:10.5rem;}}';
+      '@media (min-width:768px){.ps-evaste-sisus{flex-direction:row;align-items:center;gap:2.5rem;padding:2rem 2rem;}.ps-evaste-alku{flex:1 1 auto;align-items:center;gap:1.5rem;}.ps-keksi{width:4.5rem;height:4.5rem;}.ps-evaste-teksti{font-size:1.0625rem;}.ps-evaste-teksti strong{font-size:1.375rem;}.ps-evaste-napit{flex:none;}.ps-evaste-nappi{flex:none;width:14rem;min-height:3.5rem;font-size:1.125rem;}}' +
+      '@media (max-height:500px) and (min-width:480px){.ps-evaste-sisus{flex-direction:row;align-items:center;gap:1rem;padding:.5rem 1rem;}.ps-keksi{width:2rem;height:2rem;}.ps-evaste-teksti{font-size:.8125rem;}.ps-evaste-teksti strong{display:inline;font-size:inherit;margin-right:.3rem;}.ps-evaste-napit{flex:none;flex-direction:column;gap:.35rem;}.ps-evaste-nappi{min-height:2.25rem;font-size:.875rem;width:10.5rem;}}';
     document.head.appendChild(css);
 
     var palkki = document.createElement('div');
@@ -176,7 +178,7 @@
     palkki.setAttribute('aria-label', 'Evästeasetukset');
     palkki.hidden = true;
     palkki.innerHTML =
-      '<div class="ps-evaste-sisus"><p class="ps-evaste-teksti"><strong>Evästeasetukset</strong>Käytämme evästeitä Google Ads -mainonnan mittaamiseen ja kohdentamiseen sekä kävijäanalytiikkaan vain, jos hyväksyt. Sivu toimii myös ilman niitä. Voit muuttaa valintaa sivun alalaidasta. <a href="/privacy.html">Tietosuojaseloste</a></p>' +
+      '<div class="ps-evaste-sisus"><div class="ps-evaste-alku"><svg class="ps-keksi" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M33.5 6.2c6.4-.6 13 1.6 19.4 7.1-2.8 1.7-3.6 5.1-1.2 7.4 2.1 2 5.6 2 7.9.2 1.9 6.2 1.7 13.4-1.4 20.2-4.6 10.1-14.2 16.8-25.6 16.3C19.1 56.9 8.6 49 6.3 36.6 3.9 23.7 11 11.2 22.4 7.5c3.6-1.1 7.4-1.2 11.1-1.3z" fill="#e8b46a" stroke="#4a2c12" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M10.6 30.4c.9-.6 2-.6 2.9.3M45.2 33.6c1.2-.2 2.1.5 2.3 1.6M29.6 47.9c1-.7 2.3-.7 3.2.1M17.6 46.1c.6-.9 1.6-1.2 2.6-.7" fill="none" stroke="#b9823f" stroke-width="1.6" stroke-linecap="round"/><path d="M19.2 19.6l4.8-2.3 2.6 3.6-3.1 3.4-4.6-1.2zM35.4 26.1l4.5.9-.4 4.9-5.3.3-1.1-3.6zM21.3 37.4l4.1-1.5 2.4 3.8-2.6 3.4-4.4-1.5zM39.8 43.2l4.7-1.6.7 4.2-3.6 2.6-2.7-2.1zM29.6 13.8l3.1-.7 1.4 2.8-2.6 1.6-2.4-1.4zM47.9 27.4l2.6-.4.6 2.6-2.4 1z" fill="#4a2c12" stroke="#4a2c12" stroke-width="1" stroke-linejoin="round"/><path d="M57.6 13.6a1.3 1.4 0 1 0 .1 0zM61 10.4a.9 1 0 1 0 .1 0zM55.4 8.7a1.1 1 0 1 0 .1 0z" fill="#e8b46a" stroke="#4a2c12" stroke-width="1.2"/></svg><p class="ps-evaste-teksti"><strong>Evästeasetukset</strong>Käytämme evästeitä Google Ads -mainonnan mittaamiseen ja kohdentamiseen sekä kävijäanalytiikkaan vain, jos hyväksyt. Sivu toimii myös ilman niitä. Voit muuttaa valintaa sivun alalaidasta. <a href="/privacy.html">Tietosuojaseloste</a></p></div>' +
       '<div class="ps-evaste-napit"><button type="button" class="ps-evaste-nappi" data-valinta="kaikki">Hyväksy</button><button type="button" class="ps-evaste-nappi" data-valinta="valttamattomat">Vain välttämättömät</button></div></div>';
     document.body.appendChild(palkki);
 

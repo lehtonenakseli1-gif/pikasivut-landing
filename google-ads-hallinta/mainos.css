@@ -323,3 +323,18 @@ html{scroll-padding-top:5rem;}
   .evaste-teksti{font-size:1rem;}
   .evaste-nappi{width:13rem;min-height:3.25rem;font-size:1.0625rem;}
 }
+
+/* ===== Evästepalkki: väri, keksi ja isompi tietokoneella (Akseli 22.11.) ===== */
+.evaste{background:#fff7e0;border-top:3px solid #f2b84b;}
+.evaste p{color:#4b4a45;}
+.evaste-alku{display:flex;align-items:flex-start;gap:.85rem;min-width:0;}
+.evaste .keksi{width:2.75rem;height:2.75rem;flex:none;transform:rotate(-8deg);}
+@media (min-width:768px) and (min-height:501px){
+  .evaste-sisus{gap:2.5rem;padding-top:2rem;padding-bottom:2rem;}
+  .evaste-alku{flex:1 1 auto;align-items:center;gap:1.5rem;}
+  .evaste .keksi{width:4.5rem;height:4.5rem;}
+  .evaste-teksti{font-size:1.0625rem;}
+  .evaste h2{font-size:1.375rem;}
+  .evaste-nappi{width:14rem;min-height:3.5rem;font-size:1.125rem;}
+}
+@media (max-height:500px) and (min-width:480px){ .evaste .keksi{width:2rem;height:2rem;} }
