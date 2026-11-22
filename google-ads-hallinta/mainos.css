@@ -338,3 +338,14 @@ html{scroll-padding-top:5rem;}
   .evaste-nappi{width:14rem;min-height:3.5rem;font-size:1.125rem;}
 }
 @media (max-height:500px) and (min-width:480px){ .evaste .keksi{width:2rem;height:2rem;} }
+
+/* ===== Evästepalkki versio B: tumma palkki, Googlen värit viivassa (Akseli 22.11.) ===== */
+.evaste{background:#16171c;border-top:4px solid #1a3fd1;border-image:linear-gradient(90deg,#1a3fd1 0 25%,#e8453c 25% 50%,#f4b400 50% 75%,#0f9d58 75%) 1;box-shadow:0 -10px 30px rgba(22,23,28,.25);}
+.evaste h2{color:#fff;}
+.evaste p{color:#c9cbd3;}
+.evaste p a{color:#9fb3ff;}
+.evaste-nappi:hover{background:#2c52e8;}
+#evaste-valttamattomat{background:#fff;color:#16171c;}
+#evaste-valttamattomat:hover{background:#e3e5ec;}
+.evaste-nappi:focus-visible{outline:3px solid #f4b400;outline-offset:2px;}
+.evaste h2:focus-visible{outline-color:#f4b400;}

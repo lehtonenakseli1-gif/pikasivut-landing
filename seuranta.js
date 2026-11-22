@@ -157,16 +157,19 @@
   function rakennaPalkki() {
     var css = document.createElement('style');
     css.textContent =
-      '.ps-evaste{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff7e0;border-top:3px solid #f2b84b;box-shadow:0 -10px 30px rgba(22,23,28,.14);font-family:var(--body,system-ui,sans-serif);}' +
+      '.ps-evaste{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#16171c;border-top:4px solid #1a3fd1;border-image:linear-gradient(90deg,#1a3fd1 0 25%,#e8453c 25% 50%,#f4b400 50% 75%,#0f9d58 75%) 1;box-shadow:0 -10px 30px rgba(22,23,28,.25);font-family:var(--body,system-ui,sans-serif);}' +
       '.ps-evaste-sisus{max-width:1200px;margin:0 auto;padding:1.1rem 1rem calc(1.1rem + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:.9rem;}' +
       '.ps-evaste-alku{display:flex;align-items:flex-start;gap:.85rem;}' +
       '.ps-keksi{width:2.75rem;height:2.75rem;flex:none;transform:rotate(-8deg);}' +
-      '.ps-evaste-teksti{font-size:.9375rem;line-height:1.5;color:#4b4a45;margin:0;}' +
-      '.ps-evaste-teksti strong{display:block;font-size:1.125rem;color:#16171c;margin:0 0 .3rem;}' +
-      '.ps-evaste-teksti a{color:var(--blue,#1a3fd1);}' +
+      '.ps-evaste-teksti{font-size:.9375rem;line-height:1.5;color:#c9cbd3;margin:0;}' +
+      '.ps-evaste-teksti strong{display:block;font-size:1.125rem;color:#fff;margin:0 0 .3rem;}' +
+      '.ps-evaste-teksti a{color:#9fb3ff;}' +
       '.ps-evaste-napit{display:flex;gap:.6rem;}' +
       '.ps-evaste-nappi{flex:1 1 0;min-height:3rem;padding:.5rem .8rem;border:0;border-radius:100px;background:var(--blue,#1a3fd1);color:#fff;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;}' +
-      '.ps-evaste-nappi:hover{background:var(--blue-dark,#0f2a96);}' +
+      '.ps-evaste-nappi:hover{background:#2c52e8;}' +
+      '.ps-evaste-nappi[data-valinta="valttamattomat"]{background:#fff;color:#16171c;}' +
+      '.ps-evaste-nappi[data-valinta="valttamattomat"]:hover{background:#e3e5ec;}' +
+      '.ps-evaste-nappi:focus-visible{outline:3px solid #f4b400;outline-offset:2px;}' +
       '.ps-evaste-asetukset{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;}' +
       '@media (min-width:768px){.ps-evaste-sisus{flex-direction:row;align-items:center;gap:2.5rem;padding:2rem 2rem;}.ps-evaste-alku{flex:1 1 auto;align-items:center;gap:1.5rem;}.ps-keksi{width:4.5rem;height:4.5rem;}.ps-evaste-teksti{font-size:1.0625rem;}.ps-evaste-teksti strong{font-size:1.375rem;}.ps-evaste-napit{flex:none;}.ps-evaste-nappi{flex:none;width:14rem;min-height:3.5rem;font-size:1.125rem;}}' +
       '@media (max-height:500px) and (min-width:480px){.ps-evaste-sisus{flex-direction:row;align-items:center;gap:1rem;padding:.5rem 1rem;}.ps-keksi{width:2rem;height:2rem;}.ps-evaste-teksti{font-size:.8125rem;}.ps-evaste-teksti strong{display:inline;font-size:inherit;margin-right:.3rem;}.ps-evaste-napit{flex:none;flex-direction:column;gap:.35rem;}.ps-evaste-nappi{min-height:2.25rem;font-size:.875rem;width:10.5rem;}}';
