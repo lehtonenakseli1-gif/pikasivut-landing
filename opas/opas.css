@@ -97,3 +97,7 @@
 }
 
 
+
+/* siniset korostukset (22.11.) */
+.opas .tiivistelma,.opas .esimerkki{border-left:4px solid var(--blue);}
+.opas-etusivu .opas-kortit a{border-top:3px solid var(--blue);}

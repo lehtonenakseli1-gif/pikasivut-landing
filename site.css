@@ -501,3 +501,21 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--bg-
 /* ===== siniset korostukset (22.11.): yläotsikko viivalla, otsikon alleviivaus, numeroidut kortit ===== */
 .osio-label{display:inline-flex;align-items:center;gap:.75rem;font-family:var(--body);font-weight:700;font-size:.8125rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem;}
 .osio-label::before{content:"";width:2rem;height:2px;background:var(--blue);flex:none;}
+
+/* ===== siniset korostukset kaikille sivuille (22.11.) ===== */
+.page-hero .osio-label,.yt-teksti .osio-label{margin-bottom:.9rem;}
+.page-hero h1::after,.yt-teksti h1::after,main h2::after{content:"";display:block;width:7.5rem;height:3px;margin-top:1rem;background:linear-gradient(90deg,var(--blue) 0 5.25rem,transparent 5.25rem 6.1rem,var(--blue-dark) 6.1rem 7.5rem);}
+.page-hero h1::after{margin-top:1.1rem;}
+.final-cta h2::after,.arvio-done h2::after,.evaste h2::after,.ps-evaste h2::after,.contact-card h2::after,.price-card h2::after,.hero h2::after{display:none;}
+.problem-grid,.why-grid,.service-grid,.price-grid{counter-reset:kortti;}
+.problem-card,.why-item,.service-card{counter-increment:kortti;position:relative;padding-right:3.5rem;}
+.problem-card::after,.why-item::after,.service-card::after{content:"0" counter(kortti);position:absolute;top:1rem;right:1rem;font-family:var(--mono);font-size:13px;font-weight:500;line-height:1;color:#fff;background:var(--blue-dark);padding:.35rem .45rem;}
+.problem-card,.why-item,.service-card,.price-card,.contact-card{border-top:3px solid var(--blue);}
+.service-card:hover,.contact-card:hover{border-color:var(--blue);}
+.callout{border-left:4px solid var(--blue);}
+.faq-list{border-top:3px solid var(--blue);}
+.faq-list summary::after{border-color:var(--blue);}
+.final-cta{background:var(--blue-dark);border:0;color:#fff;}
+.final-cta h2,.final-cta p{color:#fff;}
+.final-cta .btn-primary{background:#fff;color:var(--blue-dark);box-shadow:none;}
+.final-cta .btn-primary:hover{background:#e8edff;color:var(--blue-dark);}
