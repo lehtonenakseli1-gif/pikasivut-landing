@@ -11,23 +11,23 @@ var ASETUKSET = {
   // Klikkihinta (€) palvelun hinnan mukaan. Välissä interpoloidaan logaritmisesti
   // hinnan suhteen; alle ensimmäisen ja yli viimeisen käytetään reuna-arvoja.
   klikkihinta: [
-    { hinta: 80,   min: 1, max: 2 },
-    { hinta: 500,  min: 2, max: 4 },
-    { hinta: 5000, min: 4, max: 8 }
+    { hinta: 80,   min: 1.2, max: 2.5 },
+    { hinta: 500,  min: 2.2, max: 4.5 },
+    { hinta: 5000, min: 4, max: 8.5 }
   ],
   // Alue: klikkikerroin kertoo klikkihinnan; klikkikatto = arvioitu klikkimäärä/kk
   // per palvelu, jota enempää hakuja ei yleensä ole (kysyntäraja)
   // Palvelujen määrää ei enää kysytä: kysyntäraja = klikkikattoPerPalvelu × tämä (tyypillinen palvelumäärä)
   kysyntaPalvelut: 3,
   alue: {
-    paikallinen: { nimi: 'paikallisesti', klikkikerroin: 1.0,  klikkikattoPerPalvelu: 300 },
+    paikallinen: { nimi: 'paikallisesti', klikkikerroin: 1.0,  klikkikattoPerPalvelu: 400 },
     suomi:       { nimi: 'koko Suomessa', klikkikerroin: 1.15, klikkikattoPerPalvelu: 1500 }
   },
   // Osuus klikkaajista, joka ottaa yhteyttä OPTIMOINNIN JÄLKEEN (1–2 kk)
   tavoite: {
-    lomake:     { min: 0.05,  max: 0.08 },
-    puhelu:     { min: 0.06,  max: 0.10 },
-    ajanvaraus: { min: 0.04,  max: 0.07 },
+    lomake:     { min: 0.04,  max: 0.07 },
+    puhelu:     { min: 0.05,  max: 0.09 },
+    ajanvaraus: { min: 0.035, max: 0.065 },
     kauppa:     { min: 0.015, max: 0.03 }
   },
   // Kun valitaan useampi tavoite: suurin osuus kokonaan + tämä osuus muiden osuuksista
