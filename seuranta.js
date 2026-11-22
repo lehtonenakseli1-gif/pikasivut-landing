@@ -157,16 +157,17 @@
   function rakennaPalkki() {
     var css = document.createElement('style');
     css.textContent =
-      '.ps-evaste{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;border-top:1px solid #7f8599;font-family:var(--body,system-ui,sans-serif);}' +
-      '.ps-evaste-sisus{max-width:1120px;margin:0 auto;padding:.5rem 1rem;display:flex;flex-direction:column;gap:.45rem;}' +
-      '.ps-evaste-teksti{font-size:.8125rem;line-height:1.4;color:var(--ink-soft,#585c68);}' +
-      '.ps-evaste-teksti strong{color:var(--ink,#16171c);margin-right:.3rem;}' +
+      '.ps-evaste{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;border-top:1px solid #d6d9e2;box-shadow:0 -10px 30px rgba(22,23,28,.12);font-family:var(--body,system-ui,sans-serif);}' +
+      '.ps-evaste-sisus{max-width:1120px;margin:0 auto;padding:1.1rem 1rem calc(1.1rem + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:.9rem;}' +
+      '.ps-evaste-teksti{font-size:.9375rem;line-height:1.5;color:var(--ink-soft,#585c68);margin:0;}' +
+      '.ps-evaste-teksti strong{display:block;font-size:1.125rem;color:var(--ink,#16171c);margin:0 0 .3rem;}' +
       '.ps-evaste-teksti a{color:var(--blue,#1a3fd1);}' +
-      '.ps-evaste-napit{display:flex;gap:.5rem;}' +
-      '.ps-evaste-nappi{flex:1 1 0;min-height:2.5rem;padding:.3rem .6rem;border:0;border-radius:100px;background:var(--blue,#1a3fd1);color:#fff;font:inherit;font-weight:700;font-size:.875rem;cursor:pointer;}' +
+      '.ps-evaste-napit{display:flex;gap:.6rem;}' +
+      '.ps-evaste-nappi{flex:1 1 0;min-height:3rem;padding:.5rem .8rem;border:0;border-radius:100px;background:var(--blue,#1a3fd1);color:#fff;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;}' +
       '.ps-evaste-nappi:hover{background:var(--blue-dark,#0f2a96);}' +
       '.ps-evaste-asetukset{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;}' +
-      '@media (min-width:768px){.ps-evaste-sisus{flex-direction:row;align-items:center;gap:1.5rem;padding:.75rem 1.5rem;}.ps-evaste-teksti{flex:1 1 auto;font-size:.9rem;}.ps-evaste-napit{flex:none;}.ps-evaste-nappi{flex:none;width:11rem;}}';
+      '@media (min-width:768px){.ps-evaste-sisus{flex-direction:row;align-items:center;gap:2rem;padding:1.5rem 1.5rem;}.ps-evaste-teksti{flex:1 1 auto;font-size:1rem;}.ps-evaste-napit{flex:none;}.ps-evaste-nappi{flex:none;width:13rem;min-height:3.25rem;font-size:1.0625rem;}}' +
+      '@media (max-height:500px) and (min-width:480px){.ps-evaste-sisus{flex-direction:row;align-items:center;gap:1rem;padding:.5rem 1rem;}.ps-evaste-teksti{font-size:.8125rem;}.ps-evaste-teksti strong{display:inline;font-size:inherit;margin-right:.3rem;}.ps-evaste-napit{flex:none;flex-direction:column;gap:.35rem;}.ps-evaste-nappi{min-height:2.25rem;font-size:.875rem;width:10.5rem;}}';
     document.head.appendChild(css);
 
     var palkki = document.createElement('div');
