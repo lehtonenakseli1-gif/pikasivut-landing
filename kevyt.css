@@ -30,7 +30,7 @@
 .kevyt .callout{box-shadow:none;}
 
 .kevyt .hinta-lohko{display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem;align-items:start;}
-.kevyt .hinta-iso{border:1px solid var(--rule);border-radius:.75rem;padding:1.5rem 1.25rem;background:var(--card);}
+.kevyt .hinta-iso{border:1px solid var(--rule);border-radius:0;padding:1.5rem 1.25rem;background:var(--card);}
 .kevyt .hinta-iso .amount{font-family:var(--display);font-weight:800;font-size:clamp(2rem,1.1rem + 3vw,3.4rem);letter-spacing:-.03em;line-height:1.05;color:var(--ink);}
 .kevyt .hinta-selite{font-size:1.0625rem;font-weight:600;color:var(--ink);margin:.5rem 0 0;}
 .kevyt .hinta-huom{font-size:.9375rem;color:var(--ink-soft);margin:.75rem 0 0;}
@@ -47,7 +47,7 @@
 .kevyt .hinta-taulu tbody td:last-child{font-weight:700;}
 .kevyt .hinta-esim .hinta-huom{margin-top:.6rem;}
 
-.kevyt .price-includes{border-color:var(--rule);border-radius:.75rem;}
+.kevyt .price-includes{border-color:var(--rule);border-radius:0;}
 .kevyt .price-includes ul{display:block;column-count:2;column-gap:2rem;padding-left:1.25rem;}
 .kevyt .price-includes li{display:list-item;break-inside:avoid;}
 .kevyt .price-includes li::marker{color:var(--ink-soft);}

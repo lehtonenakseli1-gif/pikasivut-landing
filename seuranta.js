@@ -165,7 +165,7 @@
       '.ps-evaste-teksti strong{display:block;font-size:1.125rem;color:#fff;margin:0 0 .3rem;}' +
       '.ps-evaste-teksti a{color:#9fb3ff;}' +
       '.ps-evaste-napit{display:flex;gap:.6rem;}' +
-      '.ps-evaste-nappi{flex:1 1 0;min-height:3rem;padding:.5rem .8rem;border:0;border-radius:100px;background:var(--blue,#1a3fd1);color:#fff;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;}' +
+      '.ps-evaste-nappi{flex:1 1 0;min-height:3rem;padding:.5rem .8rem;border:0;border-radius:0;background:var(--blue,#1a3fd1);color:#fff;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;}' +
       '.ps-evaste-nappi:hover{background:#2c52e8;}' +
       '.ps-evaste-nappi[data-valinta="valttamattomat"]{background:#fff;color:#16171c;}' +
       '.ps-evaste-nappi[data-valinta="valttamattomat"]:hover{background:#e3e5ec;}' +
