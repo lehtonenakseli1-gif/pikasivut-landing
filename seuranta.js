@@ -204,18 +204,18 @@
       '.ps-evaste-asetukset{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;}' +
       '@media (max-width:374px){.ps-evaste-teksti{font-size:.8125rem;}.ps-evaste-nappi{font-size:.875rem;}.ps-kytkin{font-size:.8125rem;}}' +
       '@media (min-width:768px) and (min-height:501px){' +
-        '.ps-evaste-sisus{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2.25rem 2.5rem;padding:3.25rem 32px;}' +
+        '.ps-evaste-sisus{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:1.5rem 2rem;padding:2.25rem 32px;}' +
         '.ps-evaste-vasen{display:contents;}' +
-        '.ps-evaste-alku{grid-column:1 / -1;align-items:center;gap:2rem;}' +
-        '.ps-keksi{width:6rem;height:6rem;}' +
-        '.ps-evaste-otsikko{font-size:1.875rem;margin-bottom:.5rem;}' +
-        '.ps-evaste-teksti{font-size:1.25rem;line-height:1.6;max-width:64rem;}' +
+        '.ps-evaste-alku{grid-column:1 / -1;align-items:center;gap:1.5rem;}' +
+        '.ps-keksi{width:4.5rem;height:4.5rem;}' +
+        '.ps-evaste-otsikko{font-size:1.5rem;margin-bottom:.4rem;}' +
+        '.ps-evaste-teksti{font-size:1.0625rem;line-height:1.55;max-width:60rem;}' +
         '.ps-evaste-valinnat{gap:.6rem .75rem;}' +
-        '.ps-kytkin{font-size:1rem;padding:.6rem 1rem .6rem .65rem;gap:.7rem;}' +
+        '.ps-kytkin{font-size:.9375rem;padding:.5rem .9rem .5rem .6rem;gap:.65rem;}' +
         '.ps-rata{width:2.75rem;height:1.55rem;}.ps-rata::after{width:1.25rem;height:1.25rem;}' +
         '.ps-kytkin input:checked+.ps-rata::after{transform:translateX(1.2rem);}' +
         '.ps-evaste-napit{display:flex;gap:.75rem;}' +
-        '.ps-evaste-nappi{width:13rem;min-height:4.25rem;font-size:1.1875rem;}' +
+        '.ps-evaste-nappi{width:11rem;min-height:3.5rem;font-size:1.0625rem;}' +
       '}' +
       '@media (min-width:768px) and (max-width:1299px) and (min-height:501px){.ps-evaste-valinnat{grid-column:1 / -1;}.ps-evaste-napit{grid-column:1 / -1;justify-content:flex-end;}}' +
       '@media (min-width:768px) and (max-width:1023px) and (min-height:501px){.ps-evaste-napit{justify-content:stretch;}.ps-evaste-nappi{flex:1 1 0;width:auto;}}' +
