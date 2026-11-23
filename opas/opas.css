@@ -101,3 +101,22 @@
 /* siniset korostukset (22.11.) */
 .opas .tiivistelma,.opas .esimerkki{border-left:4px solid var(--blue);}
 .opas-etusivu .opas-kortit a{border-top:3px solid var(--blue);}
+
+/* ===== Yhteydenottopaikat oppaissa (23.11.2026) ===== */
+/* Heron linkit: laskuri ja arvio heti otsikon alla */
+.opas .opas-hero-linkit{display:flex;flex-wrap:wrap;gap:.25rem 1.75rem;margin:calc(1rem*var(--os)) 0 0;}
+.opas .opas-hero-linkit a{display:inline-block;padding:.45em 0;font-weight:600;color:var(--blue);text-decoration:underline;text-underline-offset:.2em;font-size:calc(1rem*var(--os));}
+.opas .opas-hero-linkit a::after{content:" →";}
+/* Keskikohdan CTA-laatikko */
+.opas .article .opas-cta{background:var(--blue);color:#fff;padding:calc(1.5rem*var(--os)) calc(1.6rem*var(--os));margin:calc(2.25rem*var(--os)) 0;}
+.opas .article .opas-cta p{color:rgba(255,255,255,.9);margin:0 0 1.1rem;line-height:1.55;}
+.opas .article .opas-cta .opas-cta-otsikko{font-family:var(--display);font-weight:700;font-size:1.35em;line-height:1.25;color:#fff;margin:0 0 .5rem;}
+.opas .article .opas-cta-napit{display:flex;flex-wrap:wrap;gap:12px;}
+.opas .article .opas-cta .btn-primary{background:#fff;color:var(--blue);}
+.opas .article .opas-cta .btn-primary:hover{background:#eef2ff;color:var(--blue-dark);}
+.opas .article .opas-cta .btn-secondary{background:transparent;color:#fff;border-color:rgba(255,255,255,.65);}
+.opas .article .opas-cta .btn-secondary:hover{border-color:#fff;}
+@media (max-width:480px){.opas .article .opas-cta-napit a{flex:1 1 100%;}}
+/* Pikatestin tuloksen alla */
+.opas .sc-cta{margin:.6rem 0 0;font-weight:600;}
+.opas .sc-cta a::after{content:" →";}
