@@ -373,8 +373,8 @@ html{scroll-padding-top:5rem;}
   .hero-grid{gap:0;}
   .hero-teksti{display:contents;}
   .hero-teksti h1{order:1;}
-  .hero-teksti .hinta-rivi{order:2;}
-  .hero-teksti .hinta-sis,.hero-teksti .hinta-tarjous,.hero-teksti .soita-rivi{order:3;}
+  .hero-teksti .hinta-lohko{order:2;}
+  .hero-teksti .hinta-tarjous,.hero-teksti .soita-rivi{order:3;}
   .hero .kortti{order:4;margin-top:1rem;}
   .hero-teksti .tarjous-lohko{order:5;scroll-margin-top:5rem;}
   .hero-teksti .lause{order:6;margin-top:1.5rem;}
@@ -388,7 +388,7 @@ html{scroll-padding-top:5rem;}
   .hero-teksti .hinta-rivi{font-size:1.125rem;}
   .hero-teksti .hinta-sis{font-size:.9375rem;margin-top:.15rem;}
   .hero-teksti .soita-rivi{margin-top:.35rem;}
-  .hero-teksti .soita-rivi img{width:1.5rem;height:1.5rem;}
+  .hero-teksti .soita-rivi img{display:none;}
   .hero .kortti{margin-top:.5rem;padding-top:.75rem;}
   .hero .kortti h2{font-size:1.2rem;}
 }
@@ -405,3 +405,21 @@ html{scroll-padding-top:5rem;}
 /* vasen palsta pysyy näkyvissä laskuria vieritettäessä: laskuri.js asettaa --hero-top-arvon niin, että
    ikkunaa korkeampi palsta vierii ensin loppuun asti ja jää sitten paikalleen (Akseli 24.11.) */
 @media (min-width:1024px){ .hero-teksti{top:var(--hero-top,6rem);} }
+
+/* ===== Akselin kuva heti hinnan viereen (Akseli 24.11.: kasvot näkyviin alkuun, luotettavuus) ===== */
+.hinta-lohko{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.75rem;align-items:center;}
+.kasvot{margin:0;text-align:center;}
+.kasvot img{display:block;width:4.5rem;height:4.5rem;border-radius:50%;object-fit:cover;border:2px solid var(--blue);margin:0 auto;}
+.kasvot figcaption{display:none;font-size:.8125rem;line-height:1.3;color:var(--ink-soft);margin-top:.4rem;}
+.kasvot figcaption strong{display:block;color:var(--ink);}
+@media (min-width:1024px){
+  .hinta-lohko{gap:1.25rem;}
+  .kasvot img{width:6.5rem;height:6.5rem;}
+  .kasvot figcaption{display:block;}
+}
+/* puhelin: hinta mahtuu kuvan viereen kahdelle riville, jotta laskurin vastausnapit näkyvät evästepalkin yläpuolella */
+@media (max-width:767px){
+  .hinta-lohko{gap:.5rem;}
+  .kasvot img{width:4rem;height:4rem;}
+  .hero-teksti .hinta-rivi{font-size:1.0625rem;}
+}
