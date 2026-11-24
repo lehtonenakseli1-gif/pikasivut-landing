@@ -96,3 +96,7 @@
 .kevyt .final-cta h2,.kevyt .final-cta p{color:#fff;}
 .kevyt .final-cta .btn-primary{background:#fff;color:var(--blue-dark);}
 .kevyt .final-cta .btn-primary:hover{background:#e8edff;color:var(--blue-dark);}
+
+/* Ilmainen ensimmäinen kuukausi, etusivun rivi (Akseli 24.11.) */
+.hero .tarjous-rivi{margin:-18px auto 30px;font-size:1.0625rem;font-weight:700;line-height:1.4;text-wrap:balance;color:var(--ink);}
+.hero .tarjous-rivi a{color:var(--blue);}
