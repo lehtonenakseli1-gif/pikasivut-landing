@@ -66,6 +66,7 @@ ul,ol{margin:0;padding:0;}
 .hero h1{margin-bottom:.8rem;overflow-wrap:break-word;text-wrap:pretty;}
 .hinta-rivi{font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,1rem + 1vw,1.625rem);line-height:1.2;letter-spacing:-.01em;color:var(--ink);text-wrap:balance;}
 .hinta-rivi strong{font-weight:800;}
+.hinta-sis{font-size:1.0625rem;font-weight:700;line-height:1.35;color:var(--ink);margin-top:.35rem;text-wrap:balance;}
 .hinta-ala{font-size:.9375rem;color:var(--ink-soft);margin-top:.5rem;text-wrap:balance;}
 .soita-rivi{display:flex;align-items:center;gap:.6rem;font-size:.9375rem;color:var(--ink-soft);margin-top:.75rem;}
 .soita-rivi img{width:2.5rem;height:2.5rem;flex:none;border-radius:50%;object-fit:cover;border:1px solid var(--edge);}
@@ -362,3 +363,21 @@ html{scroll-padding-top:5rem;}
 .kortti{border-top:4px solid var(--blue);}
 .sisaltyy{border-left:3px solid var(--blue);padding-left:1.25rem;}
 .loppu-cta{background:var(--blue-dark);}
+
+/* ===== Mobiili: laskuri näkyviin evästepalkin yläpuolelle (Akseli 21.11. ja 24.11.) =====
+   Otsikko, hinta ja soittorivi ensin, sitten laskuri; muut herotekstit laskurin jälkeen. */
+@media (max-width:767px){
+  .hero{padding-top:.75rem;}
+  .hero-grid{gap:0;}
+  .hero-teksti{display:contents;}
+  .hero-teksti h1{order:1;margin-bottom:.4rem;}
+  .hero-teksti .hinta-rivi{order:2;}
+  .hero-teksti .hinta-sis{order:3;font-size:.9375rem;margin-top:.2rem;}
+  .hero-teksti .soita-rivi{order:3;margin-top:.5rem;}
+  .hero-teksti .soita-rivi img{width:2rem;height:2rem;}
+  .hero .kortti{order:4;margin-top:.6rem;padding-top:.9rem;}
+  .hero .kortti h2{font-size:1.2rem;}
+  .hero-teksti .lause{order:5;margin-top:1.5rem;}
+  .hero-teksti .hinta-ala{order:6;margin-top:.75rem;}
+  .hero-teksti .hero-tarjous{order:7;}
+}
