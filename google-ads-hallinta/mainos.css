@@ -119,6 +119,7 @@ input[type=text]:focus-visible,input[type=email]:focus-visible,input[type=tel]:f
 .rivi.pitka .arvo{font-weight:600;font-size:.9375rem;}
 .rivi.pitka .arvo + .arvo{margin-top:.35rem;font-weight:400;}
 .lukittu .arvo,.lukittu .lisa{filter:blur(6px);user-select:none;-webkit-user-select:none;}
+.lukittu .arvo.avoin,.lukittu .lisa.avoin{filter:none;user-select:auto;-webkit-user-select:auto;}
 .budjetit-otsikko{margin:1rem 0 .1rem;}
 .tulos-alue.himmea .budjetit-otsikko{opacity:.4;}
 legend + .apu{margin:-.25rem 0 .5rem;}
@@ -134,6 +135,8 @@ legend + .apu{margin:-.25rem 0 .5rem;}
 
 .lomake-osa{margin-top:1.25rem;}
 .lomake-osa h3{margin-bottom:.35rem;}
+.lomake-osa h3:focus{outline:none;}
+.avaus-nappi{margin:.1rem 0 1.25rem;}
 .lomake-osa > p{color:var(--ink-soft);margin-bottom:1rem;}
 .hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
 .suostumus{display:flex;gap:.7rem;align-items:flex-start;font-size:.9375rem;color:var(--ink);cursor:pointer;}
@@ -399,5 +402,6 @@ html{scroll-padding-top:5rem;}
 .hinta-tarjous{text-wrap:balance;font-size:.9375rem;font-weight:700;line-height:1.35;margin-top:.15rem;}
 .hinta-tarjous a{color:var(--blue);}
 @media (min-width:1024px){ .hinta-tarjous{display:none;} }
-/* tarjouslohkon kanssa vasen palsta on matalaa ikkunaa korkeampi: ei tahmaa, ettei loppu jää piiloon */
-@media (min-width:1024px) and (max-height:1199px){ .hero-teksti{position:static;} }
+/* vasen palsta pysyy näkyvissä laskuria vieritettäessä: laskuri.js asettaa --hero-top-arvon niin, että
+   ikkunaa korkeampi palsta vierii ensin loppuun asti ja jää sitten paikalleen (Akseli 24.11.) */
+@media (min-width:1024px){ .hero-teksti{top:var(--hero-top,6rem);} }

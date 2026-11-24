@@ -46,9 +46,9 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/bricolage-grotesque-400-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/figtree-400-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="mainos.css?v=20261124c">
+<link rel="stylesheet" href="mainos.css?v=20261124e">
 <script src="/seuranta.js?v=20261123a" data-vain-tapahtumat></script>
-<script src="laskuri.js?v=20261122b" defer></script>
+<script src="laskuri.js?v=20261124b" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -109,15 +109,16 @@
   <div class="wrap hero-grid">
     <div class="hero-teksti">
       <h1><span class="nw">Google-mainonta</span>, joka tuo yhteydenottoja</h1>
-      <p class="hinta-rivi"><strong>300 € + 10 % mainosbudjetista</strong> kuukaudessa + alv</p>
+      <p class="hinta-rivi" data-clarity-unmask="true"><strong>300 € + 10 % mainosbudjetista</strong> kuukaudessa + alv</p>
       <p class="hinta-sis">Sisältää uudet mainontaan optimoidut nettisivut veloituksetta</p>
-      <p class="hinta-tarjous"><a href="#tarjous">Ensimmäisen kuukauden hallinnointi täysin ilmaiseksi</a></p>
-      <div class="tarjous-lohko" id="tarjous">
-        <h2>Ensimmäisen kuukauden hallinnointi täysin ilmaiseksi</h2>
-        <p>Maksat ensimmäisenä kuukautena pelkän Googlen mainosbudjetin. Hinta on siis sama kuin jos tekisit kampanjan ja nettisivut itse, mutta me teemme ne puolestasi ja hoidamme mainonnan koko kuukauden.</p>
-        <p>Pystymme lupaamaan tämän, koska asiakkaamme saavat palvelusta niin paljon hyötyä ja uusia yhteydenottoja, ettei heille ole ensimmäisen kuukauden jälkeen mitään järkeä lopettaa yhteistyötä.</p>
-        <p>Ei sitoutumista: päätät kuukauden jälkeen itse, jatketaanko. Sen jälkeen 300 € + 10 % mainosbudjetista kuukaudessa + alv.</p>
-        <p class="tarjous-ehto">Uusille asiakkaille, mainosbudjetti vähintään 500 €/kk (suositellaan 1&nbsp;000&nbsp;€). Jos et jatka, voit lunastaa nettisivut itsellesi.</p>
+      <p class="hinta-tarjous"><a href="#tarjous">Ensimmäinen kuukausi ilman hallinnointimaksua</a></p>
+      <div class="tarjous-lohko" id="tarjous" data-clarity-unmask="true">
+        <h2>Ensimmäinen kuukausi ilman hallinnointimaksua!</h2>
+        <p>Maksat ensimmäisen kuukauden aikana ainoastaan Google-mainonnan budjetin. Me rakennamme nettisivusi, toteutamme mainoskampanjasi ja hoidamme Google-mainonnan hallinnoinnin koko kuukauden ajan täysin veloituksetta.</p>
+        <p>Saat siis ammattitaidolla tehdyt nettisivut ja hoidetun mainonnan samalla hinnalla kuin jos tekisit kaiken itse.</p>
+        <p>Uskomme palvelumme tuottamaan hyötyyn niin vahvasti, että haluamme sinun näkevän ensimmäiset tulokset ennen kuin maksat meille mitään.</p>
+        <p>Ei sitoutumista: päätät itse ensimmäisen kuukauden jälkeen, haluatko jatkaa yhteistyötä. Jatkossa hallinnointimaksu on 300&nbsp;€/kk + 10&nbsp;% mainosbudjetista (lisätään alv).</p>
+        <p class="tarjous-ehto">Tarjous uusille asiakkaille. Mainosbudjetti vähintään 500&nbsp;€/kk (suositus 1&nbsp;000&nbsp;€/kk). Jos et jatka yhteistyötä, voit halutessasi lunastaa nettisivut itsellesi.</p>
       </div>
       <p class="hinta-ala">Budjettia ei koskaan nosteta ilman sinun hyväksyntääsi. Ensimmäisen kuukauden jälkeen irtisanomisaika on yksi kalenterikuukausi.</p>
       <p class="soita-rivi"><img src="akseli.jpg?v=20261121b" alt="" width="640" height="640" decoding="async"><span>Kysyttävää? Soita: <a href="tel:+358458505051">045&nbsp;850&nbsp;5051</a></span></p>
@@ -128,7 +129,7 @@
     <div class="kortti" id="laskuri">
       <form id="laskuri-form" novalidate>
         <h2>Laske mainonnan hinta ja tulos</h2>
-        <p class="kortti-ala">Neljä kysymystä. Hinnan näet heti, arvion yhteydenotoista yhteystietojen jälkeen.</p>
+        <p class="kortti-ala">Neljä kysymystä. Näet hinnan ja arvion tuloksesta heti.</p>
 
         <div class="kysymykset">
           <fieldset class="kys" id="q-tavoite">
@@ -183,6 +184,9 @@
           </fieldset>
         </div>
 
+        <!-- Avausnappi heti kysymysten jälkeen (Akseli 24.11.): vie lomakkeelle. Kysymysten ulkopuolella, ettei klikkaus laukaise calculator_start-tapahtumaa. -->
+        <button type="button" class="btn blokki avaus-nappi" id="avaus-nappi">Näytä arvio yhteydenotoista</button>
+
         <div class="tulos-alue" id="tulos-alue">
           <p class="tayta" id="tayta" role="status" hidden>Täytä kaikki kohdat, niin luvut päivittyvät.</p>
           <!-- Avattu tila: kiitos tulee tähän, lomake piiloon -->
@@ -191,21 +195,22 @@
             <p>Katsomme tilanteesi ja otamme yhteyttä sähköpostilla tai puhelimella.</p>
           </div>
 
-          <p class="sr-only" id="lukitus-selite">Näet luvut, kun lähetät yhteystiedot.</p>
+          <p class="sr-only" id="lukitus-selite">Muut arviot näet, kun lähetät yhteystiedot.</p>
 
           <h3 class="budjetit-otsikko" id="budjetit-otsikko">Hinta ja odotetut yhteydenotot eri mainosbudjeteilla</h3>
-          <dl class="rivit lukittu" id="budjetit">
+          <dl class="rivit lukittu" id="budjetit" data-clarity-unmask="true">
             <div class="rivi" data-rivi="b0"><dt>500 €/kk (alaraja)</dt><dd><span class="hall">Hallinnointi 350 € · yhteensä 850 €</span><span class="arvo" aria-hidden="true">00–00 yhteydenottoa</span></dd></div>
             <div class="rivi" data-rivi="b1"><dt>1 000 €/kk (suositus)</dt><dd><span class="hall">Hallinnointi 400 € · yhteensä 1 400 €</span><span class="arvo" aria-hidden="true">00–00 yhteydenottoa</span></dd></div>
             <div class="rivi" data-rivi="b2"><dt>2 000 €/kk</dt><dd><span class="hall">Hallinnointi 500 € · yhteensä 2 500 €</span><span class="arvo" aria-hidden="true">00–00 yhteydenottoa</span></dd></div>
             <div class="rivi" data-rivi="b3"><dt>5 000 €/kk</dt><dd><span class="hall">Hallinnointi 800 € · yhteensä 5 800 €</span><span class="arvo" aria-hidden="true">00–00 yhteydenottoa</span></dd></div>
           </dl>
-          <p class="hinta-huom">Hinnat kuukaudessa, alv 0 %. Hallinnointiin lisätään alv 25,5 %, mainosbudjetti maksetaan suoraan Googlelle. Yli 5 000 euron budjeteilla hinta sovitaan erikseen.</p>
+          <p class="hinta-huom" data-clarity-unmask="true">Hinnat kuukaudessa, alv 0 %. Hallinnointiin lisätään alv 25,5 %, mainosbudjetti maksetaan suoraan Googlelle. Yli 5 000 euron budjeteilla hinta sovitaan erikseen.</p>
 
-          <dl class="rivit lukittu" id="rivit">
+          <!-- Nämä kaksi näkyvät vasta avauksen jälkeen (Akseli 24.11.) -->
+          <dl class="rivit lukittu" id="rivit" hidden>
             <div class="rivi" data-rivi="hinta"><dt>Hinta per yhteydenotto optimoinnin jälkeen</dt><dd><span class="arvo" aria-hidden="true">00–00 €</span><span class="lisa" hidden></span></dd></div>
           </dl>
-          <dl class="rivit lukittu" id="rivit-kannat">
+          <dl class="rivit lukittu" id="rivit-kannat" hidden>
             <div class="rivi pitka" data-rivi="kannat"><dt>Kannattavuus</dt><dd><span class="arvo" aria-hidden="true">Kulut 0 000 €/kk suositellulla budjetilla, palvelun hinta 000 € → 00 kauppaa kuukaudessa kattaa kulut.</span><span class="lisa" hidden></span></dd></div>
           </dl>
 
@@ -223,8 +228,8 @@
           </div>
 
           <div class="lomake-osa" id="lomake-osa">
-            <h3>Näe koko laskelma</h3>
-            <p>Laskelma avautuu heti. Katsomme myös tilanteesi ja otamme yhteyttä.</p>
+            <h3 id="lomake-otsikko" tabindex="-1">Näe koko laskelma</h3>
+            <p>Arviot kaikilla budjeteilla, hinta per yhteydenotto ja kannattavuus avautuvat heti. Katsomme myös tilanteesi ja otamme yhteyttä.</p>
 
             <div class="kys">
               <label class="q" for="f-yritys">Yrityksen nimi</label>

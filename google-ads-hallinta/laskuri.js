@@ -250,7 +250,8 @@ var ASETUKSET = {
     lisat: $('lisat'), realismiLista: $('realismi-lista'),
     kiitos: $('kiitos'), kiitosOtsikko: $('kiitos-otsikko'), lomakeOsa: $('lomake-osa'),
     yritys: $('f-yritys'), email: $('f-email'), phone: $('f-phone'), website: $('f-website'), consent: $('f-consent'),
-    nappi: $('laheta'), status: $('status'), loppuCta: $('loppu-cta-nappi'), kortti: $('laskuri')
+    nappi: $('laheta'), status: $('status'), loppuCta: $('loppu-cta-nappi'), kortti: $('laskuri'),
+    avausNappi: $('avaus-nappi'), lomakeOtsikko: $('lomake-otsikko')
   };
 
   /* ---------- lukijat ---------- */
@@ -474,9 +475,10 @@ var ASETUKSET = {
     $('tayta').hidden = !paalle;
   }
 
-  // Budjettitasot ja hinnat näkyvät aina (julkinen tieto); yhteydenottoluvut vain avatussa tilassa.
-  // tulokset = laske()-tuloksen tasot, tai null (vain hinnat, luvut paikkamerkkinä)
-  function piirraBudjetit(tasot, sanat, laskettu) {
+  // Budjettitasot ja hinnat näkyvät aina (julkinen tieto). Yhteydenottoarvio näkyy ilman yhteystietoja vain
+  // suositusbudjetin riviltä (avoinTaso, Akseli 24.11.), muut rivit vasta avatussa tilassa.
+  // laskettu = false: vain hinnat, luvut paikkamerkkinä
+  function piirraBudjetit(tasot, sanat, laskettu, avoinTaso) {
     el.budjetit.textContent = '';
     el.budjetitOtsikko.textContent = 'Hinta ja odotetut ' + sanat.mon + ' eri mainosbudjeteilla';
     tasot.forEach(function (tt, i) {
@@ -492,19 +494,24 @@ var ASETUKSET = {
       dd.appendChild(hall);
       var arvo = document.createElement('span');
       arvo.className = 'arvo';
-      if (!avattu) arvo.setAttribute('aria-hidden', 'true');
-      if (!avattu || !laskettu) {
+      var avoin = !avattu && laskettu && tt === avoinTaso;
+      if (avoin) arvo.className = 'arvo avoin';
+      if (!avattu && !avoin) arvo.setAttribute('aria-hidden', 'true');
+      if (!laskettu || (!avattu && !avoin)) {
         arvo.textContent = '00–00 ' + sanat.lkm;
         dd.appendChild(arvo);
       } else {
         arvo.textContent = (tt.yhtMax < 1 ? 'alle 1 ' + sanat.lkm : haarukka(tt.yhtMin, tt.yhtMax) + ' ' + sanat.lkm) + ' / kk';
         dd.appendChild(arvo);
-        if (tt.rajoittaa) {
+        var lisat = [];
+        if (tt.rajoittaa) lisat.push('hakuja ei riitä koko budjetille');
+        if (avoin) lisat.push('Arvio optimoinnin jälkeen, ei lupaus.');
+        lisat.forEach(function (x) {
           var l = document.createElement('span');
-          l.className = 'lisa';
-          l.textContent = 'hakuja ei riitä koko budjetille';
+          l.className = avoin ? 'lisa avoin' : 'lisa';
+          l.textContent = x;
           dd.appendChild(l);
-        }
+        });
       }
       r.appendChild(dt);
       r.appendChild(dd);
@@ -514,6 +521,7 @@ var ASETUKSET = {
 
   function piirraTulokset() {
     var s = lueSyotteet();
+    el.avausNappi.textContent = s ? 'Näytä arviot kaikilla budjeteilla' : 'Näytä arvio yhteydenotoista';
     if (!s) {
       if (avattu) { himmenna(true); return; }
       // hinnat näkyvät ennen kuin kaikki kohdat on täytetty: tasot riippuvat vain palvelujen määrästä
@@ -523,8 +531,8 @@ var ASETUKSET = {
     }
     himmenna(false);
     var t = laske(s);
-    piirraBudjetit(t.tasot, t.sanat, true);
-    if (!avattu) { teeRivi(el.rivit, 'hinta', 'Hinta per ' + t.sanat.yks + ' optimoinnin jälkeen', ['00–00 €']); return; }
+    piirraBudjetit(t.tasot, t.sanat, true, t.alku);
+    if (!avattu) return;
     teeRivi(el.rivit, 'hinta', 'Hinta per ' + t.sanat.yks + ' optimoinnin jälkeen', [haarukka(t.alku.hintaMin, t.alku.hintaMax, '€')],
       'mainoskulu, ilman hallinnointia');
     teeRivi($('rivit-kannat'), 'kannat', 'Kannattavuus', [t.kannatRivi1, t.kannatRivi2], 'Laskettu myyntihinnalla ilman alv:ta, ei katteella.');
@@ -736,6 +744,16 @@ var ASETUKSET = {
     });
   });
 
+  /* ---------- avausnappi kysymysten jälkeen: puuttuvat kohdat näkyviin, muuten lomakkeelle ---------- */
+  el.avausNappi.addEventListener('click', function () {
+    var puuttuu = validoiKaikki(tarkistukset);
+    window.dataLayer.push({ event: 'estimate_button_click', valmis: !puuttuu });
+    if (puuttuu) { ohitaSeuranta = true; puuttuu.focus(); ohitaSeuranta = false; return; }
+    // vieritys ennen fokusta: toisin päin Chrome peruu pehmeän vierityksen
+    el.lomakeOsa.scrollIntoView({ behavior: reduce ? 'instant' : 'smooth', block: 'start' });
+    el.lomakeOtsikko.focus({ preventScroll: true });
+  });
+
   function avaaLaskelma(t) {
     avattu = true;
     // seuranta (vain kerran, ei henkilötietoja)
@@ -744,9 +762,10 @@ var ASETUKSET = {
     // GTM hoitaa konversion dataLayer-tapahtumasta; erillistä gtag('event', ...) -kutsua ei tehdä (tuplakonversion esto)
     track('form_submit');
 
-    document.querySelectorAll('.rivit').forEach(function (d) { d.classList.remove('lukittu'); });
+    document.querySelectorAll('.rivit').forEach(function (d) { d.classList.remove('lukittu'); d.hidden = false; });
     document.getElementById('lukitus-selite').hidden = true;
     el.lomakeOsa.hidden = true;
+    el.avausNappi.hidden = true;
     el.kiitos.hidden = false;
     el.lisat.hidden = false;
     piirraTulokset();
@@ -773,6 +792,25 @@ var ASETUKSET = {
   /* ---------- alkutila ---------- */
   paivitaHintaTekstit();
   piirraTulokset();
+})();
+
+/* Vasen palsta (tietokone): pysyy näkyvissä laskuria vieritettäessä. Jos palsta on ikkunaa korkeampi,
+   top on negatiivinen: palsta vierii loppuun asti ja jää sitten paikalleen (evästepalkin yläpuolelle). */
+(function () {
+  var t = document.querySelector('.hero-teksti'), palkki = document.querySelector('.paapalkki');
+  if (!t || !palkki) return;
+  var html = document.documentElement;
+  function aseta() {
+    if (window.innerWidth < 1024) { t.style.removeProperty('--hero-top'); return; }
+    var ala = parseFloat(html.style.scrollPaddingBottom) || 0;   // evästepalkin korkeus, kun se on näkyvissä
+    var ylin = palkki.offsetHeight + 24;
+    t.style.setProperty('--hero-top', Math.min(ylin, window.innerHeight - ala - t.offsetHeight - 24) + 'px');
+  }
+  aseta();
+  window.addEventListener('resize', aseta);
+  window.addEventListener('load', aseta);
+  if (window.ResizeObserver) new ResizeObserver(aseta).observe(t);
+  if (window.MutationObserver) new MutationObserver(aseta).observe(html, { attributes: true, attributeFilter: ['style'] });
 })();
 
 /* Mobiilivalikko: sulkeutuu linkin klikkauksesta ja Esc-näppäimellä (sama kuin site.js:ssä) */
