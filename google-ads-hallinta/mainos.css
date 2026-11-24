@@ -366,18 +366,38 @@ html{scroll-padding-top:5rem;}
 
 /* ===== Mobiili: laskuri näkyviin evästepalkin yläpuolelle (Akseli 21.11. ja 24.11.) =====
    Otsikko, hinta ja soittorivi ensin, sitten laskuri; muut herotekstit laskurin jälkeen. */
-@media (max-width:767px){
-  .hero{padding-top:.75rem;}
+@media (max-width:1023px){
   .hero-grid{gap:0;}
   .hero-teksti{display:contents;}
-  .hero-teksti h1{order:1;margin-bottom:.4rem;}
+  .hero-teksti h1{order:1;}
   .hero-teksti .hinta-rivi{order:2;}
-  .hero-teksti .hinta-sis{order:3;font-size:.9375rem;margin-top:.2rem;}
-  .hero-teksti .soita-rivi{order:3;margin-top:.5rem;}
-  .hero-teksti .soita-rivi img{width:2rem;height:2rem;}
-  .hero .kortti{order:4;margin-top:.6rem;padding-top:.9rem;}
-  .hero .kortti h2{font-size:1.2rem;}
-  .hero-teksti .lause{order:5;margin-top:1.5rem;}
-  .hero-teksti .hinta-ala{order:6;margin-top:.75rem;}
-  .hero-teksti .hero-tarjous{order:7;}
+  .hero-teksti .hinta-sis,.hero-teksti .hinta-tarjous,.hero-teksti .soita-rivi{order:3;}
+  .hero .kortti{order:4;margin-top:1rem;}
+  .hero-teksti .tarjous-lohko{order:5;scroll-margin-top:5rem;}
+  .hero-teksti .lause{order:6;margin-top:1.5rem;}
+  .hero-teksti .hinta-ala{order:7;margin-top:.75rem;}
+  .hero-teksti .hero-tarjous{order:8;}
+  .hinta-tarjous{display:block;}
 }
+@media (max-width:767px){
+  .hero{padding-top:.6rem;}
+  .hero-teksti h1{font-size:1.625rem;margin-bottom:.3rem;}
+  .hero-teksti .hinta-rivi{font-size:1.125rem;}
+  .hero-teksti .hinta-sis{font-size:.9375rem;margin-top:.15rem;}
+  .hero-teksti .soita-rivi{margin-top:.35rem;}
+  .hero-teksti .soita-rivi img{width:1.5rem;height:1.5rem;}
+  .hero .kortti{margin-top:.5rem;padding-top:.75rem;}
+  .hero .kortti h2{font-size:1.2rem;}
+}
+
+/* ===== Ilmainen ensimmäinen kuukausi (Akseli 24.11.) ===== */
+.tarjous-lohko{background:var(--tint);border-left:3px solid var(--blue);padding:1.1rem 1.25rem;margin-top:1.25rem;}
+.tarjous-lohko h2{font-size:1.25rem;line-height:1.25;margin-bottom:.6rem;text-wrap:balance;}
+.tarjous-lohko p{font-size:.9688rem;line-height:1.5;color:var(--ink);margin:0 0 .6rem;}
+.tarjous-lohko p:last-child{margin-bottom:0;}
+.tarjous-lohko .tarjous-ehto{font-size:.875rem;color:var(--ink-soft);}
+.hinta-tarjous{text-wrap:balance;font-size:.9375rem;font-weight:700;line-height:1.35;margin-top:.15rem;}
+.hinta-tarjous a{color:var(--blue);}
+@media (min-width:1024px){ .hinta-tarjous{display:none;} }
+/* tarjouslohkon kanssa vasen palsta on matalaa ikkunaa korkeampi: ei tahmaa, ettei loppu jää piiloon */
+@media (min-width:1024px) and (max-height:1199px){ .hero-teksti{position:static;} }
