@@ -475,10 +475,10 @@ var ASETUKSET = {
     $('tayta').hidden = !paalle;
   }
 
-  // Budjettitasot ja hinnat näkyvät aina (julkinen tieto). Yhteydenottoarvio näkyy ilman yhteystietoja vain
-  // suositusbudjetin riviltä (avoinTaso, Akseli 24.11.), muut rivit vasta avatussa tilassa.
+  // Budjettitasot ja hinnat näkyvät aina (julkinen tieto). Yhteydenottoarviot kaikilla riveillä, myös
+  // suositusbudjetilla, vasta avatussa tilassa (Akseli 25.11.).
   // laskettu = false: vain hinnat, luvut paikkamerkkinä
-  function piirraBudjetit(tasot, sanat, laskettu, avoinTaso) {
+  function piirraBudjetit(tasot, sanat, laskettu) {
     el.budjetit.textContent = '';
     el.budjetitOtsikko.textContent = 'Hinta ja odotetut ' + sanat.mon + ' eri mainosbudjeteilla';
     tasot.forEach(function (tt, i) {
@@ -494,24 +494,19 @@ var ASETUKSET = {
       dd.appendChild(hall);
       var arvo = document.createElement('span');
       arvo.className = 'arvo';
-      var avoin = !avattu && laskettu && tt === avoinTaso;
-      if (avoin) arvo.className = 'arvo avoin';
-      if (!avattu && !avoin) arvo.setAttribute('aria-hidden', 'true');
-      if (!laskettu || (!avattu && !avoin)) {
+      if (!avattu) arvo.setAttribute('aria-hidden', 'true');
+      if (!avattu || !laskettu) {
         arvo.textContent = '00–00 ' + sanat.lkm;
         dd.appendChild(arvo);
       } else {
         arvo.textContent = (tt.yhtMax < 1 ? 'alle 1 ' + sanat.lkm : haarukka(tt.yhtMin, tt.yhtMax) + ' ' + sanat.lkm) + ' / kk';
         dd.appendChild(arvo);
-        var lisat = [];
-        if (tt.rajoittaa) lisat.push('hakuja ei riitä koko budjetille');
-        if (avoin) lisat.push('Arvio optimoinnin jälkeen, ei lupaus.');
-        lisat.forEach(function (x) {
+        if (tt.rajoittaa) {
           var l = document.createElement('span');
-          l.className = avoin ? 'lisa avoin' : 'lisa';
-          l.textContent = x;
+          l.className = 'lisa';
+          l.textContent = 'hakuja ei riitä koko budjetille';
           dd.appendChild(l);
-        });
+        }
       }
       r.appendChild(dt);
       r.appendChild(dd);
@@ -531,7 +526,7 @@ var ASETUKSET = {
     }
     himmenna(false);
     var t = laske(s);
-    piirraBudjetit(t.tasot, t.sanat, true, t.alku);
+    piirraBudjetit(t.tasot, t.sanat, true);
     if (!avattu) return;
     teeRivi(el.rivit, 'hinta', 'Hinta per ' + t.sanat.yks + ' optimoinnin jälkeen', [haarukka(t.alku.hintaMin, t.alku.hintaMax, '€')],
       'mainoskulu, ilman hallinnointia');
