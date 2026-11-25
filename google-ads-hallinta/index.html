@@ -46,9 +46,9 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/bricolage-grotesque-400-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/figtree-400-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="mainos.css?v=20261125a">
+<link rel="stylesheet" href="mainos.css?v=20261126a">
 <script src="/seuranta.js?v=20261123a" data-vain-tapahtumat></script>
-<script src="laskuri.js?v=20261125a" defer></script>
+<script src="laskuri.js?v=20261126a" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -170,15 +170,17 @@
             <p class="err" id="e-kohde" hidden>Valitse toinen.</p>
           </fieldset>
 
-          <div class="kys">
-            <label class="q" for="q-hinta" id="l-hinta">Palvelun tai tuotteen keskimääräinen hinta</label>
-            <div class="kentta-yksikko">
-              <input type="text" id="q-hinta" name="hinta" inputmode="numeric" autocomplete="off" placeholder="esim. 500" maxlength="12" aria-describedby="h-hinta">
-              <span class="yksikko" aria-hidden="true">€</span>
-            </div>
+          <fieldset class="kys" id="q-hinta" data-clarity-unmask="true">
+            <legend id="l-hinta">Palvelun tai tuotteen keskimääräinen hinta</legend>
             <p class="apu" id="h-hinta">Suunnilleen riittää.</p>
-            <p class="err" id="e-hinta" hidden>Valitse tai täytä tämä.</p>
-          </div>
+            <div class="valinnat">
+              <div class="opt"><input type="radio" name="hinta" id="p-1" value="alle100"><label for="p-1">Alle 100&nbsp;€</label></div>
+              <div class="opt"><input type="radio" name="hinta" id="p-2" value="100-500"><label for="p-2">100–500&nbsp;€</label></div>
+              <div class="opt"><input type="radio" name="hinta" id="p-3" value="500-2000"><label for="p-3">500–2&nbsp;000&nbsp;€</label></div>
+              <div class="opt"><input type="radio" name="hinta" id="p-4" value="yli2000"><label for="p-4">Yli 2&nbsp;000&nbsp;€</label></div>
+            </div>
+            <p class="err" id="e-hinta" hidden>Valitse hinta.</p>
+          </fieldset>
 
           <fieldset class="kys" id="q-alue">
             <legend>Mainostetaanko paikallisesti vai koko Suomessa?</legend>
@@ -189,8 +191,40 @@
           </fieldset>
         </div>
 
-        <!-- Avausnappi heti kysymysten jälkeen (Akseli 24.11.): vie lomakkeelle. Kysymysten ulkopuolella, ettei klikkaus laukaise calculator_start-tapahtumaa. -->
+        <!-- Avausnappi heti kysymysten jälkeen (Akseli 24.11.): avaa lomakkeen. Kysymysten ulkopuolella, ettei klikkaus laukaise calculator_start-tapahtumaa. -->
         <button type="button" class="btn blokki avaus-nappi" id="avaus-nappi">Näytä arvio yhteydenotoista</button>
+
+        <!-- Lomake avautuu heti napin alle (26.11.). Pakollista: sähköposti tai puhelin + suostumus. -->
+        <div class="lomake-osa" id="lomake-osa" hidden>
+          <h3 id="lomake-otsikko" tabindex="-1">Näe koko laskelma</h3>
+          <p>Arviot kaikilla budjeteilla, hinta per yhteydenotto ja kannattavuus avautuvat heti. Katsomme myös tilanteesi ja otamme yhteyttä. Sähköposti tai puhelin riittää.</p>
+
+          <div class="kys">
+            <label class="q" for="f-email">Sähköposti</label>
+            <input type="email" id="f-email" name="email" autocomplete="email">
+            <p class="err" id="e-email" hidden>Kirjoita sähköposti tai puhelinnumero.</p>
+          </div>
+          <div class="kys">
+            <label class="q" for="f-phone">Puhelin</label>
+            <input type="tel" id="f-phone" name="phone" inputmode="tel" autocomplete="tel">
+            <p class="err" id="e-phone" hidden>Tarkista puhelinnumero.</p>
+          </div>
+          <div class="kys">
+            <label class="q" for="f-yritys">Yrityksen nimi <span class="vapaa">(vapaaehtoinen)</span></label>
+            <input type="text" id="f-yritys" name="yritys" autocomplete="organization" maxlength="120">
+          </div>
+
+          <div class="hp" aria-hidden="true"><label for="f-website">Älä täytä tätä</label><input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
+
+          <div class="kys">
+            <label class="suostumus"><input type="checkbox" id="f-consent" name="consent" value="yes"> <span>Hyväksyn, että Pikasivut tallentaa antamani tiedot ja laskurin vastaukset ja ottaa minuun yhteyttä mainonnasta. Tiedot käsitellään <a href="/privacy.html" target="_blank" rel="noopener">tietosuojaselosteen</a> mukaan.</span></label>
+            <p class="err" id="e-consent" hidden>Rastita suostumus, niin voimme näyttää laskelman.</p>
+          </div>
+
+          <button type="submit" class="btn blokki" id="laheta">Näytä laskelma</button>
+          <p class="pieni">Emme myy tai luovuta tietojasi markkinointiin. Ei uutiskirjettä.</p>
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+        </div>
 
         <div class="tulos-alue" id="tulos-alue">
           <p class="tayta" id="tayta" role="status" hidden>Täytä kaikki kohdat, niin luvut päivittyvät.</p>
@@ -232,38 +266,7 @@
             <p class="huomautus">Arvio, ei lupaus. Luvut perustuvat tyypillisiin klikkihintoihin ja yhteydenottoprosentteihin; oikeat luvut riippuvat alasta, kilpailusta ja sivustasi.</p>
           </div>
 
-          <div class="lomake-osa" id="lomake-osa">
-            <h3 id="lomake-otsikko" tabindex="-1">Näe koko laskelma</h3>
-            <p>Arviot kaikilla budjeteilla, hinta per yhteydenotto ja kannattavuus avautuvat heti. Katsomme myös tilanteesi ja otamme yhteyttä.</p>
-
-            <div class="kys">
-              <label class="q" for="f-yritys">Yrityksen nimi</label>
-              <input type="text" id="f-yritys" name="yritys" autocomplete="organization" maxlength="120">
-              <p class="err" id="e-yritys" hidden>Kirjoita yrityksesi nimi.</p>
-            </div>
-            <div class="kys">
-              <label class="q" for="f-email">Sähköposti</label>
-              <input type="email" id="f-email" name="email" autocomplete="email">
-              <p class="err" id="e-email" hidden>Tarkista sähköpostiosoite.</p>
-            </div>
-            <div class="kys">
-              <label class="q" for="f-phone">Puhelin</label>
-              <input type="tel" id="f-phone" name="phone" inputmode="tel" autocomplete="tel">
-              <p class="err" id="e-phone" hidden>Tarkista puhelinnumero.</p>
-            </div>
-
-            <div class="hp" aria-hidden="true"><label for="f-website">Älä täytä tätä</label><input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
-
-            <div class="kys">
-              <label class="suostumus"><input type="checkbox" id="f-consent" name="consent" value="yes"> <span>Hyväksyn, että Pikasivut tallentaa antamani tiedot ja laskurin vastaukset ja ottaa minuun yhteyttä mainonnasta. Tiedot käsitellään <a href="/privacy.html" target="_blank" rel="noopener">tietosuojaselosteen</a> mukaan.</span></label>
-              <p class="err" id="e-consent" hidden>Rastita suostumus, niin voimme näyttää laskelman.</p>
-            </div>
-
-            <button type="submit" class="btn blokki" id="laheta">Näytä laskelma</button>
-            <p class="pieni">Emme myy tai luovuta tietojasi markkinointiin. Ei uutiskirjettä.</p>
-          </div>
-
-          <p class="status" id="status" role="status" aria-live="polite"></p>
+          <button type="button" class="btn reuna blokki avaus-nappi-2" id="avaus-nappi-2">Näytä arvio yhteydenotoista</button>
         </div>
       </form>
     </div>

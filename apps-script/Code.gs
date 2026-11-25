@@ -110,7 +110,12 @@ function doPost(e) {
   // p.ytunnus: vanhan, välimuistissa olevan sivun lähetys ei katoa
   var yritys = String(p.yritys || p.ytunnus || '').replace(/[\r\n]+/g, ' ').trim().slice(0, 120);
   var email = String(p.email || '').trim();
-  if (yritys.length < 2 || !validEmail(email) || p.consent !== 'yes') {
+  // Mainossivun laskuri (26.11.2026): sähköposti tai puhelin riittää, yrityksen nimi vapaaehtoinen. Muut lomakkeet kuten ennen.
+  var puhelin = String(p.phone || '').trim();
+  var laskuri = p.lomake === 'google-ads-hallinta';
+  var puhelinOk = /^[+()\-\s\d]+$/.test(puhelin) && puhelin.replace(/\D/g, '').length >= 7;
+  var yhteysOk = laskuri ? (email ? validEmail(email) : puhelinOk) : (yritys.length >= 2 && validEmail(email));
+  if (!yhteysOk || p.consent !== 'yes') {
     return out.setContent('invalid');
   }
   var lock = LockService.getScriptLock();
@@ -136,15 +141,16 @@ function doPost(e) {
     lock.releaseLock();
   }
   try {
-    MailApp.sendEmail({
+    var viesti = {
       to: NOTIFY_TO,
-      subject: (lomake === 'arvio' ? 'Uusi mainonta-arvio: ' : 'Uusi yhteydenotto (' + lomake + '): ') + yritys,
-      body: 'Uusi pyyntö pikasivut.com/arvio/\n\nYritys: ' + yritys + '\nSähköposti: ' + email +
+      subject: (lomake === 'arvio' ? 'Uusi mainonta-arvio: ' : 'Uusi yhteydenotto (' + lomake + '): ') + (yritys || email || puhelin),
+      body: 'Uusi pyyntö pikasivut.com/arvio/\n\nYritys: ' + (yritys || '-') + '\nSähköposti: ' + (email || '-') +
         '\nPuhelin: ' + (p.phone || '-') + '\nTavoite: ' + (p.goal || '-') + '\nLähde: ' + (p.source || '-') +
         '\nLomake: ' + lomake + '\nGCLID: ' + (gclid || '-') +
-        '\n\nTaulukko: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl(),
-      replyTo: email
-    });
+        '\n\nTaulukko: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl()
+    };
+    if (email) viesti.replyTo = email;
+    MailApp.sendEmail(viesti);
   } catch (err) { /* taulukkoon tallentui jo */ }
   return out.setContent('ok');
 }

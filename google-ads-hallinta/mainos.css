@@ -132,10 +132,12 @@ legend + .apu{margin:-.25rem 0 .5rem;}
 .hinta-huom{font-size:.875rem;color:var(--ink-soft);margin-top:.7rem;}
 .tulos-alue > .hinta-huom{margin-bottom:.5rem;}
 
-.lomake-osa{margin-top:1.25rem;}
+.lomake-osa{margin:.1rem 0 1.5rem;}
 .lomake-osa h3{margin-bottom:.35rem;}
 .lomake-osa h3:focus{outline:none;}
+.lomake-osa .vapaa{font-weight:400;color:var(--ink-soft);}
 .avaus-nappi{margin:.1rem 0 1.25rem;}
+.avaus-nappi-2{margin-top:1rem;}
 .lomake-osa > p{color:var(--ink-soft);margin-bottom:1rem;}
 .hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
 .suostumus{display:flex;gap:.7rem;align-items:flex-start;font-size:.9375rem;color:var(--ink);cursor:pointer;}

@@ -8,6 +8,13 @@ var ASETUKSET = {
   suositusBudjetti: 1000,       // suositeltu mainosbudjetti €/kk (vähintään alaraja)
   suositusKertoimet: [2, 5],     // suosituksen jälkeen näytettävät budjetit = suositus × nämä
   alv: 0.255,                    // kuluttajahinnasta poistettava alv
+  // Hintavaihtoehdot (26.11.): napin nimi lähetykseen ja hinta, jolla lasketaan
+  hinnat: {
+    'alle100':  { nimi: 'alle 100 €', arvo: 60 },
+    '100-500':  { nimi: '100–500 €', arvo: 250 },
+    '500-2000': { nimi: '500–2 000 €', arvo: 1000 },
+    'yli2000':  { nimi: 'yli 2 000 €', arvo: 4000 }
+  },
   // Klikkihinta (€) palvelun hinnan mukaan. Välissä interpoloidaan logaritmisesti
   // hinnan suhteen; alle ensimmäisen ja yli viimeisen käytetään reuna-arvoja.
   klikkihinta: [
@@ -181,7 +188,7 @@ var ASETUKSET = {
     var yhtKeski = alku.kulu / cplKeski;
     var kannattava = kaupat <= yhtKeski;
     var hintaTeksti = kuluttaja ? fmt(Math.round(Pnetto)) + ' € (alv 0 %)' : fmt(P) + ' €';
-    var kannatRivi1 = 'Kulut ' + fmt(alku.K) + ' €/kk ' + (alku.suositus ? 'suositellulla budjetilla' : 'budjetilla ' + fmt(alku.budjetti) + ' €') + ', palvelun hinta ' + hintaTeksti + ' → ' +
+    var kannatRivi1 = 'Kulut ' + fmt(alku.K) + ' €/kk ' + (alku.suositus ? 'suositellulla budjetilla' : 'budjetilla ' + fmt(alku.budjetti) + ' €') + ', laskettu palvelun hinnalla ' + hintaTeksti + ' → ' +
       fmt(kaupat) + (kaupat === 1 ? ' kauppa' : ' kauppaa') + ' kuukaudessa kattaa kulut.';
     var kannatRivi2;
     if (kannattava) {
@@ -207,7 +214,7 @@ var ASETUKSET = {
     if (ok) realismi.push({ tyyppi: 'ok', teksti: 'Hakuja riittää näille budjeteille tällä arviolla.' });
 
     return {
-      syote: { tavoitteet: tavoitteet, palvelut: n, kohde: s.kohde, hinta: P, hintaNetto: Pnetto, alue: s.alue },
+      syote: { tavoitteet: tavoitteet, palvelut: n, kohde: s.kohde, hinta: P, hintaNimi: s.hintaNimi, hintaNetto: Pnetto, alue: s.alue },
       cpcMin: cpcMin, cpcMax: cpcMax, cvrMin: cvr.min, cvrMax: cvr.max,
       cplMin: cplMin, cplMax: cplMax, cplKeski: cplKeski,
       kampanjat: n, hallinta: alku.hallinnointi,
@@ -243,7 +250,7 @@ var ASETUKSET = {
   var lahettaa = false;
 
   var el = {
-    tavoiteRyhma: $('q-tavoite'), kohdeRyhma: $('q-kohde'), palvelut: $('q-palvelut'), hinta: $('q-hinta'),
+    tavoiteRyhma: $('q-tavoite'), kohdeRyhma: $('q-kohde'), palvelut: $('q-palvelut'), hintaRyhma: $('q-hinta'),
     hintaLabel: $('l-hinta'), hintaApu: $('h-hinta'), alueRyhma: $('q-alue'),
     vahenna: $('pal-vahenna'), lisaa: $('pal-lisaa'),
     rivit: $('rivit'), budjetit: $('budjetit'), budjetitOtsikko: $('budjetit-otsikko'),
@@ -251,7 +258,7 @@ var ASETUKSET = {
     kiitos: $('kiitos'), kiitosOtsikko: $('kiitos-otsikko'), lomakeOsa: $('lomake-osa'),
     yritys: $('f-yritys'), email: $('f-email'), phone: $('f-phone'), website: $('f-website'), consent: $('f-consent'),
     nappi: $('laheta'), status: $('status'), loppuCta: $('loppu-cta-nappi'), kortti: $('laskuri'),
-    avausNappi: $('avaus-nappi'), lomakeOtsikko: $('lomake-otsikko')
+    avausNappi: $('avaus-nappi'), avausNappi2: $('avaus-nappi-2'), lomakeOtsikko: $('lomake-otsikko')
   };
 
   /* ---------- lukijat ---------- */
@@ -274,18 +281,11 @@ var ASETUKSET = {
     var v = lueKokonaisluku(el.palvelut.value);
     return isNaN(v) ? NaN : clamp(v, 1, 15);
   }
-  // Luvun jäsennys: välilyönnit (myös nbsp) pois. Muoto 1.000 / 20,000 / 1.000.000 = tuhaterottimet,
-  // muuten pilkku on desimaalierotin (2,5 = 2.5). Palauttaa NaN, jos muoto ei kelpaa.
-  function parsiLuku(str) {
-    var s = String(str).replace(/[\s ]/g, '');
-    if (s === '') return NaN;
-    if (/^\d{1,3}([.,]\d{3})+$/.test(s)) return parseInt(s.replace(/[.,]/g, ''), 10);
-    s = s.replace(',', '.');
-    if (!/^\d+(\.\d+)?$/.test(s)) return NaN;
-    return parseFloat(s);
+  // Valittu hintaluokka { nimi, arvo } tai null
+  function valittuHinta() {
+    var r = form.querySelector('input[name="hinta"]:checked');
+    return (r && A.hinnat[r.value]) || null;
   }
-  var HINTA_MAX = 1000000;
-  function lueHinta() { return parsiLuku(el.hinta.value); }
 
   /* ---------- virheet ---------- */
   function naytaVirhe(kentta, errId, viesti, ryhma) {
@@ -316,7 +316,6 @@ var ASETUKSET = {
     }
   }
   el.palvelut.setAttribute('data-desc', 'h-palvelut');
-  el.hinta.setAttribute('data-desc', 'h-hinta');
 
   // kentän validointi; palauttaa true jos kunnossa. Käsittelee virheen näyttämisen
   var tarkistukset = [
@@ -326,18 +325,22 @@ var ASETUKSET = {
       ok: function () { return !isNaN(luePalvelut()); }, viesti: 'Valitse tai täytä tämä.' },
     { id: 'kohde', kentta: function () { return form.querySelector('input[name="kohde"]'); }, ryhma: el.kohdeRyhma, err: 'e-kohde',
       ok: function () { return valittuKohde() !== ''; }, viesti: 'Valitse toinen.' },
-    { id: 'hinta', kentta: function () { return el.hinta; }, err: 'e-hinta',
-      ok: function () { var h = lueHinta(); return !isNaN(h) && h >= 1 && h <= HINTA_MAX; },
-      viesti: function () { var h = lueHinta(); return (!isNaN(h) && h > HINTA_MAX) ? 'Tarkista hinta.' : 'Valitse tai täytä tämä.'; } }
+    { id: 'hinta', kentta: function () { return form.querySelector('input[name="hinta"]'); }, ryhma: el.hintaRyhma, err: 'e-hinta',
+      ok: function () { return valittuHinta() !== null; }, viesti: 'Valitse hinta.' }
   ];
   var yhteystiedot = [
-    { id: 'yritys', kentta: function () { return el.yritys; }, err: 'e-yritys',
-      ok: function () { return el.yritys.value.trim().length >= 2; } },
+    // sähköposti tai puhelin riittää (26.11.): tyhjä sähköposti kelpaa, jos puhelin on annettu
     { id: 'email', kentta: function () { return el.email; }, err: 'e-email',
-      ok: function () { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.email.value.trim()); } },
+      ok: function () {
+        var v = el.email.value.trim();
+        if (v === '') return el.phone.value.trim() !== '';
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      },
+      viesti: function () { return el.email.value.trim() === '' ? 'Kirjoita sähköposti tai puhelinnumero.' : 'Tarkista sähköpostiosoite.'; } },
     { id: 'phone', kentta: function () { return el.phone; }, err: 'e-phone',
       ok: function () {
         var v = el.phone.value.trim();
+        if (v === '') return true;
         if (!/^[+()\-\s\d]+$/.test(v)) return false;
         var d = v.replace(/\D/g, '').length;
         return d >= 7 && d <= 15;
@@ -395,13 +398,12 @@ var ASETUKSET = {
     muutos('palvelut');
   });
 
-  el.hinta.addEventListener('input', function () {
-    el.hinta.value = el.hinta.value.replace(/[^\d\s ,.]/g, '');
-    muutos('hinta');
+  form.querySelectorAll('input[name="hinta"]').forEach(function (r) {
+    r.addEventListener('change', function () { muutos('hinta'); });
   });
 
   // Enter laskurin kentissä ei lähetä lomaketta
-  [el.palvelut, el.hinta].forEach(function (i) {
+  [el.palvelut].forEach(function (i) {
     i.addEventListener('keydown', function (e) { if (e.key === 'Enter') e.preventDefault(); });
   });
 
@@ -421,6 +423,8 @@ var ASETUKSET = {
     var ev = k.type === 'checkbox' ? 'change' : 'input';
     k.addEventListener(ev, function () {
       if (!$(t.err).hidden) aja(t);
+      // puhelin korvaa sähköpostin: sähköpostin "kirjoita jompikumpi" -virhe pois, kun numero annetaan
+      if (t.id === 'phone' && !$('e-email').hidden) aja(yhteystiedot[0]);
     });
   });
 
@@ -429,7 +433,7 @@ var ASETUKSET = {
     var k = valittuKohde();
     if (k === 'kuluttaja') {
       el.hintaLabel.textContent = 'Palvelun tai tuotteen keskimääräinen hinta (sis. alv)';
-      el.hintaApu.textContent = 'Kuluttajahinta alv 25,5 % mukana, suunnilleen riittää. Kannattavuus lasketaan ilman alv:ta.';
+      el.hintaApu.textContent = 'Kuluttajahinta alv 25,5 % mukana. Kannattavuus lasketaan ilman alv:ta.';
     } else if (k === 'yritys') {
       el.hintaLabel.textContent = 'Palvelun tai tuotteen keskimääräinen hinta (alv 0 %)';
       el.hintaApu.textContent = 'Yrityshinta ilman alv:ta, suunnilleen riittää.';
@@ -516,7 +520,7 @@ var ASETUKSET = {
 
   function piirraTulokset() {
     var s = lueSyotteet();
-    el.avausNappi.textContent = s ? 'Näytä arviot kaikilla budjeteilla' : 'Näytä arvio yhteydenotoista';
+    el.avausNappi.textContent = el.avausNappi2.textContent = s ? 'Näytä arviot kaikilla budjeteilla' : 'Näytä arvio yhteydenotoista';
     if (!s) {
       if (avattu) { himmenna(true); return; }
       // hinnat näkyvät ennen kuin kaikki kohdat on täytetty: tasot riippuvat vain palvelujen määrästä
@@ -543,9 +547,9 @@ var ASETUKSET = {
 
   function lueSyotteet() {
     var g = valitutTavoitteet(), k = valittuKohde();
-    var n = luePalvelut(), P = lueHinta();
-    if (!g.length || !k || isNaN(n) || isNaN(P) || P < 1 || P > HINTA_MAX) return null;
-    return { tavoitteet: g, palvelut: n, kohde: k, hinta: P, alue: valittuAlue() };
+    var n = luePalvelut(), h = valittuHinta();
+    if (!g.length || !k || isNaN(n) || !h) return null;
+    return { tavoitteet: g, palvelut: n, kohde: k, hinta: h.arvo, hintaNimi: h.nimi, alue: valittuAlue() };
   }
 
   /* ---------- muutoskäsittelijä ---------- */
@@ -566,7 +570,7 @@ var ASETUKSET = {
   function vaiheKunnossa(v) {
     if (v === 'tavoite') return valitutTavoitteet().length > 0;
     if (v === 'kohde') return valittuKohde() !== '';
-    if (v === 'hinta') { var h = lueHinta(); return !isNaN(h) && h >= 1 && h <= HINTA_MAX; }
+    if (v === 'hinta') return valittuHinta() !== null;
     if (v === 'alue') return !!valittuAlue();
     return false;
   }
@@ -635,7 +639,7 @@ var ASETUKSET = {
     var g = t.syote.tavoitteet;
     var n = t.syote.palvelut;
     var kohdeTeksti = t.syote.kohde === 'kuluttaja' ? 'kuluttajille' : 'yrityksille';
-    var hintaTeksti = fmt(t.syote.hinta) + (t.syote.kohde === 'kuluttaja' ? ' € sis. alv' : ' € alv 0');
+    var hintaTeksti = t.syote.hintaNimi + (t.syote.kohde === 'kuluttaja' ? ' sis. alv' : ' alv 0') + ' (laskettu ' + fmt(t.syote.hinta) + ' €)';
     var budjetitTeksti = t.tasot.map(function (tt) { return fmt(tt.budjetti) + ' €: ' + haarukka(tt.yhtMin, tt.yhtMax); }).join(', ');
     var goal = 'Laskuri: ' + g.map(function (x) { return SANAT[x].nimi; }).join(' + ') + ' · ' + kohdeTeksti + ' · ' +
       hintaTeksti + ' · ' + t.alueNimi + ' · hallinnointi ' + luku(t.hallinta) + ' €/kk suositusbudjetilla · ' + t.sanat.mon + '/kk budjeteilla ' + budjetitTeksti;
@@ -651,7 +655,7 @@ var ASETUKSET = {
     body.set('l_tavoite', g.join(','));
     body.set('l_palvelut', String(n));
     body.set('l_kohde', t.syote.kohde);
-    body.set('l_hinta', String(t.syote.hinta));
+    body.set('l_hinta', t.syote.hintaNimi);
     body.set('l_alue', t.syote.alue);
     body.set('t_budjetti', String(a.budjetti));
     body.set('t_hallinta', String(luku(t.hallinta)));
@@ -709,6 +713,8 @@ var ASETUKSET = {
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (avattu || lahettaa) return;
+    // Enter valintanapissa, kun lomake on vielä kiinni: sama kuin avausnappi
+    if (el.lomakeOsa.hidden) { avaaLomake('enter'); return; }
     el.status.textContent = '';
 
     var ens = validoiKaikki(tarkistukset);
@@ -740,14 +746,18 @@ var ASETUKSET = {
   });
 
   /* ---------- avausnappi kysymysten jälkeen: puuttuvat kohdat näkyviin, muuten lomakkeelle ---------- */
-  el.avausNappi.addEventListener('click', function () {
+  function avaaLomake(paikka) {
     var puuttuu = validoiKaikki(tarkistukset);
-    window.dataLayer.push({ event: 'estimate_button_click', valmis: !puuttuu });
+    window.dataLayer.push({ event: 'estimate_button_click', valmis: !puuttuu, paikka: paikka });
     if (puuttuu) { ohitaSeuranta = true; puuttuu.focus(); ohitaSeuranta = false; return; }
+    el.lomakeOsa.hidden = false;
+    el.avausNappi.hidden = true;
     // vieritys ennen fokusta: toisin päin Chrome peruu pehmeän vierityksen
     el.lomakeOsa.scrollIntoView({ behavior: reduce ? 'instant' : 'smooth', block: 'start' });
     el.lomakeOtsikko.focus({ preventScroll: true });
-  });
+  }
+  el.avausNappi.addEventListener('click', function () { avaaLomake('kysymykset'); });
+  el.avausNappi2.addEventListener('click', function () { avaaLomake('hinnat'); });
 
   function avaaLaskelma(t) {
     avattu = true;
@@ -761,6 +771,7 @@ var ASETUKSET = {
     document.getElementById('lukitus-selite').hidden = true;
     el.lomakeOsa.hidden = true;
     el.avausNappi.hidden = true;
+    el.avausNappi2.hidden = true;
     el.kiitos.hidden = false;
     el.lisat.hidden = false;
     piirraTulokset();
