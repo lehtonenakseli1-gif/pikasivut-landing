@@ -225,3 +225,12 @@ h1,h2,h3,.btn,.hnum,.tel a,.tag,.row-t .row-p,.price td,.tools dt,.q.xl blockquo
 .facts.dk{margin-top:2rem}.facts.dk div{border-color:#3a3d40}.facts.dk dt{color:#fff}.facts.dk dd{color:#c9cbce}.facts.dk a{color:#fff}
 .askp .ask-t .tel{margin-top:1.2rem}.place2 .facts{align-self:start}
 @media(max-width:640px){.askp .ask-x{display:block}}
+/* korjaukset 26.11. */
+body{overflow-x:clip}
+.map.noi{min-height:clamp(14rem,24vw,22rem);background:var(--k) linear-gradient(135deg,#1d1f21 0 50%,#16181a 50% 100%)}
+@media(max-width:640px){
+.map.noi{min-height:0}.map.noi>div{padding:1.4rem}
+.pile{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1.5rem 0 0}
+.pile img,.pile img:nth-child(n){width:100%!important;aspect-ratio:1!important;transform:none!important;margin:0!important;border:0}
+.tools dl div{align-items:start}.tools dd{hyphens:manual}
+}

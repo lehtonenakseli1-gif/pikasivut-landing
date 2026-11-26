@@ -22,8 +22,7 @@
   function refresh() {
     var s = state();
     document.querySelectorAll('[data-status]').forEach(function (el) { el.textContent = s.open ? s.txt.replace('Avoinna nyt','avoinna nyt') : s.txt.replace('Suljettu nyt','suljettu nyt'); el.toggleAttribute('data-open', s.open); });
-    document.querySelectorAll('[data-call]').forEach(function (a) { a.hidden = !s.open; });
-    document.querySelectorAll('[data-call-info]').forEach(function (a) { if (s.open) a.setAttribute('href', a.dataset.tel); else a.removeAttribute('href'); });
+    /* Numerot toimivat aina; aukiolo näkyy vain tekstinä */
   }
   document.querySelectorAll('[data-call-info]').forEach(function (a) { a.dataset.tel = a.getAttribute('href'); });
   refresh(); setInterval(refresh, 60000);
